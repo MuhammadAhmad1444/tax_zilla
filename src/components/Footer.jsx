@@ -8,7 +8,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-[var(--color-dark-blue)] text-white border-t-4 border-[var(--color-gold)]">
-      <div className="container-custom py-16">
+      <div className="container-custom py-8 md:py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div>
@@ -67,9 +67,9 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3">
                 <Clock size={18} className="text-[var(--color-gold)] mt-1 flex-shrink-0" />
-                <div className="text-gray-300">
-                  <p>Mon-Fri: 9:00 AM - 6:00 PM</p>
-                  <p>Sat: 10:00 AM - 2:00 PM</p>
+                <div className="flex flex-col text-gray-300">
+                  <span>Mon-Fri: 9:00 AM - 6:00 PM</span>
+                  <span>Sat: 10:00 AM - 2:00 PM</span>
                 </div>
               </li>
             </ul>
