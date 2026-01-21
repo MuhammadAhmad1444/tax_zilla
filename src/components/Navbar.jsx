@@ -1,0 +1,141 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ChevronDown } from 'lucide-react';
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null); // 'services' | 'legal' | null
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+    setOpenDropdown(null);
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Process', path: '/our-process' },
+    { name: 'Industries', path: '/industries' },
+    { name: 'Services', path: '/services' }, 
+    { name: 'Resources', path: '/resources' },
+    { name: 'FAQs', path: '/faqs' },
+    { name: 'Contact', path: '/contact' }
+  ];
+
+  const isActive = (path) => location.pathname === path;
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-[var(--color-dark-blue)] shadow-2xl py-2' : 'bg-black/90 backdrop-blur-md py-4'
+      }`}
+    >
+      <div className="container-custom">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
+            <motion.h1
+              whileHover={{ scale: 1.05 }}
+              className="text-2xl md:text-3xl font-bold"
+              style={{ fontFamily: 'var(--font-heading)' }}
+            >
+              <span className="text-white">Tax </span>
+              <span className="text-gradient-gold">Zilla</span>
+            </motion.h1>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden xl:flex items-center space-x-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="relative group"
+              >
+                <span
+                  className={`text-sm font-medium transition-colors duration-300 ${
+                    isActive(item.path)
+                      ? 'text-[var(--color-gold)]'
+                      : 'text-white hover:text-[var(--color-gold)]'
+                  }`}
+                >
+                  {item.name}
+                </span>
+                <span
+                  className={`absolute bottom-[-4px] left-0 w-full h-0.5 bg-[var(--color-gold)] transform origin-left transition-transform duration-300 ${
+                    isActive(item.path)
+                      ? 'scale-x-100'
+                      : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="xl:hidden text-white p-2 hover:text-[var(--color-gold)] transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="xl:hidden bg-[var(--color-dark-blue)] border-t border-[var(--color-gold)]/20 overflow-hidden absolute w-full"
+          >
+            <div className="container-custom py-4 space-y-2 h-[80vh] overflow-y-auto">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`block py-3 px-4 rounded-lg transition-all duration-300 ${
+                    isActive(item.path)
+                      ? 'bg-[var(--color-gold)] text-black font-semibold'
+                      : 'text-white hover:bg-[var(--color-gold)]/10 hover:text-[var(--color-gold)]'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              <div className="border-t border-white/10 my-4 pt-4">
+                <p className="text-xs text-gray-400 px-4 mb-2 uppercase">Legal</p>
+                <Link to="/legal/privacy-policy" className="block py-2 px-4 text-sm text-gray-300 hover:text-white">Privacy Policy</Link>
+                <Link to="/legal/terms-conditions" className="block py-2 px-4 text-sm text-gray-300 hover:text-white">Terms & Conditions</Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  );
+};
+
+export default Navbar;
