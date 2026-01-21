@@ -1,58 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { FileText, Users, Building2, Scale, Shield, TrendingUp, Briefcase } from 'lucide-react';
-import SectionHeading from '../components/SectionHeading.jsx';
 import Button from '../components/Button.jsx';
+import { services, SERVICE_CATEGORIES, getServicesByCategory, getCategories } from '../data/services.js';
 
 const ServicesPage = () => {
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState(SERVICE_CATEGORIES.ALL);
 
-  const services = [
-    {
-      icon: FileText,
-      title: 'Income Tax Filing',
-      desc: 'Complete income tax return filing for individuals (salaried & business) and companies.',
-      path: '/services/income-tax'
-    },
-    {
-      icon: Users,
-      title: 'NTN Registration',
-      desc: 'Fast-track NTN registration and profile creation on FBR Iris portal.',
-      path: '/services/ntn-registration'
-    },
-    {
-      icon: TrendingUp,
-      title: 'Sales Tax Services',
-      desc: 'Monthly sales tax returns (GST) and PRA/SRB compliance.',
-      path: '/services/sales-tax'
-    },
-    {
-      icon: Building2,
-      title: 'Company Registration',
-      desc: 'Private Limited, SMC, and Partnership registration with SECP.',
-      path: '/services/company-registration'
-    },
-    {
-      icon: Scale,
-      title: 'Business Compliance',
-      desc: 'Form 29, Form A, and annual statutory compliance management.',
-      path: '/services/business-compliance'
-    },
-    {
-      icon: Shield,
-      title: 'Audit Assistance',
-      desc: 'Defense and representation against FBR audit notices and inquiries.',
-      path: '/services/audit-assistance'
-    },
-    {
-      icon: Briefcase,
-      title: 'Freelancers & SMEs',
-      desc: 'Specialized tax packages for freelancers, IT exporters, and startups.',
-      path: '/services/freelancers-sme'
-    }
-  ];
+  const filteredServices = getServicesByCategory(activeTab);
+  const categories = getCategories();
 
   return (
     <>
@@ -70,13 +28,30 @@ const ServicesPage = () => {
 
       <section className="section-padding bg-gray-50">
         <div className="container-custom">
+          {/* Category Tabs - Matching ResourcesPage styling */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setActiveTab(category)}
+                className={`px-6 py-2 rounded-full font-medium transition-all ${
+                  activeTab === category 
+                    ? 'bg-[var(--color-gold)] text-black shadow-md' 
+                    : 'bg-white text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
+            {filteredServices.map((service, index) => (
               <motion.div
-                key={index}
+                key={service.id}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.02 }}
                 className="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all border-t-4 border-[var(--color-gold)]"
