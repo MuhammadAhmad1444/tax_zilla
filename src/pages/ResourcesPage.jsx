@@ -1,56 +1,15 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { FileText, Download, ExternalLink, BookOpen, Search } from 'lucide-react';
-import SectionHeading from '../components/SectionHeading.jsx';
+import { Download, ExternalLink, BookOpen, Search } from 'lucide-react';
 import Button from '../components/Button.jsx';
+import { resources, RESOURCE_CATEGORIES, getResourcesByCategory, getCategories } from '../data/resources.js';
 
 const ResourcesPage = () => {
-  const [activeTab, setActiveTab] = useState('All');
+  const [activeTab, setActiveTab] = useState(RESOURCE_CATEGORIES.ALL);
   
-  const resources = [
-    {
-      title: "Income Tax Ordinance 2001 (Overview)",
-      type: "Tax Guide",
-      desc: "A simplified breakdown of the key sections of Pakistan's primary income tax law.",
-      link: "#" 
-    },
-    {
-      title: "Active Taxpayer List (ATL) Check",
-      type: "Tool",
-      desc: "Direct link to FBR's portal to check your current ATL status.",
-      link: "https://e.fbr.gov.pk/",
-      external: true
-    },
-    {
-      title: "Sales Tax Registration Guide",
-      type: "Compliance Guide",
-      desc: "Step-by-step checklist for registering for Sales Tax (STRN).",
-      link: "#"
-    },
-    {
-      title: "Starting a Business in Pakistan",
-      type: "Business Guide",
-      desc: "Comprehensive guide covering SECP, FBR, and provincial registrations.",
-      link: "#"
-    },
-    {
-      title: "Withholding Tax Rates Card (2025-26)",
-      type: "Reference",
-      desc: "Quick reference card for common withholding tax rates on services and supplies.",
-      link: "#"
-    },
-    {
-      title: "Freelancer Tax Benefits",
-      type: "Tax Guide",
-      desc: "Detailed explanation of Clause 133 and PSEB registration benefits.",
-      link: "#"
-    }
-  ];
-
-  const filteredResources = activeTab === 'All' 
-    ? resources 
-    : resources.filter(r => r.type.includes(activeTab) || (activeTab === 'Guides' && r.type.includes('Guide')));
+  const filteredResources = getResourcesByCategory(activeTab);
+  const categories = getCategories();
 
   return (
     <>
@@ -75,7 +34,7 @@ const ResourcesPage = () => {
         <div className="container-custom">
           {/* Tabs */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {['All', 'Tax Guide', 'Business Guide', 'Tool'].map(tab => (
+            {categories.map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -91,9 +50,9 @@ const ResourcesPage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredResources.map((res, idx) => (
+            {filteredResources.map((res) => (
               <motion.div
-                key={idx}
+                key={res.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
