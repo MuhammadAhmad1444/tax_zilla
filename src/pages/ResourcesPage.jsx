@@ -3,10 +3,12 @@ import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Download, ExternalLink, BookOpen, Search } from 'lucide-react';
 import Button from '../components/Button.jsx';
+import TaxCalculatorModal from '../components/TaxCalculatorModal.jsx';
 import { resources, RESOURCE_CATEGORIES, getResourcesByCategory, getCategories } from '../data/resources.js';
 
 const ResourcesPage = () => {
   const [activeTab, setActiveTab] = useState(RESOURCE_CATEGORIES.ALL);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   
   const filteredResources = getResourcesByCategory(activeTab);
   const categories = getCategories();
@@ -70,18 +72,27 @@ const ResourcesPage = () => {
                 <h3 className="text-xl font-bold mb-3 flex-grow">{res.title}</h3>
                 <p className="text-gray-600 mb-6 text-sm">{res.desc}</p>
                 
-                <a 
-                  href={res.link} 
-                  target={res.external ? "_blank" : "_self"}
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center justify-center gap-2 w-full py-3 bg-gray-900 text-white rounded-lg hover:bg-[var(--color-gold)] hover:text-black transition-all font-medium"
-                >
-                  {res.external ? (
-                    <>Access Tool <ExternalLink size={16} /></>
-                  ) : (
-                    <>Download PDF <Download size={16} /></>
-                  )}
-                </a>
+                {res.isModal ? (
+                  <button
+                    onClick={() => setIsCalculatorOpen(true)}
+                    className="mt-auto inline-flex items-center justify-center gap-2 w-full py-3 bg-gray-900 text-white rounded-lg hover:bg-[var(--color-gold)] hover:text-black transition-all font-medium"
+                  >
+                    Open Calculator <Search size={16} />
+                  </button>
+                ) : (
+                  <a 
+                    href={res.link} 
+                    target={res.external ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-flex items-center justify-center gap-2 w-full py-3 bg-gray-900 text-white rounded-lg hover:bg-[var(--color-gold)] hover:text-black transition-all font-medium"
+                  >
+                    {res.external ? (
+                      <>Access Tool <ExternalLink size={16} /></>
+                    ) : (
+                      <>Download PDF <Download size={16} /></>
+                    )}
+                  </a>
+                )}
               </motion.div>
             ))}
           </div>
@@ -100,6 +111,12 @@ const ResourcesPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Tax Calculator Modal */}
+      <TaxCalculatorModal 
+        isOpen={isCalculatorOpen} 
+        onClose={() => setIsCalculatorOpen(false)} 
+      />
     </>
   );
 };

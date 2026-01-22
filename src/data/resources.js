@@ -29,6 +29,15 @@ export const resources = [
     external: true
   },
   {
+    id: 'salary-tax-calculator',
+    title: "Salary Tax Calculator",
+    type: "Tool",
+    desc: "Calculate your income tax based on the latest Pakistan tax rates and regulations.",
+    link: "#",
+    external: false,
+    isModal: true
+  },
+  {
     id: 'sales-tax-registration',
     title: "Sales Tax Registration Guide",
     type: "Compliance Guide",
