@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import emailjs from '@emailjs/browser';
 import Button from './Button';
 import { useToast } from './ui/use-toast';
 
@@ -88,23 +89,47 @@ const ContactForm = () => {
     
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    toast({
-      title: "Consultation Request Sent!",
-      description: "Thank you for contacting Tax Zilla Consultancy. We will review your request and contact you shortly.",
-    });
-    
-    setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: ''
-    });
-    
-    setIsSubmitting(false);
+    try {
+      // Prepare template params
+      // These keys must match your EmailJS template variables
+      const templateParams = {
+        from_name: formData.fullName,
+        from_email: formData.email,
+        phone_number: formData.phone,
+        service_interested: formData.service,
+        message: formData.message,
+        to_name: "Tax Zilla Consultancy"
+      };
+
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      
+      toast({
+        title: "Consultation Request Sent!",
+        description: "Thank you for contacting Tax Zilla Consultancy. We will review your request and contact you shortly.",
+      });
+      
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error sending your request. Please try again later or contact us directly by phone.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
