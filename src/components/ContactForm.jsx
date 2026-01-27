@@ -90,14 +90,13 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Prepare template params
-      // These keys must match your EmailJS template variables
       const templateParams = {
         from_name: formData.fullName,
         from_email: formData.email,
         phone_number: formData.phone,
         service_interested: formData.service,
         message: formData.message,
+        sent_time: new Date().toLocaleString(),
         to_name: "Tax Zilla Consultancy"
       };
 
@@ -249,7 +248,7 @@ const ContactForm = () => {
         type="submit"
         variant="primary"
         size="lg"
-        className="w-full"
+        className="w-full flex items-center justify-center gap-2"
         disabled={isSubmitting}
       >
         {isSubmitting ? (
@@ -263,7 +262,7 @@ const ContactForm = () => {
           </>
         ) : (
           <>
-            <Send size={20} className="mr-2" />
+            <Send size={20} />
             Book Consultation
           </>
         )}
