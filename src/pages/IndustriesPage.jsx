@@ -2,43 +2,15 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Laptop, Briefcase, Factory, Building, ArrowRight } from 'lucide-react';
 import SectionHeading from '../components/SectionHeading.jsx';
 import Button from '../components/Button.jsx';
+import { ArrowRight } from 'lucide-react';
+import { industries } from '../data/industries.js';
 
 const IndustriesPage = () => {
   const navigate = useNavigate();
 
-  const industries = [
-    {
-      title: "Freelancers & Consultants",
-      icon: Laptop,
-      desc: "Tailored tax filing for remote workers, IT exporters, and independent consultants.",
-      challenges: ["Understanding foreign remittance exemptions", "Managing irregular income streams", "PSEB registration requirements"],
-      solutions: ["IT Export Tax Credit filing", "PSEB Registration assistance", "Simplified wealth statement preparation"]
-    },
-    {
-      title: "Startups",
-      icon: Briefcase,
-      desc: "Complete legal structuring for new ventures, from incorporation to IP protection.",
-      challenges: ["Choosing the right legal entity", "Initial SECP compliance", "Setting up corporate bank accounts"],
-      solutions: ["Private Limited Incorporation", "NTN & STRN setup", "Founder agreement drafting"]
-    },
-    {
-      title: "SMEs & Traders",
-      icon: Building,
-      desc: "Ongoing compliance support for retail, wholesale, and service-based small businesses.",
-      challenges: ["Monthly Sales Tax returns", "Withholding tax management", "Annual audit requirements"],
-      solutions: ["Monthly retainer packages", "Bookkeeping assistance", "Tax audit defense"]
-    },
-    {
-      title: "Corporate Sector",
-      icon: Factory,
-      desc: "High-level advisory for large enterprises requiring complex regulatory adherence.",
-      challenges: ["Complex corporate governance", "Mergers & acquisitions", "Cross-border taxation"],
-      solutions: ["Corporate secretarial services", "Legal due diligence", "Strategic tax planning"]
-    }
-  ];
+  // use industries list from src/data/industries.js
 
   return (
     <>
@@ -82,20 +54,26 @@ const IndustriesPage = () => {
                   </div>
                   <p className="text-gray-600 mb-6">{ind.desc}</p>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-bold text-sm text-red-500 mb-2 uppercase tracking-wide">Challenges</h4>
-                      <ul className="list-disc pl-4 text-sm text-gray-600 space-y-1">
-                        {ind.challenges.map((c, i) => <li key={i}>{c}</li>)}
-                      </ul>
+                  {(ind.challenges || ind.solutions) && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      {ind.challenges && (
+                        <div>
+                          <h4 className="font-bold text-sm text-red-500 mb-2 uppercase tracking-wide">Challenges</h4>
+                          <ul className="list-disc pl-4 text-sm text-gray-600 space-y-1">
+                            {ind.challenges.map((c, i) => <li key={i}>{c}</li>)}
+                          </ul>
+                        </div>
+                      )}
+                      {ind.solutions && (
+                        <div>
+                          <h4 className="font-bold text-sm text-green-600 mb-2 uppercase tracking-wide">Our Solutions</h4>
+                          <ul className="list-disc pl-4 text-sm text-gray-600 space-y-1">
+                            {ind.solutions.map((s, i) => <li key={i}>{s}</li>)}
+                          </ul>
+                        </div>
+                      )}
                     </div>
-                    <div>
-                      <h4 className="font-bold text-sm text-green-600 mb-2 uppercase tracking-wide">Our Solutions</h4>
-                      <ul className="list-disc pl-4 text-sm text-gray-600 space-y-1">
-                        {ind.solutions.map((s, i) => <li key={i}>{s}</li>)}
-                      </ul>
-                    </div>
-                  </div>
+                  )}
                 </div>
                 <div className="p-4 bg-gray-50 text-center">
                    <button 

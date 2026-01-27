@@ -22,6 +22,7 @@ import {
   AuditAssistancePage, 
   FreelancerSMEPage 
 } from './pages/ServiceDetails.jsx';
+import ServiceDetailGeneric from './pages/ServiceDetailGeneric.jsx';
 import { 
   PrivacyPolicyPage, 
   TermsConditionsPage, 
@@ -55,6 +56,8 @@ function App() {
             <Route path="/services/business-compliance" element={<BusinessCompliancePage />} />
             <Route path="/services/audit-assistance" element={<AuditAssistancePage />} />
             <Route path="/services/freelancers-sme" element={<FreelancerSMEPage />} />
+            {/* Generic handler for newly added services in data/services.js */}
+            <Route path="/services/:slug" element={<ServiceDetailGeneric />} />
             
             {/* Legal Routes */}
             <Route path="/legal/privacy-policy" element={<PrivacyPolicyPage />} />

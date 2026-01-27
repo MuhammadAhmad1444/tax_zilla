@@ -16,7 +16,7 @@ const Breadcrumb = ({ items }) => (
 );
 
 // Reusable Layout for Service Pages
-const ServiceLayout = ({ title, description, benefits, process, laws, serviceId, image }) => {
+const ServiceLayout = ({ title, description, benefits, process, laws, serviceId, image, packages }) => {
   const navigate = useNavigate();
 
   const handleRequest = () => {
@@ -56,6 +56,29 @@ const ServiceLayout = ({ title, description, benefits, process, laws, serviceId,
             <p className="text-gray-600 text-lg leading-relaxed mb-8">
               Our {title} service is meticulously designed to ensure you meet all regulatory requirements under Pakistani law while optimizing your financial position. We navigate the complexities so you can focus on your core business operations.
             </p>
+            {packages && packages.length > 0 && (
+              <div className="mb-10">
+                <h3 className="text-2xl font-bold mb-4 text-[var(--color-dark-blue)]">Packages We Offer</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {packages.map((pkg, index) => (
+                    <div
+                      key={index}
+                      className="p-4 rounded-lg bg-gray-50 border border-gray-100 hover:border-[var(--color-gold)] transition-all"
+                    >
+                      <h4 className="font-semibold text-[var(--color-dark-blue)] mb-1 text-sm md:text-base">
+                        {pkg.name}
+                      </h4>
+                      {pkg.tagline && (
+                        <p className="text-[var(--color-gold)] text-xs font-medium mb-1">{pkg.tagline}</p>
+                      )}
+                      <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
+                        {pkg.summary}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             
             <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-[var(--color-dark-blue)] mb-10">
               <h3 className="font-bold text-lg mb-2 flex items-center gap-2 text-[var(--color-dark-blue)]">
@@ -126,6 +149,32 @@ export const IncomeTaxPage = () => (
     image="https://images.unsplash.com/photo-1554224155-a1487473ffd9"
     description="Professional income tax return filing services for salaried individuals, business owners, and companies in Pakistan."
     laws="Income Tax Ordinance, 2001 & Income Tax Rules, 2002"
+    packages={[
+      {
+        name: 'Annual Income Tax Filing – Salaried',
+        tagline: 'Best for fixed-salary employees',
+        summary:
+          'Based on your annual salary certificate, allowances and deductions. We prepare your return and wealth statement and keep everything compliant.',
+      },
+      {
+        name: 'Annual Income Tax Filing – Sole Proprietor',
+        tagline: 'For small business owners and freelancers',
+        summary:
+          'Covers business accounts, personal expenses, assets and investments so your business and personal profile match in FBR records.',
+      },
+      {
+        name: 'Annual Income Tax Filing – Partnership / Company',
+        tagline: 'For registered firms and companies',
+        summary:
+          'Uses audited or management accounts to prepare complete returns, statements and reconciliations for partners/directors.',
+      },
+      {
+        name: 'Annual Income Tax Filing – NPO / Charitable Trusts',
+        tagline: 'Specialized non‑profit compliance',
+        summary:
+          'Focus on exemption claims, donations and regulatory reporting so your organization stays compliant and donor‑friendly.',
+      },
+    ]}
     process={[
       "Collection of financial documents and tax deduction certificates.",
       "Computation of taxable income and tax liability.",
@@ -148,6 +197,32 @@ export const NTNRegistrationPage = () => (
     image="https://images.unsplash.com/photo-1684393637060-70e50f950aba"
     description="Get your National Tax Number (NTN) registered quickly and correctly with FBR."
     laws="Section 181 of Income Tax Ordinance, 2001"
+    packages={[
+      {
+        name: 'NTN Registration – Salaried',
+        tagline: 'For individual salary earners',
+        summary:
+          'Simple NTN registration using CNIC, mobile number, email and basic profile so you can become an active filer.',
+      },
+      {
+        name: 'NTN Registration – Business Individual',
+        tagline: 'For sole proprietors and small setups',
+        summary:
+          'NTN with business profile, business address and activity code for shop owners, consultants and freelancers.',
+      },
+      {
+        name: 'NTN Registration – Partnership / AOP',
+        tagline: 'For registered partnership firms',
+        summary:
+          'Covers principal officer details, partners’ CNICs and office address so your firm is properly reflected with FBR.',
+      },
+      {
+        name: 'NTN Registration – Company / NPO',
+        tagline: 'For SECP registered entities',
+        summary:
+          'We use your incorporation documents and authorizations to obtain NTN for companies, associations and non‑profits.',
+      },
+    ]}
     process={[
       "Gathering of CNIC and basic information.",
       "Registration on FBR Iris portal.",
@@ -170,6 +245,32 @@ export const SalesTaxPage = () => (
     image="https://images.unsplash.com/photo-1554224154-22dec7ec8818"
     description="Comprehensive sales tax registration and monthly return filing for goods and services."
     laws="Sales Tax Act, 1990 & Provincial Sales Tax Acts"
+    packages={[
+      {
+        name: 'GST Registration – Manufacturers',
+        tagline: 'For manufacturing units',
+        summary:
+          'End‑to‑end STRN registration for manufacturers, including premises details, machinery information and utilities.',
+      },
+      {
+        name: 'GST Registration – Traders & Service Providers',
+        tagline: 'For non‑manufacturing businesses',
+        summary:
+          'Registration for wholesalers, retailers and service providers with proper business profiling on FBR portal.',
+      },
+      {
+        name: 'Monthly Sales Tax Return Filing',
+        tagline: 'On‑time, accurate compliance',
+        summary:
+          'Compilation of sales and purchase invoices, input/output tax calculation and filing of monthly returns.',
+      },
+      {
+        name: 'Provincial Sales Tax (PST) Compliance',
+        tagline: 'SRB, PRA and other provinces',
+        summary:
+          'Registration and monthly returns for provincial service tax regimes across Pakistan.',
+      },
+    ]}
     process={[
       "Registration for STRN (Sales Tax Registration Number).",
       "Monthly compilation of sales and purchase invoices.",
@@ -192,6 +293,32 @@ export const CompanyRegistrationPage = () => (
     image="https://images.unsplash.com/photo-1497366216548-37526070297c"
     description="Incorporate your Private Limited, SMC, or Partnership firm with SECP professionally."
     laws="Companies Act, 2017"
+    packages={[
+      {
+        name: 'Private Limited Company Registration',
+        tagline: 'Standard corporate structure',
+        summary:
+          'Ideal for multi‑shareholder businesses looking for limited liability and professional image.',
+      },
+      {
+        name: 'Single Member Company (SMC) Registration',
+        tagline: 'For solo founders',
+        summary:
+          'A corporate structure for single owners who still want limited liability and SECP recognition.',
+      },
+      {
+        name: 'Partnership / AOP Registration',
+        tagline: 'Flexible shared‑ownership model',
+        summary:
+          'Suitable for two or more partners working together under a registered firm name.',
+      },
+      {
+        name: 'Non‑Profit / NPO Company (Section 42)',
+        tagline: 'For charities and social ventures',
+        summary:
+          'Specialized incorporation for non‑profit objectives with governance and compliance guidance.',
+      },
+    ]}
     process={[
       "Name availability reservation.",
       "Drafting of Memorandum & Articles of Association.",
@@ -214,6 +341,26 @@ export const BusinessCompliancePage = () => (
     image="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40"
     description="Ensure your company remains compliant with annual statutory filings and regulations."
     laws="Companies Act, 2017 & relevant SECP Regulations"
+    packages={[
+      {
+        name: 'Annual SECP Compliances',
+        tagline: 'Form A, Form 29 and more',
+        summary:
+          'End‑to‑end handling of yearly corporate filings, registers and resolutions so your company stays in good standing.',
+      },
+      {
+        name: 'Change in Directors / Shareholding',
+        tagline: 'Smooth corporate updates',
+        summary:
+          'Preparation and filing of forms for new directors, resignations and share transfers.',
+      },
+      {
+        name: 'Corporate Secretarial Support',
+        tagline: 'For growing companies',
+        summary:
+          'Ongoing compliance calendar, meeting minutes and advisory for boards and management.',
+      },
+    ]}
     process={[
       "Review of statutory records.",
       "Filing of Form A (Annual Return).",
@@ -236,6 +383,26 @@ export const AuditAssistancePage = () => (
     image="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
     description="Expert representation and defense during FBR tax audits and inquiries."
     laws="Relevant sections of Income Tax & Sales Tax Acts regarding Audit"
+    packages={[
+      {
+        name: 'Income Tax Audit Assistance',
+        tagline: 'For individual and corporate cases',
+        summary:
+          'Review of notices, preparation of reconciliations and representation before tax authorities.',
+      },
+      {
+        name: 'Sales Tax Audit & Refund Support',
+        tagline: 'For GST‑registered entities',
+        summary:
+          'Verification of input/output tax, documentation support and assistance in refund or demand cases.',
+      },
+      {
+        name: 'NPO & Special Entity Audits',
+        tagline: 'Specialized sector knowledge',
+        summary:
+          'Support for audits of non‑profits, trusts and special purpose entities with unique compliance needs.',
+      },
+    ]}
     process={[
       "Analysis of audit notice.",
       "Preparation of required documentation/evidence.",
@@ -258,6 +425,32 @@ export const FreelancerSMEPage = () => (
     image="https://images.unsplash.com/photo-1522071820081-009f0129c71c"
     description="Tailored tax solutions for freelancers, IT exporters, and small startups."
     laws="IT Export Tax Exemptions & SME Laws"
+    packages={[
+      {
+        name: 'Freelancer Tax & Compliance',
+        tagline: 'For individual service exporters',
+        summary:
+          'Covers registration, tax returns and basic documentation for freelancers receiving payments from abroad.',
+      },
+      {
+        name: 'PSEB & IT Company Registration',
+        tagline: 'For IT and software houses',
+        summary:
+          'Assistance with PSEB registrations, renewals and related tax positioning for IT/ITeS businesses.',
+      },
+      {
+        name: 'International Company Formation (USA)',
+        tagline: 'LLC / Inc. with EIN and bank setup',
+        summary:
+          'Guidance on forming US entities, obtaining tax IDs and aligning with Pakistani tax requirements.',
+      },
+      {
+        name: 'Startup & SME Tax Planning',
+        tagline: 'For growing local businesses',
+        summary:
+          'Lightweight structures and planning so your startup saves tax while staying fully compliant.',
+      },
+    ]}
     process={[
       "Registration with PSEB (for IT companies).",
       "Filing of income tax returns with reduced rates.",
