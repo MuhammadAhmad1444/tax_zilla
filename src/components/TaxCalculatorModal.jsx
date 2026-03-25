@@ -167,12 +167,12 @@ const TaxCalculatorModal = ({ isOpen, onClose }) => {
                       Monthly Salary (PKR) *
                     </label>
                     <input
-                      type="number"
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       value={salary}
-                      onChange={(e) => setSalary(e.target.value)}
+                      onChange={(e) => setSalary(e.target.value.replace(/[^0-9.]/g, ''))}
                       placeholder="Enter your monthly salary"
-                      min="0"
-                      step="1000"
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[var(--color-gold)] focus:ring-2 focus:ring-[var(--color-gold)]/20 outline-none transition-all bg-gray-50 text-gray-900"
                     />
                     <p className="text-xs text-gray-500 mt-1">Enter your gross monthly salary before deductions</p>

@@ -18,4 +18,6 @@ export { WithholdingTaxOnBrokerageCommissionCalculator2025 } from './calculators
 export { BuilderTaxCalculator2025 } from './calculators2025/BuilderTaxCalculator2025.jsx';
 export { AgriculturalLandPunjabTaxCalculator2025 } from './calculators2025/AgriculturalLandPunjabTaxCalculator2025.jsx';
 export { ZakatCalculator2025 } from './calculators2025/ZakatCalculator2025.jsx';
+export { SupplyOfGoodsTaxCalculator } from './calculators2025/SupplyOfGoodsTaxCalculator.jsx';
+export { ValueAddedTaxCalculator } from './calculators2025/ValueAddedTaxCalculator.jsx';
 

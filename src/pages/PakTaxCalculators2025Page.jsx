@@ -21,6 +21,7 @@ import {
 import { PtaTaxCalculator2025 } from '../components/paktax/calculators2025/PtaTaxCalculator2025.jsx';
 import { FbrOnlineVerifications } from '../components/paktax/calculators2025/FbrOnlineVerifications.jsx';
 import { SupplyOfGoodsTaxCalculator } from '../components/paktax/calculators2025/SupplyOfGoodsTaxCalculator.jsx';
+import { ValueAddedTaxCalculator } from '../components/paktax/calculators2025/ValueAddedTaxCalculator.jsx';
 
 const SidebarLink = ({ label, active, onClick }) => (
   <button
@@ -104,7 +105,7 @@ const PakTaxCalculators2025Page = () => {
         title: 'Supply of Goods Tax Calculator',
         icon: CreditCard,
         image: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=60',
-        element: <SupplyOfGoodsTaxCalculator />,
+        element: <ValueAddedTaxCalculator />,
       },
       {
         id: 'gain-securities',
