@@ -13,6 +13,8 @@ import FAQsPage from './pages/FAQsPage.jsx';
 import OurProcessPage from './pages/OurProcessPage.jsx';
 import IndustriesPage from './pages/IndustriesPage.jsx';
 import ResourcesPage from './pages/ResourcesPage.jsx';
+import PakTaxCalculators2025Page from './pages/PakTaxCalculators2025Page.jsx';
+import IncomeTaxSlabsPlaceholderPage from './pages/IncomeTaxSlabsPlaceholderPage.jsx';
 import { 
   IncomeTaxPage, 
   NTNRegistrationPage, 
@@ -29,48 +31,57 @@ import {
   DisclaimerPage 
 } from './pages/LegalPages.jsx';
 
-function App() {
+function AppShell() {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col font-sans">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/why-choose-us" element={<WhyChooseUsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            
-            {/* New Main Pages */}
-            <Route path="/faqs" element={<FAQsPage />} />
-            <Route path="/our-process" element={<OurProcessPage />} />
-            <Route path="/industries" element={<IndustriesPage />} />
-            <Route path="/resources" element={<ResourcesPage />} />
-            
-            {/* Service Routes */}
-            <Route path="/services/income-tax" element={<IncomeTaxPage />} />
-            <Route path="/services/ntn-registration" element={<NTNRegistrationPage />} />
-            <Route path="/services/sales-tax" element={<SalesTaxPage />} />
-            <Route path="/services/company-registration" element={<CompanyRegistrationPage />} />
-            <Route path="/services/business-compliance" element={<BusinessCompliancePage />} />
-            <Route path="/services/audit-assistance" element={<AuditAssistancePage />} />
-            <Route path="/services/freelancers-sme" element={<FreelancerSMEPage />} />
-            {/* Generic handler for newly added services in data/services.js */}
-            <Route path="/services/:slug" element={<ServiceDetailGeneric />} />
-            
-            {/* Legal Routes */}
-            <Route path="/legal/privacy-policy" element={<PrivacyPolicyPage />} />
-            <Route path="/legal/terms-conditions" element={<TermsConditionsPage />} />
-            <Route path="/legal/disclaimer" element={<DisclaimerPage />} />
-          </Routes>
-        </main>
-        <Footer />
-        <Toaster />
-        <WhatsAppButton />
-      </div>
-    </Router>
+    <div className="min-h-screen flex flex-col font-sans">
+      <Navbar />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/why-choose-us" element={<WhyChooseUsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+
+          {/* New Main Pages */}
+          <Route path="/faqs" element={<FAQsPage />} />
+          <Route path="/our-process" element={<OurProcessPage />} />
+          <Route path="/industries" element={<IndustriesPage />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+
+          {/* PakTax Calculators */}
+          <Route path="/pakistan-tax-calculators" element={<PakTaxCalculators2025Page />} />
+          <Route path="/pakistan-tax-calculators/" element={<PakTaxCalculators2025Page />} />
+          <Route path="/income-tax-slabs" element={<IncomeTaxSlabsPlaceholderPage />} />
+
+          {/* Service Routes */}
+          <Route path="/services/income-tax" element={<IncomeTaxPage />} />
+          <Route path="/services/ntn-registration" element={<NTNRegistrationPage />} />
+          <Route path="/services/sales-tax" element={<SalesTaxPage />} />
+          <Route path="/services/company-registration" element={<CompanyRegistrationPage />} />
+          <Route path="/services/business-compliance" element={<BusinessCompliancePage />} />
+          <Route path="/services/audit-assistance" element={<AuditAssistancePage />} />
+          <Route path="/services/freelancers-sme" element={<FreelancerSMEPage />} />
+          {/* Generic handler for newly added services in data/services.js */}
+          <Route path="/services/:slug" element={<ServiceDetailGeneric />} />
+
+          {/* Legal Routes */}
+          <Route path="/legal/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/legal/terms-conditions" element={<TermsConditionsPage />} />
+          <Route path="/legal/disclaimer" element={<DisclaimerPage />} />
+        </Routes>
+      </main>
+      <Footer />
+      <Toaster />
+      <WhatsAppButton />
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <AppShell />
+    </Router>
+  );
+}

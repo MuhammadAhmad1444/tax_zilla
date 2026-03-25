@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -6,9 +6,10 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null); // 'services' | 'legal' | null
+  const [openDropdown, setOpenDropdown] = useState(null); // 'services' | 'tax-calculators' | 'legal' | null
 
   const location = useLocation();
+  const taxMenuWrapperRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,18 +26,189 @@ const Navbar = () => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Close the tax mega-menu when user clicks outside it.
+  useEffect(() => {
+    if (openDropdown !== 'tax-calculators') return;
+
+    const onDocMouseDown = (e) => {
+      const el = taxMenuWrapperRef.current;
+      if (!el) return;
+      if (el.contains(e.target)) return;
+      setOpenDropdown(null);
+    };
+
+    document.addEventListener('mousedown', onDocMouseDown);
+    return () => document.removeEventListener('mousedown', onDocMouseDown);
+  }, [openDropdown]);
+
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Process', path: '/our-process' },
     { name: 'Industries', path: '/industries' },
     { name: 'Services', path: '/services' }, 
+    { name: 'Tax Calculators 2025-2026', path: '/pakistan-tax-calculators' },
     { name: 'Resources', path: '/resources' },
     { name: 'FAQs', path: '/faqs' },
     { name: 'Contact', path: '/contact' }
   ];
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) =>
+    location.pathname === path ||
+    (path !== '/' && location.pathname === `${path}/`);
+
+  const TaxCalculatorsMegaMenu = () => (
+    <div
+      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%_+_14px)] w-[980px] max-w-[95vw] bg-white border border-gray-100 rounded-2xl shadow-2xl p-6"
+      role="menu"
+      aria-label="Tax Calculators 2025-2026 menu"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div>
+          <div className="text-[var(--color-gold)] font-extrabold mb-3 border-b border-gray-100 pb-3">
+            Agricultural Tax Calculators
+          </div>
+          <div className="flex flex-col">
+            <Link
+              to="/pakistan-tax-calculators?calc=pta"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Pta Tax Calculator
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=zakat"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Zakat Tax Calculator
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=fbr-online"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              FBR Online Verifications
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=value-added-tax"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Supply of Goods Tax Calculator
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=agri-land-punjab"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Tax On Agricultural Land – Punjab
+            </Link>
+          </div>
+        </div>
+
+        <div>
+          <div className="text-[var(--color-gold)] font-extrabold mb-3 border-b border-gray-100 pb-3">
+            Gain Tax on Securities
+          </div>
+          <div className="flex flex-col">
+            <Link
+              to="/pakistan-tax-calculators?calc=gain-securities"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Gain Tax on Securities
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=gain-mutual-funds"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Gain Tax on Mutual Fund
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=gain-properties"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Gain Tax on Properties
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=withholding-income-properties"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Withholding Tax on Income from Properties
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=withholding-brokerage-commission"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Withholding Tax On Brokerage &amp; Commission Tax Calculator
+            </Link>
+          </div>
+        </div>
+
+        <div>
+          <div className="text-[var(--color-gold)] font-extrabold mb-3 border-b border-gray-100 pb-3">
+            Pakistan Salary Tax Calculator
+          </div>
+          <div className="flex flex-col">
+            <Link
+              to="/pakistan-tax-calculators?calc=salary"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Pakistan Salary Tax Calculator
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=business"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Pakistan Business Tax Calculator
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=freelancer"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Pakistan Freelancer Tax Calculator
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=super-tax"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Super Tax On Annual Income
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=company-income"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Tax on Annual Income of Companies
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=builder"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Pakistan Builder Tax Calculator
+            </Link>
+            <Link
+              to="/pakistan-tax-calculators?calc=developer"
+              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              onClick={() => setOpenDropdown(null)}
+            >
+              Pakistan Developer Tax Calculator
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <motion.nav
@@ -64,28 +236,57 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden xl:flex items-center space-x-6">
             {navItems.map((item) => (
-              <Link
+              <div
                 key={item.path}
-                to={item.path}
                 className="relative group"
+                ref={item.path === '/pakistan-tax-calculators' ? taxMenuWrapperRef : null}
               >
-                <span
-                  className={`text-sm font-medium transition-colors duration-300 ${
-                    isActive(item.path)
-                      ? 'text-[var(--color-gold)]'
-                      : 'text-white hover:text-[var(--color-gold)]'
-                  }`}
-                >
-                  {item.name}
-                </span>
-                <span
-                  className={`absolute bottom-[-4px] left-0 w-full h-0.5 bg-[var(--color-gold)] transform origin-left transition-transform duration-300 ${
-                    isActive(item.path)
-                      ? 'scale-x-100'
-                      : 'scale-x-0 group-hover:scale-x-100'
-                  }`}
-                />
-              </Link>
+                {item.path === '/pakistan-tax-calculators' ? (
+                  <>
+                    <button
+                      type="button"
+                      className="flex items-center"
+                      onMouseEnter={() => setOpenDropdown('tax-calculators')}
+                      onFocus={() => setOpenDropdown('tax-calculators')}
+                      onClick={() =>
+                        setOpenDropdown((prev) => (prev === 'tax-calculators' ? null : 'tax-calculators'))
+                      }
+                    >
+                      <span
+                        className={`text-sm font-medium transition-colors duration-300 ${
+                          isActive(item.path)
+                            ? 'text-[var(--color-gold)]'
+                            : 'text-white hover:text-[var(--color-gold)]'
+                        }`}
+                      >
+                        {item.name}
+                      </span>
+                      <ChevronDown size={14} className="ml-1 text-[var(--color-gold)]/70 group-hover:text-[var(--color-gold)] transition-colors" />
+                    </button>
+
+                    {openDropdown === 'tax-calculators' ? <TaxCalculatorsMegaMenu /> : null}
+                  </>
+                ) : (
+                  <Link to={item.path} className="relative group">
+                    <span
+                      className={`text-sm font-medium transition-colors duration-300 ${
+                        isActive(item.path)
+                          ? 'text-[var(--color-gold)]'
+                          : 'text-white hover:text-[var(--color-gold)]'
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                    <span
+                      className={`absolute bottom-[-4px] left-0 w-full h-0.5 bg-[var(--color-gold)] transform origin-left transition-transform duration-300 ${
+                        isActive(item.path)
+                          ? 'scale-x-100'
+                          : 'scale-x-0 group-hover:scale-x-100'
+                      }`}
+                    />
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
 

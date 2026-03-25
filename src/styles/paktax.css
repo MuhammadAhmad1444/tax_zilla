@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* PakTax-specific theme overrides (scoped to .paktax-root) */
+.paktax-root {
+  /* Match the main site typography */
+  font-family: var(--font-body);
+  background: #ffffff;
+  color: #1f2937;
+}
+
+.paktax-green {
+  background: var(--color-gold);
+}
+
+.paktax-green-dark {
+  background: var(--color-gold-dark);
+}
+
+.paktax-pill {
+  border-radius: 9999px;
+}
+
+.paktax-shadow-soft {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.paktax-shadow-card {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.paktax-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: transform 0.12s ease, filter 0.12s ease, background 0.12s ease;
+}
+
+.paktax-btn-primary {
+  background: var(--color-gold);
+  color: #000000;
+}
+
+.paktax-btn-primary:hover {
+  background: var(--color-gold-dark);
+}
+
+.paktax-btn-secondary {
+  background: transparent;
+  color: var(--color-gold);
+  border: 2px solid var(--color-gold);
+}
+
+.paktax-btn-secondary:hover {
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.paktax-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.paktax-table th,
+.paktax-table td {
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+}
+
+.paktax-table th {
+  background: #f3f4f6;
+  font-weight: 700;
+}
+
