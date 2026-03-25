@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { TaxCalculatorShell, ResultBlock } from './calculatorUi2025.jsx';
 import { clampNonNegative, parseMoney, formatPKR } from './taxUtils2025.js';
 
@@ -396,6 +397,77 @@ export function PtaTaxCalculator2025() {
                 always verify the exact amount on PTA DIRBS.
               </div>
             </ResultBlock>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-10 space-y-8">
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <div className="text-xl font-extrabold text-gray-900 mb-3">PTA Tax Calculator</div>
+          <div className="text-sm text-gray-700 leading-relaxed">
+            This PTA tax estimate tool helps you understand the expected registration tax for non-PTA mobile phones in
+            Pakistan. Enter your phone brand, model (or choose Other), and declared value to view passport and CNIC
+            registration estimates based on the commonly published PTA bracket tables.
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <div className="text-xl font-extrabold text-gray-900 mb-3">Inputs Required</div>
+          <div className="text-sm text-gray-700 space-y-2">
+            <div><span className="font-semibold">Brand:</span> Choose your device manufacturer.</div>
+            <div><span className="font-semibold">Model:</span> Select your phone model or choose Other.</div>
+            <div><span className="font-semibold">Declared / Resale Value:</span> Enter the value in PKR for estimation.</div>
+          </div>
+          <div className="text-xs text-gray-500 mt-3">
+            We convert PKR to USD using <b>1 USD = {USD_PKR_RATE} PKR</b> to map the PTA tax bracket table.
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <div className="text-xl font-extrabold text-gray-900 mb-3">Deadlines (from PTA guidance)</div>
+          <div className="text-sm text-gray-700 leading-relaxed">
+            <b>Passport:</b> within 30 days from the first use of the SIM in the mobile phone.
+            <br />
+            <b>CNIC:</b> within 60 days from the first use of the SIM in the mobile phone.
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <div className="text-xl font-extrabold text-gray-900 mb-3">How to Pay Online</div>
+          <ol className="list-decimal pl-5 text-sm text-gray-700 space-y-2">
+            <li>Visit PTA DIRBS and login or register via CNIC.</li>
+            <li>Submit the IMEI to receive a PSID.</li>
+            <li>Pay via online banking, ATM, or wallets like JazzCash/EasyPaisa.</li>
+            <li>Registration typically completes in 24-72 hours after payment.</li>
+          </ol>
+          <div className="text-xs text-gray-500 mt-3">
+            DIRBS portal:{' '}
+            <a
+              className="text-[var(--color-gold)] font-semibold"
+              href="https://dirbs.pta.gov.pk/drs/auth/login"
+              target="_blank"
+              rel="noreferrer"
+            >
+              dirbs.pta.gov.pk
+            </a>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-6">
+          <div className="text-xl font-extrabold text-gray-900 mb-3">Important Notes</div>
+          <div className="text-sm text-gray-700 leading-relaxed">
+            PTA tax rates can change. This calculator provides an estimate based on commonly published PTA brackets.
+            Always verify the final payable tax on the official PTA DIRBS portal before making a payment.
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-[var(--color-dark-blue)] text-white p-6">
+          <div className="text-xl font-extrabold mb-2">Need Help With PTA Registration?</div>
+          <div className="text-sm text-gray-200">
+            Our team can help you verify the bracket, file the DIRBS request, and confirm the payable amount.
+          </div>
+          <div className="mt-4">
+            <Link to="/contact" className="paktax-btn paktax-btn-primary">Request a Consultation</Link>
           </div>
         </div>
       </div>

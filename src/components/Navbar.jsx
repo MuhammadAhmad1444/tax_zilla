@@ -10,6 +10,8 @@ const Navbar = () => {
 
   const location = useLocation();
   const taxMenuWrapperRef = useRef(null);
+  const searchParams = new URLSearchParams(location.search);
+  const activeCalc = searchParams.get('calc');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +59,12 @@ const Navbar = () => {
     location.pathname === path ||
     (path !== '/' && location.pathname === `${path}/`);
 
+  const isTaxCalculatorsActive = () =>
+    location.pathname === '/pakistan-tax-calculators' ||
+    location.pathname === '/pakistan-tax-calculators/';
+
+  const isCalcActive = (id) => isTaxCalculatorsActive() && activeCalc === id;
+
   const TaxCalculatorsMegaMenu = () => (
     <div
       className="absolute left-1/2 -translate-x-1/2 top-[calc(100%_+_14px)] w-[980px] max-w-[95vw] bg-white border border-gray-100 rounded-2xl shadow-2xl p-6"
@@ -71,35 +79,55 @@ const Navbar = () => {
           <div className="flex flex-col">
             <Link
               to="/pakistan-tax-calculators?calc=pta"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('pta')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Pta Tax Calculator
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=zakat"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('zakat')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Zakat Tax Calculator
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=fbr-online"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('fbr-online')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               FBR Online Verifications
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=value-added-tax"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('value-added-tax')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Supply of Goods Tax Calculator
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=agri-land-punjab"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('agri-land-punjab')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Tax On Agricultural Land – Punjab
@@ -114,35 +142,55 @@ const Navbar = () => {
           <div className="flex flex-col">
             <Link
               to="/pakistan-tax-calculators?calc=gain-securities"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('gain-securities')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Gain Tax on Securities
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=gain-mutual-funds"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('gain-mutual-funds')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Gain Tax on Mutual Fund
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=gain-properties"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('gain-properties')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Gain Tax on Properties
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=withholding-income-properties"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('withholding-income-properties')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Withholding Tax on Income from Properties
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=withholding-brokerage-commission"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('withholding-brokerage-commission')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Withholding Tax On Brokerage &amp; Commission Tax Calculator
@@ -157,49 +205,77 @@ const Navbar = () => {
           <div className="flex flex-col">
             <Link
               to="/pakistan-tax-calculators?calc=salary"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('salary')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Pakistan Salary Tax Calculator
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=business"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('business')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Pakistan Business Tax Calculator
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=freelancer"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('freelancer')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Pakistan Freelancer Tax Calculator
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=super-tax"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('super-tax')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Super Tax On Annual Income
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=company-income"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('company-income')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Tax on Annual Income of Companies
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=builder"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('builder')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Pakistan Builder Tax Calculator
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=developer"
-              className="block text-[13px] font-semibold text-gray-700 py-2 border-b border-gray-100 hover:text-black hover:pl-1 transition-all"
+              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+                isCalcActive('developer')
+                  ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
+                  : 'text-gray-700 hover:text-black hover:pl-1'
+              }`}
               onClick={() => setOpenDropdown(null)}
             >
               Pakistan Developer Tax Calculator
@@ -254,7 +330,7 @@ const Navbar = () => {
                     >
                       <span
                         className={`text-sm font-medium transition-colors duration-300 ${
-                          isActive(item.path)
+                          isTaxCalculatorsActive()
                             ? 'text-[var(--color-gold)]'
                             : 'text-white hover:text-[var(--color-gold)]'
                         }`}
