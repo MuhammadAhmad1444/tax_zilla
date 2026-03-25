@@ -146,11 +146,6 @@ const PakTaxCalculators2025Page = () => {
     if (activeId === 'value-added-tax') {
       return (
         <div>
-          <div className="mb-6">
-            <button type="button" className="paktax-btn paktax-btn-secondary" onClick={backToCalculators}>
-              Back to Calculators
-            </button>
-          </div>
           {renderValueAddedTaxPlaceholder()}
           <RelatedCalculatorsBlock relatedButtons={relatedButtons} goToCalculator={goToCalculator} />
         </div>
@@ -159,11 +154,6 @@ const PakTaxCalculators2025Page = () => {
 
     return (
       <div>
-        <div className="mb-6">
-          <button type="button" className="paktax-btn paktax-btn-secondary" onClick={backToCalculators}>
-            Back to Calculators
-          </button>
-        </div>
         {activeCalculator ? activeCalculator.element : renderValueAddedTaxPlaceholder()}
         <RelatedCalculatorsBlock relatedButtons={relatedButtons} goToCalculator={goToCalculator} />
       </div>
@@ -178,8 +168,12 @@ const PakTaxCalculators2025Page = () => {
       </Helmet>
 
       {/* Match ServicesPage start (hero + theme) */}
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white text-center">
-        <div className="container-custom">
+      <section className="relative pt-32 pb-20 bg-[var(--color-dark-blue)] text-white text-center overflow-hidden">
+        {/* Dull background image (same approach used on other pages) */}
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493882552576-fce827c6161e')] bg-cover bg-center opacity-15" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0b1c29]/80 via-[#0d1f2e]/60 to-black/70" />
+
+        <div className="container-custom relative z-10">
           <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
             Pakistan Tax Calculators
           </h1>
