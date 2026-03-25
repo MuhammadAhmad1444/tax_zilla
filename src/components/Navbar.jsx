@@ -74,7 +74,7 @@ const Navbar = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         <div>
           <div className="text-[var(--color-gold)] font-extrabold mb-3 border-b border-gray-100 pb-3">
-            Agricultural Tax Calculators
+            Verification & Essentials
           </div>
           <div className="flex flex-col">
             <Link
@@ -137,7 +137,7 @@ const Navbar = () => {
 
         <div>
           <div className="text-[var(--color-gold)] font-extrabold mb-3 border-b border-gray-100 pb-3">
-            Gain Tax on Securities
+            Capital Gains & Withholding
           </div>
           <div className="flex flex-col">
             <Link
@@ -200,7 +200,7 @@ const Navbar = () => {
 
         <div>
           <div className="text-[var(--color-gold)] font-extrabold mb-3 border-b border-gray-100 pb-3">
-            Pakistan Salary Tax Calculator
+            Income & Business Calculators
           </div>
           <div className="flex flex-col">
             <Link

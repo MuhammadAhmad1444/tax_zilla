@@ -82,6 +82,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'pta',
         title: 'PTA Tax Calculator',
+        category: 'Verification',
         icon: Phone,
         image: 'https://images.unsplash.com/photo-1554224155-a1487473ffd9?auto=format&fit=crop&w=900&q=60',
         element: <PtaTaxCalculator2025 />,
@@ -89,6 +90,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'zakat',
         title: 'Zakat Tax Calculator',
+        category: 'Faith & Assets',
         icon: Shield,
         image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=60',
         element: <ZakatCalculator2025 />,
@@ -96,6 +98,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'fbr-online',
         title: 'FBR Online Verifications',
+        category: 'Verification',
         icon: FileText,
         image: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=60',
         element: <FbrOnlineVerifications />,
@@ -103,6 +106,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'value-added-tax',
         title: 'Supply of Goods Tax Calculator',
+        category: 'Withholding',
         icon: CreditCard,
         image: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=60',
         element: <ValueAddedTaxCalculator />,
@@ -110,6 +114,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'gain-securities',
         title: 'Gain Tax on Securities',
+        category: 'Capital Gains',
         icon: Scale,
         image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=60',
         element: <GainTaxOnSecuritiesCalculator2025 />,
@@ -117,6 +122,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'gain-mutual-funds',
         title: 'Gain Tax on Mutual Funds',
+        category: 'Capital Gains',
         icon: Users,
         image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=60',
         element: <GainTaxOnMutualFundsCalculator2025 />,
@@ -124,6 +130,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'gain-properties',
         title: 'Gain Tax on Properties',
+        category: 'Capital Gains',
         icon: Landmark,
         image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&h=650&fit=crop',
         element: <GainTaxOnPropertiesCalculator2025 />,
@@ -131,6 +138,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'withholding-income-properties',
         title: 'Withholding Tax on Income from Properties',
+        category: 'Withholding',
         icon: Droplets,
         image: 'https://images.unsplash.com/photo-1493882552576-fce827c6161e?auto=format&fit=crop&w=900&q=60',
         element: <WithholdingTaxOnIncomeFromPropertiesCalculator2025 />,
@@ -138,6 +146,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'withholding-brokerage-commission',
         title: 'Withholding Tax on Brokerage & Commission',
+        category: 'Withholding',
         icon: CreditCard,
         image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=900&q=60',
         element: <WithholdingTaxOnBrokerageCommissionCalculator2025 />,
@@ -145,6 +154,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'salary',
         title: 'Pakistan Salary Tax Calculator',
+        category: 'Income Tax',
         icon: Users,
         image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=900&h=650&fit=crop',
         element: <SalaryTaxCalculator2025 />,
@@ -152,6 +162,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'business',
         title: 'Pakistan Business Tax Calculator',
+        category: 'Income Tax',
         icon: BriefcaseBusiness,
         image: 'https://images.unsplash.com/photo-1684393637060-70e50f950aba?auto=format&fit=crop&w=900&q=60',
         element: <BusinessTaxCalculator2025 />,
@@ -159,6 +170,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'freelancer',
         title: 'Pakistan Freelancer Tax Calculator',
+        category: 'Income Tax',
         icon: Users,
         image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&h=650&fit=crop',
         element: <FreelancerTaxCalculator2025 />,
@@ -166,6 +178,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'super-tax',
         title: 'Super Tax on Annual Income',
+        category: 'Income Tax',
         icon: Scale,
         image: 'https://images.unsplash.com/photo-1573165759995-5865a394a1aa?auto=format&fit=crop&w=900&q=60',
         element: <SuperTaxCalculator2025 />,
@@ -173,6 +186,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'company-income',
         title: 'Tax on Annual Income of Companies',
+        category: 'Corporate',
         icon: Building2,
         image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=900&h=650&fit=crop',
         element: <CompanyIncomeTaxCalculator2025 />,
@@ -180,6 +194,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'builder',
         title: 'Pakistan Builder Tax Calculator',
+        category: 'Construction',
         icon: Wrench,
         image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=60',
         element: <BuilderTaxCalculator2025 variant="builder" />,
@@ -187,6 +202,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'developer',
         title: 'Pakistan Developer Tax Calculator',
+        category: 'Construction',
         icon: Wrench,
         image: 'https://images.unsplash.com/photo-1686149115308-bfdb03c8582e?auto=format&fit=crop&w=900&q=60',
         element: <BuilderTaxCalculator2025 variant="developer" />,
@@ -194,6 +210,7 @@ const PakTaxCalculators2025Page = () => {
       {
         id: 'agri-land-punjab',
         title: 'Tax on Agricultural Land – Punjab',
+        category: 'Agriculture',
         icon: Store,
         image: 'https://images.unsplash.com/photo-1695487562553-c71a77e6c656?auto=format&fit=crop&w=900&q=60',
         element: <AgriculturalLandPunjabTaxCalculator2025 />,
@@ -222,22 +239,40 @@ const PakTaxCalculators2025Page = () => {
     if (!activeId) {
       return (
         <div className="px-2 md:px-0">
-          {/* Grid of calculator tiles */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8">
+          <div className="mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <div className="max-w-2xl">
+              <div className="text-sm font-semibold text-[var(--color-gold)] uppercase tracking-[0.25em] mb-3">
+                2025-2026 Calculator Suite
+              </div>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
+                Explore every tax calculator in one premium hub
+              </h2>
+              <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                Find precise calculators for income tax, capital gains, withholding, and compliance. Every card opens
+                a professional calculator with the latest slabs, guidance, and support.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div className="text-xs uppercase tracking-[0.2em] text-gray-500">Coverage</div>
+              <div className="mt-2 text-2xl font-extrabold text-gray-900">{calculators.length} Tools</div>
+              <div className="text-xs text-gray-500 mt-1">Updated for 2025-2026 slabs</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
             {calculators.map((tile) => (
               <button
                 key={tile.id}
                 type="button"
                 onClick={() => goToCalculator(tile.id)}
                 aria-label={tile.title}
-                className="group bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] focus:ring-offset-2"
+                className="group paktax-tile focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] focus:ring-offset-2 text-left"
               >
-                <div className="h-44 w-full bg-gray-100">
+                <div className="paktax-tile-media">
                   {tile.image ? (
                     <img
                       src={tile.image}
                       alt={tile.title}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       loading="lazy"
                     />
                   ) : (
@@ -245,18 +280,31 @@ const PakTaxCalculators2025Page = () => {
                       <tile.icon size={28} className="text-[var(--color-gold)]" />
                     </div>
                   )}
+                  <div className="paktax-tile-overlay" />
+                  <div className="absolute top-4 left-4">
+                    <span className="paktax-tile-chip">{tile.category}</span>
+                  </div>
                 </div>
-                <div className="px-3 py-5 text-center">
-                  <div className="font-extrabold text-[14px] leading-tight text-[var(--color-gold)] transition-colors duration-300 group-hover:text-[var(--color-gold-dark)]">
+                <div className="p-5">
+                  <div className="flex items-center justify-between gap-3 mb-3">
+                    <div className="paktax-tile-icon">
+                      <tile.icon size={18} className="text-[var(--color-gold)]" />
+                    </div>
+                    <div className="text-xs text-gray-400 font-semibold tracking-[0.2em]">2025-26</div>
+                  </div>
+                  <div className="text-lg font-extrabold text-gray-900 mb-2">
                     {tile.title}
+                  </div>
+                  <div className="text-sm text-gray-600 leading-relaxed">
+                    Instant results, slab guidance, and support-ready outputs.
                   </div>
                 </div>
               </button>
             ))}
           </div>
 
-          <div className="mt-6 text-center text-xs text-gray-500 leading-relaxed">
-            Use the cards to open each calculator with instant results.
+          <div className="mt-8 text-center text-xs text-gray-500 leading-relaxed">
+            Choose a calculator to get started. Every tool includes compliance notes and consultation support.
           </div>
         </div>
       );
@@ -265,6 +313,18 @@ const PakTaxCalculators2025Page = () => {
     if (activeId === 'value-added-tax') {
       return (
         <div>
+          <div className="sticky top-[78px] z-30 mb-6 rounded-2xl border border-gray-200 bg-white/90 backdrop-blur p-4 flex flex-wrap items-center gap-3 justify-between">
+            <div>
+              <div className="text-xs uppercase tracking-[0.2em] text-gray-500">Tax Calculator</div>
+              <div className="text-lg font-extrabold text-gray-900">Supply of Goods Tax Calculator</div>
+            </div>
+            <div className="flex items-center gap-3">
+              <button type="button" className="paktax-btn paktax-btn-secondary" onClick={backToCalculators}>
+                Back to all calculators
+              </button>
+              <a href="/contact" className="paktax-btn paktax-btn-primary">Get Help</a>
+            </div>
+          </div>
           <SupplyOfGoodsTaxCalculator />
           <RelatedCalculatorsBlock relatedButtons={relatedButtons} goToCalculator={goToCalculator} />
         </div>
@@ -273,7 +333,25 @@ const PakTaxCalculators2025Page = () => {
 
     return (
       <div>
-        {activeCalculator ? activeCalculator.element : renderValueAddedTaxPlaceholder()}
+        {activeCalculator ? (
+          <>
+            <div className="sticky top-[78px] z-30 mb-6 rounded-2xl border border-gray-200 bg-white/90 backdrop-blur p-4 flex flex-wrap items-center gap-3 justify-between">
+              <div>
+                <div className="text-xs uppercase tracking-[0.2em] text-gray-500">Tax Calculator</div>
+                <div className="text-lg font-extrabold text-gray-900">{activeCalculator.title}</div>
+              </div>
+              <div className="flex items-center gap-3">
+                <button type="button" className="paktax-btn paktax-btn-secondary" onClick={backToCalculators}>
+                  Back to all calculators
+                </button>
+                <a href="/contact" className="paktax-btn paktax-btn-primary">Get Help</a>
+              </div>
+            </div>
+            {activeCalculator.element}
+          </>
+        ) : (
+          renderValueAddedTaxPlaceholder()
+        )}
         <RelatedCalculatorsBlock relatedButtons={relatedButtons} goToCalculator={goToCalculator} />
       </div>
     );
