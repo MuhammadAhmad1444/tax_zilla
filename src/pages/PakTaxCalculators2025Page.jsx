@@ -19,6 +19,8 @@ import {
   ZakatCalculator2025,
 } from '../components/paktax/Calculators2025.jsx';
 import { PtaTaxCalculator2025 } from '../components/paktax/calculators2025/PtaTaxCalculator2025.jsx';
+import { FbrOnlineVerifications } from '../components/paktax/calculators2025/FbrOnlineVerifications.jsx';
+import { SupplyOfGoodsTaxCalculator } from '../components/paktax/calculators2025/SupplyOfGoodsTaxCalculator.jsx';
 
 const SidebarLink = ({ label, active, onClick }) => (
   <button
@@ -95,7 +97,14 @@ const PakTaxCalculators2025Page = () => {
         title: 'FBR Online Verifications',
         icon: FileText,
         image: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=60',
-        element: <Placeholder title="FBR Online Verifications" subtitle="This section is typically a link-based verification tool." />,
+        element: <FbrOnlineVerifications />,
+      },
+      {
+        id: 'value-added-tax',
+        title: 'Supply of Goods Tax Calculator',
+        icon: CreditCard,
+        image: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=60',
+        element: <SupplyOfGoodsTaxCalculator />,
       },
       {
         id: 'gain-securities',
@@ -196,13 +205,16 @@ const PakTaxCalculators2025Page = () => {
 
   const relatedButtons = [
     { id: 'business', label: 'Business Tax' },
-    { id: 'value-added-tax', label: 'Value-added Tax' },
+    { id: 'value-added-tax', label: 'Supply of Goods Tax' },
     { id: 'builder', label: 'Builder Tax' },
     { id: 'developer', label: 'Developer Tax' },
   ];
 
   const renderValueAddedTaxPlaceholder = () => (
-    <Placeholder title="Value-added Tax" subtitle="Add your VAT/Sales Tax calculator logic and I’ll wire it into the same UI." />
+    <Placeholder
+      title="Supply of Goods Tax"
+      subtitle="Enter your Net Price, Tax Amount, Gross Price, or Sales Tax Rate to calculate the remaining values."
+    />
   );
 
   const renderMain = () => {
@@ -252,7 +264,7 @@ const PakTaxCalculators2025Page = () => {
     if (activeId === 'value-added-tax') {
       return (
         <div>
-          {renderValueAddedTaxPlaceholder()}
+          <SupplyOfGoodsTaxCalculator />
           <RelatedCalculatorsBlock relatedButtons={relatedButtons} goToCalculator={goToCalculator} />
         </div>
       );
