@@ -18,6 +18,7 @@ import {
   AgriculturalLandPunjabTaxCalculator2025,
   ZakatCalculator2025,
 } from '../components/paktax/Calculators2025.jsx';
+import { PtaTaxCalculator2025 } from '../components/paktax/calculators2025/PtaTaxCalculator2025.jsx';
 
 const SidebarLink = ({ label, active, onClick }) => (
   <button
@@ -75,22 +76,118 @@ const PakTaxCalculators2025Page = () => {
 
   const calculators = useMemo(
     () => [
-      { id: 'pta', title: 'PTA Tax Calculator', icon: Phone, element: <Placeholder title="PTA Tax Calculator" subtitle="Requires official PTA model-wise rate tables for 2025-26." /> },
-      { id: 'zakat', title: 'Zakat Tax Calculator', icon: Shield, element: <ZakatCalculator2025 /> },
-      { id: 'fbr-online', title: 'FBR Online Verifications', icon: FileText, element: <Placeholder title="FBR Online Verifications" subtitle="This section is typically a link-based verification tool." /> },
-      { id: 'gain-securities', title: 'Gain Tax on Securities', icon: Scale, element: <GainTaxOnSecuritiesCalculator2025 /> },
-      { id: 'gain-mutual-funds', title: 'Gain Tax on Mutual Funds', icon: Users, element: <GainTaxOnMutualFundsCalculator2025 /> },
-      { id: 'gain-properties', title: 'Gain Tax on Properties', icon: Landmark, element: <GainTaxOnPropertiesCalculator2025 /> },
-      { id: 'withholding-income-properties', title: 'Withholding Tax on Income from Properties', icon: Droplets, element: <WithholdingTaxOnIncomeFromPropertiesCalculator2025 /> },
-      { id: 'withholding-brokerage-commission', title: 'Withholding Tax on Brokerage & Commission', icon: CreditCard, element: <WithholdingTaxOnBrokerageCommissionCalculator2025 /> },
-      { id: 'salary', title: 'Pakistan Salary Tax Calculator', icon: Users, element: <SalaryTaxCalculator2025 /> },
-      { id: 'business', title: 'Pakistan Business Tax Calculator', icon: BriefcaseBusiness, element: <BusinessTaxCalculator2025 /> },
-      { id: 'freelancer', title: 'Pakistan Freelancer Tax Calculator', icon: Users, element: <FreelancerTaxCalculator2025 /> },
-      { id: 'super-tax', title: 'Super Tax on Annual Income', icon: Scale, element: <SuperTaxCalculator2025 /> },
-      { id: 'company-income', title: 'Tax on Annual Income of Companies', icon: Building2, element: <CompanyIncomeTaxCalculator2025 /> },
-      { id: 'builder', title: 'Pakistan Builder Tax Calculator', icon: Wrench, element: <BuilderTaxCalculator2025 variant="builder" /> },
-      { id: 'developer', title: 'Pakistan Developer Tax Calculator', icon: Wrench, element: <BuilderTaxCalculator2025 variant="developer" /> },
-      { id: 'agri-land-punjab', title: 'Tax on Agricultural Land – Punjab', icon: Store, element: <AgriculturalLandPunjabTaxCalculator2025 /> },
+      {
+        id: 'pta',
+        title: 'PTA Tax Calculator',
+        icon: Phone,
+        image: 'https://images.unsplash.com/photo-1554224155-a1487473ffd9?auto=format&fit=crop&w=900&q=60',
+        element: <PtaTaxCalculator2025 />,
+      },
+      {
+        id: 'zakat',
+        title: 'Zakat Tax Calculator',
+        icon: Shield,
+        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=60',
+        element: <ZakatCalculator2025 />,
+      },
+      {
+        id: 'fbr-online',
+        title: 'FBR Online Verifications',
+        icon: FileText,
+        image: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=60',
+        element: <Placeholder title="FBR Online Verifications" subtitle="This section is typically a link-based verification tool." />,
+      },
+      {
+        id: 'gain-securities',
+        title: 'Gain Tax on Securities',
+        icon: Scale,
+        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=60',
+        element: <GainTaxOnSecuritiesCalculator2025 />,
+      },
+      {
+        id: 'gain-mutual-funds',
+        title: 'Gain Tax on Mutual Funds',
+        icon: Users,
+        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=60',
+        element: <GainTaxOnMutualFundsCalculator2025 />,
+      },
+      {
+        id: 'gain-properties',
+        title: 'Gain Tax on Properties',
+        icon: Landmark,
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&h=650&fit=crop',
+        element: <GainTaxOnPropertiesCalculator2025 />,
+      },
+      {
+        id: 'withholding-income-properties',
+        title: 'Withholding Tax on Income from Properties',
+        icon: Droplets,
+        image: 'https://images.unsplash.com/photo-1493882552576-fce827c6161e?auto=format&fit=crop&w=900&q=60',
+        element: <WithholdingTaxOnIncomeFromPropertiesCalculator2025 />,
+      },
+      {
+        id: 'withholding-brokerage-commission',
+        title: 'Withholding Tax on Brokerage & Commission',
+        icon: CreditCard,
+        image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=900&q=60',
+        element: <WithholdingTaxOnBrokerageCommissionCalculator2025 />,
+      },
+      {
+        id: 'salary',
+        title: 'Pakistan Salary Tax Calculator',
+        icon: Users,
+        image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=900&h=650&fit=crop',
+        element: <SalaryTaxCalculator2025 />,
+      },
+      {
+        id: 'business',
+        title: 'Pakistan Business Tax Calculator',
+        icon: BriefcaseBusiness,
+        image: 'https://images.unsplash.com/photo-1684393637060-70e50f950aba?auto=format&fit=crop&w=900&q=60',
+        element: <BusinessTaxCalculator2025 />,
+      },
+      {
+        id: 'freelancer',
+        title: 'Pakistan Freelancer Tax Calculator',
+        icon: Users,
+        image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&h=650&fit=crop',
+        element: <FreelancerTaxCalculator2025 />,
+      },
+      {
+        id: 'super-tax',
+        title: 'Super Tax on Annual Income',
+        icon: Scale,
+        image: 'https://images.unsplash.com/photo-1573165759995-5865a394a1aa?auto=format&fit=crop&w=900&q=60',
+        element: <SuperTaxCalculator2025 />,
+      },
+      {
+        id: 'company-income',
+        title: 'Tax on Annual Income of Companies',
+        icon: Building2,
+        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=900&h=650&fit=crop',
+        element: <CompanyIncomeTaxCalculator2025 />,
+      },
+      {
+        id: 'builder',
+        title: 'Pakistan Builder Tax Calculator',
+        icon: Wrench,
+        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=60',
+        element: <BuilderTaxCalculator2025 variant="builder" />,
+      },
+      {
+        id: 'developer',
+        title: 'Pakistan Developer Tax Calculator',
+        icon: Wrench,
+        image: 'https://images.unsplash.com/photo-1686149115308-bfdb03c8582e?auto=format&fit=crop&w=900&q=60',
+        element: <BuilderTaxCalculator2025 variant="developer" />,
+      },
+      {
+        id: 'agri-land-punjab',
+        title: 'Tax on Agricultural Land – Punjab',
+        icon: Store,
+        image: 'https://images.unsplash.com/photo-1695487562553-c71a77e6c656?auto=format&fit=crop&w=900&q=60',
+        element: <AgriculturalLandPunjabTaxCalculator2025 />,
+      },
     ],
     []
   );
@@ -112,25 +209,34 @@ const PakTaxCalculators2025Page = () => {
     if (!activeId) {
       return (
         <div className="px-2 md:px-0">
-          {/* Grid of calculator cards (no background image) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+          {/* Grid of calculator tiles */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8">
             {calculators.map((tile) => (
               <button
                 key={tile.id}
                 type="button"
                 onClick={() => goToCalculator(tile.id)}
                 aria-label={tile.title}
-                className="group bg-white border border-gray-100 rounded-2xl shadow-sm p-6 flex flex-col items-center text-center gap-3 border-t-4 border-[var(--color-gold)] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-gray-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] focus:ring-offset-2"
+                className="group bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] focus:ring-offset-2"
               >
-                <div className="w-14 h-14 rounded-2xl bg-[var(--color-gold)]/10 flex items-center justify-center transition-colors duration-300 group-hover:bg-[var(--color-gold)]">
-                  <tile.icon size={28} className="text-[var(--color-dark-blue)] transition-colors duration-300 group-hover:text-black" />
+                <div className="h-44 w-full bg-gray-100">
+                  {tile.image ? (
+                    <img
+                      src={tile.image}
+                      alt={tile.title}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="h-full w-full flex items-center justify-center">
+                      <tile.icon size={28} className="text-[var(--color-gold)]" />
+                    </div>
+                  )}
                 </div>
-                <div className="font-extrabold text-[14px] leading-tight text-gray-900 transition-colors duration-300 group-hover:text-[var(--color-gold-dark)]">
-                  {tile.title}
-                </div>
-                {/* Hover affordance line */}
-                <div className="text-[11px] text-gray-500 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  Open calculator
+                <div className="px-3 py-5 text-center">
+                  <div className="font-extrabold text-[14px] leading-tight text-[var(--color-gold)] transition-colors duration-300 group-hover:text-[var(--color-gold-dark)]">
+                    {tile.title}
+                  </div>
                 </div>
               </button>
             ))}
