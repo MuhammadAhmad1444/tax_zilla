@@ -243,14 +243,14 @@ const Navbar = () => {
               >
                 {item.path === '/pakistan-tax-calculators' ? (
                   <>
-                    <button
-                      type="button"
+                    <Link
+                      to="/pakistan-tax-calculators"
                       className="flex items-center"
                       onMouseEnter={() => setOpenDropdown('tax-calculators')}
                       onFocus={() => setOpenDropdown('tax-calculators')}
-                      onClick={() =>
-                        setOpenDropdown((prev) => (prev === 'tax-calculators' ? null : 'tax-calculators'))
-                      }
+                      onClick={(e) => {
+                        setOpenDropdown(null);
+                      }}
                     >
                       <span
                         className={`text-sm font-medium transition-colors duration-300 ${
@@ -262,7 +262,7 @@ const Navbar = () => {
                         {item.name}
                       </span>
                       <ChevronDown size={14} className="ml-1 text-[var(--color-gold)]/70 group-hover:text-[var(--color-gold)] transition-colors" />
-                    </button>
+                    </Link>
 
                     {openDropdown === 'tax-calculators' ? <TaxCalculatorsMegaMenu /> : null}
                   </>
