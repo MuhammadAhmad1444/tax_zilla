@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSearchParams } from 'react-router-dom';
 import { Droplets, Phone, Shield, Store, Users, Landmark, BriefcaseBusiness, CreditCard, Building2, Wrench, Scale, FileText } from 'lucide-react';
@@ -74,6 +74,7 @@ const PakTaxCalculators2025Page = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeId = searchParams.get('calc');
   const contentRef = useRef(null);
+  const [activeFilter, setActiveFilter] = useState('All');
 
   useLayoutEffect(() => {
     const scrollNow = () => {
@@ -236,6 +237,25 @@ const PakTaxCalculators2025Page = () => {
     []
   );
 
+  const filterTabs = [
+    { id: 'All', label: 'All' },
+    { id: 'Salary', label: 'Salary' },
+    { id: 'Business', label: 'Business' },
+    { id: 'Withholding', label: 'Withholding' },
+  ];
+
+  const matchesFilter = (calculator) => {
+    if (activeFilter === 'All') return true;
+    if (activeFilter === 'Salary') return calculator.id === 'salary';
+    if (activeFilter === 'Business') return calculator.id === 'business';
+    return calculator.category === 'Withholding';
+  };
+
+  const visibleCalculators = useMemo(
+    () => calculators.filter(matchesFilter),
+    [calculators, activeFilter]
+  );
+
   const activeCalculator = useMemo(() => calculators.find((c) => c.id === activeId), [calculators, activeId]);
 
   const relatedButtons = [
@@ -256,28 +276,25 @@ const PakTaxCalculators2025Page = () => {
     if (!activeId) {
       return (
         <div className="px-2 md:px-0">
-          <div className="mb-10 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-            <div className="max-w-2xl">
-              <div className="text-sm font-semibold text-[var(--color-gold)] uppercase tracking-[0.25em] mb-3">
-                2025-2026 Calculator Suite
-              </div>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
-                Explore every tax calculator in one premium hub
-              </h2>
-              <p className="text-sm md:text-base text-gray-600 leading-relaxed">
-                Find precise calculators for income tax, capital gains, withholding, and compliance. Every card opens
-                a professional calculator with the latest slabs, guidance, and support.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-              <div className="text-xs uppercase tracking-[0.2em] text-gray-500">Coverage</div>
-              <div className="mt-2 text-2xl font-extrabold text-gray-900">{calculators.length} Tools</div>
-              <div className="text-xs text-gray-500 mt-1">Updated for 2025-2026 slabs</div>
-            </div>
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            {filterTabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveFilter(tab.id)}
+                className={`px-6 py-2 rounded-full font-medium transition-all border ${
+                  activeFilter === tab.id
+                    ? 'bg-[var(--color-gold)] text-black border-[var(--color-gold)] shadow-md'
+                    : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-            {calculators.map((tile) => (
+            {visibleCalculators.map((tile) => (
               <button
                 key={tile.id}
                 type="button"
