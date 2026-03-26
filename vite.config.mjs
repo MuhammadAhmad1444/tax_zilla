@@ -10,8 +10,8 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   build: {
-    outDir: 'public_html',
-    emptyOutDir: true,
+    outDir: '.',
+    emptyOutDir: false,
   },
   resolve: {
     alias: {
