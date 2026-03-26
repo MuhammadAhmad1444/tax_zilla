@@ -4,7 +4,8 @@ import { TaxCalculatorShell, ResetButton, ResultBlock } from './calculatorUi2025
 import { formatPKR, clampNonNegative, parseMoney } from './taxUtils2025.js';
 
 export function ZakatCalculator2025() {
-  const [nisabMode, setNisabMode] = useState('silver');
+  const [nisabMode, setNisabMode] = useState('');
+  const [nisabError, setNisabError] = useState('');
   const [inHand, setInHand] = useState('');
   const [savings, setSavings] = useState('');
   const [debtOwed, setDebtOwed] = useState('');
@@ -20,6 +21,12 @@ export function ZakatCalculator2025() {
   const zakatRate = 0.025;
 
   const handleCalculate = () => {
+    if (!nisabMode) {
+      setNisabError('Please select a nisab threshold to continue.');
+      setResult(null);
+      return;
+    }
+
     const totalAssets =
       clampNonNegative(parseMoney(inHand)) +
       clampNonNegative(parseMoney(savings)) +
@@ -47,25 +54,64 @@ export function ZakatCalculator2025() {
 
   return (
     <TaxCalculatorShell title="Zakat Tax Calculator" subtitle="Simplifying Zakat Calculation in Pakistan">
+      <div className="rounded-3xl p-6 md:p-8 paktax-gradient-slate text-white mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <div className="text-xs uppercase tracking-[0.2em] text-white/70">Zakat Rate</div>
+            <div className="text-2xl font-extrabold mt-2">2.5% of Net Assets</div>
+            <div className="text-sm text-white/70 mt-2">Calculated after deducting eligible liabilities.</div>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-[0.2em] text-white/70">Silver Nisab</div>
+            <div className="text-2xl font-extrabold mt-2">{formatPKR(nisabSilverPKR)}</div>
+            <div className="text-sm text-white/70 mt-2">Based on current silver valuation.</div>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-[0.2em] text-white/70">Gold Nisab</div>
+            <div className="text-2xl font-extrabold mt-2">{formatPKR(nisabGoldPKR)}</div>
+            <div className="text-sm text-white/70 mt-2">Based on current gold valuation.</div>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         <div className="lg:col-span-1">
-          <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5">
-            <div className="font-bold text-gray-900 mb-4">Inputs</div>
+          <div className="paktax-tile p-5">
+            <div className="font-bold text-gray-900 mb-4">Input Summary</div>
 
             <div className="mb-4">
               <label className="block text-sm font-bold text-gray-800 mb-2">Choose Your Nisab Threshold</label>
               <select
                 value={nisabMode}
-                onChange={(e) => setNisabMode(e.target.value)}
+                onChange={(e) => {
+                  setNisabMode(e.target.value);
+                  setNisabError('');
+                }}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>
+                  Select a nisab option
+                </option>
                 <option value="silver">Silver Nisab</option>
                 <option value="gold">Gold Nisab</option>
               </select>
+              {nisabError ? <div className="text-xs text-red-600 mt-2">{nisabError}</div> : null}
               <div className="text-xs text-gray-500 mt-2">
-                {nisabMode === 'silver'
-                  ? `Value of Silver (approx ${formatPKR(nisabSilverPKR)})`
-                  : `Value of Gold (approx ${formatPKR(nisabGoldPKR)})`}
+                {!nisabMode
+                  ? `Silver approx ${formatPKR(nisabSilverPKR)} · Gold approx ${formatPKR(nisabGoldPKR)}`
+                  : nisabMode === 'silver'
+                    ? `Value of Silver (approx ${formatPKR(nisabSilverPKR)})`
+                    : `Value of Gold (approx ${formatPKR(nisabGoldPKR)})`}
+              </div>
+              <div className="grid grid-cols-2 gap-3 mt-4">
+                <div className="rounded-xl border border-gray-200 bg-white p-3">
+                  <div className="text-xs text-gray-500">Silver</div>
+                  <div className="text-sm font-bold text-gray-900 mt-1">{formatPKR(nisabSilverPKR)}</div>
+                </div>
+                <div className="rounded-xl border border-gray-200 bg-white p-3">
+                  <div className="text-xs text-gray-500">Gold</div>
+                  <div className="text-sm font-bold text-gray-900 mt-1">{formatPKR(nisabGoldPKR)}</div>
+                </div>
               </div>
             </div>
 
@@ -166,10 +212,12 @@ export function ZakatCalculator2025() {
             </div>
 
             <button type="button" className="paktax-btn paktax-btn-primary w-full" onClick={handleCalculate}>
-              Calculate Tax
+              Calculate Zakat
             </button>
             <ResetButton
               onClick={() => {
+                setNisabMode('');
+                setNisabError('');
                 setInHand('');
                 setSavings('');
                 setDebtOwed('');
@@ -218,7 +266,8 @@ export function ZakatCalculator2025() {
             </ResultBlock>
           ) : (
             <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-6 text-gray-600">
-              Enter your assets, liabilities, and nisab threshold to calculate Zakat.
+              <div className="text-lg font-bold text-gray-800 mb-2">No calculation yet</div>
+              Enter your assets, liabilities, and select a nisab threshold to calculate Zakat.
             </div>
           )}
         </div>

@@ -11,14 +11,14 @@ const PERIOD_OPTIONS = [
 ];
 
 export function WithholdingTaxOnIncomeFromPropertiesCalculator2025() {
-  const [taxpayerType, setTaxpayerType] = useState('individual'); // individual|company
-  const [atlStatus, setAtlStatus] = useState('active'); // active|non
-  const [taxYear, setTaxYear] = useState('2025-2026');
-  const [rentPeriod, setRentPeriod] = useState('monthly');
+  const [taxpayerType, setTaxpayerType] = useState(''); // individual|company
+  const [atlStatus, setAtlStatus] = useState(''); // active|non
+  const [taxYear, setTaxYear] = useState('');
+  const [rentPeriod, setRentPeriod] = useState('');
   const [rentAmount, setRentAmount] = useState('');
-  const [advanceGiven, setAdvanceGiven] = useState('no');
+  const [advanceGiven, setAdvanceGiven] = useState('');
   const [advanceAmount, setAdvanceAmount] = useState('');
-  const [advanceTreatment, setAdvanceTreatment] = useState('adjustable');
+  const [advanceTreatment, setAdvanceTreatment] = useState('');
   const [result, setResult] = useState(null);
 
   const annualizedRent = useMemo(() => {
@@ -29,7 +29,12 @@ export function WithholdingTaxOnIncomeFromPropertiesCalculator2025() {
 
   const handleCalculate = () => {
     const rent = clampNonNegative(annualizedRent);
-    if (rent <= 0) {
+    if (rent <= 0 || !taxpayerType || !atlStatus || !taxYear || !rentPeriod || !advanceGiven) {
+      setResult(null);
+      return;
+    }
+
+    if (advanceGiven === 'yes' && !advanceTreatment) {
       setResult(null);
       return;
     }
@@ -77,8 +82,22 @@ export function WithholdingTaxOnIncomeFromPropertiesCalculator2025() {
                 onChange={(e) => setTaxpayerType(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select taxpayer type</option>
                 <option value="individual">Individual / AOP</option>
                 <option value="company">Company</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-bold text-gray-800 mb-2">ATL Status</label>
+              <select
+                value={atlStatus}
+                onChange={(e) => setAtlStatus(e.target.value)}
+                className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
+              >
+                <option value="" disabled>Select ATL status</option>
+                <option value="active">ATL - Active</option>
+                <option value="non">Non-ATL</option>
               </select>
             </div>
 
@@ -89,10 +108,11 @@ export function WithholdingTaxOnIncomeFromPropertiesCalculator2025() {
                 onChange={(e) => setTaxYear(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
-                <option>2025-2026</option>
-                <option>2024-2025</option>
-                <option>2023-2024</option>
-                <option>2022-2023</option>
+                <option value="" disabled>Select tax year</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+                <option value="2023-2024">2023-2024</option>
+                <option value="2022-2023">2022-2023</option>
               </select>
             </div>
 
@@ -103,6 +123,7 @@ export function WithholdingTaxOnIncomeFromPropertiesCalculator2025() {
                 onChange={(e) => setRentPeriod(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select rent period</option>
                 {PERIOD_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -132,6 +153,7 @@ export function WithholdingTaxOnIncomeFromPropertiesCalculator2025() {
                 onChange={(e) => setAdvanceGiven(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select advance option</option>
                 <option value="yes">Advance Given - Yes</option>
                 <option value="no">Advance Given - No</option>
               </select>
@@ -158,6 +180,7 @@ export function WithholdingTaxOnIncomeFromPropertiesCalculator2025() {
                     onChange={(e) => setAdvanceTreatment(e.target.value)}
                     className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
                   >
+                    <option value="" disabled>Select advance treatment</option>
                     <option value="adjustable">Adjustable against Rent</option>
                     <option value="refundable">Refundable to Tenant</option>
                   </select>
@@ -172,8 +195,12 @@ export function WithholdingTaxOnIncomeFromPropertiesCalculator2025() {
               onClick={() => {
                 setRentAmount('');
                 setAdvanceAmount('');
-                setAdvanceGiven('no');
-                setAdvanceTreatment('adjustable');
+                setAdvanceGiven('');
+                setAdvanceTreatment('');
+                setTaxpayerType('');
+                setAtlStatus('');
+                setRentPeriod('');
+                setTaxYear('');
                 setResult(null);
               }}
             >

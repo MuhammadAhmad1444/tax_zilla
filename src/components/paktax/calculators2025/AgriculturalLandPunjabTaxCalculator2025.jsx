@@ -5,8 +5,8 @@ import { formatPKR, clampNonNegative, parseMoney } from './taxUtils2025.js';
 
 export function AgriculturalLandPunjabTaxCalculator2025() {
   const [annualAgrIncome, setAnnualAgrIncome] = useState('');
-  const [taxYear, setTaxYear] = useState('2025-2026');
-  const [taxpayerCategory, setTaxpayerCategory] = useState('farmers');
+  const [taxYear, setTaxYear] = useState('');
+  const [taxpayerCategory, setTaxpayerCategory] = useState('');
   const [result, setResult] = useState(null);
 
   const handleCalculate = () => {
@@ -48,10 +48,11 @@ export function AgriculturalLandPunjabTaxCalculator2025() {
                 onChange={(e) => setTaxYear(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
-                <option>2025-2026</option>
-                <option>2024-2025</option>
-                <option>2023-2024</option>
-                <option>2022-2023</option>
+                <option value="" disabled>Select tax year</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+                <option value="2023-2024">2023-2024</option>
+                <option value="2022-2023">2022-2023</option>
               </select>
             </div>
 
@@ -62,6 +63,7 @@ export function AgriculturalLandPunjabTaxCalculator2025() {
                 onChange={(e) => setTaxpayerCategory(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select category</option>
                 <option value="farmers">Farmers</option>
                 <option value="small-company">Small Company</option>
                 <option value="any-other-company">Any Other Company</option>
@@ -84,7 +86,16 @@ export function AgriculturalLandPunjabTaxCalculator2025() {
             <button type="button" className="paktax-btn paktax-btn-primary w-full" onClick={handleCalculate}>
               Calculate Tax
             </button>
-            <ResetButton onClick={() => { setAnnualAgrIncome(''); setResult(null); }}>Reset</ResetButton>
+            <ResetButton
+              onClick={() => {
+                setAnnualAgrIncome('');
+                setTaxYear('');
+                setTaxpayerCategory('');
+                setResult(null);
+              }}
+            >
+              Reset
+            </ResetButton>
           </div>
         </div>
 

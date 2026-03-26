@@ -60,17 +60,17 @@ const LEGAL_STATUS_OPTIONS = [
 export function GainTaxOnPropertiesCalculator2025() {
   const [gain, setGain] = useState('');
   const [acquiredAfterJuly2024, setAcquiredAfterJuly2024] = useState('yes');
-  const [propertyType, setPropertyType] = useState('open');
-  const [holdingPeriod, setHoldingPeriod] = useState('lte-1');
+  const [propertyType, setPropertyType] = useState('');
+  const [holdingPeriod, setHoldingPeriod] = useState('');
   const [result, setResult] = useState(null);
 
   const selectedProperty = useMemo(
-    () => PROPERTY_TYPES.find((option) => option.value === propertyType) || PROPERTY_TYPES[0],
+    () => PROPERTY_TYPES.find((option) => option.value === propertyType) || null,
     [propertyType]
   );
 
   const selectedHolding = useMemo(
-    () => HOLDING_PERIODS.find((option) => option.value === holdingPeriod) || HOLDING_PERIODS[0],
+    () => HOLDING_PERIODS.find((option) => option.value === holdingPeriod) || null,
     [holdingPeriod]
   );
 
@@ -80,7 +80,7 @@ export function GainTaxOnPropertiesCalculator2025() {
 
   const handleCalculate = () => {
     const g = clampNonNegative(parseMoney(gain));
-    if (g <= 0) {
+    if (g <= 0 || !propertyType || !holdingPeriod) {
       setResult(null);
       return;
     }
@@ -162,6 +162,7 @@ export function GainTaxOnPropertiesCalculator2025() {
                 onChange={(e) => setPropertyType(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select property type</option>
                 {PROPERTY_TYPES.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -177,6 +178,7 @@ export function GainTaxOnPropertiesCalculator2025() {
                 onChange={(e) => setHoldingPeriod(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select holding period</option>
                 {HOLDING_PERIODS.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -193,8 +195,8 @@ export function GainTaxOnPropertiesCalculator2025() {
                 setResult(null);
                 setGain('');
                 setAcquiredAfterJuly2024('yes');
-                setPropertyType('open');
-                setHoldingPeriod('lte-1');
+                setPropertyType('');
+                setHoldingPeriod('');
               }}
             >
               Reset
@@ -202,6 +204,8 @@ export function GainTaxOnPropertiesCalculator2025() {
           </div>
         </div>
 
+                <option value="" disabled>Select property type</option>
+                <option value="" disabled>Select holding period</option>
         <div className="lg:col-span-2">
           {result ? (
             <ResultBlock title="Result">

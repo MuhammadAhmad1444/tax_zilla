@@ -4,13 +4,13 @@ import { TaxCalculatorShell, ResetButton, ResultBlock } from './calculatorUi2025
 import { formatPKR, clampNonNegative, parseMoney, computeSuperTax2025 } from './taxUtils2025.js';
 
 export function CompanyIncomeTaxCalculator2025() {
-  const [companyType, setCompanyType] = useState('all'); // all|bank|small
+  const [companyType, setCompanyType] = useState(''); // all|bank|small
   const [annualIncome, setAnnualIncome] = useState('');
   const [result, setResult] = useState(null);
 
   const handleCalculate = () => {
     const income = clampNonNegative(parseMoney(annualIncome));
-    if (income <= 0) {
+    if (income <= 0 || !companyType) {
       setResult(null);
       return;
     }
@@ -30,6 +30,7 @@ export function CompanyIncomeTaxCalculator2025() {
 
   const handleReset = () => {
     setAnnualIncome('');
+    setCompanyType('');
     setResult(null);
   };
 

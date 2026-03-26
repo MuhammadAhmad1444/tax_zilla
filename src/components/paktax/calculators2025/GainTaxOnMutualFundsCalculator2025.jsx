@@ -14,17 +14,17 @@ const CATEGORY_OPTIONS = [
 
 export function GainTaxOnMutualFundsCalculator2025() {
   const [gain, setGain] = useState('');
-  const [category, setCategory] = useState('ind-aop-stock');
+  const [category, setCategory] = useState('');
   const [result, setResult] = useState(null);
 
   const selectedCategory = useMemo(
-    () => CATEGORY_OPTIONS.find((option) => option.value === category) || CATEGORY_OPTIONS[0],
+    () => CATEGORY_OPTIONS.find((option) => option.value === category) || null,
     [category]
   );
 
   const handleCalculate = () => {
     const g = clampNonNegative(parseMoney(gain));
-    if (g <= 0) {
+    if (g <= 0 || !selectedCategory) {
       setResult(null);
       return;
     }
@@ -46,6 +46,7 @@ export function GainTaxOnMutualFundsCalculator2025() {
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select fund category</option>
                 {CATEGORY_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -68,7 +69,15 @@ export function GainTaxOnMutualFundsCalculator2025() {
             <button type="button" className="paktax-btn paktax-btn-primary w-full" onClick={handleCalculate}>
               Calculate Tax
             </button>
-            <ResetButton onClick={() => { setGain(''); setResult(null); }}>Reset</ResetButton>
+            <ResetButton
+              onClick={() => {
+                setGain('');
+                setCategory('');
+                setResult(null);
+              }}
+            >
+              Reset
+            </ResetButton>
           </div>
         </div>
         <div className="lg:col-span-2">

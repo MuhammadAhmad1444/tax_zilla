@@ -4,7 +4,7 @@ import { TaxCalculatorShell, ResetButton, ResultBlock } from './calculatorUi2025
 import { formatPKR, clampNonNegative, parseMoney } from './taxUtils2025.js';
 
 export function SuperTaxCalculator2025() {
-  const [taxCategory, setTaxCategory] = useState('all'); // 'all' | 'bank'
+  const [taxCategory, setTaxCategory] = useState(''); // 'all' | 'bank'
   const [annualIncome, setAnnualIncome] = useState('');
   const [result, setResult] = useState(null);
 
@@ -39,7 +39,7 @@ export function SuperTaxCalculator2025() {
 
   const handleCalculate = () => {
     const income = clampNonNegative(parseMoney(annualIncome));
-    if (income <= 0) {
+    if (income <= 0 || !taxCategory) {
       setResult(null);
       return;
     }
@@ -53,6 +53,7 @@ export function SuperTaxCalculator2025() {
 
   const handleReset = () => {
     setAnnualIncome('');
+    setTaxCategory('');
     setResult(null);
   };
 

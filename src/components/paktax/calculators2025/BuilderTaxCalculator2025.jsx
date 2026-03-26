@@ -5,10 +5,10 @@ import { formatPKR, clampNonNegative, parseMoney } from './taxUtils2025.js';
 
 export function BuilderTaxCalculator2025({ variant = 'builder' }) {
   const isDeveloper = variant === 'developer';
-  const [propertyType, setPropertyType] = useState('residential'); // commercial|residential
+  const [propertyType, setPropertyType] = useState(''); // commercial|residential
   const [areaSqFt, setAreaSqFt] = useState('');
-  const [taxYear, setTaxYear] = useState(isDeveloper ? '2025-2026' : '2024-2025');
-  const [city, setCity] = useState('Hyderabad');
+  const [taxYear, setTaxYear] = useState('');
+  const [city, setCity] = useState('');
   const [result, setResult] = useState(null);
 
   const getRates = () => {
@@ -22,7 +22,7 @@ export function BuilderTaxCalculator2025({ variant = 'builder' }) {
 
   const handleCalculate = () => {
     const area = clampNonNegative(parseMoney(areaSqFt));
-    if (area <= 0) {
+    if (area <= 0 || !taxYear || !propertyType || !city) {
       setResult(null);
       return;
     }
@@ -65,6 +65,7 @@ export function BuilderTaxCalculator2025({ variant = 'builder' }) {
                 <div className="mb-4">
                   <label className="block text-sm font-bold text-gray-800 mb-2">Tax Year</label>
                   <select value={taxYear} onChange={(e) => setTaxYear(e.target.value)} className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white">
+                    <option value="" disabled>Select tax year</option>
                     {isDeveloper ? (
                       <>
                         <option value="2025-2026">2025-2026</option>
@@ -88,6 +89,7 @@ export function BuilderTaxCalculator2025({ variant = 'builder' }) {
                     onChange={(e) => setPropertyType(e.target.value)}
                     className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
                   >
+                    <option value="" disabled>Select property type</option>
                     <option value="commercial">Commercial Property</option>
                     <option value="residential">Residential Property</option>
                   </select>
@@ -96,6 +98,7 @@ export function BuilderTaxCalculator2025({ variant = 'builder' }) {
                 <div className="mb-4">
                   <label className="block text-sm font-bold text-gray-800 mb-2">City</label>
                   <select value={city} onChange={(e) => setCity(e.target.value)} className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white">
+                    <option value="" disabled>Select city</option>
                     <option>Karachi</option>
                     <option>Lahore</option>
                     <option>Islamabad</option>
@@ -129,7 +132,17 @@ export function BuilderTaxCalculator2025({ variant = 'builder' }) {
                 <button type="button" className="paktax-btn paktax-btn-primary w-full" onClick={handleCalculate}>
                   Calculate Tax
                 </button>
-                <ResetButton onClick={() => { setAreaSqFt(''); setResult(null); }}>Reset</ResetButton>
+                <ResetButton
+                  onClick={() => {
+                    setAreaSqFt('');
+                    setTaxYear('');
+                    setPropertyType('');
+                    setCity('');
+                    setResult(null);
+                  }}
+                >
+                  Reset
+                </ResetButton>
               </>
             ) : null}
           </div>

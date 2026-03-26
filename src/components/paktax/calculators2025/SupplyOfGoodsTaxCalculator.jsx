@@ -29,7 +29,7 @@ const BUSINESS_CATEGORIES = [
 ];
 
 export function SupplyOfGoodsTaxCalculator() {
-  const [filerStatus, setFilerStatus] = useState('atl');
+  const [filerStatus, setFilerStatus] = useState('');
   const [annualIncome, setAnnualIncome] = useState('');
   const [businessCategory, setBusinessCategory] = useState('');
   const [result, setResult] = useState(null);
@@ -41,7 +41,7 @@ export function SupplyOfGoodsTaxCalculator() {
 
   const handleCalculate = () => {
     const income = clampNonNegative(parseMoney(annualIncome));
-    if (income <= 0 || !selectedCategory) {
+    if (income <= 0 || !selectedCategory || !filerStatus) {
       setResult(null);
       return;
     }
@@ -92,6 +92,7 @@ export function SupplyOfGoodsTaxCalculator() {
                 onChange={(e) => setFilerStatus(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select filer status</option>
                 <option value="atl">ALT (Active Taxpayer)</option>
                 <option value="non-atl">NON-ATL (Non-Active Taxpayer)</option>
               </select>
@@ -134,6 +135,7 @@ export function SupplyOfGoodsTaxCalculator() {
             <ResetButton
               onClick={() => {
                 setAnnualIncome('');
+                setFilerStatus('');
                 setBusinessCategory('');
                 setResult(null);
               }}

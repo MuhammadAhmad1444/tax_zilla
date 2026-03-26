@@ -13,8 +13,8 @@ import {
 } from './taxUtils2025.js';
 
 export function FreelancerTaxCalculator2025() {
-  const [taxYear, setTaxYear] = useState('2025-2026');
-  const [psebRegistered, setPsebRegistered] = useState('yes');
+  const [taxYear, setTaxYear] = useState('');
+  const [psebRegistered, setPsebRegistered] = useState('');
   const [monthlyIncome, setMonthlyIncome] = useState('');
   const [yearlyIncome, setYearlyIncome] = useState('');
   const [period, setPeriod] = useState('monthly');
@@ -26,7 +26,7 @@ export function FreelancerTaxCalculator2025() {
 
   const handleCalculate = () => {
     const income = clampNonNegative(incomeAnnual);
-    if (income <= 0) {
+    if (income <= 0 || !taxYear || !psebRegistered) {
       setResult(null);
       return;
     }
@@ -45,6 +45,8 @@ export function FreelancerTaxCalculator2025() {
   const handleReset = () => {
     setMonthlyIncome('');
     setYearlyIncome('');
+    setTaxYear('');
+    setPsebRegistered('');
     setResult(null);
   };
 
@@ -88,10 +90,11 @@ export function FreelancerTaxCalculator2025() {
                 onChange={(e) => setTaxYear(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
-                <option>2025-2026</option>
-                <option>2024-2025</option>
-                <option>2023-2024</option>
-                <option>2022-2023</option>
+                <option value="" disabled>Select tax year</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+                <option value="2023-2024">2023-2024</option>
+                <option value="2022-2023">2022-2023</option>
               </select>
             </div>
 
@@ -102,6 +105,7 @@ export function FreelancerTaxCalculator2025() {
                 onChange={(e) => setPsebRegistered(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select PSEB status</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>

@@ -15,7 +15,7 @@ import {
 
 export function SalaryTaxCalculator2025() {
   const [taxPeriod, setTaxPeriod] = useState('monthly'); // 'monthly' | 'yearly'
-  const [year, setYear] = useState('2025-2026');
+  const [year, setYear] = useState('');
   const [monthlyIncome, setMonthlyIncome] = useState('');
   const [yearlyIncome, setYearlyIncome] = useState('');
   const [result, setResult] = useState(null);
@@ -46,6 +46,7 @@ export function SalaryTaxCalculator2025() {
   const handleReset = () => {
     setMonthlyIncome('');
     setYearlyIncome('');
+    setYear('');
     setResult(null);
   };
 

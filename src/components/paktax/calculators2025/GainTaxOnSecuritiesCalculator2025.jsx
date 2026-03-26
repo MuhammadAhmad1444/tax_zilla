@@ -36,16 +36,16 @@ const HOLDING_RATES = {
 export function GainTaxOnSecuritiesCalculator2025() {
   const [gain, setGain] = useState('');
   const [purchaseWindow, setPurchaseWindow] = useState('before-2024-07-01');
-  const [profile, setProfile] = useState('on-after-2022-individual-aop');
-  const [holdingPeriod, setHoldingPeriod] = useState('lte-1');
-  const [isAtl, setIsAtl] = useState(true);
+  const [profile, setProfile] = useState('');
+  const [holdingPeriod, setHoldingPeriod] = useState('');
+  const [isAtl, setIsAtl] = useState('');
   const [result, setResult] = useState(null);
 
   const shouldShowHolding = useMemo(() => purchaseWindow === 'before-2024-07-01', [purchaseWindow]);
 
   const handleCalculate = () => {
     const g = clampNonNegative(parseMoney(gain));
-    if (g <= 0) {
+    if (g <= 0 || !profile) {
       setResult(null);
       return;
     }
@@ -54,6 +54,10 @@ export function GainTaxOnSecuritiesCalculator2025() {
     let note = '';
 
     if (purchaseWindow === 'before-2024-07-01') {
+      if (profile !== 'future-commodity-pmex' && !holdingPeriod) {
+        setResult(null);
+        return;
+      }
       if (profile === 'future-commodity-pmex') {
         rate = 0.05;
         tax = g * rate;
@@ -66,11 +70,18 @@ export function GainTaxOnSecuritiesCalculator2025() {
         note = 'Rates shown are based on Individual/AOP slabs unless specific tables are provided.';
       }
     } else {
+      if (!isAtl) {
+        setResult(null);
+        return;
+      }
       const atlTax = g * 0.15;
       const progressiveTax = computeIncomeTaxSlabs2025(g).totalTax;
       rate = 0.15;
-      tax = isAtl ? atlTax : Math.max(atlTax, progressiveTax);
-      note = isAtl ? 'ATL flat 15% applied for securities acquired on/after 01 July 2024.' : 'Non-ATL uses slabs with minimum 15%.';
+      const atlSelected = isAtl === 'yes';
+      tax = atlSelected ? atlTax : Math.max(atlTax, progressiveTax);
+      note = atlSelected
+        ? 'ATL flat 15% applied for securities acquired on/after 01 July 2024.'
+        : 'Non-ATL uses slabs with minimum 15%.';
     }
 
     setResult({
@@ -121,6 +132,7 @@ export function GainTaxOnSecuritiesCalculator2025() {
                 onChange={(e) => setProfile(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select financial profile</option>
                 {PROFILE_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -137,6 +149,7 @@ export function GainTaxOnSecuritiesCalculator2025() {
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
                 disabled={!shouldShowHolding}
               >
+                <option value="" disabled>Select holding period</option>
                 {HOLDING_PERIODS.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -154,10 +167,11 @@ export function GainTaxOnSecuritiesCalculator2025() {
               <div className="mb-4">
                 <label className="block text-sm font-bold text-gray-800 mb-2">ATL Status</label>
                 <select
-                  value={isAtl ? 'yes' : 'no'}
-                  onChange={(e) => setIsAtl(e.target.value === 'yes')}
+                  value={isAtl}
+                  onChange={(e) => setIsAtl(e.target.value)}
                   className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
                 >
+                  <option value="" disabled>Select ATL status</option>
                   <option value="yes">ATL filer</option>
                   <option value="no">Non-ATL filer</option>
                 </select>
@@ -183,8 +197,9 @@ export function GainTaxOnSecuritiesCalculator2025() {
             <ResetButton
               onClick={() => {
                 setGain('');
-                setProfile('on-after-2022-individual-aop');
-                setHoldingPeriod('lte-1');
+                setProfile('');
+                setHoldingPeriod('');
+                setIsAtl('');
                 setResult(null);
               }}
             >

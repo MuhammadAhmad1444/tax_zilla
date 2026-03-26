@@ -4,9 +4,9 @@ import { TaxCalculatorShell, ResetButton, ResultBlock } from './calculatorUi2025
 import { formatPKR, clampNonNegative, parseMoney } from './taxUtils2025.js';
 
 export function WithholdingTaxOnBrokerageCommissionCalculator2025() {
-  const [agentType, setAgentType] = useState('other'); // advertising|life|other
-  const [taxYear, setTaxYear] = useState('2025-2026');
-  const [isFiler, setIsFiler] = useState('yes');
+  const [agentType, setAgentType] = useState(''); // advertising|life|other
+  const [taxYear, setTaxYear] = useState('');
+  const [isFiler, setIsFiler] = useState('');
   const [annualCommission, setAnnualCommission] = useState('');
   const [result, setResult] = useState(null);
 
@@ -19,7 +19,7 @@ export function WithholdingTaxOnBrokerageCommissionCalculator2025() {
 
   const handleCalculate = () => {
     const amt = clampNonNegative(parseMoney(annualCommission));
-    if (amt <= 0) {
+    if (amt <= 0 || !agentType || !taxYear || !isFiler) {
       setResult(null);
       return;
     }
@@ -42,10 +42,11 @@ export function WithholdingTaxOnBrokerageCommissionCalculator2025() {
                 onChange={(e) => setTaxYear(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
-                <option>2025-2026</option>
-                <option>2024-2025</option>
-                <option>2023-2024</option>
-                <option>2022-2023</option>
+                <option value="" disabled>Select tax year</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+                <option value="2023-2024">2023-2024</option>
+                <option value="2022-2023">2022-2023</option>
               </select>
             </div>
 
@@ -56,6 +57,7 @@ export function WithholdingTaxOnBrokerageCommissionCalculator2025() {
                 onChange={(e) => setIsFiler(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select filer status</option>
                 <option value="yes">Filer – Yes</option>
                 <option value="no">Filer – No</option>
               </select>
@@ -68,6 +70,7 @@ export function WithholdingTaxOnBrokerageCommissionCalculator2025() {
                 onChange={(e) => setAgentType(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
+                <option value="" disabled>Select agent category</option>
                 <option value="advertising">Advertising Agents</option>
                 <option value="life">Life Insurance Agents (commission &lt; 0.5M p.a.)</option>
                 <option value="other">Persons not covered above (Others)</option>
@@ -90,7 +93,17 @@ export function WithholdingTaxOnBrokerageCommissionCalculator2025() {
             <button type="button" className="paktax-btn paktax-btn-primary w-full" onClick={handleCalculate}>
               Calculate Tax
             </button>
-            <ResetButton onClick={() => { setAnnualCommission(''); setResult(null); }}>Reset</ResetButton>
+            <ResetButton
+              onClick={() => {
+                setAnnualCommission('');
+                setTaxYear('');
+                setIsFiler('');
+                setAgentType('');
+                setResult(null);
+              }}
+            >
+              Reset
+            </ResetButton>
           </div>
         </div>
         <div className="lg:col-span-2">

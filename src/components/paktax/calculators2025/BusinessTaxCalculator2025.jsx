@@ -15,7 +15,7 @@ import {
 
 export function BusinessTaxCalculator2025() {
   const [taxType, setTaxType] = useState('aop'); // 'aop' | 'individual'
-  const [year, setYear] = useState('2025-2026');
+  const [year, setYear] = useState('');
   const [businessAmount, setBusinessAmount] = useState('');
   const [result, setResult] = useState(null);
 
@@ -39,6 +39,7 @@ export function BusinessTaxCalculator2025() {
 
   const handleReset = () => {
     setBusinessAmount('');
+    setYear('');
     setResult(null);
   };
 
