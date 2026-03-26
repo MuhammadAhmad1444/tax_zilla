@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSearchParams } from 'react-router-dom';
 import { Droplets, Phone, Shield, Store, Users, Landmark, BriefcaseBusiness, CreditCard, Building2, Wrench, Scale, FileText } from 'lucide-react';
@@ -73,6 +73,23 @@ const RelatedCalculatorsBlock = ({ relatedButtons, goToCalculator }) => (
 const PakTaxCalculators2025Page = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeId = searchParams.get('calc');
+  const contentRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const scrollNow = () => {
+      if (contentRef.current) {
+        contentRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      window.scrollTo(0, 0);
+    };
+
+    scrollNow();
+    const timeoutId = window.setTimeout(scrollNow, 200);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activeId]);
 
   const goToCalculator = (id) => setSearchParams(id ? { calc: id } : {});
   const backToCalculators = () => setSearchParams({});
@@ -381,7 +398,7 @@ const PakTaxCalculators2025Page = () => {
       </section>
 
       <main className="section-padding bg-gray-50">
-        <div className="container-custom">
+        <div className="container-custom" ref={contentRef}>
           <section>{renderMain()}</section>
         </div>
       </main>

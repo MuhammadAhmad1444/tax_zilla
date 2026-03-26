@@ -90,7 +90,7 @@ export function ZakatCalculator2025() {
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
                 <option value="" disabled>
-                  Select a nisab option
+                  Select Nisab
                 </option>
                 <option value="silver">Silver Nisab</option>
                 <option value="gold">Gold Nisab</option>

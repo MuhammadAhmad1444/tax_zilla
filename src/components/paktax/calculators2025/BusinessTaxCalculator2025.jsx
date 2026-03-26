@@ -96,14 +96,15 @@ export function BusinessTaxCalculator2025() {
                 onChange={(e) => setYear(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-3 py-2 bg-white"
               >
-                <option>2025-2026</option>
-                <option>2024-2025</option>
-                <option>2023-2024</option>
-                <option>2022-2023</option>
-                <option>2021-2022</option>
-                <option>2020-2021</option>
-                <option>2019-2020</option>
-                <option>2018-2019</option>
+                <option value="" disabled>Select tax year</option>
+                <option value="2025-2026">2025-2026</option>
+                <option value="2024-2025">2024-2025</option>
+                <option value="2023-2024">2023-2024</option>
+                <option value="2022-2023">2022-2023</option>
+                <option value="2021-2022">2021-2022</option>
+                <option value="2020-2021">2020-2021</option>
+                <option value="2019-2020">2019-2020</option>
+                <option value="2018-2019">2018-2019</option>
               </select>
             </div>
 
