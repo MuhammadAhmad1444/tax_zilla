@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className="bg-[var(--color-dark-blue)] text-white border-t-4 border-[var(--color-gold)]">
       <div className="container-custom py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-12">
           {/* Company Info */}
           <div>
             <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
@@ -22,27 +22,41 @@ const Footer = () => {
             <SocialMediaLinks variant="footer" iconSize={18} />
           </div>
 
-          {/* Quick Links */}
+          {/* Services */}
           <div>
-            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Company</h4>
+            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Audit & Advisory</h4>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Home</Link></li>
-              <li><Link to="/about" className="text-gray-300 hover:text-white hover:pl-2 transition-all">About Us</Link></li>
-              <li><Link to="/why-choose-us" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Why Choose Us</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Contact Us</Link></li>
-              <li><Link to="/legal/privacy-policy" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Privacy Policy</Link></li>
+              <li><Link to="/services/audit-assistance" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Audit and Assurance</Link></li>
+              <li><Link to="/services/business-compliance" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Accounting & Bookkeeping</Link></li>
+              <li><Link to="/services/company-registration" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Company/Firm Registration</Link></li>
+              <li><Link to="/services/income-tax" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Income Tax Filing</Link></li>
+              <li><Link to="/contact" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Tax Consultancy</Link></li>
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Calculators */}
           <div>
-            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Our Services</h4>
+            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Calculators</h4>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/services/income-tax" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Income Tax Filing</Link></li>
-              <li><Link to="/services/ntn-registration" className="text-gray-300 hover:text-white hover:pl-2 transition-all">NTN Registration</Link></li>
-              <li><Link to="/services/sales-tax" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Sales Tax Returns</Link></li>
-              <li><Link to="/services/company-registration" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Company Registration</Link></li>
-              <li><Link to="/services/audit-assistance" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Audit Assistance</Link></li>
+              <li><Link to="/pakistan-tax-calculators?calc=salary" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Salary Tax Calculator</Link></li>
+              <li><Link to="/pakistan-tax-calculators?calc=freelancer" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Freelancer Tax Calculator</Link></li>
+              <li><Link to="/pakistan-tax-calculators?calc=business" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Business Tax Calculator</Link></li>
+              <li><Link to="/pakistan-tax-calculators?calc=super-tax" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Super Tax Calculator</Link></li>
+              <li><Link to="/pakistan-tax-calculators?calc=company-income" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Corporate Tax Calculator</Link></li>
+              <li><Link to="/pakistan-tax-calculators?calc=builder" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Builder Tax Calculator</Link></li>
+              <li><Link to="/pakistan-tax-calculators?calc=developer" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Developer Tax Calculator</Link></li>
+            </ul>
+          </div>
+
+          {/* Useful Links */}
+          <div>
+            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Useful Links</h4>
+            <ul className="space-y-3 text-sm">
+              <li><Link to="/income-tax-slabs" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Income Tax Slabs</Link></li>
+              <li><Link to="/about" className="text-gray-300 hover:text-white hover:pl-2 transition-all">About Us</Link></li>
+              <li><Link to="/resources" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Blogs</Link></li>
+              <li><Link to="/contact" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Contact Us</Link></li>
+              <li><Link to="/faqs" className="text-gray-300 hover:text-white hover:pl-2 transition-all">FAQs</Link></li>
             </ul>
           </div>
 
@@ -73,6 +87,13 @@ const Footer = () => {
                 </div>
               </li>
             </ul>
+          </div>
+        </div>
+
+        <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-center">
+          <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">Inspiration</div>
+          <div className="mt-2 text-sm text-gray-200">
+            Clarity in tax decisions starts with trusted tools. Explore calculators, verify numbers, and stay compliant with confidence.
           </div>
         </div>
       </div>
