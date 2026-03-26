@@ -3,6 +3,8 @@ node_modules/
 
 # Build output
 # dist/
+# allow build output
+!public_html/
 
 # Logs
 npm-debug.log*
