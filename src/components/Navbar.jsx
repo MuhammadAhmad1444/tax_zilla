@@ -292,21 +292,28 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-[var(--color-dark-blue)] shadow-2xl py-2' : 'bg-black/90 backdrop-blur-md py-4'
+        isScrolled ? 'bg-brand-solid shadow-2xl py-2' : 'bg-black/90 backdrop-blur-md py-4'
       }`}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
-            <motion.h1
-              whileHover={{ scale: 1.05 }}
-              className="text-2xl md:text-3xl font-bold"
-              style={{ fontFamily: 'var(--font-heading)' }}
-            >
-              <span className="text-white">Tax </span>
-              <span className="text-gradient-gold">Zilla</span>
-            </motion.h1>
+            <motion.div whileHover={{ scale: 1.03 }} className="flex items-center gap-3">
+              <img
+                src="/images/tax-zilla-logo.png"
+                alt="Tax Zilla logo"
+                className="h-9 w-9 rounded-md object-contain bg-white/5 ring-1 ring-white/10"
+                loading="eager"
+              />
+              <h1
+                className="text-2xl md:text-3xl font-bold"
+                style={{ fontFamily: 'var(--font-heading)' }}
+              >
+                <span className="text-white">Tax </span>
+                <span className="text-gradient-gold">Zilla</span>
+              </h1>
+            </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -385,7 +392,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="xl:hidden bg-[var(--color-dark-blue)] border-t border-[var(--color-gold)]/20 overflow-hidden absolute w-full"
+            className="xl:hidden bg-brand-solid border-t border-[var(--color-gold)]/20 overflow-hidden absolute w-full"
           >
             <div className="container-custom py-4 space-y-2 h-[80vh] overflow-y-auto">
               {navItems.map((item) => (

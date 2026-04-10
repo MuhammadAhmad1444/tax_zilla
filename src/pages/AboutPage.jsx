@@ -14,11 +14,12 @@ const AboutPage = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-[var(--color-dark-blue)] text-white overflow-hidden dark-section">
+      <section className="relative pt-32 pb-20 bg-brand-dark text-white overflow-hidden dark-section">
         <div className="absolute inset-0 opacity-40">
           <img src="https://images.unsplash.com/photo-1695487562553-c71a77e6c656" alt="Office Background" className="w-full h-full object-cover" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-dark-blue)] to-transparent"></div>
+        <div className="absolute inset-0 bg-brand-overlay opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         
         <div className="container-custom relative z-10 text-center">
           <motion.div
@@ -101,14 +102,15 @@ const AboutPage = () => {
       </section>
 
       {/* Why We're Different */}
-      <section className="section-padding bg-[var(--color-dark-blue)] text-white dark-section">
+      <section className="section-padding bg-brand-dark text-white dark-section relative overflow-hidden">
+        <div className="absolute inset-0 bg-brand-overlay opacity-70" />
         <div className="container-custom">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 relative z-10">
             <h2 className="text-4xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Why We Are Different</h2>
-            <p className="text-gray-300">Setting the standard for professional consultancy in Pakistan</p>
+            <p className="text-on-dark-muted">Setting the standard for professional consultancy in Pakistan</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
              {[
                "Proactive Compliance Management",
                "Personalized Legal Strategies",
@@ -116,7 +118,7 @@ const AboutPage = () => {
                "Dedicated Case Managers",
                "Rapid Response Time"
              ].map((item, idx) => (
-               <div key={idx} className="flex items-center space-x-4 p-4 bg-white/5 rounded-lg border border-white/10">
+              <div key={idx} className="flex items-center space-x-4 p-4 bg-white/5 rounded-lg border border-white/10">
                  <Award className="text-[var(--color-gold)] flex-shrink-0" />
                  <span className="font-semibold">{item}</span>
                </div>

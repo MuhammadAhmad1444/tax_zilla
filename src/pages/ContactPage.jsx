@@ -13,10 +13,11 @@ const ContactPage = () => {
         <meta name="description" content="Contact Tax Zilla Consultancy in Lahore. Phone: +92 339 9993308. Address: 7A, Malik Park Main Street, Main Canal Road, Mughalpura." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-gradient-to-r from-[var(--color-dark-blue)] to-black text-white text-center dark-section">
-        <div className="container-custom">
+      <section className="pt-32 pb-20 bg-brand-dark text-white text-center dark-section relative overflow-hidden">
+        <div className="absolute inset-0 bg-brand-overlay opacity-80" />
+        <div className="container-custom relative z-10">
           <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Get in Touch</h1>
-          <p className="text-xl text-gray-300">We are here to assist you with professional tax and legal advice</p>
+          <p className="text-xl text-on-dark-muted">We are here to assist you with professional tax and legal advice</p>
         </div>
       </section>
 

@@ -19,13 +19,14 @@ const IndustriesPage = () => {
         <meta name="description" content="Specialized tax and legal services for Freelancers, Startups, SMEs, and Corporations in Pakistan." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative dark-section">
+      <section className="pt-32 pb-20 bg-brand-dark text-white relative dark-section overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1573165759995-5865a394a1aa')] bg-cover bg-center opacity-10"></div>
+        <div className="absolute inset-0 bg-brand-overlay opacity-75" />
         <div className="container-custom relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
             Industries We Serve
           </h1>
-          <p className="text-xl max-w-3xl mx-auto text-gray-300">
+          <p className="text-xl max-w-3xl mx-auto text-on-dark-muted">
             Specialized expertise tailored to the unique regulatory challenges of your sector.
           </p>
         </div>

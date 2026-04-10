@@ -122,12 +122,15 @@ const OurProcessPage = () => {
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="container-custom text-center">
-          <div className="max-w-3xl mx-auto rounded-3xl p-10 md:p-16 text-[var(--color-dark-blue)] shadow-2xl relative overflow-hidden bg-white border border-gray-100">
-            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[var(--color-gold)]/12 blur-3xl" />
-            <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-gray-50 to-transparent" />
+          <div className="max-w-3xl mx-auto rounded-3xl p-10 md:p-16 shadow-2xl relative overflow-hidden bg-brand-dark dark-section">
+            <div className="absolute inset-0 opacity-85 bg-brand-overlay" />
+            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[var(--color-gold)]/18 blur-3xl" />
+            <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-black/40 to-transparent" />
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold mb-6 text-[var(--color-dark-blue)]">Ready to Start Your Journey?</h2>
-              <p className="text-lg text-gray-700 mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
+                Ready to Start Your Journey?
+              </h2>
+              <p className="text-lg text-on-dark-muted mb-8">
                 Let us handle the complexities while you focus on what you do best.
               </p>
               <Button 

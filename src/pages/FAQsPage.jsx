@@ -107,13 +107,14 @@ const FAQsPage = () => {
         <meta name="description" content="Find answers to common questions about FBR filing, NTN registration, Sales Tax, and Company Registration in Pakistan." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative overflow-hidden dark-section">
+      <section className="pt-32 pb-20 bg-brand-dark text-white relative overflow-hidden dark-section">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554224155-a1487473ffd9')] bg-cover bg-center opacity-10"></div>
+        <div className="absolute inset-0 bg-brand-overlay opacity-75" />
         <div className="container-custom relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
             Frequently Asked Questions
           </h1>
-          <p className="text-xl max-w-2xl mx-auto text-gray-300 mb-8">
+          <p className="text-xl max-w-2xl mx-auto text-on-dark-muted mb-8">
             Have questions about taxes or legal compliance? We have answers.
           </p>
           

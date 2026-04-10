@@ -20,13 +20,14 @@ const ResourcesPage = () => {
         <meta name="description" content="Access free tax guides, compliance checklists, and business resources for Pakistan's legal landscape." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative dark-section">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493882552576-fce827c6161e')] bg-cover bg-center opacity-15"></div>
+      <section className="pt-32 pb-20 bg-brand-dark text-white relative dark-section">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493882552576-fce827c6161e')] bg-cover bg-center opacity-10"></div>
+        <div className="absolute inset-0 bg-brand-overlay opacity-80" />
         <div className="container-custom relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
             Knowledge Base
           </h1>
-          <p className="text-xl max-w-3xl mx-auto text-gray-300">
+          <p className="text-xl max-w-3xl mx-auto text-on-dark-muted">
             Empowering you with the information you need to make informed decisions.
           </p>
         </div>
@@ -97,14 +98,16 @@ const ResourcesPage = () => {
             ))}
           </div>
 
-          <div className="mt-16 bg-[var(--color-dark-blue)] rounded-2xl p-8 md:p-12 text-center dark-section">
+          <div className="mt-16 rounded-2xl p-8 md:p-12 text-center bg-brand-dark dark-section relative overflow-hidden">
+            <div className="absolute inset-0 bg-brand-overlay opacity-75" />
+            <div className="absolute -top-20 -right-24 h-64 w-64 rounded-full bg-[var(--color-gold)]/16 blur-3xl" />
             <h3 className="text-2xl font-bold mb-4">Need a Specific Guide?</h3>
-            <p className="mb-6 text-on-dark-muted">Subscribe to our newsletter to get the latest tax updates delivered to your inbox.</p>
-            <div className="max-w-md mx-auto flex gap-2">
+            <p className="mb-6 text-on-dark-muted relative z-10">Subscribe to our newsletter to get the latest tax updates delivered to your inbox.</p>
+            <div className="max-w-md mx-auto flex gap-2 relative z-10">
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                className="flex-grow px-4 py-3 rounded-lg text-gray-900 placeholder:text-gray-500 border border-white/20 bg-white/95 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]/30 focus:border-[var(--color-gold)]"
+                className="flex-grow px-4 py-3 rounded-lg text-gray-900 placeholder:text-gray-500 border border-white/15 bg-white/95 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]/35 focus:border-[var(--color-gold)]"
               />
               <Button variant="primary" size="md">Subscribe</Button>
             </div>

@@ -6,6 +6,10 @@
   --color-gold: #D4AF37;
   --color-gold-dark: #B8941F;
   --color-gold-light: #E8C547;
+  /* Brand navy used for dark sections (background) */
+  --color-brand-navy: #0b1c29;
+  --color-brand-navy-2: #102a3d;
+  /* Keep for legacy usage as an accent/text color */
   --color-dark-blue: #1a3a52;
   --color-white: #FFFFFF;
   --color-light-gray: #F5F5F5;
@@ -13,8 +17,8 @@
   --color-dark-gray: #333333;
   --color-text: #111827;
   --color-text-muted: #4b5563;
-  --color-text-on-dark: #f8fafc;
-  --color-text-on-dark-muted: #cbd5e1;
+  --color-text-on-dark: #f9fafb;
+  --color-text-on-dark-muted: #d1d5db;
   --color-surface: #ffffff;
   --color-surface-muted: #f7f8fb;
   --color-border: #e5e7eb;
@@ -34,8 +38,11 @@
   
   /* Gradients */
   --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #E8C547 100%);
-  --gradient-dark: linear-gradient(135deg, #000000 0%, #1a3a52 100%);
-  --gradient-overlay: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(26, 58, 82, 0.8) 100%);
+  --gradient-dark: linear-gradient(135deg, var(--color-brand-navy) 0%, var(--color-brand-navy-2) 55%, #060b10 100%);
+  --gradient-overlay: linear-gradient(135deg, rgba(6, 11, 16, 0.72) 0%, rgba(16, 42, 61, 0.72) 55%, rgba(6, 11, 16, 0.78) 100%);
+  --gradient-dark-soft: radial-gradient(1200px circle at 20% 10%, rgba(212, 175, 55, 0.12), transparent 55%),
+    radial-gradient(900px circle at 80% 0%, rgba(59, 130, 246, 0.10), transparent 55%),
+    var(--gradient-dark);
   
   /* Spacing */
   --spacing-xs: 0.5rem;

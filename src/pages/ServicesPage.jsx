@@ -20,7 +20,8 @@ const ServicesPage = () => {
       </Helmet>
 
       <section className="relative pt-32 pb-24 text-white overflow-hidden dark-section">
-        <div className="absolute inset-0 bg-[var(--color-dark-blue)]" />
+        <div className="absolute inset-0 bg-brand-dark" />
+        <div className="absolute inset-0 bg-brand-overlay opacity-70" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,128,0.18),_transparent_55%)]" />
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[rgba(255,215,128,0.12)] blur-2xl" />
         <div className="absolute bottom-0 left-0 h-44 w-full bg-gradient-to-t from-black/40 to-transparent" />

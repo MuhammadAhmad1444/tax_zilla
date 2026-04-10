@@ -30,12 +30,13 @@ const ServiceLayout = ({ title, description, benefits, process, laws, serviceId,
         <meta name="description" content={description} />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative overflow-hidden dark-section">
+      <section className="pt-32 pb-20 bg-brand-dark text-white relative overflow-hidden dark-section">
         {image && (
           <div className="absolute inset-0 opacity-10">
             <img src={image} alt={title} className="w-full h-full object-cover" />
           </div>
         )}
+        <div className="absolute inset-0 bg-brand-overlay opacity-75" />
         <div className="container-custom relative z-10">
           <Breadcrumb items={title} />
           <div className="text-center max-w-4xl mx-auto">

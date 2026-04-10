@@ -45,7 +45,8 @@ const HomePage = () => {
           className="absolute inset-0 z-0 bg-cover bg-center bg-fixed"
           style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1686149115308-bfdb03c8582e)' }}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0b1c29] via-[#0d1f2e] to-black opacity-95"></div>
+          <div className="absolute inset-0 bg-brand-dark opacity-95" />
+          <div className="absolute inset-0 bg-brand-overlay opacity-75" />
         </div>
 
         <div className="relative z-10 container-custom px-4 pt-20">
@@ -145,12 +146,13 @@ const HomePage = () => {
       </section>
 
       {/* Process Section Preview */}
-      <section className="py-20 bg-[var(--color-dark-blue)] text-white dark-section">
+      <section className="py-20 bg-brand-dark text-white dark-section relative overflow-hidden">
+        <div className="absolute inset-0 bg-brand-overlay opacity-70" />
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl md:text-5xl font-bold mb-6">Streamlined Process for Maximum Efficiency</h2>
-              <p className="text-gray-300 text-lg mb-8">We don't just file papers; we guide you through a proven methodology designed to minimize risk and maximize compliance.</p>
+              <p className="text-on-dark-muted text-lg mb-8">We don't just file papers; we guide you through a proven methodology designed to minimize risk and maximize compliance.</p>
               
               <div className="space-y-6">
                  {[
@@ -158,7 +160,7 @@ const HomePage = () => {
                    "Document Gathering & Verification",
                    "Expert Filing & Compliance Check"
                  ].map((step, i) => (
-                   <div key={i} className="flex items-center gap-4">
+                   <div key={i} className="flex items-center gap-4 relative z-10">
                      <div className="w-10 h-10 rounded-full bg-[var(--color-gold)] text-black flex items-center justify-center font-bold">
                        {i+1}
                      </div>
@@ -167,7 +169,7 @@ const HomePage = () => {
                  ))}
               </div>
               
-              <div className="mt-10">
+              <div className="mt-10 relative z-10">
                 <Button variant="primary" onClick={() => navigate('/our-process')}>See Full Process</Button>
               </div>
             </div>
