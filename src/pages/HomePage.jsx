@@ -39,7 +39,7 @@ const HomePage = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden dark-section">
         {/* Background Image with Gradient Overlay */}
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center bg-fixed"
@@ -145,7 +145,7 @@ const HomePage = () => {
       </section>
 
       {/* Process Section Preview */}
-      <section className="py-20 bg-[var(--color-dark-blue)] text-white">
+      <section className="py-20 bg-[var(--color-dark-blue)] text-white dark-section">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>

@@ -19,7 +19,7 @@ const IndustriesPage = () => {
         <meta name="description" content="Specialized tax and legal services for Freelancers, Startups, SMEs, and Corporations in Pakistan." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative">
+      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative dark-section">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1573165759995-5865a394a1aa')] bg-cover bg-center opacity-10"></div>
         <div className="container-custom relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
@@ -43,7 +43,7 @@ const IndustriesPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300"
+                className="card-surface overflow-hidden group"
               >
                 <div className="p-8 border-b border-gray-100">
                   <div className="flex items-center gap-4 mb-4">

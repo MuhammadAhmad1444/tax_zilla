@@ -13,7 +13,7 @@
 body {
   font-family: var(--font-body);
   background-color: var(--color-white);
-  color: var(--color-dark-gray);
+  color: var(--color-text);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -90,6 +90,53 @@ input, textarea, select {
 
 .section-padding {
   padding: 4rem 0;
+}
+
+.surface-muted {
+  background: var(--color-surface-muted);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-on-dark {
+  color: var(--color-text-on-dark);
+}
+
+.text-on-dark-muted {
+  color: var(--color-text-on-dark-muted);
+}
+
+.card-surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.card-surface:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.dark-section {
+  color: var(--color-text-on-dark);
+}
+
+.dark-section h1,
+.dark-section h2,
+.dark-section h3,
+.dark-section h4,
+.dark-section h5,
+.dark-section h6 {
+  color: var(--color-text-on-dark);
+}
+
+.dark-section .text-muted {
+  color: var(--color-text-on-dark-muted);
 }
 
 @media (min-width: 768px) {

@@ -399,7 +399,7 @@ const PakTaxCalculators2025Page = () => {
       </Helmet>
 
       {/* Match ServicesPage start (hero + theme) */}
-      <section className="relative pt-32 pb-20 bg-[var(--color-dark-blue)] text-white text-center overflow-hidden">
+      <section className="relative pt-32 pb-20 bg-[var(--color-dark-blue)] text-white text-center overflow-hidden dark-section">
         {/* Dull background image (same approach used on other pages) */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493882552576-fce827c6161e')] bg-cover bg-center opacity-15" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#0b1c29]/80 via-[#0d1f2e]/60 to-black/70" />

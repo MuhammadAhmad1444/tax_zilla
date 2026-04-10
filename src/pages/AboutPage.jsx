@@ -14,7 +14,7 @@ const AboutPage = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-[var(--color-dark-blue)] text-white overflow-hidden">
+      <section className="relative pt-32 pb-20 bg-[var(--color-dark-blue)] text-white overflow-hidden dark-section">
         <div className="absolute inset-0 opacity-40">
           <img src="https://images.unsplash.com/photo-1695487562553-c71a77e6c656" alt="Office Background" className="w-full h-full object-cover" />
         </div>
@@ -54,19 +54,19 @@ const AboutPage = () => {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-gray-50 p-6 rounded-xl text-center shadow-md">
+              <div className="card-surface p-6 text-center">
                 <h3 className="text-4xl font-bold text-[var(--color-gold)] mb-2">100%</h3>
                 <p className="font-semibold">Compliance Rate</p>
               </div>
-              <div className="bg-gray-50 p-6 rounded-xl text-center shadow-md">
+              <div className="card-surface p-6 text-center">
                 <h3 className="text-4xl font-bold text-[var(--color-gold)] mb-2">500+</h3>
                 <p className="font-semibold">Clients Served</p>
               </div>
-              <div className="bg-gray-50 p-6 rounded-xl text-center shadow-md">
+              <div className="card-surface p-6 text-center">
                 <h3 className="text-4xl font-bold text-[var(--color-gold)] mb-2">5+</h3>
                 <p className="font-semibold">Years Experience</p>
               </div>
-              <div className="bg-gray-50 p-6 rounded-xl text-center shadow-md">
+              <div className="card-surface p-6 text-center">
                 <h3 className="text-4xl font-bold text-[var(--color-gold)] mb-2">24/7</h3>
                 <p className="font-semibold">Support</p>
               </div>
@@ -101,7 +101,7 @@ const AboutPage = () => {
       </section>
 
       {/* Why We're Different */}
-      <section className="section-padding bg-[var(--color-dark-blue)] text-white">
+      <section className="section-padding bg-[var(--color-dark-blue)] text-white dark-section">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Why We Are Different</h2>

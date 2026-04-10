@@ -11,6 +11,14 @@
   --color-light-gray: #F5F5F5;
   --color-gray: #CCCCCC;
   --color-dark-gray: #333333;
+  --color-text: #111827;
+  --color-text-muted: #4b5563;
+  --color-text-on-dark: #f8fafc;
+  --color-text-on-dark-muted: #cbd5e1;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f7f8fb;
+  --color-border: #e5e7eb;
+  --color-border-soft: #eef2f7;
   
   /* Typography */
   --font-heading: 'Playfair Display', serif;

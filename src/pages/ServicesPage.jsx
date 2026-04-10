@@ -19,7 +19,7 @@ const ServicesPage = () => {
         <meta name="description" content="Comprehensive tax and legal services including Income Tax, Sales Tax, Company Registration, and Audit support in Pakistan." />
       </Helmet>
 
-      <section className="relative pt-32 pb-24 text-white overflow-hidden">
+      <section className="relative pt-32 pb-24 text-white overflow-hidden dark-section">
         <div className="absolute inset-0 bg-[var(--color-dark-blue)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,128,0.18),_transparent_55%)]" />
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[rgba(255,215,128,0.12)] blur-2xl" />
@@ -66,7 +66,7 @@ const ServicesPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.02 }}
-                className="group bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all border border-gray-100 hover:border-[var(--color-gold)]"
+                className="group card-surface p-8"
               >
                 <div className="flex items-center justify-between">
                   <div className="h-12 w-12 rounded-2xl bg-[var(--color-gold)]/15 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-colors">

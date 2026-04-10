@@ -29,7 +29,7 @@ const ServiceDetailGeneric = () => {
         <meta name="description" content={service.desc} />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white text-center">
+      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white text-center dark-section">
         <div className="container-custom">
           <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>{service.title}</h1>
           <p className="text-xl text-gray-300">{service.desc}</p>

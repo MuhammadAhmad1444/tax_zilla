@@ -107,7 +107,7 @@ const FAQsPage = () => {
         <meta name="description" content="Find answers to common questions about FBR filing, NTN registration, Sales Tax, and Company Registration in Pakistan." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative overflow-hidden">
+      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative overflow-hidden dark-section">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554224155-a1487473ffd9')] bg-cover bg-center opacity-10"></div>
         <div className="container-custom relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>

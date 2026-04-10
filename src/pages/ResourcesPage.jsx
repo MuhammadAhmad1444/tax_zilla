@@ -20,7 +20,7 @@ const ResourcesPage = () => {
         <meta name="description" content="Access free tax guides, compliance checklists, and business resources for Pakistan's legal landscape." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative">
+      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative dark-section">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493882552576-fce827c6161e')] bg-cover bg-center opacity-15"></div>
         <div className="container-custom relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
@@ -58,7 +58,7 @@ const ResourcesPage = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all border border-gray-100 flex flex-col"
+                className="card-surface p-6 flex flex-col"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="p-3 bg-blue-50 text-[var(--color-dark-blue)] rounded-lg">
@@ -97,14 +97,14 @@ const ResourcesPage = () => {
             ))}
           </div>
 
-          <div className="mt-16 bg-[var(--color-dark-blue)] rounded-2xl p-8 md:p-12 text-center text-white">
+          <div className="mt-16 bg-[var(--color-dark-blue)] rounded-2xl p-8 md:p-12 text-center dark-section">
             <h3 className="text-2xl font-bold mb-4">Need a Specific Guide?</h3>
-            <p className="mb-6 text-gray-300">Subscribe to our newsletter to get the latest tax updates delivered to your inbox.</p>
+            <p className="mb-6 text-on-dark-muted">Subscribe to our newsletter to get the latest tax updates delivered to your inbox.</p>
             <div className="max-w-md mx-auto flex gap-2">
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                className="flex-grow px-4 py-3 rounded-lg text-black focus:outline-none"
+                className="flex-grow px-4 py-3 rounded-lg text-gray-900 placeholder:text-gray-500 border border-white/20 bg-white/95 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]/30 focus:border-[var(--color-gold)]"
               />
               <Button variant="primary" size="md">Subscribe</Button>
             </div>

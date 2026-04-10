@@ -9,7 +9,7 @@ const FeatureCard = ({ icon: Icon, title, description }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.05 }}
-      className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-all duration-300 text-center"
+      className="card-surface p-6 text-center"
     >
       <div className="flex justify-center mb-4">
         <div className="w-14 h-14 bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-gold-light)] rounded-full flex items-center justify-center">

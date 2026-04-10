@@ -10,7 +10,7 @@ const ServiceCard = ({ icon: Icon, title, description, benefits, onLearnMore }) 
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       whileHover={{ y: -10, boxShadow: 'var(--shadow-2xl)' }}
-      className="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 border border-gray-100"
+      className="card-surface p-8"
     >
       <div className="flex justify-center mb-6">
         <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-gold-light)] rounded-full flex items-center justify-center">

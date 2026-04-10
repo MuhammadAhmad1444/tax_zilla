@@ -13,7 +13,7 @@ const ContactPage = () => {
         <meta name="description" content="Contact Tax Zilla Consultancy in Lahore. Phone: +92 339 9993308. Address: 7A, Malik Park Main Street, Main Canal Road, Mughalpura." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-gradient-to-r from-[var(--color-dark-blue)] to-black text-white text-center">
+      <section className="pt-32 pb-20 bg-gradient-to-r from-[var(--color-dark-blue)] to-black text-white text-center dark-section">
         <div className="container-custom">
           <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Get in Touch</h1>
           <p className="text-xl text-gray-300">We are here to assist you with professional tax and legal advice</p>
@@ -31,7 +31,7 @@ const ContactPage = () => {
             <div>
               <SectionHeading title="Contact Information" subtitle="Visit our office or call us directly" centered={false} />
               
-              <div className="space-y-8 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+              <div className="card-surface p-8 space-y-8">
                 <div className="flex items-start gap-4">
                   <div className="bg-[var(--color-gold)] p-3 rounded-full text-white">
                     <Phone size={24} />
@@ -76,7 +76,7 @@ const ContactPage = () => {
               </div>
 
               {/* Social Media Section */}
-              <div className="mt-8 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+              <div className="mt-8 card-surface p-8">
                 <h3 className="font-bold text-xl mb-6 font-heading text-[var(--color-dark-blue)]">Connect With Us</h3>
                 <SocialMediaLinks variant="contact" />
               </div>

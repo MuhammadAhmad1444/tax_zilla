@@ -26,7 +26,7 @@ const WhyChooseUsPage = () => {
         <meta name="description" content="Discover why businesses in Pakistan trust Tax Zilla. Expertise, timeliness, and confidentiality are our core values." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white text-center">
+      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white text-center dark-section">
         <div className="container-custom">
           <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Why Choose Tax Zilla?</h1>
           <p className="text-xl text-gray-300">Excellence in every engagement</p>
@@ -43,7 +43,7 @@ const WhyChooseUsPage = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="p-8 border border-gray-100 rounded-xl shadow-lg hover:shadow-xl transition-all"
+                className="card-surface p-8"
               >
                 <reason.icon size={40} className="text-[var(--color-gold)] mb-4" />
                 <h3 className="text-xl font-bold mb-3">{reason.title}</h3>

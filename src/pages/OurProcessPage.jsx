@@ -61,7 +61,7 @@ const OurProcessPage = () => {
         <meta name="description" content="Understand the step-by-step process of working with Tax Zilla. From consultation to delivery, we ensure a smooth, transparent, and professional experience." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative overflow-hidden">
+      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative overflow-hidden dark-section">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554224154-22dec7ec8818')] bg-cover bg-center opacity-20"></div>
         <div className="container-custom relative z-10 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
@@ -122,19 +122,23 @@ const OurProcessPage = () => {
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="container-custom text-center">
-          <div className="max-w-3xl mx-auto bg-gradient-to-r from-[var(--color-dark-blue)] to-black rounded-3xl p-10 md:p-16 text-white shadow-2xl">
-            <h2 className="text-3xl font-bold mb-6">Ready to Start Your Journey?</h2>
-            <p className="text-lg text-gray-300 mb-8">
-              Let us handle the complexities while you focus on what you do best.
-            </p>
-            <Button 
-              variant="primary" 
-              size="lg" 
-              onClick={() => navigate('/contact')}
-              className="px-10 py-4 font-bold text-lg"
-            >
-              Start Consultation
-            </Button>
+          <div className="max-w-3xl mx-auto rounded-3xl p-10 md:p-16 text-[var(--color-dark-blue)] shadow-2xl relative overflow-hidden bg-white border border-gray-100">
+            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[var(--color-gold)]/12 blur-3xl" />
+            <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-gray-50 to-transparent" />
+            <div className="relative z-10">
+              <h2 className="text-3xl font-bold mb-6 text-[var(--color-dark-blue)]">Ready to Start Your Journey?</h2>
+              <p className="text-lg text-gray-700 mb-8">
+                Let us handle the complexities while you focus on what you do best.
+              </p>
+              <Button 
+                variant="primary" 
+                size="lg" 
+                onClick={() => navigate('/contact')}
+                className="px-10 py-4 font-bold text-lg"
+              >
+                Start Consultation
+              </Button>
+            </div>
           </div>
         </div>
       </section>
