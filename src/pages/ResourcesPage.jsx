@@ -22,7 +22,7 @@ const ResourcesPage = () => {
         <meta name="description" content="Access free tax guides, compliance checklists, and business resources for Pakistan's legal landscape." />
       </Helmet>
 
-      <section className="relative pt-32 pb-24 text-white overflow-hidden dark-section">
+      <section className="relative overflow-hidden px-2 pb-16 pt-28 text-white dark-section sm:pb-20 sm:pt-32 md:pb-24">
         <div className="absolute inset-0 bg-brand-dark" />
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493882552576-fce827c6161e')] bg-cover bg-center opacity-10" />
         <div className="absolute inset-0 bg-brand-overlay opacity-75" />
@@ -35,7 +35,7 @@ const ResourcesPage = () => {
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.1 }}
-            className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.35em] text-[var(--color-gold)]"
+            className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-gold)] sm:gap-3 sm:px-5 sm:text-xs sm:tracking-[0.35em]"
           >
             Knowledge & tools
           </motion.div>
@@ -43,7 +43,7 @@ const ResourcesPage = () => {
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT, delay: reduce ? 0 : 0.18 }}
-            className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight"
+            className="mt-6 mb-6 px-2 text-3xl font-extrabold leading-tight text-white break-words sm:text-4xl md:text-5xl lg:text-6xl"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             Knowledge Base
@@ -52,7 +52,7 @@ const ResourcesPage = () => {
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.26 }}
-            className="text-lg md:text-xl max-w-3xl mx-auto text-gray-200 font-light leading-relaxed"
+            className="mx-auto max-w-3xl px-2 text-base font-light leading-relaxed text-gray-200 sm:text-lg md:text-xl"
           >
             Empowering you with the information you need to make informed decisions.
           </motion.p>
@@ -62,12 +62,13 @@ const ResourcesPage = () => {
       <section className="section-padding bg-gradient-to-b from-gray-50 via-white to-gray-50">
         <div className="container-custom">
           {/* Tabs */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="mb-12 flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 px-1">
             {categories.map(tab => (
               <button
                 key={tab}
+                type="button"
                 onClick={() => setActiveTab(tab)}
-                className={`px-6 py-2 rounded-full font-semibold transition-all border ${
+                className={`rounded-full border px-3 py-2 text-xs font-semibold transition-all sm:px-5 sm:py-2 sm:text-sm ${
                   activeTab === tab
                     ? 'bg-[var(--color-gold)] text-black border-[var(--color-gold)] shadow-lg shadow-[rgba(255,215,128,0.25)]'
                     : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300 hover:bg-gray-100'
@@ -90,7 +91,7 @@ const ResourcesPage = () => {
                 key={res.id}
                 variants={getStaggerItem(reduce)}
                 whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.22, ease: EASE_OUT } }}
-                className="group card-surface p-6 flex flex-col"
+                className="group card-surface flex flex-col p-5 sm:p-6"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="h-12 w-12 rounded-2xl bg-[var(--color-gold)]/15 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-colors">
@@ -130,7 +131,7 @@ const ResourcesPage = () => {
           </motion.div>
 
           <motion.div
-            className="mt-16 rounded-2xl border border-white/15 bg-[var(--color-brand-navy)]/90 p-8 md:p-12 text-center relative overflow-hidden shadow-2xl shadow-black/25"
+            className="relative mt-16 overflow-hidden rounded-2xl border border-white/15 bg-[var(--color-brand-navy)]/90 p-6 text-center shadow-2xl shadow-black/25 sm:p-8 md:p-12"
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_REVEAL}
@@ -145,7 +146,7 @@ const ResourcesPage = () => {
                 Newsletter
               </div>
               <h3
-                className="mt-5 text-3xl md:text-4xl font-extrabold text-white tracking-tight drop-shadow-sm"
+                className="mt-5 break-words text-2xl font-extrabold tracking-tight text-white drop-shadow-sm sm:text-3xl md:text-4xl"
                 style={{ fontFamily: 'var(--font-heading)' }}
               >
                 Need a Specific Guide?
@@ -153,13 +154,13 @@ const ResourcesPage = () => {
               <p className="mt-4 mb-8 text-base md:text-lg text-white/90 font-medium leading-relaxed">
                 Subscribe to our newsletter to get the latest tax updates delivered to your inbox.
               </p>
-              <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+              <div className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-grow min-w-0 px-4 py-3.5 rounded-xl text-gray-900 placeholder:text-gray-500 border border-white/20 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] focus:border-[var(--color-gold)] shadow-inner"
+                  className="min-h-[48px] min-w-0 flex-1 rounded-xl border border-white/20 bg-white px-4 py-3 text-gray-900 shadow-inner placeholder:text-gray-500 focus:border-[var(--color-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] sm:py-3.5"
                 />
-                <Button variant="primary" size="md" className="sm:shrink-0 font-bold shadow-md">
+                <Button variant="primary" size="md" className="min-h-[48px] w-full font-bold shadow-md sm:w-auto sm:shrink-0">
                   Subscribe
                 </Button>
               </div>

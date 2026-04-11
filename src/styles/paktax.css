@@ -4,6 +4,8 @@
   font-family: var(--font-body);
   background: #ffffff;
   color: #1f2937;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .paktax-gradient-slate {
@@ -26,9 +28,21 @@
 
 .paktax-tile-media {
   position: relative;
-  height: 176px;
+  height: 140px;
   overflow: hidden;
   border-radius: 22px 22px 0 0;
+}
+
+@media (min-width: 480px) {
+  .paktax-tile-media {
+    height: 160px;
+  }
+}
+
+@media (min-width: 640px) {
+  .paktax-tile-media {
+    height: 176px;
+  }
 }
 
 .paktax-tile-media img {
@@ -124,7 +138,14 @@
 .paktax-table th,
 .paktax-table td {
   border: 1px solid #e5e7eb;
-  padding: 10px 12px;
+  padding: 8px 10px;
+}
+
+@media (min-width: 640px) {
+  .paktax-table th,
+  .paktax-table td {
+    padding: 10px 12px;
+  }
 }
 
 .paktax-table th {

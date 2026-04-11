@@ -57,7 +57,7 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden dark-section">
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-fixed tz-hero-bg-motion"
+          className="absolute inset-0 z-0 bg-cover bg-center bg-scroll md:bg-fixed tz-hero-bg-motion"
           style={{
             backgroundImage:
               'url(https://images.unsplash.com/photo-1686149115308-bfdb03c8582e)',
@@ -67,7 +67,7 @@ const HomePage = () => {
           <div className="absolute inset-0 bg-brand-overlay opacity-75" />
         </div>
 
-        <div className="relative z-10 container-custom px-4 pt-20">
+        <div className="relative z-10 container-custom px-3 pt-24 pb-10 sm:px-4 sm:pt-28 md:pt-32">
           <motion.div
             className="max-w-4xl mx-auto text-center"
             variants={getStaggerContainer(reduce)}
@@ -75,8 +75,8 @@ const HomePage = () => {
             animate="visible"
           >
             <motion.div variants={getStaggerItem(reduce)} className="inline-block mb-4">
-              <div className="relative overflow-hidden rounded-full border border-[var(--color-gold)] bg-black/50 px-4 py-1 backdrop-blur-sm tz-pill-shimmer">
-                <span className="relative z-10 text-[var(--color-gold)] text-sm font-medium uppercase tracking-widest">
+              <div className="relative overflow-hidden rounded-full border border-[var(--color-gold)] bg-black/50 px-3 py-1.5 backdrop-blur-sm tz-pill-shimmer sm:px-4">
+                <span className="relative z-10 text-[var(--color-gold)] text-[11px] font-medium uppercase tracking-wide sm:text-sm sm:tracking-widest">
                   Premier Consultancy in Lahore
                 </span>
               </div>
@@ -84,7 +84,7 @@ const HomePage = () => {
 
             <motion.h1
               variants={getStaggerItem(reduce)}
-              className="mb-6 text-4xl font-bold leading-tight text-white md:text-6xl lg:text-7xl"
+              className="mb-6 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
               style={{ fontFamily: 'var(--font-heading)' }}
             >
               Simplify Your <br />
@@ -93,7 +93,7 @@ const HomePage = () => {
 
             <motion.p
               variants={getStaggerItem(reduce)}
-              className="mx-auto mb-10 max-w-2xl text-lg font-light leading-relaxed text-gray-300 md:text-2xl"
+              className="mx-auto mb-10 max-w-2xl text-base font-light leading-relaxed text-gray-300 sm:text-lg md:text-xl lg:text-2xl"
             >
               We handle FBR, SECP, and legal complexities so you can focus on growing your business.
             </motion.p>
@@ -122,7 +122,7 @@ const HomePage = () => {
 
             <motion.div
               variants={getStaggerItem(reduce)}
-              className="mt-16 flex flex-wrap justify-center gap-8 border-t border-white/10 pt-8 md:gap-12"
+              className="mt-12 flex flex-wrap justify-center gap-6 border-t border-white/10 pt-8 sm:mt-16 sm:gap-10 md:gap-12"
             >
               {[
                 { n: '100%', l: 'Confidential' },
@@ -140,10 +140,10 @@ const HomePage = () => {
       </section>
 
       {/* Intro / Services Teaser */}
-      <section className="section-padding relative z-20 -mt-10 rounded-t-[3rem] bg-white">
+      <section className="section-padding relative z-20 -mt-6 rounded-t-[1.75rem] bg-white sm:-mt-10 sm:rounded-t-[2.5rem] md:rounded-t-[3rem]">
         <div className="container-custom">
           <motion.div {...reveal} className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">Comprehensive Solutions</h2>
+            <h2 className="mb-4 text-2xl font-bold sm:text-3xl md:text-4xl">Comprehensive Solutions</h2>
             <p className="mx-auto max-w-2xl text-gray-600">
               From individual filing to corporate registration, we cover the full spectrum of Pakistani tax laws.
             </p>
@@ -161,7 +161,7 @@ const HomePage = () => {
                 key={service.path}
                 variants={getStaggerItem(reduce)}
                 whileHover={reduce ? undefined : { y: -8, transition: { duration: 0.25, ease: EASE_OUT } }}
-                className="group rounded-xl border border-gray-100 bg-white p-8 shadow-xl transition-shadow duration-300 hover:border-[var(--color-gold)] hover:shadow-2xl"
+                className="group rounded-xl border border-gray-100 bg-white p-6 shadow-xl transition-shadow duration-300 hover:border-[var(--color-gold)] hover:shadow-2xl sm:p-8"
               >
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-gray-50 transition-colors group-hover:bg-[var(--color-gold)]">
                   <service.icon size={28} className="text-[var(--color-dark-blue)] group-hover:text-black" />
@@ -188,18 +188,18 @@ const HomePage = () => {
       </section>
 
       {/* Process Section Preview */}
-      <section className="relative overflow-hidden bg-brand-dark py-20 text-white dark-section">
+      <section className="relative overflow-hidden bg-brand-dark py-14 text-white dark-section sm:py-16 md:py-20">
         <div className="absolute inset-0 bg-brand-overlay opacity-70" />
         <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <motion.div
               initial={{ opacity: reduce ? 1 : 0, x: reduce ? 0 : -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={VIEWPORT_REVEAL}
               transition={{ duration: reduce ? 0.01 : 0.58, ease: EASE_OUT }}
             >
-              <h2 className="mb-6 text-3xl font-bold md:text-5xl">Streamlined Process for Maximum Efficiency</h2>
-              <p className="mb-8 text-lg text-on-dark-muted">
+              <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">Streamlined Process for Maximum Efficiency</h2>
+              <p className="mb-8 text-base text-on-dark-muted sm:text-lg">
                 We don&apos;t just file papers; we guide you through a proven methodology designed to minimize risk and
                 maximize compliance.
               </p>
@@ -212,11 +212,11 @@ const HomePage = () => {
                 viewport={VIEWPORT_REVEAL}
               >
                 {processSteps.map((step, i) => (
-                  <motion.div key={step} variants={getStaggerItem(reduce)} className="relative z-10 flex items-center gap-4">
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[var(--color-gold)] font-bold text-black">
+                  <motion.div key={step} variants={getStaggerItem(reduce)} className="relative z-10 flex items-start gap-3 sm:items-center sm:gap-4">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-gold)] text-sm font-bold text-black sm:h-10 sm:w-10 sm:text-base">
                       {i + 1}
                     </div>
-                    <p className="text-lg font-semibold">{step}</p>
+                    <p className="min-w-0 text-base font-semibold leading-snug sm:text-lg">{step}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -239,7 +239,7 @@ const HomePage = () => {
               <img
                 src="https://images.unsplash.com/photo-1554224155-a1487473ffd9"
                 alt="Working on documents"
-                className="relative z-10 rounded-2xl shadow-2xl"
+                className="relative z-10 h-auto w-full max-w-full rounded-2xl shadow-2xl object-cover"
               />
             </motion.div>
           </div>
@@ -252,7 +252,7 @@ const HomePage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden bg-[var(--color-gold)] py-24">
+      <section className="relative overflow-hidden bg-[var(--color-gold)] py-16 sm:py-20 md:py-24">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
         <motion.div
           className="container-custom relative z-10 text-center"
@@ -261,10 +261,10 @@ const HomePage = () => {
           viewport={VIEWPORT_REVEAL}
           transition={{ duration: reduce ? 0.01 : 0.55, ease: EASE_OUT }}
         >
-          <h2 className="mb-6 text-3xl font-bold text-black md:text-5xl" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h2 className="mb-6 text-2xl font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl px-2" style={{ fontFamily: 'var(--font-heading)' }}>
             Ready to Get Compliant?
           </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-xl font-medium text-black/80">
+          <p className="mx-auto mb-8 max-w-2xl px-2 text-base font-medium text-black/80 sm:text-lg md:text-xl">
             Join the growing number of businesses in Pakistan who trust Tax Zilla.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">

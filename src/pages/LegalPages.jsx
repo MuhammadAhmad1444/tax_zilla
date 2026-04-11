@@ -9,29 +9,30 @@ const LegalLayout = ({ title, lastUpdated, children }) => (
       <title>{title} - Tax Zilla Consultancy</title>
       <meta name="robots" content="noindex" />
     </Helmet>
-    <section className="pt-32 pb-16 bg-gray-50 min-h-screen print:bg-white print:pt-0">
+    <section className="min-h-screen bg-gray-50 px-0 pb-12 pt-28 print:bg-white print:pb-0 print:pt-0 sm:pb-16 sm:pt-32">
       <div className="container-custom max-w-4xl">
         {/* Navigation & Actions */}
-        <div className="flex justify-between items-center mb-8 print:hidden">
-          <Link to="/" className="flex items-center text-gray-600 hover:text-[var(--color-gold)] transition-colors">
-            <ArrowLeft size={18} className="mr-2" /> Back to Home
+        <div className="mb-8 flex flex-col gap-3 print:hidden sm:flex-row sm:items-center sm:justify-between">
+          <Link to="/" className="flex min-h-[44px] items-center text-sm text-gray-600 transition-colors hover:text-[var(--color-gold)] sm:text-base">
+            <ArrowLeft size={18} className="mr-2 shrink-0" /> Back to Home
           </Link>
           <button 
+            type="button"
             onClick={() => window.print()}
-            className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 text-gray-700 transition-all shadow-sm"
+            className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 shadow-sm transition-all hover:bg-gray-50 sm:w-auto sm:text-base"
           >
-            <Printer size={18} /> Print
+            <Printer size={18} className="shrink-0" /> Print
           </button>
         </div>
 
         {/* Document Content */}
-        <div className="bg-white p-8 md:p-16 rounded-xl shadow-lg border-t-4 border-[var(--color-gold)] print:shadow-none print:border-none print:p-0">
-          <div className="mb-10 border-b border-gray-100 pb-8">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-[var(--color-dark-blue)]" style={{ fontFamily: 'var(--font-heading)' }}>{title}</h1>
+        <div className="rounded-xl border-t-4 border-[var(--color-gold)] bg-white p-5 shadow-lg sm:p-8 md:p-16 print:border-none print:p-0 print:shadow-none">
+          <div className="mb-8 border-b border-gray-100 pb-6 sm:mb-10 sm:pb-8">
+            <h1 className="mb-4 break-words text-2xl font-bold text-[var(--color-dark-blue)] sm:text-3xl md:text-4xl lg:text-5xl" style={{ fontFamily: 'var(--font-heading)' }}>{title}</h1>
             <p className="text-gray-500 italic">Last Updated: {lastUpdated}</p>
           </div>
           
-          <div className="space-y-8 text-gray-700 leading-relaxed text-lg">
+          <div className="space-y-6 text-base leading-relaxed text-gray-700 sm:space-y-8 sm:text-lg">
             {children}
           </div>
 

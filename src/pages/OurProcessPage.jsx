@@ -63,10 +63,10 @@ const OurProcessPage = () => {
         <meta name="description" content="Understand the step-by-step process of working with Tax Zilla. From consultation to delivery, we ensure a smooth, transparent, and professional experience." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative overflow-hidden dark-section">
+      <section className="relative overflow-hidden bg-[var(--color-dark-blue)] px-2 pb-16 pt-28 text-white dark-section sm:pb-20 sm:pt-32">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554224154-22dec7ec8818')] bg-cover bg-center opacity-20"></div>
         <motion.div className="container-custom relative z-10 text-center" {...hero}>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h1 className="px-2 text-3xl font-bold mb-6 sm:text-4xl md:text-5xl lg:text-6xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>
             Our Workflow
           </h1>
           <motion.p
@@ -101,7 +101,7 @@ const OurProcessPage = () => {
                   }`}
                 >
                   <div className="flex-1 w-full">
-                    <div className={`bg-white p-8 rounded-xl shadow-lg border-t-4 border-[var(--color-gold)] hover:shadow-2xl transition-all ${
+                    <div className={`rounded-xl border-t-4 border-[var(--color-gold)] bg-white p-5 shadow-lg transition-all hover:shadow-2xl sm:p-8 ${
                       index % 2 === 0 ? 'text-left md:text-left' : 'text-left md:text-right'
                     }`}>
                       <h3 className="text-2xl font-bold mb-3 text-[var(--color-dark-blue)]">{step.title}</h3>
@@ -140,7 +140,7 @@ const OurProcessPage = () => {
             <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[var(--color-gold)]/18 blur-3xl" />
             <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-black/40 to-transparent" />
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
+              <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-4xl break-words px-1" style={{ fontFamily: 'var(--font-heading)' }}>
                 Ready to Start Your Journey?
               </h2>
               <p className="text-lg text-on-dark-muted mb-8">

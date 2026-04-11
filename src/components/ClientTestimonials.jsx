@@ -64,7 +64,7 @@ const ClientTestimonials = () => {
   };
 
   return (
-    <div className="bg-gray-50 py-16 rounded-3xl relative overflow-hidden">
+    <div className="relative overflow-hidden rounded-2xl bg-gray-50 py-12 sm:rounded-3xl sm:py-16">
       <div className="container-custom">
         <motion.div
           className="text-center mb-12"
@@ -73,13 +73,13 @@ const ClientTestimonials = () => {
           viewport={VIEWPORT_REVEAL}
           transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h2 className="mb-4 px-2 text-2xl font-bold sm:text-3xl md:text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
             What Our Clients Say
           </h2>
-          <p className="text-gray-600">Trusted by hundreds of businesses and individuals across Pakistan</p>
+          <p className="px-2 text-sm text-gray-600 sm:text-base">Trusted by hundreds of businesses and individuals across Pakistan</p>
         </motion.div>
 
-        <div className="relative max-w-4xl mx-auto px-4">
+        <div className="relative mx-auto max-w-4xl px-2 sm:px-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -87,9 +87,9 @@ const ClientTestimonials = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: reduce ? 1 : 0, x: reduce ? 0 : -16 }}
               transition={{ duration: reduce ? 0.01 : 0.35, ease: EASE_OUT }}
-              className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border-t-4 border-[var(--color-gold)]"
+              className="rounded-2xl border-t-4 border-[var(--color-gold)] bg-white p-5 shadow-xl sm:p-8 md:p-12"
             >
-              <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
+              <div className="flex flex-col items-center gap-6 sm:gap-8 md:flex-row md:items-start">
                 <div className="flex-shrink-0">
                   <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gray-100 shadow-sm relative">
                     <img 
@@ -111,7 +111,7 @@ const ClientTestimonials = () => {
                     ))}
                   </div>
                   
-                  <p className="text-gray-700 text-lg italic mb-6 leading-relaxed">
+                  <p className="mb-6 text-base italic leading-relaxed text-gray-700 sm:text-lg">
                     "{testimonials[currentIndex].text}"
                   </p>
                   
@@ -130,15 +130,17 @@ const ClientTestimonials = () => {
           {/* Controls */}
           <div className="flex justify-center gap-4 mt-8">
             <button 
+              type="button"
               onClick={prevTestimonial}
-              className="p-3 rounded-full bg-white shadow-md hover:bg-[var(--color-gold)] hover:text-white transition-all text-gray-600"
+              className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-full bg-white p-3 text-gray-600 shadow-md transition-all hover:bg-[var(--color-gold)] hover:text-white"
               aria-label="Previous testimonial"
             >
               <ChevronLeft size={24} />
             </button>
             <button 
+              type="button"
               onClick={nextTestimonial}
-              className="p-3 rounded-full bg-white shadow-md hover:bg-[var(--color-gold)] hover:text-white transition-all text-gray-600"
+              className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-full bg-white p-3 text-gray-600 shadow-md transition-all hover:bg-[var(--color-gold)] hover:text-white"
               aria-label="Next testimonial"
             >
               <ChevronRight size={24} />

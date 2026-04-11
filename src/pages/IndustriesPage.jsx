@@ -21,11 +21,11 @@ const IndustriesPage = () => {
         <meta name="description" content="Specialized tax and legal services for Freelancers, Startups, SMEs, and Corporations in Pakistan." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-brand-dark text-white relative dark-section overflow-hidden">
+      <section className="relative overflow-hidden bg-brand-dark px-2 pb-16 pt-28 text-white dark-section sm:pb-20 sm:pt-32">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1573165759995-5865a394a1aa')] bg-cover bg-center opacity-10"></div>
         <div className="absolute inset-0 bg-brand-overlay opacity-75" />
         <motion.div className="container-custom relative z-10 text-center" {...hero}>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h1 className="px-2 text-3xl font-bold mb-6 sm:text-4xl md:text-5xl lg:text-6xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>
             Industries We Serve
           </h1>
           <motion.p
@@ -54,7 +54,7 @@ const IndustriesPage = () => {
                 whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.22, ease: EASE_OUT } }}
                 className="card-surface overflow-hidden group"
               >
-                <div className="p-8 border-b border-gray-100">
+                <div className="border-b border-gray-100 p-5 sm:p-8">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="p-3 bg-[var(--color-dark-blue)] rounded-lg text-white group-hover:bg-[var(--color-gold)] group-hover:text-black transition-colors">
                       <ind.icon size={32} />

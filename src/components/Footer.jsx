@@ -75,7 +75,7 @@ const Footer = () => {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-[var(--color-gold)] mt-1 flex-shrink-0" />
-                <span className="text-gray-300">7A, Malik Park Main Street, Main Canal Road, Mughalpura, Lahore, Pakistan</span>
+                <span className="break-words text-gray-300">7A, Malik Park Main Street, Main Canal Road, Mughalpura, Lahore, Pakistan</span>
               </li>
               <li className="flex items-start gap-3">
                 <Phone size={18} className="text-[var(--color-gold)] mt-1 flex-shrink-0" />
@@ -115,14 +115,14 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="bg-black py-6 border-t border-gray-800">
-        <div className="container-custom flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="container-custom flex flex-col items-center justify-between gap-4 px-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
           <p className="text-gray-500 text-xs text-center md:text-left">
             © {currentYear} Tax Zilla Consultancy. All rights reserved.
           </p>
           <p className="text-gray-500 text-xs text-center md:text-right">
             All services are provided in accordance with Pakistan laws and FBR regulations.
           </p>
-          <div className="flex gap-6 text-xs text-gray-500">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-500 sm:justify-end">
             <Link to="/legal/privacy-policy" className="hover:text-[var(--color-gold)] transition-colors">Privacy</Link>
             <Link to="/legal/terms-conditions" className="hover:text-[var(--color-gold)] transition-colors">Terms</Link>
             <Link to="/legal/disclaimer" className="hover:text-[var(--color-gold)] transition-colors">Disclaimer</Link>

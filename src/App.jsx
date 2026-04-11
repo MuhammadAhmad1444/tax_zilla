@@ -35,7 +35,7 @@ function AppShell() {
   return (
     <div className="min-h-screen flex flex-col font-sans">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow min-w-0 w-full overflow-x-hidden">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

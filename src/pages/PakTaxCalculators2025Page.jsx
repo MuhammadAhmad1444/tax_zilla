@@ -53,17 +53,17 @@ const Placeholder = ({ title, subtitle }) => {
 
 const RelatedCalculatorsBlock = ({ relatedButtons, goToCalculator }) => (
   <div className="mt-10">
-    <div className="text-center mb-5">
-      <div className="font-extrabold text-gray-900 text-lg">Related Calculators</div>
-      <div className="text-sm text-gray-500 mt-1">Quick access shortcuts</div>
+    <div className="mb-5 text-center">
+      <div className="text-base font-extrabold text-gray-900 sm:text-lg">Related Calculators</div>
+      <div className="mt-1 text-xs text-gray-500 sm:text-sm">Quick access shortcuts</div>
     </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
       {relatedButtons.map((b) => (
         <button
           key={b.id}
           type="button"
           onClick={() => goToCalculator(b.id)}
-          className="w-full bg-[var(--color-gold)] text-black rounded-2xl px-4 py-4 text-center font-extrabold hover:bg-[var(--color-gold-dark)] transition-colors"
+          className="min-h-[48px] w-full rounded-2xl bg-[var(--color-gold)] px-3 py-3 text-center text-sm font-extrabold text-black transition-colors hover:bg-[var(--color-gold-dark)] sm:px-4 sm:py-4 sm:text-base"
         >
           {b.label}
         </button>
@@ -279,13 +279,13 @@ const PakTaxCalculators2025Page = () => {
     if (!activeId) {
       return (
         <div className="px-2 md:px-0">
-          <div className="flex flex-wrap justify-center gap-4 mb-10">
+          <div className="mb-10 flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
             {filterTabs.map((tab) => (
               <button
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveFilter(tab.id)}
-                className={`px-6 py-2 rounded-full font-medium transition-all border ${
+                className={`rounded-full border px-3 py-2 text-xs font-medium transition-all sm:px-5 sm:py-2 sm:text-sm ${
                   activeFilter === tab.id
                     ? 'bg-[var(--color-gold)] text-black border-[var(--color-gold)] shadow-md'
                     : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'
@@ -350,16 +350,16 @@ const PakTaxCalculators2025Page = () => {
     if (activeId === 'value-added-tax') {
       return (
         <div>
-          <div className="sticky top-[78px] z-30 mb-6 rounded-2xl border border-gray-200 bg-white/90 backdrop-blur p-4 flex flex-wrap items-center gap-3 justify-between">
-            <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-gray-500">Tax Calculator</div>
-              <div className="text-lg font-extrabold text-gray-900">Supply of Goods Tax Calculator</div>
+          <div className="sticky top-14 z-30 mb-6 flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white/90 p-3 backdrop-blur sm:top-[4.5rem] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4 sm:p-4 md:top-[5.25rem]">
+            <div className="min-w-0">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gray-500 sm:text-xs sm:tracking-[0.2em]">Tax Calculator</div>
+              <div className="text-base font-extrabold leading-snug text-gray-900 sm:text-lg">Supply of Goods Tax Calculator</div>
             </div>
-            <div className="flex items-center gap-3">
-              <button type="button" className="paktax-btn paktax-btn-secondary" onClick={backToCalculators}>
+            <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-3">
+              <button type="button" className="paktax-btn paktax-btn-secondary w-full min-h-[44px] text-sm sm:w-auto sm:min-h-0" onClick={backToCalculators}>
                 Back to all calculators
               </button>
-              <a href="/contact" className="paktax-btn paktax-btn-primary">Get Help</a>
+              <a href="/contact" className="paktax-btn paktax-btn-primary flex min-h-[44px] w-full items-center justify-center text-sm sm:w-auto sm:min-h-0">Get Help</a>
             </div>
           </div>
           <SupplyOfGoodsTaxCalculator />
@@ -372,16 +372,16 @@ const PakTaxCalculators2025Page = () => {
       <div>
         {activeCalculator ? (
           <>
-            <div className="sticky top-[78px] z-30 mb-6 rounded-2xl border border-gray-200 bg-white/90 backdrop-blur p-4 flex flex-wrap items-center gap-3 justify-between">
-              <div>
-                <div className="text-xs uppercase tracking-[0.2em] text-gray-500">Tax Calculator</div>
-                <div className="text-lg font-extrabold text-gray-900">{activeCalculator.title}</div>
+            <div className="sticky top-14 z-30 mb-6 flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white/90 p-3 backdrop-blur sm:top-[4.5rem] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4 sm:p-4 md:top-[5.25rem]">
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gray-500 sm:text-xs sm:tracking-[0.2em]">Tax Calculator</div>
+                <div className="text-base font-extrabold leading-snug text-gray-900 sm:text-lg">{activeCalculator.title}</div>
               </div>
-              <div className="flex items-center gap-3">
-                <button type="button" className="paktax-btn paktax-btn-secondary" onClick={backToCalculators}>
+              <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-3">
+                <button type="button" className="paktax-btn paktax-btn-secondary w-full min-h-[44px] text-sm sm:w-auto sm:min-h-0" onClick={backToCalculators}>
                   Back to all calculators
                 </button>
-                <a href="/contact" className="paktax-btn paktax-btn-primary">Get Help</a>
+                <a href="/contact" className="paktax-btn paktax-btn-primary flex min-h-[44px] w-full items-center justify-center text-sm sm:w-auto sm:min-h-0">Get Help</a>
               </div>
             </div>
             {activeCalculator.element}
@@ -402,28 +402,28 @@ const PakTaxCalculators2025Page = () => {
       </Helmet>
 
       {/* Match ServicesPage start (hero + theme) */}
-      <section className="relative pt-32 pb-20 bg-[var(--color-dark-blue)] text-white text-center overflow-hidden dark-section">
+      <section className="relative overflow-hidden bg-[var(--color-dark-blue)] px-2 pb-14 pt-28 text-center text-white dark-section sm:pb-16 sm:pt-32 md:pb-20">
         {/* Dull background image (same approach used on other pages) */}
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493882552576-fce827c6161e')] bg-cover bg-center opacity-15" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#0b1c29]/80 via-[#0d1f2e]/60 to-black/70" />
 
         <motion.div className="container-custom relative z-10" {...hero}>
-          <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h1 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>
             Pakistan Tax Calculators
           </h1>
           <motion.p
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.12 }}
-            className="text-xl text-gray-300"
+            className="mx-auto max-w-2xl text-base text-gray-300 sm:text-lg md:text-xl"
           >
             Tax professional calculators for individuals & businesses across Pakistan
           </motion.p>
         </motion.div>
       </section>
 
-      <main className="section-padding bg-gray-50">
-        <div className="container-custom" ref={contentRef}>
+      <main className="section-padding min-w-0 bg-gray-50">
+        <div className="container-custom min-w-0" ref={contentRef}>
           <section>{renderMain()}</section>
         </div>
       </main>

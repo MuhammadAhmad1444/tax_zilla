@@ -28,10 +28,10 @@ const WhyChooseUsPage = () => {
         <meta name="description" content="Discover why businesses in Pakistan trust Tax Zilla. Expertise, timeliness, and confidentiality are our core values." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-brand-dark text-white text-center dark-section relative overflow-hidden">
+      <section className="relative overflow-hidden bg-brand-dark px-2 pb-16 pt-28 text-center text-white dark-section sm:pb-20 sm:pt-32">
         <div className="absolute inset-0 bg-brand-overlay opacity-80" />
         <motion.div className="container-custom relative z-10" {...hero}>
-          <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Why Choose Tax Zilla?</h1>
+          <h1 className="px-2 text-3xl font-bold mb-4 sm:text-4xl md:text-5xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>Why Choose Tax Zilla?</h1>
           <motion.p
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ const WhyChooseUsPage = () => {
                 key={reason.title}
                 variants={getStaggerItem(reduce)}
                 whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.22, ease: EASE_OUT } }}
-                className="card-surface p-8"
+                className="card-surface p-5 sm:p-8"
               >
                 <reason.icon size={40} className="text-[var(--color-gold)] mb-4" />
                 <h3 className="text-xl font-bold mb-3">{reason.title}</h3>
@@ -67,7 +67,7 @@ const WhyChooseUsPage = () => {
           </motion.div>
 
           <motion.div
-            className="bg-gray-50 rounded-2xl p-8 md:p-12 text-center"
+            className="rounded-2xl bg-gray-50 px-4 py-8 text-center sm:px-8 sm:py-10 md:p-12"
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_REVEAL}

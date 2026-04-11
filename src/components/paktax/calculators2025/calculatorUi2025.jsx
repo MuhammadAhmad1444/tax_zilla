@@ -19,8 +19,8 @@ export const ResultBlock = ({ title, children }) => (
 
 export const TaxCalculatorShell = ({ title, subtitle, onBack, children }) => {
   return (
-    <section className="paktax-root">
-      <div className="max-w-6xl mx-auto px-4 py-8">
+    <section className="paktax-root min-w-0">
+      <div className="mx-auto max-w-6xl min-w-0 px-3 py-6 sm:px-4 sm:py-8">
         <div className="mb-4 flex items-center gap-3">
           {onBack ? (
             <button
@@ -33,9 +33,9 @@ export const TaxCalculatorShell = ({ title, subtitle, onBack, children }) => {
           ) : null}
         </div>
 
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">{title}</h1>
-          {subtitle ? <p className="mt-3 text-gray-600 font-medium">{subtitle}</p> : null}
+        <div className="mb-8 text-center">
+          <h1 className="break-words text-2xl font-extrabold text-gray-900 sm:text-3xl md:text-4xl">{title}</h1>
+          {subtitle ? <p className="mt-3 px-1 text-sm font-medium text-gray-600 sm:text-base">{subtitle}</p> : null}
         </div>
 
         {children}

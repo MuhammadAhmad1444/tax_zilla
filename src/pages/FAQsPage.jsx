@@ -53,11 +53,12 @@ const AccordionItem = ({ question, answer, isOpen, onClick }) => (
     className={`border rounded-lg mb-4 overflow-hidden transition-all ${isOpen ? 'border-[var(--color-gold)] bg-gray-50' : 'border-gray-200 bg-white'}`}
   >
     <button
+      type="button"
       onClick={onClick}
-      className="flex justify-between items-center w-full p-4 text-left focus:outline-none"
+      className="flex min-h-[52px] w-full items-start justify-between gap-3 p-4 text-left focus:outline-none sm:items-center"
     >
-      <span className={`font-semibold text-lg ${isOpen ? 'text-[var(--color-dark-blue)]' : 'text-gray-700'}`}>{question}</span>
-      {isOpen ? <ChevronUp className="text-[var(--color-gold)]" /> : <ChevronDown className="text-gray-400" />}
+      <span className={`min-w-0 flex-1 font-semibold text-base leading-snug sm:text-lg ${isOpen ? 'text-[var(--color-dark-blue)]' : 'text-gray-700'}`}>{question}</span>
+      {isOpen ? <ChevronUp className="shrink-0 text-[var(--color-gold)]" size={22} /> : <ChevronDown className="shrink-0 text-gray-400" size={22} />}
     </button>
     <AnimatePresence>
       {isOpen && (
@@ -108,11 +109,11 @@ const FAQsPage = () => {
         <meta name="description" content="Find answers to common questions about FBR filing, NTN registration, Sales Tax, and Company Registration in Pakistan." />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-brand-dark text-white relative overflow-hidden dark-section">
+      <section className="relative overflow-hidden bg-brand-dark px-2 pb-16 pt-28 text-white dark-section sm:pb-20 sm:pt-32">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554224155-a1487473ffd9')] bg-cover bg-center opacity-10"></div>
         <div className="absolute inset-0 bg-brand-overlay opacity-75" />
         <motion.div className="container-custom relative z-10 text-center" {...hero}>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h1 className="px-2 text-3xl font-bold mb-6 sm:text-4xl md:text-5xl lg:text-6xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>
             Frequently Asked Questions
           </h1>
           <motion.p
@@ -133,11 +134,11 @@ const FAQsPage = () => {
             <input
               type="text"
               placeholder="Search for answers (e.g., 'deadline', 'ntn', 'filer')..."
-              className="w-full py-4 px-6 pr-12 rounded-full text-gray-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
+              className="w-full min-h-[48px] rounded-full py-3 pl-4 pr-11 text-sm text-gray-800 shadow-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] sm:py-4 sm:pl-6 sm:pr-12 sm:text-base"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <Search className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400 sm:right-4" size={20} aria-hidden />
           </motion.div>
         </motion.div>
       </section>
@@ -147,7 +148,7 @@ const FAQsPage = () => {
           {/* Category Filter */}
           {!searchTerm && (
             <motion.div
-              className="flex flex-wrap gap-2 mb-10 justify-center"
+              className="mb-10 flex flex-wrap justify-center gap-2 px-1 sm:gap-2"
               initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT_REVEAL}
@@ -157,7 +158,7 @@ const FAQsPage = () => {
                 <button
                   key={cat}
                   onClick={() => { setActiveCategory(cat); setOpenIndex(null); }}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  className={`rounded-full px-3 py-2 text-xs font-medium transition-all sm:px-4 sm:text-sm ${
                     activeCategory === cat
                       ? 'bg-[var(--color-dark-blue)] text-white shadow-md'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'

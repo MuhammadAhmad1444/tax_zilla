@@ -16,7 +16,7 @@ const AboutPage = () => {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-brand-dark text-white overflow-hidden dark-section">
+      <section className="relative overflow-hidden bg-brand-dark px-2 pb-16 pt-28 text-white dark-section sm:pb-20 sm:pt-32">
         <div className="absolute inset-0 opacity-40">
           <img src="https://images.unsplash.com/photo-1695487562553-c71a77e6c656" alt="Office Background" className="w-full h-full object-cover" />
         </div>
@@ -25,10 +25,10 @@ const AboutPage = () => {
         
         <div className="container-custom relative z-10 text-center">
           <motion.div {...hero}>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
+            <h1 className="px-2 text-3xl font-bold mb-6 sm:text-4xl md:text-5xl lg:text-6xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>
               About <span className="text-gradient-gold">Tax Zilla</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl px-1 text-base text-gray-200 sm:text-lg md:text-xl lg:text-2xl">
               Professional Tax & Legal Consultancy committed to excellence in Pakistan's corporate landscape.
             </p>
           </motion.div>
@@ -38,14 +38,14 @@ const AboutPage = () => {
       {/* Firm Overview */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-12">
             <motion.div
               initial={{ opacity: reduce ? 1 : 0, x: reduce ? 0 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={VIEWPORT_REVEAL}
               transition={{ duration: reduce ? 0.01 : 0.55, ease: EASE_OUT }}
             >
-              <h2 className="text-4xl font-bold mb-6 text-[var(--color-dark-blue)]" style={{ fontFamily: 'var(--font-heading)' }}>
+              <h2 className="mb-6 text-2xl font-bold text-[var(--color-dark-blue)] sm:text-3xl md:text-4xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>
                 Your Trusted Compliance Partner
               </h2>
               <div className="space-y-4 text-gray-600 text-lg leading-relaxed">
@@ -58,27 +58,27 @@ const AboutPage = () => {
               </div>
             </motion.div>
             <motion.div
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-2 gap-3 sm:gap-4"
               variants={getStaggerContainer(reduce)}
               initial="hidden"
               whileInView="visible"
               viewport={VIEWPORT_REVEAL}
             >
-              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-6 text-center">
-                <h3 className="text-4xl font-bold text-[var(--color-gold)] mb-2">100%</h3>
-                <p className="font-semibold">Compliance Rate</p>
+              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-4 text-center sm:p-6">
+                <h3 className="mb-2 text-2xl font-bold text-[var(--color-gold)] sm:text-3xl md:text-4xl">100%</h3>
+                <p className="text-sm font-semibold sm:text-base">Compliance Rate</p>
               </motion.div>
-              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-6 text-center">
-                <h3 className="text-4xl font-bold text-[var(--color-gold)] mb-2">500+</h3>
-                <p className="font-semibold">Clients Served</p>
+              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-4 text-center sm:p-6">
+                <h3 className="mb-2 text-2xl font-bold text-[var(--color-gold)] sm:text-3xl md:text-4xl">500+</h3>
+                <p className="text-sm font-semibold sm:text-base">Clients Served</p>
               </motion.div>
-              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-6 text-center">
-                <h3 className="text-4xl font-bold text-[var(--color-gold)] mb-2">5+</h3>
-                <p className="font-semibold">Years Experience</p>
+              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-4 text-center sm:p-6">
+                <h3 className="mb-2 text-2xl font-bold text-[var(--color-gold)] sm:text-3xl md:text-4xl">5+</h3>
+                <p className="text-sm font-semibold sm:text-base">Years Experience</p>
               </motion.div>
-              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-6 text-center">
-                <h3 className="text-4xl font-bold text-[var(--color-gold)] mb-2">24/7</h3>
-                <p className="font-semibold">Support</p>
+              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-4 text-center sm:p-6">
+                <h3 className="mb-2 text-2xl font-bold text-[var(--color-gold)] sm:text-3xl md:text-4xl">24/7</h3>
+                <p className="text-sm font-semibold sm:text-base">Support</p>
               </motion.div>
             </motion.div>
           </div>

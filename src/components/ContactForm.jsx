@@ -137,7 +137,7 @@ const ContactForm = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       onSubmit={handleSubmit}
-      className="bg-white rounded-xl shadow-2xl p-8 md:p-10 border-t-4 border-[var(--color-gold)]"
+      className="rounded-xl border-t-4 border-[var(--color-gold)] bg-white p-5 shadow-2xl sm:p-8 md:p-10"
     >
       <div className="grid grid-cols-1 gap-6 mb-6">
         <div>

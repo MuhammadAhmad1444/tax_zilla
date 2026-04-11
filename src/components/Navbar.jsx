@@ -67,19 +67,19 @@ const Navbar = () => {
 
   const TaxCalculatorsMegaMenu = () => (
     <div
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%_+_14px)] w-[980px] max-w-[95vw] bg-white border border-gray-100 rounded-2xl shadow-2xl p-6"
+      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%_+_14px)] w-[min(980px,calc(100vw-1.25rem))] max-w-[calc(100vw-1.25rem)] bg-white border border-gray-100 rounded-2xl shadow-2xl p-4 sm:p-6"
       role="menu"
       aria-label="Tax Calculators 2025-2026 menu"
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
+        <div className="min-w-0">
           <div className="text-[var(--color-gold)] font-extrabold mb-3 border-b border-gray-100 pb-3">
             Verification & Essentials
           </div>
           <div className="flex flex-col">
             <Link
               to="/pakistan-tax-calculators?calc=pta"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('pta')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -90,7 +90,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=zakat"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('zakat')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -101,7 +101,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=fbr-online"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('fbr-online')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -112,7 +112,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=value-added-tax"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('value-added-tax')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -123,7 +123,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=agri-land-punjab"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('agri-land-punjab')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -135,14 +135,14 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div>
+        <div className="min-w-0">
           <div className="text-[var(--color-gold)] font-extrabold mb-3 border-b border-gray-100 pb-3">
             Capital Gains & Withholding
           </div>
           <div className="flex flex-col">
             <Link
               to="/pakistan-tax-calculators?calc=gain-securities"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('gain-securities')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -153,7 +153,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=gain-mutual-funds"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('gain-mutual-funds')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -164,7 +164,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=gain-properties"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('gain-properties')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -175,7 +175,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=withholding-income-properties"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('withholding-income-properties')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -186,7 +186,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=withholding-brokerage-commission"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('withholding-brokerage-commission')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -198,14 +198,14 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div>
+        <div className="min-w-0">
           <div className="text-[var(--color-gold)] font-extrabold mb-3 border-b border-gray-100 pb-3">
             Income & Business Calculators
           </div>
           <div className="flex flex-col">
             <Link
               to="/pakistan-tax-calculators?calc=salary"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('salary')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -216,7 +216,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=business"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('business')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -227,7 +227,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=freelancer"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('freelancer')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -238,7 +238,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=super-tax"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('super-tax')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -249,7 +249,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=company-income"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('company-income')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -260,7 +260,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=builder"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('builder')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -271,7 +271,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/pakistan-tax-calculators?calc=developer"
-              className={`block text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
+              className={`block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all ${
                 isCalcActive('developer')
                   ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/10 pl-2'
                   : 'text-gray-700 hover:text-black hover:pl-1'
@@ -291,23 +291,23 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-brand-solid shadow-2xl py-2' : 'bg-black/90 backdrop-blur-md py-4'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-[env(safe-area-inset-top,0px)] ${
+        isScrolled ? 'bg-brand-solid shadow-2xl py-2' : 'bg-black/90 backdrop-blur-md py-3 sm:py-4'
       }`}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
-            <motion.div whileHover={{ scale: 1.03 }} className="flex items-center gap-3">
+          <Link to="/" className="flex min-w-0 flex-shrink-0 items-center gap-2 sm:gap-3">
+            <motion.div whileHover={{ scale: 1.03 }} className="flex min-w-0 items-center gap-2 sm:gap-3">
               <img
                 src="/images/tax-zilla-logo.png"
                 alt="Tax Zilla logo"
-                className="h-9 w-9 rounded-md object-contain bg-white/5 ring-1 ring-white/10"
+                className="h-8 w-8 shrink-0 rounded-md object-contain bg-white/5 ring-1 ring-white/10 sm:h-9 sm:w-9"
                 loading="eager"
               />
               <h1
-                className="text-2xl md:text-3xl font-bold"
+                className="text-xl font-bold sm:text-2xl xl:text-3xl"
                 style={{ fontFamily: 'var(--font-heading)' }}
               >
                 <span className="text-white">Tax </span>
@@ -375,9 +375,11 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
+            type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="xl:hidden text-white p-2 hover:text-[var(--color-gold)] transition-colors"
+            className="xl:hidden min-h-[44px] min-w-[44px] shrink-0 text-white flex items-center justify-center rounded-lg hover:bg-white/10 hover:text-[var(--color-gold)] transition-colors"
             aria-label="Toggle menu"
+            aria-expanded={isOpen}
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -392,14 +394,14 @@ const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="xl:hidden bg-brand-solid border-t border-[var(--color-gold)]/20 overflow-hidden absolute w-full"
+            className="xl:hidden bg-brand-solid border-t border-[var(--color-gold)]/20 overflow-hidden absolute left-0 right-0 w-full max-h-[min(85dvh,32rem)] shadow-2xl"
           >
-            <div className="container-custom py-4 space-y-2 h-[80vh] overflow-y-auto">
+            <div className="container-custom max-h-[inherit] space-y-1 overflow-y-auto overscroll-contain py-3 pb-[max(1rem,env(safe-area-inset-bottom,0px))]">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`block py-3 px-4 rounded-lg transition-all duration-300 ${
+                  className={`block min-h-[48px] rounded-lg px-4 py-3 text-sm font-medium leading-snug transition-all duration-300 sm:text-base ${
                     isActive(item.path)
                       ? 'bg-[var(--color-gold)] text-black font-semibold'
                       : 'text-white hover:bg-[var(--color-gold)]/10 hover:text-[var(--color-gold)]'

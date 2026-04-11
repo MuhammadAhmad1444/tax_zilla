@@ -12,7 +12,7 @@ const FeatureCard = ({ icon: Icon, title, description, delay = 0 }) => {
       viewport={VIEWPORT_REVEAL}
       transition={{ duration: reduce ? 0.01 : 0.48, delay: reduce ? 0 : delay, ease: EASE_OUT }}
       whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.22, ease: EASE_OUT } }}
-      className="card-surface p-6 text-center"
+      className="card-surface p-5 text-center sm:p-6"
     >
       <div className="flex justify-center mb-4">
         <div className="w-14 h-14 bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-gold-light)] rounded-full flex items-center justify-center">

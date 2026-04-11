@@ -8,7 +8,7 @@ import { usePageMotion, EASE_OUT } from '../lib/motion.js';
 
 // Breadcrumb Component
 const Breadcrumb = ({ items }) => (
-  <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-6">
+  <nav className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-400 sm:text-sm">
     <Link to="/" className="hover:text-[var(--color-gold)]">Home</Link>
     <ChevronRight size={14} />
     <Link to="/services" className="hover:text-[var(--color-gold)]">Services</Link>
@@ -33,7 +33,7 @@ const ServiceLayout = ({ title, description, benefits, process, laws, serviceId,
         <meta name="description" content={description} />
       </Helmet>
 
-      <section className="pt-32 pb-20 bg-brand-dark text-white relative overflow-hidden dark-section">
+      <section className="relative overflow-hidden bg-brand-dark px-2 pb-16 pt-28 text-white dark-section sm:pb-20 sm:pt-32">
         {image && (
           <div className="absolute inset-0 opacity-10">
             <img src={image} alt={title} className="w-full h-full object-cover" />
@@ -43,12 +43,12 @@ const ServiceLayout = ({ title, description, benefits, process, laws, serviceId,
         <motion.div className="container-custom relative z-10" {...hero}>
           <Breadcrumb items={title} />
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>{title}</h1>
+            <h1 className="text-3xl font-bold mb-6 sm:text-4xl md:text-5xl lg:text-6xl break-words px-1" style={{ fontFamily: 'var(--font-heading)' }}>{title}</h1>
             <motion.p
               initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.1 }}
-              className="text-xl text-gray-200 leading-relaxed mb-8"
+              className="mb-8 px-1 text-base leading-relaxed text-gray-200 sm:text-lg md:text-xl"
             >
               {description}
             </motion.p>
