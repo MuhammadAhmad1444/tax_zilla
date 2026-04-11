@@ -16,6 +16,8 @@ body {
   color: var(--color-text);
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -151,7 +153,13 @@ input, textarea, select {
 .dark-section h4,
 .dark-section h5,
 .dark-section h6 {
-  color: var(--color-text-on-dark);
+  color: var(--color-white);
+}
+
+/* Headings above absolute gradient overlays need their own stacking context */
+.dark-section .stack-above-overlay {
+  position: relative;
+  z-index: 10;
 }
 
 .dark-section .text-muted {

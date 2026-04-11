@@ -90,9 +90,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-center">
-          <div className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">Inspiration</div>
-          <div className="mt-2 text-sm text-gray-200">
+        <div className="mt-10 rounded-2xl border border-white/15 bg-white/[0.07] px-6 py-6 text-center shadow-lg shadow-black/20">
+          <div className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-gold)]">Inspiration</div>
+          <div className="mt-3 text-sm md:text-base text-white font-medium leading-relaxed max-w-3xl mx-auto">
             Clarity in tax decisions starts with trusted tools. Explore calculators, verify numbers, and stay compliant with confidence.
           </div>
         </div>

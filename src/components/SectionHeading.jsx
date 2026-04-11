@@ -19,9 +19,11 @@ const SectionHeading = ({ title, subtitle, centered = true, dark = false }) => {
         {title}
       </h2>
       {subtitle && (
-        <p className={`text-lg md:text-xl max-w-3xl ${centered ? 'mx-auto' : ''} ${
-          dark ? 'text-gray-300' : 'text-gray-600'
-        }`}>
+        <p
+          className={`text-lg md:text-xl max-w-3xl leading-relaxed ${centered ? 'mx-auto' : ''} ${
+            dark ? 'text-white/85 font-medium' : 'text-gray-600'
+          }`}
+        >
           {subtitle}
         </p>
       )}
