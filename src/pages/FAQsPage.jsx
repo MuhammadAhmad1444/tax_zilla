@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ChevronDown, ChevronUp } from 'lucide-react';
-import SectionHeading from '../components/SectionHeading.jsx';
+import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL } from '../lib/motion.js';
 
 const faqsData = [
   {
@@ -77,6 +77,7 @@ const AccordionItem = ({ question, answer, isOpen, onClick }) => (
 );
 
 const FAQsPage = () => {
+  const { reduce, hero } = usePageMotion();
   const [searchTerm, setSearchTerm] = useState('');
   const [openIndex, setOpenIndex] = useState(null);
   const [activeCategory, setActiveCategory] = useState("All");
@@ -110,15 +111,25 @@ const FAQsPage = () => {
       <section className="pt-32 pb-20 bg-brand-dark text-white relative overflow-hidden dark-section">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554224155-a1487473ffd9')] bg-cover bg-center opacity-10"></div>
         <div className="absolute inset-0 bg-brand-overlay opacity-75" />
-        <div className="container-custom relative z-10 text-center">
+        <motion.div className="container-custom relative z-10 text-center" {...hero}>
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
             Frequently Asked Questions
           </h1>
-          <p className="text-xl max-w-2xl mx-auto text-on-dark-muted mb-8">
+          <motion.p
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.1 }}
+            className="text-xl max-w-2xl mx-auto text-on-dark-muted mb-8"
+          >
             Have questions about taxes or legal compliance? We have answers.
-          </p>
-          
-          <div className="max-w-xl mx-auto relative">
+          </motion.p>
+
+          <motion.div
+            className="max-w-xl mx-auto relative"
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE_OUT, delay: reduce ? 0 : 0.2 }}
+          >
             <input
               type="text"
               placeholder="Search for answers (e.g., 'deadline', 'ntn', 'filer')..."
@@ -127,15 +138,21 @@ const FAQsPage = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       <section className="section-padding bg-white min-h-screen">
         <div className="container-custom">
           {/* Category Filter */}
           {!searchTerm && (
-            <div className="flex flex-wrap gap-2 mb-10 justify-center">
+            <motion.div
+              className="flex flex-wrap gap-2 mb-10 justify-center"
+              initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEWPORT_REVEAL}
+              transition={{ duration: reduce ? 0.01 : 0.4, ease: EASE_OUT }}
+            >
               {categories.map(cat => (
                 <button
                   key={cat}
@@ -149,10 +166,16 @@ const FAQsPage = () => {
                   {cat}
                 </button>
               ))}
-            </div>
+            </motion.div>
           )}
 
-          <div className="max-w-3xl mx-auto">
+          <motion.div
+            className="max-w-3xl mx-auto"
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT_REVEAL}
+            transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.05 }}
+          >
             {filteredFaqs.length > 0 ? (
               filteredFaqs.map((faq, index) => (
                 <AccordionItem
@@ -168,7 +191,7 @@ const FAQsPage = () => {
                 <p>No results found for "{searchTerm}". Try a different keyword.</p>
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
       </section>
     </>

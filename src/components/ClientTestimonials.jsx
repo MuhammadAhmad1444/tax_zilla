@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight, User } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
 
 const testimonials = [
   {
@@ -51,6 +52,7 @@ const testimonials = [
 ];
 
 const ClientTestimonials = () => {
+  const { reduce } = usePageMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextTestimonial = () => {
@@ -64,21 +66,27 @@ const ClientTestimonials = () => {
   return (
     <div className="bg-gray-50 py-16 rounded-3xl relative overflow-hidden">
       <div className="container-custom">
-        <div className="text-center mb-12">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEWPORT_REVEAL}
+          transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
             What Our Clients Say
           </h2>
           <p className="text-gray-600">Trusted by hundreds of businesses and individuals across Pakistan</p>
-        </div>
+        </motion.div>
 
         <div className="relative max-w-4xl mx-auto px-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: reduce ? 1 : 0, x: reduce ? 0 : 16 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: reduce ? 1 : 0, x: reduce ? 0 : -16 }}
+              transition={{ duration: reduce ? 0.01 : 0.35, ease: EASE_OUT }}
               className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border-t-4 border-[var(--color-gold)]"
             >
               <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
@@ -139,24 +147,25 @@ const ClientTestimonials = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 border-t border-gray-200 pt-12 max-w-5xl mx-auto text-center">
-          <div>
-            <h4 className="text-3xl font-bold text-[var(--color-gold)] mb-1">500+</h4>
-            <p className="text-sm text-gray-600 font-medium">Happy Clients</p>
-          </div>
-          <div>
-            <h4 className="text-3xl font-bold text-[var(--color-gold)] mb-1">98%</h4>
-            <p className="text-sm text-gray-600 font-medium">Retention Rate</p>
-          </div>
-          <div>
-            <h4 className="text-3xl font-bold text-[var(--color-gold)] mb-1">100%</h4>
-            <p className="text-sm text-gray-600 font-medium">Data Privacy</p>
-          </div>
-          <div>
-            <h4 className="text-3xl font-bold text-[var(--color-gold)] mb-1">24/7</h4>
-            <p className="text-sm text-gray-600 font-medium">Support</p>
-          </div>
-        </div>
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 border-t border-gray-200 pt-12 max-w-5xl mx-auto text-center"
+          variants={getStaggerContainer(reduce)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT_REVEAL}
+        >
+          {[
+            { h: '500+', l: 'Happy Clients' },
+            { h: '98%', l: 'Retention Rate' },
+            { h: '100%', l: 'Data Privacy' },
+            { h: '24/7', l: 'Support' },
+          ].map((s) => (
+            <motion.div key={s.l} variants={getStaggerItem(reduce)}>
+              <h4 className="text-3xl font-bold text-[var(--color-gold)] mb-1">{s.h}</h4>
+              <p className="text-sm text-gray-600 font-medium">{s.l}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </div>
   );

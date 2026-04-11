@@ -1,8 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import { CheckCircle, ArrowRight, FileText, ChevronRight, ShieldCheck, BadgeCheck } from 'lucide-react';
 import Button from '../components/Button.jsx';
+import { usePageMotion, EASE_OUT } from '../lib/motion.js';
 
 // Breadcrumb Component
 const Breadcrumb = ({ items }) => (
@@ -18,6 +20,7 @@ const Breadcrumb = ({ items }) => (
 // Reusable Layout for Service Pages
 const ServiceLayout = ({ title, description, benefits, process, laws, serviceId, image, packages }) => {
   const navigate = useNavigate();
+  const { reduce, hero } = usePageMotion();
 
   const handleRequest = () => {
     navigate('/contact', { state: { service: serviceId } });
@@ -37,17 +40,29 @@ const ServiceLayout = ({ title, description, benefits, process, laws, serviceId,
           </div>
         )}
         <div className="absolute inset-0 bg-brand-overlay opacity-75" />
-        <div className="container-custom relative z-10">
+        <motion.div className="container-custom relative z-10" {...hero}>
           <Breadcrumb items={title} />
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>{title}</h1>
-            <p className="text-xl text-gray-200 leading-relaxed mb-8">{description}</p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm font-medium text-[var(--color-gold)]">
+            <motion.p
+              initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.1 }}
+              className="text-xl text-gray-200 leading-relaxed mb-8"
+            >
+              {description}
+            </motion.p>
+            <motion.div
+              className="flex flex-wrap justify-center gap-4 text-sm font-medium text-[var(--color-gold)]"
+              initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0.01 : 0.4, ease: EASE_OUT, delay: reduce ? 0 : 0.18 }}
+            >
               <span className="flex items-center gap-1"><ShieldCheck size={16} /> 100% Compliant</span>
               <span className="flex items-center gap-1"><BadgeCheck size={16} /> Professional Service</span>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="py-16 bg-white">

@@ -1,11 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { motion } from 'framer-motion';
 import { Mail, Phone, Clock, MapPin } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import ContactForm from '@/components/ContactForm';
 import SocialMediaLinks from '@/components/SocialMediaLinks';
+import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL } from '../lib/motion.js';
 
 const ContactPage = () => {
+  const { reduce, hero } = usePageMotion();
   return (
     <>
       <Helmet>
@@ -15,21 +18,38 @@ const ContactPage = () => {
 
       <section className="pt-32 pb-20 bg-brand-dark text-white text-center dark-section relative overflow-hidden">
         <div className="absolute inset-0 bg-brand-overlay opacity-80" />
-        <div className="container-custom relative z-10">
+        <motion.div className="container-custom relative z-10" {...hero}>
           <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Get in Touch</h1>
-          <p className="text-xl text-on-dark-muted">We are here to assist you with professional tax and legal advice</p>
-        </div>
+          <motion.p
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.12 }}
+            className="text-xl text-on-dark-muted"
+          >
+            We are here to assist you with professional tax and legal advice
+          </motion.p>
+        </motion.div>
       </section>
 
       <section className="section-padding bg-gray-50">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
+            <motion.div
+              initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEWPORT_REVEAL}
+              transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE_OUT }}
+            >
               <SectionHeading title="Send us a Message" subtitle="Fill out the form below for a quick consultation" centered={false} />
               <ContactForm />
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+              initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEWPORT_REVEAL}
+              transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE_OUT, delay: reduce ? 0 : 0.08 }}
+            >
               <SectionHeading title="Contact Information" subtitle="Visit our office or call us directly" centered={false} />
               
               <div className="card-surface p-8 space-y-8">
@@ -95,7 +115,7 @@ const ContactPage = () => {
                   title="Tax Zilla Location"
                 ></iframe>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

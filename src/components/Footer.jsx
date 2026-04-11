@@ -1,17 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Mail, Phone, Clock, MapPin } from 'lucide-react';
 import SocialMediaLinks from './SocialMediaLinks';
+import { usePageMotion, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { reduce } = usePageMotion();
 
   return (
     <footer className="bg-brand-solid text-white border-t-4 border-[var(--color-gold)] dark-section">
       <div className="container-custom py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-12">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-12"
+          variants={getStaggerContainer(reduce)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT_REVEAL}
+        >
           {/* Company Info */}
-          <div>
+          <motion.div variants={getStaggerItem(reduce)}>
             <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
               <span className="text-white">Tax </span>
               <span className="text-gradient-gold">Zilla</span>
@@ -20,10 +29,10 @@ const Footer = () => {
               Tax Zilla Consultancy is your premier partner for tax and legal solutions in Pakistan. We specialize in FBR compliance, SECP registration, and corporate legal advisory.
             </p>
             <SocialMediaLinks variant="footer" iconSize={18} />
-          </div>
+          </motion.div>
 
           {/* Services */}
-          <div>
+          <motion.div variants={getStaggerItem(reduce)}>
             <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Audit & Advisory</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/services/audit-assistance" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Audit and Assurance</Link></li>
@@ -32,10 +41,10 @@ const Footer = () => {
               <li><Link to="/services/income-tax" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Income Tax Filing</Link></li>
               <li><Link to="/contact" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Tax Consultancy</Link></li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Calculators */}
-          <div>
+          <motion.div variants={getStaggerItem(reduce)}>
             <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Calculators</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/pakistan-tax-calculators?calc=salary" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Salary Tax Calculator</Link></li>
@@ -46,10 +55,10 @@ const Footer = () => {
               <li><Link to="/pakistan-tax-calculators?calc=builder" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Builder Tax Calculator</Link></li>
               <li><Link to="/pakistan-tax-calculators?calc=developer" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Developer Tax Calculator</Link></li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Useful Links */}
-          <div>
+          <motion.div variants={getStaggerItem(reduce)}>
             <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Useful Links</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/income-tax-slabs" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Income Tax Slabs</Link></li>
@@ -58,10 +67,10 @@ const Footer = () => {
               <li><Link to="/contact" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Contact Us</Link></li>
               <li><Link to="/faqs" className="text-gray-300 hover:text-white hover:pl-2 transition-all">FAQs</Link></li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Contact Info */}
-          <div>
+          <motion.div variants={getStaggerItem(reduce)}>
             <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Contact Us</h4>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
@@ -87,15 +96,21 @@ const Footer = () => {
                 </div>
               </li>
             </ul>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="mt-10 rounded-2xl border border-white/15 bg-white/[0.07] px-6 py-6 text-center shadow-lg shadow-black/20">
+        <motion.div
+          className="mt-10 rounded-2xl border border-white/15 bg-white/[0.07] px-6 py-6 text-center shadow-lg shadow-black/20"
+          initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEWPORT_REVEAL}
+          transition={{ duration: reduce ? 0.01 : 0.45 }}
+        >
           <div className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-gold)]">Inspiration</div>
           <div className="mt-3 text-sm md:text-base text-white font-medium leading-relaxed max-w-3xl mx-auto">
             Clarity in tax decisions starts with trusted tools. Explore calculators, verify numbers, and stay compliant with confidence.
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom Bar */}

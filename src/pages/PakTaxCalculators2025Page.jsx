@@ -1,6 +1,8 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
+import { usePageMotion, EASE_OUT } from '../lib/motion.js';
 import { Droplets, Phone, Shield, Store, Users, Landmark, BriefcaseBusiness, CreditCard, Building2, Wrench, Scale, FileText } from 'lucide-react';
 import '../styles/paktax.css';
 import {
@@ -71,6 +73,7 @@ const RelatedCalculatorsBlock = ({ relatedButtons, goToCalculator }) => (
 );
 
 const PakTaxCalculators2025Page = () => {
+  const { reduce, hero } = usePageMotion();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeId = searchParams.get('calc');
   const contentRef = useRef(null);
@@ -404,14 +407,19 @@ const PakTaxCalculators2025Page = () => {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493882552576-fce827c6161e')] bg-cover bg-center opacity-15" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#0b1c29]/80 via-[#0d1f2e]/60 to-black/70" />
 
-        <div className="container-custom relative z-10">
+        <motion.div className="container-custom relative z-10" {...hero}>
           <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
             Pakistan Tax Calculators
           </h1>
-          <p className="text-xl text-gray-300">
+          <motion.p
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.12 }}
+            className="text-xl text-gray-300"
+          >
             Tax professional calculators for individuals & businesses across Pakistan
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </section>
 
       <main className="section-padding bg-gray-50">

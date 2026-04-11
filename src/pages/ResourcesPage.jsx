@@ -4,10 +4,12 @@ import { motion } from 'framer-motion';
 import { Download, ExternalLink, BookOpen, Search } from 'lucide-react';
 import Button from '../components/Button.jsx';
 import TaxCalculatorModal from '../components/TaxCalculatorModal.jsx';
-import { resources, RESOURCE_CATEGORIES, getResourcesByCategory, getCategories } from '../data/resources.js';
+import { RESOURCE_CATEGORIES, getResourcesByCategory, getCategories } from '../data/resources.js';
+import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
 
 const ResourcesPage = () => {
   const [activeTab, setActiveTab] = useState(RESOURCE_CATEGORIES.ALL);
+  const { reduce, hero } = usePageMotion();
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   
   const filteredResources = getResourcesByCategory(activeTab);
@@ -28,20 +30,33 @@ const ResourcesPage = () => {
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[rgba(255,215,128,0.12)] blur-2xl" />
         <div className="absolute bottom-0 left-0 h-40 w-full bg-gradient-to-t from-black/35 to-transparent" />
 
-        <div className="container-custom relative z-10 text-center">
-          <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.35em] text-[var(--color-gold)]">
+        <motion.div className="container-custom relative z-10 text-center" {...hero}>
+          <motion.div
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.1 }}
+            className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.35em] text-[var(--color-gold)]"
+          >
             Knowledge & tools
-          </div>
-          <h1
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT, delay: reduce ? 0 : 0.18 }}
             className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             Knowledge Base
-          </h1>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto text-gray-200 font-light leading-relaxed">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.26 }}
+            className="text-lg md:text-xl max-w-3xl mx-auto text-gray-200 font-light leading-relaxed"
+          >
             Empowering you with the information you need to make informed decisions.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </section>
 
       <section className="section-padding bg-gradient-to-b from-gray-50 via-white to-gray-50">
@@ -63,13 +78,18 @@ const ResourcesPage = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div
+            key={activeTab}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={getStaggerContainer(reduce)}
+            initial="hidden"
+            animate="visible"
+          >
             {filteredResources.map((res) => (
               <motion.div
                 key={res.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
+                variants={getStaggerItem(reduce)}
+                whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.22, ease: EASE_OUT } }}
                 className="group card-surface p-6 flex flex-col"
               >
                 <div className="flex items-start justify-between mb-4">
@@ -107,9 +127,15 @@ const ResourcesPage = () => {
                 )}
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="mt-16 rounded-2xl border border-white/15 bg-[var(--color-brand-navy)]/90 p-8 md:p-12 text-center relative overflow-hidden shadow-2xl shadow-black/25">
+          <motion.div
+            className="mt-16 rounded-2xl border border-white/15 bg-[var(--color-brand-navy)]/90 p-8 md:p-12 text-center relative overflow-hidden shadow-2xl shadow-black/25"
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT_REVEAL}
+            transition={{ duration: reduce ? 0.01 : 0.55, ease: EASE_OUT }}
+          >
             <div className="absolute inset-0 bg-brand-overlay opacity-70 pointer-events-none" />
             <div className="absolute -top-20 -right-24 h-64 w-64 rounded-full bg-[var(--color-gold)]/20 blur-3xl pointer-events-none" />
             <div className="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-[var(--color-gold)]/10 blur-3xl pointer-events-none" />
@@ -138,7 +164,7 @@ const ResourcesPage = () => {
                 </Button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

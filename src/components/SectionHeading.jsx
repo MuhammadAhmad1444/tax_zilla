@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { usePageMotion } from '../lib/motion.js';
 
 const SectionHeading = ({ title, subtitle, centered = true, dark = false }) => {
+  const { reveal } = usePageMotion();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      {...reveal}
       className={`mb-12 ${centered ? 'text-center' : ''}`}
     >
       <h2

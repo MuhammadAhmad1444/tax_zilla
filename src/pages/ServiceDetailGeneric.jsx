@@ -4,10 +4,12 @@ import { Helmet } from 'react-helmet';
 import { services } from '../data/services.js';
 import Button from '../components/Button.jsx';
 import { motion } from 'framer-motion';
+import { usePageMotion, EASE_OUT } from '../lib/motion.js';
 
 const ServiceDetailGeneric = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const { reduce, hero } = usePageMotion();
 
   const servicePath = `/services/${slug}`;
   const service = services.find(s => s.path === servicePath);
@@ -31,10 +33,17 @@ const ServiceDetailGeneric = () => {
 
       <section className="pt-32 pb-20 bg-brand-dark text-white text-center dark-section relative overflow-hidden">
         <div className="absolute inset-0 bg-brand-overlay opacity-80" />
-        <div className="container-custom relative z-10">
+        <motion.div className="container-custom relative z-10" {...hero}>
           <h1 className="text-5xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>{service.title}</h1>
-          <p className="text-xl text-on-dark-muted">{service.desc}</p>
-        </div>
+          <motion.p
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.12 }}
+            className="text-xl text-on-dark-muted"
+          >
+            {service.desc}
+          </motion.p>
+        </motion.div>
       </section>
 
       <section className="py-16 bg-white">

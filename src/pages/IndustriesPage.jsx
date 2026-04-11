@@ -6,9 +6,11 @@ import SectionHeading from '../components/SectionHeading.jsx';
 import Button from '../components/Button.jsx';
 import { ArrowRight } from 'lucide-react';
 import { industries } from '../data/industries.js';
+import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL } from '../lib/motion.js';
 
 const IndustriesPage = () => {
   const navigate = useNavigate();
+  const { reduce, hero } = usePageMotion();
 
   // use industries list from src/data/industries.js
 
@@ -22,14 +24,19 @@ const IndustriesPage = () => {
       <section className="pt-32 pb-20 bg-brand-dark text-white relative dark-section overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1573165759995-5865a394a1aa')] bg-cover bg-center opacity-10"></div>
         <div className="absolute inset-0 bg-brand-overlay opacity-75" />
-        <div className="container-custom relative z-10 text-center">
+        <motion.div className="container-custom relative z-10 text-center" {...hero}>
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
             Industries We Serve
           </h1>
-          <p className="text-xl max-w-3xl mx-auto text-on-dark-muted">
+          <motion.p
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.12 }}
+            className="text-xl max-w-3xl mx-auto text-on-dark-muted"
+          >
             Specialized expertise tailored to the unique regulatory challenges of your sector.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </section>
 
       <section className="section-padding bg-gray-50">
@@ -38,12 +45,13 @@ const IndustriesPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {industries.map((ind, idx) => (
-              <motion.div
+                <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
+                viewport={VIEWPORT_REVEAL}
+                transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE_OUT, delay: reduce ? 0 : idx * 0.08 }}
+                whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.22, ease: EASE_OUT } }}
                 className="card-surface overflow-hidden group"
               >
                 <div className="p-8 border-b border-gray-100">

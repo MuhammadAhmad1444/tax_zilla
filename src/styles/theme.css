@@ -63,4 +63,5 @@
   --transition-fast: 0.2s ease;
   --transition-base: 0.3s ease;
   --transition-slow: 0.6s ease;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
 }

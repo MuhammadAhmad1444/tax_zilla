@@ -3,10 +3,12 @@ import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button.jsx';
-import { services, SERVICE_CATEGORIES, getServicesByCategory, getCategories } from '../data/services.js';
+import { SERVICE_CATEGORIES, getServicesByCategory, getCategories } from '../data/services.js';
+import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
 
 const ServicesPage = () => {
   const navigate = useNavigate();
+  const { reduce, hero } = usePageMotion();
   const [activeTab, setActiveTab] = useState(SERVICE_CATEGORIES.ALL);
 
   const filteredServices = getServicesByCategory(activeTab);
@@ -26,17 +28,36 @@ const ServicesPage = () => {
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[rgba(255,215,128,0.12)] blur-2xl" />
         <div className="absolute bottom-0 left-0 h-44 w-full bg-gradient-to-t from-black/40 to-transparent" />
 
-        <div className="container-custom relative z-10 text-center">
-          <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.35em] text-[var(--color-gold)]">
+        <motion.div
+          className="container-custom relative z-10 text-center"
+          {...hero}
+        >
+          <motion.div
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.1 }}
+            className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.35em] text-[var(--color-gold)]"
+          >
             Trusted Advisory Studio
-          </div>
-          <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold" style={{ fontFamily: 'var(--font-heading)' }}>
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT, delay: reduce ? 0 : 0.18 }}
+            className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold"
+            style={{ fontFamily: 'var(--font-heading)' }}
+          >
             Our Professional Services
-          </h1>
-          <p className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.26 }}
+            className="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto"
+          >
             Expert solutions for all your tax, compliance, and corporate needs across Pakistan.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </section>
 
       <section className="section-padding bg-gradient-to-b from-gray-50 via-white to-gray-50">
@@ -59,14 +80,18 @@ const ServicesPage = () => {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredServices.map((service, index) => (
+          <motion.div
+            key={activeTab}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={getStaggerContainer(reduce)}
+            initial="hidden"
+            animate="visible"
+          >
+            {filteredServices.map((service) => (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
+                variants={getStaggerItem(reduce)}
+                whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.22, ease: EASE_OUT } }}
                 className="group card-surface p-8"
               >
                 <div className="flex items-center justify-between">
@@ -86,15 +111,21 @@ const ServicesPage = () => {
                 </Button>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="py-20 bg-white border-t border-gray-200">
-        <div className="container-custom text-center">
+        <motion.div
+          className="container-custom text-center"
+          initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={VIEWPORT_REVEAL}
+          transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE_OUT }}
+        >
           <h2 className="text-3xl font-bold mb-6">Need Help With Your Tax Compliance?</h2>
           <Button variant="primary" size="lg" onClick={() => navigate('/contact')}>Contact Us Today</Button>
-        </div>
+        </motion.div>
       </section>
     </>
   );

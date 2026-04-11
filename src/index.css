@@ -195,3 +195,47 @@ input, textarea, select {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gold-dark);
 }
+
+/* Subtle ambient motion (theme-aligned); respect user preference */
+@keyframes tz-hero-ken {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.06) translate3d(-0.6%, 0.4%, 0);
+  }
+}
+
+@keyframes tz-shimmer-gold {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tz-hero-bg-motion {
+    animation: tz-hero-ken 28s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .tz-pill-shimmer {
+    background: linear-gradient(
+      110deg,
+      rgba(212, 175, 55, 0.12) 0%,
+      rgba(255, 255, 255, 0.18) 45%,
+      rgba(212, 175, 55, 0.12) 90%
+    );
+    background-size: 200% 100%;
+    animation: tz-shimmer-gold 8s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tz-hero-bg-motion,
+  .tz-pill-shimmer {
+    animation: none;
+  }
+}

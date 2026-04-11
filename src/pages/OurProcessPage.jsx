@@ -5,9 +5,11 @@ import { MessageSquare, FileText, ClipboardList, Settings, CheckCircle, Headphon
 import SectionHeading from '../components/SectionHeading.jsx';
 import Button from '../components/Button.jsx';
 import { useNavigate } from 'react-router-dom';
+import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL } from '../lib/motion.js';
 
 const OurProcessPage = () => {
   const navigate = useNavigate();
+  const { reduce, hero } = usePageMotion();
 
   const steps = [
     {
@@ -63,14 +65,19 @@ const OurProcessPage = () => {
 
       <section className="pt-32 pb-20 bg-[var(--color-dark-blue)] text-white relative overflow-hidden dark-section">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554224154-22dec7ec8818')] bg-cover bg-center opacity-20"></div>
-        <div className="container-custom relative z-10 text-center">
+        <motion.div className="container-custom relative z-10 text-center" {...hero}>
           <h1 className="text-4xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
             Our Workflow
           </h1>
-          <p className="text-xl max-w-2xl mx-auto text-gray-300">
+          <motion.p
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.12 }}
+            className="text-xl max-w-2xl mx-auto text-gray-300"
+          >
             A transparent, streamlined journey designed to give you peace of mind.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </section>
 
       <section className="section-padding bg-gray-50">
@@ -85,10 +92,10 @@ const OurProcessPage = () => {
               {steps.map((step, index) => (
                 <motion.div
                   key={step.id}
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 36 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={VIEWPORT_REVEAL}
+                  transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT, delay: reduce ? 0 : index * 0.08 }}
                   className={`flex flex-col md:flex-row items-center gap-8 ${
                     index % 2 === 0 ? 'md:flex-row-reverse' : ''
                   }`}
@@ -122,7 +129,13 @@ const OurProcessPage = () => {
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="container-custom text-center">
-          <div className="max-w-3xl mx-auto rounded-3xl p-10 md:p-16 shadow-2xl relative overflow-hidden bg-brand-dark dark-section">
+          <motion.div
+            className="max-w-3xl mx-auto rounded-3xl p-10 md:p-16 shadow-2xl relative overflow-hidden bg-brand-dark dark-section"
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={VIEWPORT_REVEAL}
+            transition={{ duration: reduce ? 0.01 : 0.55, ease: EASE_OUT }}
+          >
             <div className="absolute inset-0 opacity-85 bg-brand-overlay" />
             <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[var(--color-gold)]/18 blur-3xl" />
             <div className="absolute bottom-0 left-0 h-32 w-full bg-gradient-to-t from-black/40 to-transparent" />
@@ -142,7 +155,7 @@ const OurProcessPage = () => {
                 Start Consultation
               </Button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </>
