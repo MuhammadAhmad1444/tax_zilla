@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,7 @@ const Navbar = () => {
 
   const location = useLocation();
   const taxMenuWrapperRef = useRef(null);
+  const servicesMenuWrapperRef = useRef(null);
   const searchParams = new URLSearchParams(location.search);
   const activeCalc = searchParams.get('calc');
 
@@ -28,14 +30,16 @@ const Navbar = () => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // Close the tax mega-menu when user clicks outside it.
+  // Close any open mega-menu when user clicks outside it.
   useEffect(() => {
-    if (openDropdown !== 'tax-calculators') return;
+    if (!openDropdown) return;
 
     const onDocMouseDown = (e) => {
-      const el = taxMenuWrapperRef.current;
-      if (!el) return;
-      if (el.contains(e.target)) return;
+      const taxEl = taxMenuWrapperRef.current;
+      const servicesEl = servicesMenuWrapperRef.current;
+
+      if (taxEl && taxEl.contains(e.target)) return;
+      if (servicesEl && servicesEl.contains(e.target)) return;
       setOpenDropdown(null);
     };
 
@@ -55,15 +59,59 @@ const Navbar = () => {
     { name: 'Contact', path: '/contact' }
   ];
 
-  const isActive = (path) =>
-    location.pathname === path ||
-    (path !== '/' && location.pathname === `${path}/`);
+  const isActive = (path) => {
+    if (path === '/services') {
+      return location.pathname === '/services' || location.pathname.startsWith('/services/');
+    }
+
+    return (
+      location.pathname === path ||
+      (path !== '/' && location.pathname === `${path}/`)
+    );
+  };
 
   const isTaxCalculatorsActive = () =>
     location.pathname === '/pakistan-tax-calculators' ||
     location.pathname === '/pakistan-tax-calculators/';
 
   const isCalcActive = (id) => isTaxCalculatorsActive() && activeCalc === id;
+
+  const chunkBy = (items, size) => {
+    const chunks = [];
+    for (let i = 0; i < items.length; i += size) {
+      chunks.push(items.slice(i, i + size));
+    }
+    return chunks;
+  };
+
+  const servicesColumns = chunkBy(SERVICE_CATEGORIES, 4);
+
+  const ServicesMegaMenu = () => (
+    <div
+      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%_+_14px)] w-[min(980px,calc(100vw-1.25rem))] max-w-[calc(100vw-1.25rem)] bg-white border border-gray-100 rounded-2xl shadow-2xl p-4 sm:p-6"
+      role="menu"
+      aria-label="Services menu"
+    >
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {servicesColumns.map((column, columnIndex) => (
+          <div key={`services-column-${columnIndex}`} className="min-w-0">
+            <div className="flex flex-col">
+              {column.map((category) => (
+                <Link
+                  key={category.slug}
+                  to={`/services/${category.slug}`}
+                  className="block break-words text-[13px] font-semibold py-2 border-b border-gray-100 transition-all text-gray-700 hover:text-black hover:pl-1"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  {category.title}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   const TaxCalculatorsMegaMenu = () => (
     <div
@@ -322,9 +370,37 @@ const Navbar = () => {
               <div
                 key={item.path}
                 className="relative group"
-                ref={item.path === '/pakistan-tax-calculators' ? taxMenuWrapperRef : null}
+                ref={
+                  item.path === '/pakistan-tax-calculators'
+                    ? taxMenuWrapperRef
+                    : item.path === '/services'
+                    ? servicesMenuWrapperRef
+                    : null
+                }
               >
-                {item.path === '/pakistan-tax-calculators' ? (
+                {item.path === '/services' ? (
+                  <>
+                    <Link
+                      to="/services"
+                      className="flex items-center"
+                      onMouseEnter={() => setOpenDropdown('services')}
+                      onFocus={() => setOpenDropdown('services')}
+                      onClick={() => setOpenDropdown(null)}
+                    >
+                      <span
+                        className={`text-sm font-medium transition-colors duration-300 ${
+                          isActive(item.path)
+                            ? 'text-[var(--color-gold)]'
+                            : 'text-white hover:text-[var(--color-gold)]'
+                        }`}
+                      >
+                        {item.name}
+                      </span>
+                      <ChevronDown size={14} className="ml-1 text-[var(--color-gold)]/70 group-hover:text-[var(--color-gold)] transition-colors" />
+                    </Link>
+                    {openDropdown === 'services' ? <ServicesMegaMenu /> : null}
+                  </>
+                ) : item.path === '/pakistan-tax-calculators' ? (
                   <>
                     <Link
                       to="/pakistan-tax-calculators"
@@ -410,6 +486,19 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
+
+              <div className="border-t border-white/10 my-4 pt-4">
+                <p className="text-xs text-gray-400 px-4 mb-2 uppercase">Service Categories</p>
+                {SERVICE_CATEGORIES.map((category) => (
+                  <Link
+                    key={category.slug}
+                    to={`/services/${category.slug}`}
+                    className="block py-2 px-4 text-sm text-gray-300 hover:text-white"
+                  >
+                    {category.title}
+                  </Link>
+                ))}
+              </div>
               
               <div className="border-t border-white/10 my-4 pt-4">
                 <p className="text-xs text-gray-400 px-4 mb-2 uppercase">Legal</p>

@@ -4,10 +4,31 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, Clock, MapPin } from 'lucide-react';
 import SocialMediaLinks from './SocialMediaLinks';
 import { usePageMotion, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
+import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { reduce } = usePageMotion();
+  const primaryServiceSlugs = [
+    'tax-services-pakistan',
+    'provincial-sales-tax',
+    'corporate-business-services',
+    'intellectual-property',
+    'individual-tax-services',
+  ];
+
+  const internationalServiceSlugs = [
+    'visa-immigration-tax-services',
+    'overseas-pakistani-tax-services',
+    'software-it-services',
+    'uae-tax-services',
+    'usa-tax-services',
+  ];
+
+  const buildCategoryLinks = (slugs) =>
+    slugs
+      .map((slug) => SERVICE_CATEGORIES.find((category) => category.slug === slug))
+      .filter(Boolean);
 
   return (
     <footer className="bg-brand-solid text-white border-t-4 border-[var(--color-gold)] dark-section">
@@ -33,13 +54,35 @@ const Footer = () => {
 
           {/* Services */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Audit & Advisory</h4>
+            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Core Services</h4>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/services/audit-assistance" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Audit and Assurance</Link></li>
-              <li><Link to="/services/business-compliance" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Accounting & Bookkeeping</Link></li>
-              <li><Link to="/services/company-registration" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Company/Firm Registration</Link></li>
-              <li><Link to="/services/income-tax" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Income Tax Filing</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Tax Consultancy</Link></li>
+              {buildCategoryLinks(primaryServiceSlugs).map((category) => (
+                <li key={category.slug}>
+                  <Link
+                    to={`/services/${category.slug}`}
+                    className="text-gray-300 hover:text-white hover:pl-2 transition-all"
+                  >
+                    {category.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* International Services */}
+          <motion.div variants={getStaggerItem(reduce)}>
+            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">International</h4>
+            <ul className="space-y-3 text-sm">
+              {buildCategoryLinks(internationalServiceSlugs).map((category) => (
+                <li key={category.slug}>
+                  <Link
+                    to={`/services/${category.slug}`}
+                    className="text-gray-300 hover:text-white hover:pl-2 transition-all"
+                  >
+                    {category.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </motion.div>
 
@@ -61,9 +104,9 @@ const Footer = () => {
           <motion.div variants={getStaggerItem(reduce)}>
             <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Useful Links</h4>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/income-tax-slabs" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Income Tax Slabs</Link></li>
+              <li><Link to="/services" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Services</Link></li>
               <li><Link to="/about" className="text-gray-300 hover:text-white hover:pl-2 transition-all">About Us</Link></li>
-              <li><Link to="/resources" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Blogs</Link></li>
+              <li><Link to="/resources" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Resources</Link></li>
               <li><Link to="/contact" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Contact Us</Link></li>
               <li><Link to="/faqs" className="text-gray-300 hover:text-white hover:pl-2 transition-all">FAQs</Link></li>
             </ul>

@@ -22,19 +22,19 @@ const HomePage = () => {
       title: 'Income Tax Filing',
       description: 'Expert filing for individuals & businesses in compliance with Income Tax Ordinance 2001.',
       icon: FileText,
-      path: '/services/income-tax',
+      path: '/services/income-tax-return-filing',
     },
     {
       title: 'Company Registration',
       description: 'Seamless SECP company incorporation and legal structuring.',
       icon: Building2,
-      path: '/services/company-registration',
+      path: '/services/secp-company-registration',
     },
     {
       title: 'Sales Tax Services',
       description: 'Monthly sales tax returns and GST registration under Sales Tax Act 1990.',
       icon: TrendingUp,
-      path: '/services/sales-tax',
+      path: '/services/sales-tax-registration-fbr',
     },
   ];
 

@@ -5,8 +5,9 @@ import { useLocation } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import Button from './Button';
 import { useToast } from './ui/use-toast';
+import { SERVICE_CATEGORIES, SERVICE_SUBSERVICES } from '../data/serviceCatalog.js';
 
-const ContactForm = () => {
+const ContactForm = ({ defaultService }) => {
   const { toast } = useToast();
   const location = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,24 +23,28 @@ const ContactForm = () => {
   const [errors, setErrors] = useState({});
 
   const services = [
-    'Income Tax Filing (Individuals & Businesses)',
-    'NTN Registration & FBR Profile Setup',
-    'Sales Tax Registration & Returns',
-    'Company Registration (SECP)',
-    'Business Compliance & Annual Filings',
-    'Audit Assistance & Tax Representation',
-    'Freelancers & SMEs Tax Consultancy'
+    'General Consultation',
+    ...SERVICE_CATEGORIES.map((category) => category.title),
+    ...SERVICE_SUBSERVICES.map((service) => service.title),
   ];
 
-  // Pre-select service from navigation state
+  // Pre-select service from navigation state or defaults
   useEffect(() => {
     if (location.state && location.state.service) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        service: location.state.service
+        service: location.state.service,
+      }));
+      return;
+    }
+
+    if (defaultService) {
+      setFormData((prev) => ({
+        ...prev,
+        service: defaultService,
       }));
     }
-  }, [location.state]);
+  }, [location.state, defaultService]);
 
   const validateForm = () => {
     const newErrors = {};

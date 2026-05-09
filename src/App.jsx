@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from './components/ui/toaster.jsx';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
@@ -15,16 +15,7 @@ import IndustriesPage from './pages/IndustriesPage.jsx';
 import ResourcesPage from './pages/ResourcesPage.jsx';
 import PakTaxCalculators2025Page from './pages/PakTaxCalculators2025Page.jsx';
 import IncomeTaxSlabsPlaceholderPage from './pages/IncomeTaxSlabsPlaceholderPage.jsx';
-import { 
-  IncomeTaxPage, 
-  NTNRegistrationPage, 
-  SalesTaxPage, 
-  CompanyRegistrationPage, 
-  BusinessCompliancePage, 
-  AuditAssistancePage, 
-  FreelancerSMEPage 
-} from './pages/ServiceDetails.jsx';
-import ServiceDetailGeneric from './pages/ServiceDetailGeneric.jsx';
+import ServiceSlugPage from './pages/ServiceSlugPage.jsx';
 import { 
   PrivacyPolicyPage, 
   TermsConditionsPage, 
@@ -54,16 +45,16 @@ function AppShell() {
           <Route path="/pakistan-tax-calculators/" element={<PakTaxCalculators2025Page />} />
           <Route path="/income-tax-slabs" element={<IncomeTaxSlabsPlaceholderPage />} />
 
-          {/* Service Routes */}
-          <Route path="/services/income-tax" element={<IncomeTaxPage />} />
-          <Route path="/services/ntn-registration" element={<NTNRegistrationPage />} />
-          <Route path="/services/sales-tax" element={<SalesTaxPage />} />
-          <Route path="/services/company-registration" element={<CompanyRegistrationPage />} />
-          <Route path="/services/business-compliance" element={<BusinessCompliancePage />} />
-          <Route path="/services/audit-assistance" element={<AuditAssistancePage />} />
-          <Route path="/services/freelancers-sme" element={<FreelancerSMEPage />} />
-          {/* Generic handler for newly added services in data/services.js */}
-          <Route path="/services/:slug" element={<ServiceDetailGeneric />} />
+          {/* Legacy service redirects */}
+          <Route path="/services/income-tax" element={<Navigate to="/services/income-tax-return-filing" replace />} />
+          <Route path="/services/company-registration" element={<Navigate to="/services/secp-company-registration" replace />} />
+          <Route path="/services/sales-tax" element={<Navigate to="/services/sales-tax-registration-fbr" replace />} />
+          <Route path="/services/business-compliance" element={<Navigate to="/services/company-annual-filings" replace />} />
+          <Route path="/services/audit-assistance" element={<Navigate to="/services/fbr-audit-assistance" replace />} />
+          <Route path="/services/freelancers-sme" element={<Navigate to="/services/freelancer-tax-filing" replace />} />
+
+          {/* New service category and sub-service routes */}
+          <Route path="/services/:slug" element={<ServiceSlugPage />} />
 
           {/* Legal Routes */}
           <Route path="/legal/privacy-policy" element={<PrivacyPolicyPage />} />
