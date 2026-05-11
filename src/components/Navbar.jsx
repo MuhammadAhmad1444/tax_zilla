@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, ArrowRight, Phone, Mail, MessageCircle } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowRight, Phone, Mail, MessageCircle, Calculator, Building2, Globe, ShieldCheck, FileText, Briefcase } from 'lucide-react';
 import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
 import { SITE } from '../data/site.js';
 
@@ -126,57 +126,81 @@ const Navbar = () => {
   const isCalcActive = (id) => isTaxActive() && activeCalc === id;
 
   // ── Services Mega Menu ──────────────────────────────────────────────────
+  const colIcons = [ShieldCheck, Building2, Briefcase, Globe];
+
   const ServicesMegaMenu = () => (
     <div
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] w-[min(1020px,calc(100vw-1.25rem))] bg-white border border-gray-100 rounded-2xl shadow-2xl overflow-hidden"
+      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-[min(820px,calc(100vw-2rem))] bg-white rounded-xl shadow-[0_8px_40px_rgba(0,0,0,0.18)] border border-gray-100 overflow-hidden"
       role="menu"
       aria-label="Services menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {/* Header bar */}
-      <div className="flex items-center justify-between px-6 py-3 border-b border-gray-100" style={{ background: 'var(--color-brand-navy)' }}>
-        <span className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--color-gold)]">
-          All Services
-        </span>
+      {/* Slim accent bar */}
+      <div className="h-[3px] w-full" style={{ background: 'linear-gradient(90deg, var(--color-gold), var(--color-brand-navy))' }} />
+
+      {/* Header */}
+      <div className="flex items-center justify-between px-5 py-2.5 border-b border-gray-100 bg-gray-50/80">
+        <span className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-gray-400">Our Services</span>
         <Link
           to="/services"
-          className="flex items-center gap-1 text-xs font-semibold text-gray-300 hover:text-[var(--color-gold)] transition-colors"
+          className="flex items-center gap-1 text-[11px] font-semibold text-[var(--color-brand-navy)] hover:text-[var(--color-gold)] transition-colors"
           onClick={() => setOpenDropdown(null)}
         >
-          View All <ArrowRight size={12} />
+          View All <ArrowRight size={10} />
         </Link>
       </div>
 
       {/* Columns */}
-      <div className="grid grid-cols-4 gap-0 p-2">
-        {SERVICES_COLUMNS.map((col) => (
-          <div key={col.heading} className="px-3 py-3">
-            <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--color-gold)] mb-3 pb-2 border-b border-gray-100">
-              {col.heading}
+      <div className="grid grid-cols-4 divide-x divide-gray-100 p-0">
+        {SERVICES_COLUMNS.map((col, ci) => {
+          const Icon = colIcons[ci];
+          return (
+            <div key={col.heading} className="px-4 py-4">
+              {/* Column heading */}
+              <div className="flex items-center gap-1.5 mb-3">
+                <Icon size={12} className="shrink-0" style={{ color: 'var(--color-gold)' }} />
+                <span className="text-[10px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--color-gold)' }}>
+                  {col.heading}
+                </span>
+              </div>
+              <div className="flex flex-col gap-0">
+                {col.slugs.map((slug) => {
+                  const cat = categoryBySlug[slug];
+                  if (!cat) return null;
+                  const active = location.pathname === `/services/${slug}`;
+                  return (
+                    <Link
+                      key={slug}
+                      to={`/services/${slug}`}
+                      className={`group flex items-center gap-1.5 text-[12px] font-medium py-1.5 pl-2 pr-1 rounded-md transition-all duration-150 ${
+                        active
+                          ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8 font-semibold'
+                          : 'text-gray-600 hover:text-[var(--color-brand-navy)] hover:bg-gray-50'
+                      }`}
+                      onClick={() => setOpenDropdown(null)}
+                    >
+                      <span className={`w-1 h-1 rounded-full shrink-0 transition-all duration-150 ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
+                      {cat.title}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-            <div className="flex flex-col">
-              {col.slugs.map((slug) => {
-                const cat = categoryBySlug[slug];
-                if (!cat) return null;
-                return (
-                  <Link
-                    key={slug}
-                    to={`/services/${slug}`}
-                    className={`block text-[12.5px] font-semibold py-[7px] px-2 rounded-lg border-b border-gray-50 transition-all group ${
-                      location.pathname === `/services/${slug}`
-                        ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8'
-                        : 'text-gray-700 hover:text-[var(--color-brand-navy)] hover:bg-[var(--color-gold)]/10 hover:pl-3'
-                    }`}
-                    onClick={() => setOpenDropdown(null)}
-                  >
-                    {cat.title}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+          );
+        })}
+      </div>
+
+      {/* Footer strip */}
+      <div className="border-t border-gray-100 bg-gray-50/60 px-5 py-2.5 flex items-center gap-3">
+        <span className="text-[10px] text-gray-400 font-medium">Need help choosing a service?</span>
+        <Link
+          to="/contact"
+          className="text-[10px] font-bold text-[var(--color-brand-navy)] hover:text-[var(--color-gold)] transition-colors underline underline-offset-2"
+          onClick={() => setOpenDropdown(null)}
+        >
+          Talk to an Expert →
+        </Link>
       </div>
     </div>
   );
@@ -184,108 +208,140 @@ const Navbar = () => {
   // ── Tax Calculators Mega Menu ───────────────────────────────────────────
   const TaxCalculatorsMegaMenu = () => (
     <div
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] w-[min(980px,calc(100vw-1.25rem))] bg-white border border-gray-100 rounded-2xl shadow-2xl overflow-hidden"
+      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-[min(720px,calc(100vw-2rem))] bg-white rounded-xl shadow-[0_8px_40px_rgba(0,0,0,0.18)] border border-gray-100 overflow-hidden"
       role="menu"
-      aria-label="Tax Calculators 2025-2026 menu"
+      aria-label="Tax Calculators menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {/* Header bar */}
-      <div className="px-6 py-3 border-b border-gray-100" style={{ background: 'var(--color-brand-navy)' }}>
-        <span className="text-xs font-bold uppercase tracking-[0.25em] text-[var(--color-gold)]">
-          Pakistan Tax Calculators 2025–26
-        </span>
+      {/* Slim accent bar */}
+      <div className="h-[3px] w-full" style={{ background: 'linear-gradient(90deg, var(--color-gold), var(--color-brand-navy))' }} />
+
+      {/* Header */}
+      <div className="flex items-center justify-between px-5 py-2.5 border-b border-gray-100 bg-gray-50/80">
+        <div className="flex items-center gap-2">
+          <Calculator size={11} style={{ color: 'var(--color-gold)' }} />
+          <span className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-gray-400">Tax Calculators 2025–26</span>
+        </div>
+        <Link
+          to="/pakistan-tax-calculators"
+          className="flex items-center gap-1 text-[11px] font-semibold text-[var(--color-brand-navy)] hover:text-[var(--color-gold)] transition-colors"
+          onClick={() => setOpenDropdown(null)}
+        >
+          View All <ArrowRight size={10} />
+        </Link>
       </div>
 
-      <div className="grid grid-cols-3 gap-0 p-2">
+      <div className="grid grid-cols-3 divide-x divide-gray-100">
         {/* Column 1 */}
-        <div className="px-3 py-3">
-          <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--color-gold)] mb-3 pb-2 border-b border-gray-100">
-            Verification & Essentials
+        <div className="px-4 py-4">
+          <div className="flex items-center gap-1.5 mb-3">
+            <FileText size={11} style={{ color: 'var(--color-gold)' }} />
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--color-gold)' }}>
+              Essentials
+            </span>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-0">
             {[
               { id: 'pta', label: 'PTA Tax Calculator' },
               { id: 'zakat', label: 'Zakat Calculator' },
               { id: 'fbr-online', label: 'FBR Online Verifications' },
-              { id: 'value-added-tax', label: 'Supply of Goods Tax Calculator' },
-              { id: 'agri-land-punjab', label: 'Agricultural Land Tax – Punjab' },
-            ].map(({ id, label }) => (
-              <Link
-                key={id}
-                to={`/pakistan-tax-calculators?calc=${id}`}
-                className={`block text-[12.5px] font-semibold py-[7px] px-2 rounded-lg border-b border-gray-50 transition-all ${
-                  isCalcActive(id)
-                    ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8'
-                    : 'text-gray-700 hover:text-[var(--color-brand-navy)] hover:bg-[var(--color-gold)]/10 hover:pl-3'
-                }`}
-                onClick={() => setOpenDropdown(null)}
-              >
-                {label}
-              </Link>
-            ))}
+              { id: 'value-added-tax', label: 'Supply of Goods Tax' },
+              { id: 'agri-land-punjab', label: 'Agricultural Land Tax' },
+            ].map(({ id, label }) => {
+              const active = isCalcActive(id);
+              return (
+                <Link
+                  key={id}
+                  to={`/pakistan-tax-calculators?calc=${id}`}
+                  className={`group flex items-center gap-1.5 text-[12px] font-medium py-1.5 pl-2 pr-1 rounded-md transition-all duration-150 ${
+                    active ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8 font-semibold' : 'text-gray-600 hover:text-[var(--color-brand-navy)] hover:bg-gray-50'
+                  }`}
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  <span className={`w-1 h-1 rounded-full shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
+                  {label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
         {/* Column 2 */}
-        <div className="px-3 py-3">
-          <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--color-gold)] mb-3 pb-2 border-b border-gray-100">
-            Capital Gains & Withholding
+        <div className="px-4 py-4">
+          <div className="flex items-center gap-1.5 mb-3">
+            <FileText size={11} style={{ color: 'var(--color-gold)' }} />
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--color-gold)' }}>
+              Capital Gains
+            </span>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-0">
             {[
               { id: 'gain-securities', label: 'Gain Tax on Securities' },
               { id: 'gain-mutual-funds', label: 'Gain Tax on Mutual Funds' },
               { id: 'gain-properties', label: 'Gain Tax on Properties' },
-              { id: 'withholding-income-properties', label: 'Withholding Tax – Income from Properties' },
-              { id: 'withholding-brokerage-commission', label: 'Withholding Tax – Brokerage & Commission' },
-            ].map(({ id, label }) => (
-              <Link
-                key={id}
-                to={`/pakistan-tax-calculators?calc=${id}`}
-                className={`block text-[12.5px] font-semibold py-[7px] px-2 rounded-lg border-b border-gray-50 transition-all ${
-                  isCalcActive(id)
-                    ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8'
-                    : 'text-gray-700 hover:text-[var(--color-brand-navy)] hover:bg-[var(--color-gold)]/10 hover:pl-3'
-                }`}
-                onClick={() => setOpenDropdown(null)}
-              >
-                {label}
-              </Link>
-            ))}
+              { id: 'withholding-income-properties', label: 'Withholding – Properties' },
+              { id: 'withholding-brokerage-commission', label: 'Withholding – Brokerage' },
+            ].map(({ id, label }) => {
+              const active = isCalcActive(id);
+              return (
+                <Link
+                  key={id}
+                  to={`/pakistan-tax-calculators?calc=${id}`}
+                  className={`group flex items-center gap-1.5 text-[12px] font-medium py-1.5 pl-2 pr-1 rounded-md transition-all duration-150 ${
+                    active ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8 font-semibold' : 'text-gray-600 hover:text-[var(--color-brand-navy)] hover:bg-gray-50'
+                  }`}
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  <span className={`w-1 h-1 rounded-full shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
+                  {label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
         {/* Column 3 */}
-        <div className="px-3 py-3">
-          <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[var(--color-gold)] mb-3 pb-2 border-b border-gray-100">
-            Income & Business Calculators
+        <div className="px-4 py-4">
+          <div className="flex items-center gap-1.5 mb-3">
+            <Briefcase size={11} style={{ color: 'var(--color-gold)' }} />
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--color-gold)' }}>
+              Income & Business
+            </span>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-0">
             {[
               { id: 'salary', label: 'Salary Tax Calculator' },
               { id: 'business', label: 'Business Tax Calculator' },
               { id: 'freelancer', label: 'Freelancer Tax Calculator' },
-              { id: 'super-tax', label: 'Super Tax on Annual Income' },
-              { id: 'company-income', label: 'Company Income Tax Calculator' },
+              { id: 'super-tax', label: 'Super Tax on Income' },
+              { id: 'company-income', label: 'Company Income Tax' },
               { id: 'builder', label: 'Builder Tax Calculator' },
               { id: 'developer', label: 'Developer Tax Calculator' },
-            ].map(({ id, label }) => (
-              <Link
-                key={id}
-                to={`/pakistan-tax-calculators?calc=${id}`}
-                className={`block text-[12.5px] font-semibold py-[7px] px-2 rounded-lg border-b border-gray-50 transition-all ${
-                  isCalcActive(id)
-                    ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8'
-                    : 'text-gray-700 hover:text-[var(--color-brand-navy)] hover:bg-[var(--color-gold)]/10 hover:pl-3'
-                }`}
-                onClick={() => setOpenDropdown(null)}
-              >
-                {label}
-              </Link>
-            ))}
+            ].map(({ id, label }) => {
+              const active = isCalcActive(id);
+              return (
+                <Link
+                  key={id}
+                  to={`/pakistan-tax-calculators?calc=${id}`}
+                  className={`group flex items-center gap-1.5 text-[12px] font-medium py-1.5 pl-2 pr-1 rounded-md transition-all duration-150 ${
+                    active ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8 font-semibold' : 'text-gray-600 hover:text-[var(--color-brand-navy)] hover:bg-gray-50'
+                  }`}
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  <span className={`w-1 h-1 rounded-full shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
+                  {label}
+                </Link>
+              );
+            })}
           </div>
         </div>
+      </div>
+
+      {/* Footer strip */}
+      <div className="border-t border-gray-100 bg-gray-50/60 px-5 py-2.5 flex items-center gap-3">
+        <span className="text-[10px] text-gray-400 font-medium">All calculators use official FBR 2025-26 rates.</span>
+        <span className="text-[10px] font-bold text-emerald-600">Free &amp; Instant</span>
       </div>
     </div>
   );
