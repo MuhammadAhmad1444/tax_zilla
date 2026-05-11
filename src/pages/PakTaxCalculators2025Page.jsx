@@ -359,9 +359,9 @@ const PakTaxCalculators2025Page = () => {
 
       {/* Count */}
       <div className="text-center mb-8">
-        <p className="text-sm text-[var(--color-text-muted)]">
+        <p className="text-sm text-gray-500">
           Showing{' '}
-          <span className="font-bold" style={{ color: 'var(--color-brand-navy)' }}>
+          <span className="font-bold text-gray-900">
             {visibleCalculators.length}
           </span>{' '}
           calculator{visibleCalculators.length !== 1 ? 's' : ''}

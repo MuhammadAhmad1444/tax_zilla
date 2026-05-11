@@ -353,7 +353,7 @@ const FAQsPage = () => {
               {searchTerm ? (
                 <>
                   Found{' '}
-                  <span className="font-bold" style={{ color: 'var(--color-brand-navy)' }}>
+                  <span className="font-bold text-gray-900">
                     {filteredFaqs.length}
                   </span>{' '}
                   result{filteredFaqs.length !== 1 ? 's' : ''} for "
@@ -362,7 +362,7 @@ const FAQsPage = () => {
               ) : (
                 <>
                   Showing{' '}
-                  <span className="font-bold" style={{ color: 'var(--color-brand-navy)' }}>
+                  <span className="font-bold text-gray-900">
                     {filteredFaqs.length}
                   </span>{' '}
                   question{filteredFaqs.length !== 1 ? 's' : ''}

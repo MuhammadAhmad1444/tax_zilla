@@ -35,6 +35,7 @@ const PageTransition = ({ children }) => (
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0 }}
     transition={{ duration: 0.25, ease: EASE_OUT }}
+    style={{ background: 'transparent', minHeight: '1px' }}
   >
     {children}
   </motion.div>

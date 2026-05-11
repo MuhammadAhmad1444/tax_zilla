@@ -229,7 +229,7 @@ const ServicesPage = () => {
           <div className="text-center mb-8">
             <p className="text-sm text-[var(--color-text-muted)]">
               Showing{' '}
-              <span className="font-bold" style={{ color: 'var(--color-brand-navy)' }}>
+              <span className="font-bold text-gray-900">
                 {visibleCategories.length}
               </span>{' '}
               service {visibleCategories.length === 1 ? 'category' : 'categories'}
