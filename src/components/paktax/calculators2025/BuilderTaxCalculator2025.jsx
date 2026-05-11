@@ -353,14 +353,6 @@ export function BuilderTaxCalculator2025({ variant = 'builder' }) {
               </div>
             </div>
           </div>
-
-          <div className="rounded-2xl border border-gray-200 bg-[var(--color-dark-blue)] text-white p-6">
-            <div className="text-xl font-extrabold mb-2">Need Help with Your Project Estimates?</div>
-            <div className="text-sm text-gray-200">Share your project details and our team can validate your inputs and provide a professional estimate report.</div>
-            <div className="mt-4">
-              <Link to="/contact" className="paktax-btn paktax-btn-primary">Request a Consultation</Link>
-            </div>
-          </div>
         </div>
       )}
 
@@ -540,14 +532,6 @@ export function BuilderTaxCalculator2025({ variant = 'builder' }) {
                 <div className="font-bold text-gray-900">Legal Consultation</div>
                 <div className="text-xs text-gray-500 mt-1">Project structuring guidance</div>
               </div>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-gray-200 bg-[var(--color-dark-blue)] text-white p-6">
-            <div className="text-xl font-extrabold mb-2">Need Help with Your Builder Tax Estimates?</div>
-            <div className="text-sm text-gray-200">Share your project details and our team can validate your inputs and provide a professional estimate report.</div>
-            <div className="mt-4">
-              <Link to="/contact" className="paktax-btn paktax-btn-primary">Request a Consultation</Link>
             </div>
           </div>
         </div>

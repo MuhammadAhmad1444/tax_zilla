@@ -357,14 +357,6 @@ export function WithholdingTaxOnIncomeFromPropertiesCalculator2025() {
             For any inquiries, assistance, or personalized support, contact our team. We are ready to help you navigate through any challenges.
           </div>
         </div>
-
-        <div className="rounded-2xl border border-gray-200 bg-[var(--color-dark-blue)] text-white p-6">
-          <div className="text-xl font-extrabold mb-2">Need Help With Property WHT Planning?</div>
-          <div className="text-sm text-gray-200">Share your rent details and our team can validate the slabs and provide a professional estimate report.</div>
-          <div className="mt-4">
-            <Link to="/contact" className="paktax-btn paktax-btn-primary">Request a Consultation</Link>
-          </div>
-        </div>
       </div>
     </TaxCalculatorShell>
   );

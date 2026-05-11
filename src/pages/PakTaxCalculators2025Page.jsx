@@ -138,65 +138,6 @@ const CalculatorBreadcrumb = ({ calculator, onBack }) => (
   </div>
 );
 
-/* ── Dark bottom CTA ─────────────────────────────────────── */
-const BottomCTA = () => (
-  <div className="relative mt-14 rounded-2xl overflow-hidden" style={{ background: 'var(--color-brand-navy)' }}>
-    <div className="absolute inset-0 bg-brand-overlay opacity-60" />
-    <HeroGrid />
-    <div className="relative z-10 p-6 sm:p-8 dark-section">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div>
-          <h3
-            className="text-xl sm:text-2xl font-bold text-white mb-3 leading-snug"
-            style={{ fontFamily: 'var(--font-heading)' }}
-          >
-            Need help understanding{' '}
-            <span className="text-[var(--color-gold)]">your tax calculation?</span>
-          </h3>
-          <p className="text-gray-300 text-sm leading-relaxed mb-5">
-            Our tax consultants can review your case, verify figures, and guide you through
-            filing — all online. Get professional support today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button variant="primary" onClick={() => window.location.href = '/contact'}>
-              Book Free Consultation
-            </Button>
-            <Button variant="outline" onClick={() => window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer')}>
-              <MessageCircle size={16} className="mr-2" /> WhatsApp Now
-            </Button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <a
-            href={`tel:${SITE.phoneTel}`}
-            className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-[var(--color-gold)]/40 transition-all group"
-          >
-            <div className="h-10 w-10 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
-              <Phone size={16} />
-            </div>
-            <div>
-              <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Call Us</div>
-              <div className="text-sm font-bold text-white">{SITE.phone}</div>
-            </div>
-          </a>
-          <a
-            href={`mailto:${SITE.email}`}
-            className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-[var(--color-gold)]/40 transition-all group"
-          >
-            <div className="h-10 w-10 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
-              <Mail size={16} />
-            </div>
-            <div>
-              <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Email</div>
-              <div className="text-sm font-bold text-white break-all">{SITE.email}</div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 /* ═══════════════════════════════════════════════════════════
    Main Page
@@ -509,8 +450,6 @@ const PakTaxCalculators2025Page = () => {
           ))}
         </div>
       </div>
-
-      <BottomCTA />
     </div>
   );
 
@@ -540,7 +479,6 @@ const PakTaxCalculators2025Page = () => {
           currentId={activeCalculator.id}
           goToCalculator={goToCalculator}
         />
-        <BottomCTA />
       </div>
     );
   };

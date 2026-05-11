@@ -460,16 +460,6 @@ export function PtaTaxCalculator2025() {
             Always verify the final payable tax on the official PTA DIRBS portal before making a payment.
           </div>
         </div>
-
-        <div className="rounded-2xl border border-gray-200 bg-[var(--color-dark-blue)] text-white p-6">
-          <div className="text-xl font-extrabold mb-2">Need Help With PTA Registration?</div>
-          <div className="text-sm text-gray-200">
-            Our team can help you verify the bracket, file the DIRBS request, and confirm the payable amount.
-          </div>
-          <div className="mt-4">
-            <Link to="/contact" className="paktax-btn paktax-btn-primary">Request a Consultation</Link>
-          </div>
-        </div>
       </div>
     </TaxCalculatorShell>
   );

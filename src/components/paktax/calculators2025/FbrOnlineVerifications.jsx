@@ -225,17 +225,6 @@ export function FbrOnlineVerifications() {
           </ul>
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-6">
-          <div className="text-xl font-extrabold text-gray-900 mb-2">Need Help With FBR Verifications?</div>
-          <div className="text-sm text-gray-700 mb-4">
-            Our tax professionals can assist with NTN registration, ATL activation, and verification
-            workflows for your business or personal compliance needs.
-          </div>
-          <Link to="/contact" className="paktax-btn paktax-btn-primary inline-flex items-center gap-2">
-            Request a Consultation
-          </Link>
-        </div>
-
       </div>
     </TaxCalculatorShell>
   );

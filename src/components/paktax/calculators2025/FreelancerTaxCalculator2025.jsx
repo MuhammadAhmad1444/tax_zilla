@@ -344,14 +344,6 @@ export function FreelancerTaxCalculator2025() {
             For inquiries or personalized support, contact our team. We are ready to assist you with compliance guidance and calculations.
           </div>
         </div>
-
-        <div className="rounded-2xl border border-gray-200 bg-[var(--color-dark-blue)] text-white p-6">
-          <div className="text-xl font-extrabold mb-2">Need Help With Freelancer Tax Planning?</div>
-          <div className="text-sm text-gray-200">Share your income details and our team can validate the slabs and provide a professional estimate report.</div>
-          <div className="mt-4">
-            <Link to="/contact" className="paktax-btn paktax-btn-primary">Request a Consultation</Link>
-          </div>
-        </div>
       </div>
     </TaxCalculatorShell>
   );

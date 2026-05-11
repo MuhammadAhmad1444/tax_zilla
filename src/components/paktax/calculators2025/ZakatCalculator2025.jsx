@@ -366,16 +366,6 @@ export function ZakatCalculator2025() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-6">
-          <div className="text-xl font-extrabold text-gray-900 mb-3">Support and Contact Information</div>
-          <div className="text-sm text-gray-700">
-            For any inquiries, assistance, or personalized support, please contact our dedicated support team. Our
-            experts are ready to help you navigate any questions about Zakat compliance.
-          </div>
-          <div className="mt-4">
-            <Link to="/contact" className="paktax-btn paktax-btn-primary">Request a Consultation</Link>
-          </div>
-        </div>
       </div>
     </TaxCalculatorShell>
   );
