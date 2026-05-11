@@ -365,15 +365,12 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex min-w-0 flex-shrink-0 items-center gap-2 sm:gap-3">
             <motion.div whileHover={{ scale: 1.03 }} className="flex min-w-0 items-center gap-2 sm:gap-3">
-              {/* Circular crop — shows only the TZ emblem, hides white background */}
-              <div className="h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-full overflow-hidden ring-1 ring-white/20">
-                <img
-                  src="/images/tax-zilla-logo.png"
-                  alt="Tax Zilla logo"
-                  className="h-full w-full object-cover scale-[1.18]"
-                  loading="eager"
-                />
-              </div>
+              <img
+                src="/images/tax-zilla-logo.png"
+                alt="Tax Zilla logo"
+                className="h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-full object-cover"
+                loading="eager"
+              />
               <h1 className="text-xl font-bold sm:text-2xl xl:text-3xl" style={{ fontFamily: 'var(--font-heading)' }}>
                 <span className="text-white">Tax </span>
                 <span className="text-gradient-gold">Zilla</span>

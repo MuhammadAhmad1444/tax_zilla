@@ -67,6 +67,35 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
+   GLOBAL GOLD GRID — auto-applies to every dark section
+   Any element with .dark-section gets the subtle gold grid
+   overlay without needing a manual <Grid /> component.
+═══════════════════════════════════════════════════════════ */
+
+.dark-section {
+  position: relative;
+}
+
+/*
+ * Gold grid overlay — auto-applied to every .dark-section.
+ * Sections that already render a <Grid /> JSX component will
+ * combine to ~0.07 total opacity (acceptable).
+ * Sections without <Grid /> get 0.04 from this rule alone.
+ */
+.dark-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(212, 175, 55, 1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 1) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ═══════════════════════════════════════════════════════════
    GLOBAL ANIMATION KEYFRAMES
 ═══════════════════════════════════════════════════════════ */
 
