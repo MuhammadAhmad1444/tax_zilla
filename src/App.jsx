@@ -31,11 +31,10 @@ const EASE_OUT = [0.22, 1, 0.36, 1];
 
 const PageTransition = ({ children }) => (
   <motion.div
-    initial={{ opacity: 0, y: 8 }}
-    animate={{ opacity: 1, y: 0 }}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
-    transition={{ duration: 0.25, ease: EASE_OUT }}
-    style={{ background: 'transparent', minHeight: '1px' }}
+    transition={{ duration: 0.18, ease: EASE_OUT }}
   >
     {children}
   </motion.div>
@@ -91,7 +90,7 @@ function AppShell() {
 
       <Navbar />
 
-      <main className="flex-grow min-w-0 w-full overflow-x-hidden">
+      <main className="flex-grow min-w-0 w-full overflow-x-hidden" style={{ background: 'var(--color-brand-navy)' }}>
         <AnimatedRoutes />
       </main>
 
