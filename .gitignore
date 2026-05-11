@@ -1,9 +1,6 @@
 # Node dependencies
 node_modules/
 
-# Build output
-# dist/
-
 # Logs
 npm-debug.log*
 yarn-debug.log*
@@ -14,6 +11,13 @@ yarn-error.log*
 .env.local
 .env.*.local
 
-# Editor settings
+# Editor / tool settings (not needed on server)
 .vscode/
 .DS_Store
+.claude/
+
+# Dev-only scripts
+update_services.cjs
+
+# Misc loose images (Brand Mark source etc.)
+images/
