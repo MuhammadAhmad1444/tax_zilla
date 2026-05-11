@@ -1,6 +1,7 @@
-/* PakTax-specific theme overrides (scoped to .paktax-root) */
+/* ═══════════════════════════════════════════════════
+   PakTax — scoped to .paktax-root
+═══════════════════════════════════════════════════ */
 .paktax-root {
-  /* Match the main site typography */
   font-family: var(--font-body);
   background: #ffffff;
   color: #1f2937;
@@ -8,10 +9,55 @@
   max-width: 100%;
 }
 
-.paktax-gradient-slate {
-  background: linear-gradient(145deg, #0b1c29 0%, #132739 55%, #1b3a52 100%);
+/* ── Calculator Shell Header ────────────────────── */
+.paktax-shell-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  border-top: 3px solid var(--color-gold);
 }
 
+.paktax-shell-title {
+  font-family: var(--font-heading, 'Playfair Display', serif);
+  font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.25;
+  margin: 0 0 0.3rem 0;
+}
+
+.paktax-shell-subtitle {
+  font-size: 0.84rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* ── Trust badges ───────────────────────────────── */
+.paktax-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+
+.paktax-trust-badge-gold {
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #b8941f;
+}
+
+.paktax-trust-badge-gray {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #4b5563;
+}
+
+/* ── Tile cards (grid listing) ──────────────────── */
 .paktax-tile {
   border-radius: 22px;
   border: 1px solid rgba(15, 23, 42, 0.08);
@@ -34,15 +80,10 @@
 }
 
 @media (min-width: 480px) {
-  .paktax-tile-media {
-    height: 160px;
-  }
+  .paktax-tile-media { height: 160px; }
 }
-
 @media (min-width: 640px) {
-  .paktax-tile-media {
-    height: 176px;
-  }
+  .paktax-tile-media { height: 176px; }
 }
 
 .paktax-tile-media img {
@@ -82,43 +123,212 @@
   justify-content: center;
 }
 
-.paktax-green {
-  background: var(--color-gold);
+/* ── Input section card ─────────────────────────── */
+.paktax-root .rounded-2xl.bg-gray-50 {
+  background: #ffffff !important;
+  border: 1.5px solid #e5e7eb !important;
+  border-top: 3px solid var(--color-gold) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
 }
 
-.paktax-green-dark {
-  background: var(--color-gold-dark);
+/* ── "Inputs" heading inside the card ──────────── */
+.paktax-root .font-bold.text-gray-900 {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-gold) !important;
 }
 
-.paktax-pill {
-  border-radius: 9999px;
+/* ── All input fields (override Tailwind inline) ── */
+.paktax-root input[type="text"],
+.paktax-root input[type="number"],
+.paktax-root input[type="tel"],
+.paktax-root input[type="email"] {
+  width: 100% !important;
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  font-size: 0.875rem !important;
+  font-family: var(--font-body) !important;
+  background: #ffffff !important;
+  color: #1f2937 !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.paktax-shadow-soft {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+.paktax-root input[type="text"]:focus,
+.paktax-root input[type="number"]:focus,
+.paktax-root input[type="tel"]:focus,
+.paktax-root input[type="email"]:focus {
+  border-color: var(--color-gold) !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18) !important;
 }
 
-.paktax-shadow-card {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+.paktax-root input::placeholder {
+  color: #9ca3af !important;
+  font-size: 0.85rem !important;
 }
 
+/* ── Select dropdowns ───────────────────────────── */
+.paktax-root select {
+  width: 100% !important;
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  font-size: 0.875rem !important;
+  font-family: var(--font-body) !important;
+  background: #ffffff !important;
+  color: #1f2937 !important;
+  appearance: auto;
+  outline: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  cursor: pointer;
+}
+
+.paktax-root select:focus {
+  border-color: var(--color-gold) !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18) !important;
+}
+
+/* ── Labels ─────────────────────────────────────── */
+.paktax-root label {
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* Inline labels (radio group) */
+.paktax-root label.flex,
+.paktax-root label.inline-flex {
+  display: inline-flex !important;
+  margin-bottom: 0 !important;
+  font-size: 0.82rem !important;
+  color: #4b5563 !important;
+}
+
+/* ── Radio inputs ───────────────────────────────── */
+.paktax-root input[type="radio"] {
+  accent-color: var(--color-gold) !important;
+  width: 17px !important;
+  height: 17px !important;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── Range sliders ──────────────────────────────── */
+.paktax-root input[type="range"] {
+  accent-color: var(--color-gold) !important;
+}
+
+/* ── Form groups inside calculator cards ────────── */
+.paktax-root .mb-4 {
+  margin-bottom: 1.1rem;
+}
+
+/* ── Empty result placeholder ───────────────────── */
+.paktax-root .border-dashed {
+  background: #fafafa !important;
+  border: 2px dashed #d1d5db !important;
+  border-radius: 16px !important;
+  text-align: center;
+  padding: 2.5rem 1.5rem !important;
+  color: #9ca3af !important;
+  font-size: 0.875rem;
+}
+
+/* ── Result info cards (white cards below calc) ─── */
+.paktax-root .rounded-2xl.bg-white.p-6 {
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s ease;
+}
+
+.paktax-root .rounded-2xl.bg-white.p-6:hover {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* ── Result section info headings ───────────────── */
+.paktax-root .text-xl.font-extrabold.text-gray-900 {
+  font-family: var(--font-heading) !important;
+  font-size: 1rem !important;
+  color: #0b1c29 !important;
+  border-bottom: 2px solid var(--color-gold);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem !important;
+  display: block;
+}
+
+/* ── Consultation CTA card (dark) ───────────────── */
+.paktax-root .bg-\[var\(--color-dark-blue\)\],
+.paktax-root [style*="brand-navy"] {
+  background: var(--color-brand-navy) !important;
+  border: 1px solid rgba(212,175,55,0.2) !important;
+  border-left: 4px solid var(--color-gold) !important;
+}
+
+/* ── Table ──────────────────────────────────────── */
+.paktax-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.paktax-table th,
+.paktax-table td {
+  border: 1px solid #e5e7eb;
+  padding: 9px 12px;
+}
+
+@media (min-width: 640px) {
+  .paktax-table th,
+  .paktax-table td {
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+}
+
+.paktax-table th {
+  background: #f9fafb;
+  font-weight: 700;
+  color: #374151;
+  text-align: left;
+}
+
+.paktax-table tr:hover td {
+  background: rgba(212, 175, 55, 0.04);
+}
+
+/* ── Buttons ────────────────────────────────────── */
 .paktax-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 12px 22px;
   border-radius: 10px;
-  font-weight: 600;
-  transition: transform 0.12s ease, filter 0.12s ease, background 0.12s ease;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.paktax-btn:active {
+  transform: scale(0.98);
 }
 
 .paktax-btn-primary {
   background: var(--color-gold);
   color: #000000;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
 }
 
 .paktax-btn-primary:hover {
   background: var(--color-gold-dark);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
 }
 
 .paktax-btn-secondary {
@@ -128,30 +338,30 @@
 }
 
 .paktax-btn-secondary:hover {
-  background: rgba(212, 175, 55, 0.12);
+  background: rgba(212, 175, 55, 0.1);
 }
 
-.paktax-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
+/* ── Misc ───────────────────────────────────────── */
+.paktax-shadow-soft {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.paktax-table th,
-.paktax-table td {
-  border: 1px solid #e5e7eb;
-  padding: 8px 10px;
+.paktax-shadow-card {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-@media (min-width: 640px) {
-  .paktax-table th,
-  .paktax-table td {
-    padding: 10px 12px;
+.paktax-pill {
+  border-radius: 9999px;
+}
+
+/* ── Responsive: compact on mobile ─────────────── */
+@media (max-width: 639px) {
+  .paktax-shell-header .mx-auto {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+  .paktax-btn {
+    padding: 11px 16px;
+    font-size: 0.8125rem;
   }
 }
-
-.paktax-table th {
-  background: #f3f4f6;
-  font-weight: 700;
-}
-

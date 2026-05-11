@@ -204,8 +204,6 @@ export function GainTaxOnPropertiesCalculator2025() {
           </div>
         </div>
 
-                <option value="" disabled>Select property type</option>
-                <option value="" disabled>Select holding period</option>
         <div className="lg:col-span-2">
           {result ? (
             <ResultBlock title="Result">
