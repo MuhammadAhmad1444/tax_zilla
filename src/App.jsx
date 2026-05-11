@@ -31,11 +31,10 @@ const EASE_OUT = [0.22, 1, 0.36, 1];
 
 const PageTransition = ({ children }) => (
   <motion.div
-    initial={{ opacity: 0, y: 10 }}
+    initial={{ opacity: 0, y: 8 }}
     animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -6 }}
-    transition={{ duration: 0.28, ease: EASE_OUT }}
-    style={{ willChange: 'opacity, transform' }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.25, ease: EASE_OUT }}
   >
     {children}
   </motion.div>
