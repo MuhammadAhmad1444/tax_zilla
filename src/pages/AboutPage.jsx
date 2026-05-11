@@ -1,152 +1,371 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { Shield, BookOpen, Award, CheckSquare } from 'lucide-react';
-import SectionHeading from '../components/SectionHeading.jsx';
-import FeatureCard from '../components/FeatureCard.jsx';
-import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
+import { useNavigate } from 'react-router-dom';
+import { useReducedMotion } from 'framer-motion';
+import {
+  Shield, Award, CheckCircle,
+  MessageCircle, Phone, MapPin, Clock, Users,
+  ShieldCheck, Zap, UserCheck, Heart, Globe, TrendingUp, Building2, FileText,
+} from 'lucide-react';
+import Button from '../components/Button.jsx';
+import { SITE } from '../data/site.js';
+import { usePageMotion, EASE_OUT, revealUp, revealLeft, revealRight, revealScale } from '../lib/motion.js';
+
+const Grid = () => (
+  <div className="absolute inset-0 pointer-events-none opacity-[0.04]"
+    style={{
+      backgroundImage: 'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
+      backgroundSize: '64px 64px',
+    }}
+  />
+);
+
+const STATS = [
+  { value: '500+', label: 'Clients Served' },
+  { value: '10+', label: 'Years Experience' },
+  { value: '70+', label: 'Services Offered' },
+  { value: '4', label: 'Countries Served' },
+];
+
+const VALUES = [
+  { icon: ShieldCheck, title: 'Compliance-First', desc: 'We never cut corners. Every filing, registration, and advisory is aligned with the latest FBR, SECP, and regulatory requirements.' },
+  { icon: Heart, title: 'Client-Centric', desc: 'Your success is our metric. We take time to understand your unique situation before recommending any service or strategy.' },
+  { icon: Zap, title: 'Efficiency', desc: 'We respect your time. Clear timelines, proactive updates, and on-time delivery are non-negotiable standards for every engagement.' },
+  { icon: Shield, title: 'Confidentiality', desc: 'Your financial and legal data is handled with strict professional secrecy. We maintain the highest data protection standards.' },
+];
+
+const EXPERTISE = [
+  { icon: FileText, title: 'FBR Income Tax', desc: 'Individual, AOP, and corporate income tax returns, withholding tax compliance, ATL maintenance, and FBR audit representation.' },
+  { icon: TrendingUp, title: 'Sales Tax (GST)', desc: 'FBR GST registration, monthly return filing, input/output reconciliation, and refund processing for businesses of all sizes.' },
+  { icon: Building2, title: 'SECP & Corporate', desc: 'Company incorporation, annual SECP filings, director registration, share changes, and corporate compliance management.' },
+  { icon: Globe, title: 'International Tax', desc: 'UAE VAT/corporate tax, USA LLC registration, Saudi Arabia ZATCA compliance, and Pakistan–UAE–USA double taxation advisory.' },
+  { icon: Shield, title: 'Legal Services', desc: 'Trademark registration, copyright, power of attorney, legal notices, agreement drafting, and business legal advisory.' },
+  { icon: Users, title: 'Overseas Pakistanis', desc: 'Non-resident tax filing, ATL activation, property transaction tax guidance, TRC certificates, and foreign income advisory.' },
+];
+
+const DIFFERENTIATORS = [
+  'Proactive compliance management — we remind you before deadlines, not after',
+  'Dedicated case consultant from day one — no handoffs or confusion',
+  'Transparent pricing with written scope confirmation before any work starts',
+  'Fully remote service — no office visits required, everything handled digitally',
+  'Dual expertise in tax AND corporate law — both from a single firm',
+  'International reach — Pakistan, UAE, USA, and Saudi Arabia compliance',
+  'Post-filing support included — we stay available for 60 days after submission',
+  '24/7 WhatsApp availability for urgent queries and document requests',
+];
 
 const AboutPage = () => {
+  const navigate = useNavigate();
   const { hero, reduce } = usePageMotion();
+  const reduceMotion = useReducedMotion();
+
   return (
     <>
       <Helmet>
-        <title>About Us - Tax Zilla Consultancy Pakistan</title>
-        <meta name="description" content="Learn about Tax Zilla Consultancy, a leading tax and legal firm in Lahore, Pakistan. Experts in FBR compliance, SECP registration, and corporate law." />
+        <title>About Us — Tax Zilla Consultancy Pakistan</title>
+        <meta name="description" content="Tax Zilla Consultancy — Lahore's leading tax and legal firm. 10+ years of expertise in FBR compliance, SECP registration, and international tax advisory. 500+ clients across Pakistan, UAE, USA, and Saudi Arabia." />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-brand-dark px-2 pb-16 pt-28 text-white dark-section sm:pb-20 sm:pt-32">
-        <div className="absolute inset-0 opacity-40">
-          <img src="https://images.unsplash.com/photo-1695487562553-c71a77e6c656" alt="Office Background" className="w-full h-full object-cover" />
-        </div>
-        <div className="absolute inset-0 bg-brand-overlay opacity-80" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-        
-        <div className="container-custom relative z-10 text-center">
-          <motion.div {...hero}>
-            <h1 className="px-2 text-3xl font-bold mb-6 sm:text-4xl md:text-5xl lg:text-6xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>
-              About <span className="text-gradient-gold">Tax Zilla</span>
-            </h1>
-            <p className="mx-auto max-w-3xl px-1 text-base text-gray-200 sm:text-lg md:text-xl lg:text-2xl">
-              Professional Tax & Legal Consultancy committed to excellence in Pakistan's corporate landscape.
-            </p>
+      {/* ── Hero ─────────────────────────────────────── */}
+      <section className="relative overflow-hidden px-2 pb-20 pt-28 text-white dark-section sm:pb-24 sm:pt-36"
+        style={{ background: 'var(--color-brand-navy)' }}>
+        <div className="absolute inset-0 bg-brand-overlay opacity-70" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,_rgba(212,175,55,0.2),_transparent_60%)]" />
+        <Grid />
+        <motion.div className="container-custom relative z-10 text-center" {...hero}>
+          <motion.div
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.08 }}
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/35 bg-[var(--color-gold)]/10 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-gold)] mb-6"
+          >
+            Premier Tax & Legal Consultancy · Lahore
           </motion.div>
-        </div>
+          <motion.h1
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT, delay: reduce ? 0 : 0.16 }}
+            className="px-2 text-3xl font-extrabold sm:text-5xl md:text-6xl leading-tight mb-5"
+            style={{ fontFamily: 'var(--font-heading)' }}
+          >
+            About <span className="text-[var(--color-gold)]">Tax Zilla</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.24 }}
+            className="max-w-2xl mx-auto px-2 text-base text-gray-300 sm:text-lg leading-relaxed mb-8"
+          >
+            A decade of trusted expertise in tax, legal, and compliance services — helping 500+ clients across Pakistan, UAE, USA, and Saudi Arabia navigate their regulatory obligations with confidence.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.44, ease: EASE_OUT, delay: reduce ? 0 : 0.32 }}
+            className="flex flex-wrap justify-center gap-3"
+          >
+            <a href={`tel:${SITE.phoneTel}`}
+              className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-semibold text-white/90 backdrop-blur-sm hover:border-[var(--color-gold)]/50 hover:bg-[var(--color-gold)]/15 transition-all">
+              <Phone size={13} className="text-[var(--color-gold)]" /> {SITE.phone}
+            </a>
+            <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-semibold text-white/90 backdrop-blur-sm hover:border-[var(--color-gold)]/50 hover:bg-[var(--color-gold)]/15 transition-all">
+              <MessageCircle size={13} className="text-[var(--color-gold)]" /> WhatsApp Us
+            </a>
+          </motion.div>
+        </motion.div>
       </section>
 
-      {/* Firm Overview */}
+      {/* ── Stats Bar ───────────────────────────────── */}
+      <div className="border-b border-white/10" style={{ background: 'var(--color-brand-navy)' }}>
+        <div className="container-custom">
+          <div className="grid grid-cols-4 divide-x divide-white/10">
+            {STATS.map((s) => (
+              <div key={s.label} className="py-5 text-center">
+                <div className="text-lg sm:text-2xl font-bold text-[var(--color-gold)]">{s.value}</div>
+                <div className="text-[10px] sm:text-xs text-gray-400 mt-0.5 font-medium">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Our Story ───────────────────────────────── */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-12">
-            <motion.div
-              initial={{ opacity: reduce ? 1 : 0, x: reduce ? 0 : -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={VIEWPORT_REVEAL}
-              transition={{ duration: reduce ? 0.01 : 0.55, ease: EASE_OUT }}
-            >
-              <h2 className="mb-6 text-2xl font-bold text-[var(--color-dark-blue)] sm:text-3xl md:text-4xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>
-                Your Trusted Compliance Partner
+          <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-2 lg:gap-12">
+            <motion.div {...revealLeft(0, reduceMotion)}>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/8 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-gold)] mb-5">
+                Our Story
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+                Your Trusted <span className="text-[var(--color-gold)]">Compliance Partner</span>
               </h2>
-              <div className="space-y-4 text-gray-600 text-lg leading-relaxed">
+              <div className="space-y-4 text-[var(--color-text-muted)] text-base leading-relaxed">
                 <p>
-                  Tax Zilla Consultancy is a premier firm based in Lahore, Pakistan, dedicated to providing top-tier tax and legal solutions. We understand the intricacies of Pakistan's regulatory framework, including the Income Tax Ordinance 2001 and Sales Tax Act 1990.
+                  Tax Zilla Consultancy was founded with a single purpose: to make Pakistan's complex tax and legal landscape accessible, understandable, and manageable for every business and individual.
                 </p>
                 <p>
-                  Our mission is to simplify compliance for individuals and businesses, ensuring they navigate the complex legal landscape with confidence and ease. We pride ourselves on ethical practices, transparency, and a client-centric approach.
+                  Based in Lahore, we serve clients across Pakistan and internationally — from freelancers filing their first return to corporations managing multi-jurisdictional compliance across the UAE, USA, and Saudi Arabia.
+                </p>
+                <p>
+                  Our approach is built on deep regulatory expertise, honest communication, and a genuine commitment to your financial wellbeing. We don't just file returns — we build lasting compliance relationships.
                 </p>
               </div>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Button variant="primary" onClick={() => navigate('/contact')}>
+                  Book Free Consultation
+                </Button>
+                <Button variant="secondary" onClick={() => navigate('/services')}>
+                  View All Services
+                </Button>
+              </div>
             </motion.div>
-            <motion.div
-              className="grid grid-cols-2 gap-3 sm:gap-4"
-              variants={getStaggerContainer(reduce)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={VIEWPORT_REVEAL}
-            >
-              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-4 text-center sm:p-6">
-                <h3 className="mb-2 text-2xl font-bold text-[var(--color-gold)] sm:text-3xl md:text-4xl">100%</h3>
-                <p className="text-sm font-semibold sm:text-base">Compliance Rate</p>
-              </motion.div>
-              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-4 text-center sm:p-6">
-                <h3 className="mb-2 text-2xl font-bold text-[var(--color-gold)] sm:text-3xl md:text-4xl">500+</h3>
-                <p className="text-sm font-semibold sm:text-base">Clients Served</p>
-              </motion.div>
-              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-4 text-center sm:p-6">
-                <h3 className="mb-2 text-2xl font-bold text-[var(--color-gold)] sm:text-3xl md:text-4xl">5+</h3>
-                <p className="text-sm font-semibold sm:text-base">Years Experience</p>
-              </motion.div>
-              <motion.div variants={getStaggerItem(reduce)} className="card-surface p-4 text-center sm:p-6">
-                <h3 className="mb-2 text-2xl font-bold text-[var(--color-gold)] sm:text-3xl md:text-4xl">24/7</h3>
-                <p className="text-sm font-semibold sm:text-base">Support</p>
-              </motion.div>
+
+            <motion.div {...revealRight(0.1, reduceMotion)}
+              className="grid grid-cols-2 gap-4">
+              {[
+                { v: '100%', l: 'Compliance Rate', sub: 'Zero penalties on our filings' },
+                { v: '500+', l: 'Clients Served', sub: 'Across 4 countries' },
+                { v: '10+', l: 'Years Experience', sub: 'Deep regulatory expertise' },
+                { v: '24/7', l: 'WhatsApp Support', sub: 'Always available for you' },
+              ].map((s) => (
+                <div key={s.l} className="card-surface p-5 sm:p-6 text-center group hover:border-[var(--color-gold)]/40 transition-colors">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-[var(--color-gold)] mb-1">{s.v}</h3>
+                  <p className="font-bold text-sm text-gray-800 mb-1">{s.l}</p>
+                  <p className="text-xs text-[var(--color-text-muted)]">{s.sub}</p>
+                </div>
+              ))}
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Expertise Section */}
-      <section className="section-padding bg-gray-50">
-        <div className="container-custom">
-          <SectionHeading title="Our Areas of Expertise" subtitle="Comprehensive coverage of Pakistan's legal and tax requirements" />
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard 
-              icon={BookOpen}
-              title="FBR & SECP Compliance"
-              description="Deep understanding of federal and provincial tax laws and corporate regulations."
-              delay={0}
-            />
-             <FeatureCard 
-              icon={Shield}
-              title="Data Confidentiality"
-              description="Strict protocols to ensure your financial and legal data remains secure and private."
-              delay={0.08}
-            />
-             <FeatureCard 
-              icon={CheckSquare}
-              title="Corporate Filings"
-              description="End-to-end management of annual returns, audit reports, and statutory filings."
-              delay={0.16}
-            />
+      {/* ── Our Mission ─────────────────────────────── */}
+      <section className="relative overflow-hidden py-16 sm:py-20 dark-section" style={{ background: 'var(--color-brand-navy)' }}>
+        <div className="absolute inset-0 bg-brand-overlay opacity-60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.12),_transparent_60%)]" />
+        <Grid />
+        <div className="container-custom relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {[
+              { icon: Award, title: 'Our Mission', desc: 'To simplify Pakistan\'s complex regulatory landscape for every individual and business — making compliance accessible, affordable, and stress-free.' },
+              { icon: Globe, title: 'Our Vision', desc: 'To become the most trusted name in Pakistani tax and legal services, serving clients seamlessly across borders with consistent excellence.' },
+              { icon: Heart, title: 'Our Promise', desc: 'We commit to transparency, precision, and proactive service. You will always know what we are doing, why we are doing it, and when it will be done.' },
+            ].map((item, i) => (
+              <motion.div key={item.title} {...revealScale(i * 0.1, reduceMotion)}
+                className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-[var(--color-gold)]/30 transition-all">
+                <div className="mx-auto mb-4 h-14 w-14 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center">
+                  <item.icon size={26} />
+                </div>
+                <h3 className="text-lg font-bold text-white mb-3" style={{ fontFamily: 'var(--font-heading)' }}>{item.title}</h3>
+                <p className="text-sm text-gray-300 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Why We're Different */}
-      <section className="section-padding bg-brand-dark text-white dark-section relative overflow-hidden">
-        <div className="absolute inset-0 bg-brand-overlay opacity-70" />
+      {/* ── Our Values ──────────────────────────────── */}
+      <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="text-center mb-12 relative z-10">
-            <h2 className="text-4xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>Why We Are Different</h2>
-            <p className="text-on-dark-muted">Setting the standard for professional consultancy in Pakistan</p>
-          </div>
-          
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10"
-            variants={getStaggerContainer(reduce)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={VIEWPORT_REVEAL}
-          >
-             {[
-               "Proactive Compliance Management",
-               "Personalized Legal Strategies",
-               "Transparent Pricing Structure",
-               "Dedicated Case Managers",
-               "Rapid Response Time"
-             ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                variants={getStaggerItem(reduce)}
-                className="flex items-center space-x-4 p-4 bg-white/5 rounded-lg border border-white/10 hover:border-[var(--color-gold)]/35 transition-colors duration-300"
-              >
-                 <Award className="text-[var(--color-gold)] flex-shrink-0" />
-                 <span className="font-semibold">{item}</span>
-               </motion.div>
-             ))}
+          <motion.div {...revealUp(0, reduceMotion)} className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
+              Our Core <span className="text-[var(--color-gold)]">Values</span>
+            </h2>
+            <p className="text-[var(--color-text-muted)] max-w-xl mx-auto text-sm">
+              These four principles guide every engagement, every filing, and every client interaction.
+            </p>
           </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {VALUES.map((v, i) => (
+              <motion.div key={v.title} {...revealScale(i * 0.1, reduceMotion)}
+                className="card-surface p-6 text-center group hover:border-[var(--color-gold)]/40 transition-colors">
+                <div className="mx-auto mb-4 h-14 w-14 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300">
+                  <v.icon size={26} />
+                </div>
+                <h3 className="font-bold text-base mb-2">{v.title}</h3>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">{v.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
+      </section>
+
+      {/* ── Areas of Expertise ──────────────────────── */}
+      <section className="section-padding" style={{ background: 'var(--color-surface-muted)' }}>
+        <div className="container-custom">
+          <motion.div {...revealUp(0, reduceMotion)} className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
+              Areas of <span className="text-[var(--color-gold)]">Expertise</span>
+            </h2>
+            <p className="text-[var(--color-text-muted)] max-w-xl mx-auto text-sm">
+              Comprehensive coverage of Pakistan's tax laws, corporate regulations, and international compliance requirements.
+            </p>
+          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {EXPERTISE.map((item, i) => (
+              <motion.div key={item.title} {...revealScale(i * 0.08, reduceMotion)}
+                className="group card-surface p-6 relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-[3px] bg-[var(--color-gold)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-t-xl" />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-11 w-11 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all">
+                    <item.icon size={20} />
+                  </div>
+                  <h3 className="font-bold text-base group-hover:text-[var(--color-gold)] transition-colors"
+                    style={{ fontFamily: 'var(--font-heading)' }}>
+                    {item.title}
+                  </h3>
+                </div>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── What Makes Us Different ─────────────────── */}
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+            <motion.div {...revealLeft(0, reduceMotion)}>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/8 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-gold)] mb-5">
+                Why Choose Us
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+                What Makes Tax Zilla <span className="text-[var(--color-gold)]">Different</span>
+              </h2>
+              <p className="text-[var(--color-text-muted)] text-sm leading-relaxed mb-6">
+                We set the standard for professional tax and legal consultancy in Pakistan. Here's what you get with Tax Zilla that you won't find elsewhere.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button variant="primary" onClick={() => navigate('/contact')}>
+                  Start Free Consultation
+                </Button>
+                <Button variant="secondary" onClick={() => navigate('/our-process')}>
+                  See Our Process
+                </Button>
+              </div>
+            </motion.div>
+
+            <motion.div {...revealRight(0.1, reduceMotion)} className="space-y-3">
+              {DIFFERENTIATORS.map((item, i) => (
+                <motion.div key={item} {...revealUp(i * 0.05, reduceMotion)}
+                  className="flex items-start gap-3 p-4 rounded-xl border border-gray-100 bg-[var(--color-surface-muted)] hover:border-[var(--color-gold)]/30 hover:bg-[var(--color-gold)]/3 transition-all group">
+                  <CheckCircle size={16} className="text-[var(--color-gold)] mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm text-[var(--color-text)] font-medium leading-snug">{item}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Office / Location ───────────────────────── */}
+      <section className="section-padding" style={{ background: 'var(--color-surface-muted)' }}>
+        <div className="container-custom">
+          <motion.div {...revealUp(0, reduceMotion)} className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: 'var(--font-heading)' }}>
+              Find <span className="text-[var(--color-gold)]">Us</span>
+            </h2>
+          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { icon: MapPin, title: 'Office', lines: ['7A, Malik Park Main Street', 'Main Canal Road, Mughalpura', 'Lahore, Pakistan'], href: 'https://maps.google.com/?q=Tax+Zilla+Consultancy+Lahore' },
+              { icon: Phone, title: 'Phone / WhatsApp', lines: ['+92 339 9993308', '+92 300 9860279'], href: `tel:${SITE.phoneTel}` },
+              { icon: MessageCircle, title: 'Email', lines: ['taxzilla41@gmail.com'], href: `mailto:${SITE.email}` },
+              { icon: Clock, title: 'Working Hours', lines: ['Mon – Fri: 9:00 AM – 6:00 PM', 'Sat: 10:00 AM – 2:00 PM', 'WhatsApp: 24/7'], href: null },
+            ].map((card) => {
+              const Inner = (
+                <div className="flex items-start gap-3">
+                  <div className="h-10 w-10 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+                    <card.icon size={18} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">{card.title}</div>
+                    {card.lines.map(l => (
+                      <div key={l} className="text-sm font-semibold text-gray-800 leading-snug">{l}</div>
+                    ))}
+                  </div>
+                </div>
+              );
+              return card.href ? (
+                <a key={card.title} href={card.href}
+                  target={card.href.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  className="group card-surface p-5 hover:border-[var(--color-gold)]/50 transition-all block">
+                  {Inner}
+                </a>
+              ) : (
+                <div key={card.title} className="card-surface p-5">{Inner}</div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Final CTA ───────────────────────────────── */}
+      <section className="relative overflow-hidden py-20 dark-section" style={{ background: 'var(--color-brand-navy)' }}>
+        <div className="absolute inset-0 bg-brand-overlay opacity-60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.15),_transparent_60%)]" />
+        <Grid />
+        <motion.div className="container-custom relative z-10 text-center" {...revealUp(0, reduceMotion)}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
+            Ready to Work <span className="text-[var(--color-gold)]">With Us?</span>
+          </h2>
+          <p className="text-gray-300 max-w-xl mx-auto mb-8 text-base leading-relaxed">
+            Join 500+ businesses and individuals who trust Tax Zilla for accurate, timely, and stress-free tax and legal compliance.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button variant="primary" size="lg" onClick={() => navigate('/contact')}>
+              Book Free Consultation
+            </Button>
+            <Button variant="outline" size="lg" onClick={() => window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer')}>
+              <MessageCircle size={18} className="mr-2" /> WhatsApp Now
+            </Button>
+          </div>
+        </motion.div>
       </section>
     </>
   );

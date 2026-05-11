@@ -3,27 +3,17 @@ import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
-  FileText,
-  MapPin,
-  Building2,
-  Shield,
-  Settings,
-  Wrench,
-  Scale,
-  Globe,
-  Users,
-  CheckCircle,
-  User,
-  Search,
-  TrendingUp,
-  FileCheck,
-  Landmark,
+  FileText, MapPin, Building2, Shield, Settings, Wrench,
+  Scale, Globe, Users, CheckCircle, User, Search, TrendingUp,
+  FileCheck, Landmark, ArrowRight, MessageCircle, Phone, Mail,
+  ShieldCheck, Clock, Award, UserCheck,
 } from 'lucide-react';
 import Button from '../components/Button.jsx';
-import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
+import { SERVICE_CATEGORIES, getSubservicesByCategory } from '../data/serviceCatalog.js';
+import { SITE } from '../data/site.js';
 import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
 
-const CATEGORY_ICON_MAP = {
+const ICON_MAP = {
   'tax-services-pakistan': FileText,
   'provincial-sales-tax': MapPin,
   'corporate-business-services': Building2,
@@ -35,123 +25,199 @@ const CATEGORY_ICON_MAP = {
   'overseas-pakistani-tax-services': Users,
   'certificates-compliance': CheckCircle,
   'individual-tax-services': User,
+  'high-demand-individual-services': User,
   'audit-investigation': Search,
   'business-tax-planning': TrendingUp,
   'additional-registrations': FileCheck,
   'uae-tax-services': Globe,
   'usa-tax-services': Landmark,
+  'ksa-tax-services': Landmark,
+};
+
+const AREA_LABELS = {
+  'uae-tax-services': 'UAE',
+  'usa-tax-services': 'USA',
+  'ksa-tax-services': 'Saudi Arabia',
 };
 
 const FILTERS = [
-  { id: 'all', label: 'All', slugs: [] },
+  { id: 'all', label: 'All Services', slugs: [] },
   {
     id: 'tax',
-    label: 'Tax Services',
+    label: 'Tax & Compliance',
     slugs: [
       'tax-services-pakistan',
       'provincial-sales-tax',
       'individual-tax-services',
+      'high-demand-individual-services',
       'certificates-compliance',
-      'additional-registrations',
+      'audit-investigation',
+      'business-tax-planning',
     ],
   },
   {
     id: 'corporate',
-    label: 'Corporate Services',
+    label: 'Corporate & Legal',
     slugs: [
       'corporate-business-services',
       'intellectual-property',
+      'legal-services',
+      'additional-registrations',
       'software-it-services',
       'engineering-services',
-      'legal-services',
     ],
   },
   {
-    id: 'advisory',
-    label: 'Advisory Services',
-    slugs: ['audit-investigation', 'business-tax-planning'],
-  },
-  {
     id: 'international',
-    label: 'International & Other',
+    label: 'International',
     slugs: [
       'visa-immigration-tax-services',
       'overseas-pakistani-tax-services',
       'uae-tax-services',
       'usa-tax-services',
+      'ksa-tax-services',
     ],
   },
 ];
+
+const TRUST_STATS = [
+  { value: '500+', label: 'Satisfied Clients' },
+  { value: '10+', label: 'Years Experience' },
+  { value: '70+', label: 'Services Offered' },
+  { value: '24/7', label: 'WhatsApp Support' },
+];
+
+const WHY_US = [
+  { icon: ShieldCheck, title: 'Compliance-First', desc: 'Every service aligned with FBR, SECP, ZATCA, and all regulatory bodies.' },
+  { icon: Clock, title: 'Fast Turnaround', desc: 'Clear timelines, proactive updates, and on-time delivery — always.' },
+  { icon: UserCheck, title: 'Dedicated Expert', desc: 'One consultant owns your case from documents to final confirmation.' },
+  { icon: Award, title: 'Proven Track Record', desc: '500+ satisfied clients across Pakistan, UAE, USA, and Saudi Arabia.' },
+];
+
+const HeroGrid = () => (
+  <div
+    className="absolute inset-0 opacity-[0.04]"
+    style={{
+      backgroundImage:
+        'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
+      backgroundSize: '60px 60px',
+    }}
+  />
+);
 
 const ServicesPage = () => {
   const navigate = useNavigate();
   const { reduce, hero } = usePageMotion();
   const [activeFilter, setActiveFilter] = useState('all');
 
-  const activeConfig = FILTERS.find((filter) => filter.id === activeFilter);
+  const activeConfig = FILTERS.find((f) => f.id === activeFilter);
   const visibleCategories =
     activeFilter === 'all'
       ? SERVICE_CATEGORIES
-      : SERVICE_CATEGORIES.filter((category) => activeConfig?.slugs.includes(category.slug));
+      : SERVICE_CATEGORIES.filter((c) => activeConfig?.slugs.includes(c.slug));
 
   return (
     <>
       <Helmet>
-        <title>Our Services - Tax Zilla Consultancy</title>
+        <title>Our Services — Tax Zilla Consultancy</title>
         <meta
           name="description"
-          content="Comprehensive tax, corporate, legal, and international compliance services for businesses and individuals in Pakistan."
+          content="Comprehensive tax, corporate, legal, and international compliance services for businesses and individuals across Pakistan, UAE, USA, and Saudi Arabia."
         />
       </Helmet>
 
-      <section className="relative overflow-hidden px-2 pb-16 pt-28 text-white dark-section sm:pb-20 sm:pt-32 md:pb-24">
+      {/* ── Hero ─────────────────────────────────────── */}
+      <section className="relative overflow-hidden px-2 pb-20 pt-28 text-white dark-section sm:pb-24 sm:pt-36">
         <div className="absolute inset-0 bg-brand-dark" />
         <div className="absolute inset-0 bg-brand-overlay opacity-70" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,128,0.18),_transparent_55%)]" />
-        <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[rgba(255,215,128,0.12)] blur-2xl" />
-        <div className="absolute bottom-0 left-0 h-44 w-full bg-gradient-to-t from-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,_rgba(212,175,55,0.18),_transparent_60%)]" />
+        <HeroGrid />
 
         <motion.div className="container-custom relative z-10 text-center" {...hero}>
           <motion.div
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.1 }}
-            className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-gold)] sm:gap-3 sm:px-5 sm:text-xs sm:tracking-[0.35em]"
+            transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.08 }}
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/35 bg-[var(--color-gold)]/10 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-gold)] mb-6"
           >
             Trusted Advisory Studio
           </motion.div>
+
           <motion.h1
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT, delay: reduce ? 0 : 0.18 }}
-            className="mt-6 px-2 text-3xl font-extrabold sm:text-4xl md:text-5xl lg:text-6xl break-words"
+            transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT, delay: reduce ? 0 : 0.16 }}
+            className="px-2 text-3xl font-extrabold sm:text-5xl md:text-6xl leading-tight"
             style={{ fontFamily: 'var(--font-heading)' }}
           >
             Our Professional Services
           </motion.h1>
+
           <motion.p
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.26 }}
-            className="mt-4 max-w-2xl mx-auto px-2 text-base text-gray-200 sm:text-lg md:text-xl"
+            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.24 }}
+            className="mt-5 max-w-2xl mx-auto px-2 text-base text-gray-300 sm:text-lg leading-relaxed"
           >
-            Expert solutions for tax, compliance, corporate, and international requirements across Pakistan and beyond.
+            Expert tax, corporate, legal, and international compliance solutions across
+            Pakistan, UAE, USA, and Saudi Arabia.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.44, ease: EASE_OUT, delay: reduce ? 0 : 0.32 }}
+            className="mt-8 flex flex-wrap justify-center gap-3"
+          >
+            <a
+              href={`tel:${SITE.phoneTel}`}
+              className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-semibold text-white/90 backdrop-blur-sm hover:border-[var(--color-gold)]/50 hover:bg-[var(--color-gold)]/15 transition-all"
+            >
+              <Phone size={13} className="text-[var(--color-gold)]" />
+              {SITE.phone}
+            </a>
+            <a
+              href={SITE.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-semibold text-white/90 backdrop-blur-sm hover:border-[var(--color-gold)]/50 hover:bg-[var(--color-gold)]/15 transition-all"
+            >
+              <MessageCircle size={13} className="text-[var(--color-gold)]" />
+              WhatsApp Us
+            </a>
+          </motion.div>
         </motion.div>
       </section>
 
-      <section className="section-padding bg-gradient-to-b from-gray-50 via-white to-gray-50">
+      {/* ── Trust Stats ───────────────────────────────── */}
+      <div style={{ background: 'var(--color-brand-navy)' }} className="border-b border-white/10">
         <div className="container-custom">
-          <div className="mb-12 flex flex-wrap justify-center gap-2 px-1 sm:gap-3 md:gap-4">
+          <div className="grid grid-cols-4 divide-x divide-white/10">
+            {TRUST_STATS.map((stat) => (
+              <div key={stat.label} className="py-5 text-center">
+                <div className="text-xl sm:text-2xl font-bold text-[var(--color-gold)]">{stat.value}</div>
+                <div className="text-[10px] sm:text-xs text-gray-400 mt-0.5 font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Filter + Grid ─────────────────────────────── */}
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+
+          {/* Filter pills */}
+          <div className="mb-10 flex flex-wrap justify-center gap-2 sm:gap-3">
             {FILTERS.map((filter) => (
               <button
                 key={filter.id}
                 type="button"
                 onClick={() => setActiveFilter(filter.id)}
-                className={`rounded-full border px-3 py-2 text-xs font-semibold transition-all sm:px-5 sm:py-2 sm:text-sm ${
+                className={`rounded-full border px-4 py-2 text-[11px] font-bold uppercase tracking-wider transition-all sm:px-6 ${
                   activeFilter === filter.id
-                    ? 'bg-[var(--color-gold)] text-black border-[var(--color-gold)] shadow-lg shadow-[rgba(255,215,128,0.25)]'
-                    : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300 hover:bg-gray-100'
+                    ? 'bg-[var(--color-gold)] text-black border-[var(--color-gold)] shadow-lg shadow-[rgba(212,175,55,0.25)]'
+                    : 'bg-white text-gray-600 border-gray-200 hover:border-[var(--color-gold)]/50 hover:text-[var(--color-brand-navy)]'
                 }`}
               >
                 {filter.label}
@@ -159,38 +225,91 @@ const ServicesPage = () => {
             ))}
           </div>
 
+          {/* Count */}
+          <div className="text-center mb-8">
+            <p className="text-sm text-[var(--color-text-muted)]">
+              Showing{' '}
+              <span className="font-bold" style={{ color: 'var(--color-brand-navy)' }}>
+                {visibleCategories.length}
+              </span>{' '}
+              service {visibleCategories.length === 1 ? 'category' : 'categories'}
+            </p>
+          </div>
+
+          {/* Cards */}
           <motion.div
             key={activeFilter}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={getStaggerContainer(reduce)}
             initial="hidden"
             animate="visible"
           >
             {visibleCategories.map((category) => {
-              const Icon = CATEGORY_ICON_MAP[category.slug] || FileText;
+              const Icon = ICON_MAP[category.slug] || FileText;
+              const subCount = getSubservicesByCategory(category.id).length;
+              const areaLabel = AREA_LABELS[category.slug];
 
               return (
                 <motion.div
                   key={category.id}
                   variants={getStaggerItem(reduce)}
-                  whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.22, ease: EASE_OUT } }}
-                  className="group card-surface p-5 sm:p-8"
+                  whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.2, ease: EASE_OUT } }}
+                  className="group relative card-surface p-6 flex flex-col overflow-hidden cursor-pointer"
+                  onClick={() => navigate(`/services/${category.slug}`)}
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="h-12 w-12 rounded-2xl bg-[var(--color-gold)]/15 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-colors">
-                      <Icon size={26} />
+                  {/* Gold top-border on hover */}
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-[var(--color-gold)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-t-xl" />
+
+                  {/* Area badge */}
+                  {areaLabel && (
+                    <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--color-gold)]/10 text-[var(--color-gold)] border border-[var(--color-gold)]/25">
+                      {areaLabel}
                     </div>
-                    <div className="text-xs uppercase tracking-[0.3em] text-gray-400">Service</div>
+                  )}
+
+                  {/* Icon */}
+                  <div className="mb-5 h-14 w-14 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300 flex-shrink-0">
+                    <Icon size={26} />
                   </div>
-                  <h3 className="text-2xl font-bold mt-6 mb-3">{category.title}</h3>
-                  <p className="text-gray-600 mb-6">{category.shortDesc}</p>
-                  <Button
-                    variant="secondary"
-                    onClick={() => navigate(`/services/${category.slug}`)}
-                    className="w-full"
+
+                  {/* Title */}
+                  <h3
+                    className="text-lg font-bold mb-2 leading-snug group-hover:text-[var(--color-gold)] transition-colors"
+                    style={{ fontFamily: 'var(--font-heading)' }}
                   >
-                    Learn More
-                  </Button>
+                    {category.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-[var(--color-text-muted)] mb-4 flex-grow leading-relaxed">
+                    {category.shortDesc}
+                  </p>
+
+                  {/* Sub-services count */}
+                  {subCount > 0 && (
+                    <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-4 font-medium">
+                      <FileText size={11} className="text-[var(--color-gold)]" />
+                      <span>{subCount} service{subCount !== 1 ? 's' : ''} included</span>
+                    </div>
+                  )}
+
+                  {/* Footer row */}
+                  <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
+                    <span className="flex items-center gap-1 text-sm font-bold text-[var(--color-gold)] group-hover:gap-2 transition-all">
+                      Explore <ArrowRight size={14} />
+                    </span>
+                    <button
+                      type="button"
+                      aria-label="WhatsApp enquiry"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer');
+                      }}
+                      className="h-8 w-8 rounded-lg bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center hover:bg-[var(--color-gold)] hover:text-black transition-all"
+                    >
+                      <MessageCircle size={14} />
+                    </button>
+                  </div>
                 </motion.div>
               );
             })}
@@ -198,18 +317,123 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-white border-t border-gray-200">
+      {/* ── Why Tax Zilla ─────────────────────────────── */}
+      <section className="section-padding" style={{ background: 'var(--color-surface-muted)' }}>
+        <div className="container-custom">
+          <div className="text-center mb-10">
+            <h2
+              className="text-2xl sm:text-3xl md:text-4xl font-bold"
+              style={{ fontFamily: 'var(--font-heading)' }}
+            >
+              Why Clients Choose{' '}
+              <span className="text-[var(--color-gold)]">Tax Zilla</span>
+            </h2>
+            <p className="mt-3 text-[var(--color-text-muted)] max-w-xl mx-auto text-sm sm:text-base">
+              Over a decade of trusted expertise in tax, legal, and compliance services across Pakistan and beyond.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {WHY_US.map((item) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={VIEWPORT_REVEAL}
+                transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT }}
+                className="card-surface p-6 text-center group hover:border-[var(--color-gold)]/40 transition-colors"
+              >
+                <div className="mx-auto mb-4 h-14 w-14 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300">
+                  <item.icon size={26} />
+                </div>
+                <h3 className="font-bold text-base mb-2">{item.title}</h3>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Dark CTA ──────────────────────────────────── */}
+      <section
+        className="relative py-16 overflow-hidden dark-section"
+        style={{ background: 'var(--color-brand-navy)' }}
+      >
+        <div className="absolute inset-0 bg-brand-overlay opacity-60" />
+        <HeroGrid />
+
         <motion.div
-          className="container-custom text-center"
+          className="container-custom relative z-10"
           initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT_REVEAL}
           transition={{ duration: reduce ? 0.01 : 0.5, ease: EASE_OUT }}
         >
-          <h2 className="text-3xl font-bold mb-6">Need Help With Your Tax Compliance?</h2>
-          <Button variant="primary" size="lg" onClick={() => navigate('/contact')}>
-            Contact Us Today
-          </Button>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            {/* Left copy */}
+            <div>
+              <h2
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 leading-tight"
+                style={{ fontFamily: 'var(--font-heading)' }}
+              >
+                Not sure which service{' '}
+                <span className="text-[var(--color-gold)]">you need?</span>
+              </h2>
+              <p className="text-gray-300 text-base leading-relaxed mb-7">
+                Talk to a specialist for free. We assess your requirements, recommend
+                the right services, and share a clear plan — before any commitment.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button variant="primary" size="lg" onClick={() => navigate('/contact')}>
+                  Book Free Consultation
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer')}
+                >
+                  <MessageCircle size={18} className="mr-2" /> WhatsApp Now
+                </Button>
+              </div>
+            </div>
+
+            {/* Right contact cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <a
+                href={`tel:${SITE.phoneTel}`}
+                className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-[var(--color-gold)]/40 hover:bg-[var(--color-gold)]/5 transition-all group"
+              >
+                <div className="h-11 w-11 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+                  <Phone size={18} />
+                </div>
+                <div>
+                  <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Call / WhatsApp</div>
+                  <div className="text-sm font-bold text-white">{SITE.phone}</div>
+                </div>
+              </a>
+              <a
+                href={`mailto:${SITE.email}`}
+                className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-[var(--color-gold)]/40 hover:bg-[var(--color-gold)]/5 transition-all group"
+              >
+                <div className="h-11 w-11 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+                  <Mail size={18} />
+                </div>
+                <div>
+                  <div className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Email</div>
+                  <div className="text-sm font-bold text-white break-all">{SITE.email}</div>
+                </div>
+              </a>
+              <a
+                href={SITE.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sm:col-span-2 flex items-center justify-center gap-3 rounded-xl border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/10 p-4 hover:bg-[var(--color-gold)]/20 transition-all"
+              >
+                <MessageCircle size={18} className="text-[var(--color-gold)]" />
+                <span className="text-sm font-bold text-white">Chat on WhatsApp — Instant Response</span>
+              </a>
+            </div>
+          </div>
         </motion.div>
       </section>
     </>

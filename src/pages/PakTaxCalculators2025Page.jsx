@@ -1,10 +1,17 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { usePageMotion, EASE_OUT } from '../lib/motion.js';
-import { Droplets, Phone, Shield, Store, Users, Landmark, BriefcaseBusiness, CreditCard, Building2, Wrench, Scale, FileText } from 'lucide-react';
+import {
+  Droplets, Phone, Shield, Store, Users, Landmark, BriefcaseBusiness,
+  CreditCard, Building2, Wrench, Scale, FileText,
+  ArrowLeft, ArrowRight, ShieldCheck, CheckCircle, MessageCircle,
+  Calculator, Star, Mail, Zap, Lock, ChevronRight,
+} from 'lucide-react';
 import '../styles/paktax.css';
+import Button from '../components/Button.jsx';
+import { SITE } from '../data/site.js';
 import {
   SalaryTaxCalculator2025,
   BusinessTaxCalculator2025,
@@ -25,53 +32,175 @@ import { FbrOnlineVerifications } from '../components/paktax/calculators2025/Fbr
 import { SupplyOfGoodsTaxCalculator } from '../components/paktax/calculators2025/SupplyOfGoodsTaxCalculator.jsx';
 import { ValueAddedTaxCalculator } from '../components/paktax/calculators2025/ValueAddedTaxCalculator.jsx';
 
-const SidebarLink = ({ label, active, onClick }) => (
-  <button
-    type="button"
-    onClick={onClick}
-    className={`w-full text-left px-3 py-2 rounded-lg font-semibold text-sm transition-colors ${
-      active
-        ? 'bg-[var(--color-gold)] text-black'
-        : 'hover:bg-gray-50 text-gray-800'
-    }`}
-  >
-    {label}
-  </button>
+/* ── Shared decorative grid overlay ─────────────────────── */
+const HeroGrid = () => (
+  <div
+    className="absolute inset-0 opacity-[0.04]"
+    style={{
+      backgroundImage:
+        'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
+      backgroundSize: '60px 60px',
+    }}
+  />
 );
 
-const Placeholder = ({ title, subtitle }) => {
+const HERO_STATS = [
+  { value: '17', label: 'Free Calculators' },
+  { value: 'FY 2025–26', label: 'Official FBR Rates' },
+  { value: '100%', label: 'Free to Use' },
+  { value: '24/7', label: 'Expert Support' },
+];
+
+const WHY_US = [
+  { icon: ShieldCheck, title: 'FBR Official Rates', desc: 'All calculators use the latest FBR income tax slabs and withholding rates for FY 2025–26.' },
+  { icon: Zap, title: 'Instant Results', desc: 'Get your tax estimate in seconds — no sign-up, no login, completely free to use.' },
+  { icon: Lock, title: 'Private & Secure', desc: 'No data is stored or shared. Your figures stay on your device at all times.' },
+  { icon: MessageCircle, title: 'Expert Support', desc: 'Not sure about your calculation? Our consultants are one WhatsApp message away.' },
+];
+
+const FILTER_TABS = [
+  { id: 'All', label: 'All Calculators', ids: [] },
+  { id: 'Income Tax', label: 'Income Tax', ids: ['salary', 'business', 'freelancer', 'super-tax', 'company-income'] },
+  { id: 'Capital Gains', label: 'Capital Gains', ids: ['gain-securities', 'gain-mutual-funds', 'gain-properties'] },
+  { id: 'Withholding', label: 'Withholding', ids: ['withholding-income-properties', 'withholding-brokerage-commission', 'value-added-tax'] },
+  { id: 'Other', label: 'Other', ids: ['pta', 'zakat', 'fbr-online', 'agri-land-punjab', 'builder', 'developer'] },
+];
+
+/* ── Related calculator cards ────────────────────────────── */
+const RelatedCalculatorsBlock = ({ calculators, currentId, goToCalculator }) => {
+  const related = calculators.filter((c) => c.id !== currentId).slice(0, 4);
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-      <div className="text-2xl font-extrabold text-[var(--color-gold)] mb-2">{title}</div>
-      {subtitle ? <div className="text-gray-600 font-medium">{subtitle}</div> : null}
-      <div className="mt-4 text-sm text-gray-500 leading-relaxed">
-        This calculator requires additional official PTA/FBR rate tables or integration. Send the exact rate data (or a screenshot of the existing calculator inputs) and I’ll wire it in with the same UI.
+    <div className="mt-10">
+      <h3 className="text-lg font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
+        Related Calculators
+      </h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {related.map((calc) => (
+          <button
+            key={calc.id}
+            type="button"
+            onClick={() => goToCalculator(calc.id)}
+            className="group card-surface p-4 flex items-center gap-3 text-left hover:border-[var(--color-gold)]/50 transition-all"
+          >
+            <div className="h-10 w-10 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+              <calc.icon size={18} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-sm text-gray-800 group-hover:text-[var(--color-gold)] transition-colors leading-snug truncate">
+                {calc.title}
+              </div>
+              <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider mt-0.5">
+                {calc.category} · 2025–26
+              </div>
+            </div>
+            <ArrowRight size={14} className="text-[var(--color-gold)] opacity-0 group-hover:opacity-100 flex-shrink-0 transition-all" />
+          </button>
+        ))}
       </div>
     </div>
   );
 };
 
-const RelatedCalculatorsBlock = ({ relatedButtons, goToCalculator }) => (
-  <div className="mt-10">
-    <div className="mb-5 text-center">
-      <div className="text-base font-extrabold text-gray-900 sm:text-lg">Related Calculators</div>
-      <div className="mt-1 text-xs text-gray-500 sm:text-sm">Quick access shortcuts</div>
-    </div>
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-      {relatedButtons.map((b) => (
-        <button
-          key={b.id}
-          type="button"
-          onClick={() => goToCalculator(b.id)}
-          className="min-h-[48px] w-full rounded-2xl bg-[var(--color-gold)] px-3 py-3 text-center text-sm font-extrabold text-black transition-colors hover:bg-[var(--color-gold-dark)] sm:px-4 sm:py-4 sm:text-base"
-        >
-          {b.label}
-        </button>
-      ))}
+/* ── Breadcrumb bar for individual calculator pages ──────── */
+const CalculatorBreadcrumb = ({ calculator, onBack }) => (
+  <div className="mb-8 rounded-2xl border border-gray-200 bg-white px-5 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-sm">
+    {/* Left: breadcrumb trail */}
+    <nav className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs text-gray-500 min-w-0">
+      <button
+        type="button"
+        onClick={onBack}
+        className="hover:text-[var(--color-gold)] transition-colors font-medium"
+      >
+        Tax Calculators
+      </button>
+      <ChevronRight size={13} className="text-gray-300 flex-shrink-0" />
+      <span
+        className="font-bold text-gray-800 truncate max-w-[200px] sm:max-w-none"
+        title={calculator.title}
+      >
+        {calculator.title}
+      </span>
+    </nav>
+
+    {/* Right: category badge + back button */}
+    <div className="flex items-center gap-3 flex-shrink-0">
+      <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-[var(--color-gold)]/10 text-[var(--color-gold)] border border-[var(--color-gold)]/25 px-3 py-1 text-[10px] font-bold uppercase tracking-wider">
+        {calculator.category} · FY 2025–26
+      </span>
+      <button
+        type="button"
+        onClick={onBack}
+        className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-4 py-2 text-xs font-bold text-gray-600 hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all"
+      >
+        <ArrowLeft size={13} /> Back
+      </button>
     </div>
   </div>
 );
 
+/* ── Dark bottom CTA ─────────────────────────────────────── */
+const BottomCTA = () => (
+  <div className="relative mt-14 rounded-2xl overflow-hidden" style={{ background: 'var(--color-brand-navy)' }}>
+    <div className="absolute inset-0 bg-brand-overlay opacity-60" />
+    <HeroGrid />
+    <div className="relative z-10 p-6 sm:p-8 dark-section">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div>
+          <h3
+            className="text-xl sm:text-2xl font-bold text-white mb-3 leading-snug"
+            style={{ fontFamily: 'var(--font-heading)' }}
+          >
+            Need help understanding{' '}
+            <span className="text-[var(--color-gold)]">your tax calculation?</span>
+          </h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-5">
+            Our tax consultants can review your case, verify figures, and guide you through
+            filing — all online. Get professional support today.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button variant="primary" onClick={() => window.location.href = '/contact'}>
+              Book Free Consultation
+            </Button>
+            <Button variant="outline" onClick={() => window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer')}>
+              <MessageCircle size={16} className="mr-2" /> WhatsApp Now
+            </Button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <a
+            href={`tel:${SITE.phoneTel}`}
+            className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-[var(--color-gold)]/40 transition-all group"
+          >
+            <div className="h-10 w-10 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+              <Phone size={16} />
+            </div>
+            <div>
+              <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Call Us</div>
+              <div className="text-sm font-bold text-white">{SITE.phone}</div>
+            </div>
+          </a>
+          <a
+            href={`mailto:${SITE.email}`}
+            className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-[var(--color-gold)]/40 transition-all group"
+          >
+            <div className="h-10 w-10 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+              <Mail size={16} />
+            </div>
+            <div>
+              <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Email</div>
+              <div className="text-sm font-bold text-white break-all">{SITE.email}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+/* ═══════════════════════════════════════════════════════════
+   Main Page
+═══════════════════════════════════════════════════════════ */
 const PakTaxCalculators2025Page = () => {
   const { reduce, hero } = usePageMotion();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -81,18 +210,13 @@ const PakTaxCalculators2025Page = () => {
 
   useLayoutEffect(() => {
     const scrollNow = () => {
-      if (contentRef.current) {
-        contentRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
-      }
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
       window.scrollTo(0, 0);
     };
-
     scrollNow();
-    const timeoutId = window.setTimeout(scrollNow, 200);
-
-    return () => window.clearTimeout(timeoutId);
+    const t = window.setTimeout(scrollNow, 200);
+    return () => window.clearTimeout(t);
   }, [activeId]);
 
   const goToCalculator = (id) => setSearchParams(id ? { calc: id } : {});
@@ -105,14 +229,16 @@ const PakTaxCalculators2025Page = () => {
         title: 'PTA Tax Calculator',
         category: 'Verification',
         icon: Phone,
+        desc: 'Estimate PTA import duty on non-registered mobile phones. Compare Passport vs CNIC rates.',
         image: 'https://images.unsplash.com/photo-1554224155-a1487473ffd9?auto=format&fit=crop&w=900&q=60',
         element: <PtaTaxCalculator2025 />,
       },
       {
         id: 'zakat',
-        title: 'Zakat Tax Calculator',
+        title: 'Zakat Calculator',
         category: 'Faith & Assets',
         icon: Shield,
+        desc: 'Calculate your annual Zakat obligation on savings, gold, silver, and business assets.',
         image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=60',
         element: <ZakatCalculator2025 />,
       },
@@ -121,6 +247,7 @@ const PakTaxCalculators2025Page = () => {
         title: 'FBR Online Verifications',
         category: 'Verification',
         icon: FileText,
+        desc: 'Verify NTN, STRN, ATL status, and other FBR registrations directly with official portals.',
         image: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=60',
         element: <FbrOnlineVerifications />,
       },
@@ -129,14 +256,16 @@ const PakTaxCalculators2025Page = () => {
         title: 'Supply of Goods Tax Calculator',
         category: 'Withholding',
         icon: CreditCard,
+        desc: 'Calculate GST on supply of goods — enter net price, tax amount, or rate to get instant figures.',
         image: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=900&q=60',
-        element: <ValueAddedTaxCalculator />,
+        element: <SupplyOfGoodsTaxCalculator />,
       },
       {
         id: 'gain-securities',
         title: 'Gain Tax on Securities',
         category: 'Capital Gains',
         icon: Scale,
+        desc: 'Calculate capital gains tax on shares and securities based on FBR 2025–26 holding period slabs.',
         image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=60',
         element: <GainTaxOnSecuritiesCalculator2025 />,
       },
@@ -145,6 +274,7 @@ const PakTaxCalculators2025Page = () => {
         title: 'Gain Tax on Mutual Funds',
         category: 'Capital Gains',
         icon: Users,
+        desc: 'Estimate your capital gains tax liability on mutual fund redemptions under FBR rules.',
         image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=60',
         element: <GainTaxOnMutualFundsCalculator2025 />,
       },
@@ -153,14 +283,16 @@ const PakTaxCalculators2025Page = () => {
         title: 'Gain Tax on Properties',
         category: 'Capital Gains',
         icon: Landmark,
+        desc: 'Calculate CGT on property sale based on holding period, FBR valuation, and filer status.',
         image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&h=650&fit=crop',
         element: <GainTaxOnPropertiesCalculator2025 />,
       },
       {
         id: 'withholding-income-properties',
-        title: 'Withholding Tax on Income from Properties',
+        title: 'Withholding Tax on Properties',
         category: 'Withholding',
         icon: Droplets,
+        desc: 'Calculate withholding tax on rental income from properties under Section 155 of ITO 2001.',
         image: 'https://images.unsplash.com/photo-1493882552576-fce827c6161e?auto=format&fit=crop&w=900&q=60',
         element: <WithholdingTaxOnIncomeFromPropertiesCalculator2025 />,
       },
@@ -169,6 +301,7 @@ const PakTaxCalculators2025Page = () => {
         title: 'Withholding Tax on Brokerage & Commission',
         category: 'Withholding',
         icon: CreditCard,
+        desc: 'Compute WHT on brokerage and commission payments under Section 233 for filers and non-filers.',
         image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=900&q=60',
         element: <WithholdingTaxOnBrokerageCommissionCalculator2025 />,
       },
@@ -177,6 +310,7 @@ const PakTaxCalculators2025Page = () => {
         title: 'Pakistan Salary Tax Calculator',
         category: 'Income Tax',
         icon: Users,
+        desc: 'Calculate monthly and annual income tax on salary with slab breakdowns for FY 2025–26.',
         image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=900&h=650&fit=crop',
         element: <SalaryTaxCalculator2025 />,
       },
@@ -185,6 +319,7 @@ const PakTaxCalculators2025Page = () => {
         title: 'Pakistan Business Tax Calculator',
         category: 'Income Tax',
         icon: BriefcaseBusiness,
+        desc: 'Estimate income tax for sole proprietors and AOPs using official FBR business income slabs.',
         image: 'https://images.unsplash.com/photo-1684393637060-70e50f950aba?auto=format&fit=crop&w=900&q=60',
         element: <BusinessTaxCalculator2025 />,
       },
@@ -193,6 +328,7 @@ const PakTaxCalculators2025Page = () => {
         title: 'Pakistan Freelancer Tax Calculator',
         category: 'Income Tax',
         icon: Users,
+        desc: 'Calculate reduced tax on freelance income from Fiverr, Upwork, and other foreign platforms.',
         image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&h=650&fit=crop',
         element: <FreelancerTaxCalculator2025 />,
       },
@@ -201,38 +337,43 @@ const PakTaxCalculators2025Page = () => {
         title: 'Super Tax on Annual Income',
         category: 'Income Tax',
         icon: Scale,
+        desc: 'Determine super tax liability on high annual income under Section 4C of the Income Tax Ordinance.',
         image: 'https://images.unsplash.com/photo-1573165759995-5865a394a1aa?auto=format&fit=crop&w=900&q=60',
         element: <SuperTaxCalculator2025 />,
       },
       {
         id: 'company-income',
-        title: 'Tax on Annual Income of Companies',
-        category: 'Corporate',
+        title: 'Company Income Tax Calculator',
+        category: 'Income Tax',
         icon: Building2,
+        desc: 'Compute corporate income tax for private limited, SMC, and public companies at FBR rates.',
         image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=900&h=650&fit=crop',
         element: <CompanyIncomeTaxCalculator2025 />,
       },
       {
         id: 'builder',
         title: 'Pakistan Builder Tax Calculator',
-        category: 'Construction',
+        category: 'Other',
         icon: Wrench,
+        desc: 'Calculate fixed tax on builders under Section 7C based on area, city, and project type.',
         image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=60',
         element: <BuilderTaxCalculator2025 variant="builder" />,
       },
       {
         id: 'developer',
         title: 'Pakistan Developer Tax Calculator',
-        category: 'Construction',
+        category: 'Other',
         icon: Wrench,
+        desc: 'Estimate fixed tax for real estate developers under Section 7D for FY 2025–26.',
         image: 'https://images.unsplash.com/photo-1686149115308-bfdb03c8582e?auto=format&fit=crop&w=900&q=60',
         element: <BuilderTaxCalculator2025 variant="developer" />,
       },
       {
         id: 'agri-land-punjab',
-        title: 'Tax on Agricultural Land – Punjab',
-        category: 'Agriculture',
+        title: 'Agricultural Land Tax – Punjab',
+        category: 'Other',
         icon: Store,
+        desc: 'Calculate land tax on agricultural holdings in Punjab based on acreage and valuation.',
         image: 'https://images.unsplash.com/photo-1695487562553-c71a77e6c656?auto=format&fit=crop&w=900&q=60',
         element: <AgriculturalLandPunjabTaxCalculator2025 />,
       },
@@ -240,156 +381,166 @@ const PakTaxCalculators2025Page = () => {
     []
   );
 
-  const filterTabs = [
-    { id: 'All', label: 'All' },
-    { id: 'Salary', label: 'Salary' },
-    { id: 'Business', label: 'Business' },
-    { id: 'Withholding', label: 'Withholding' },
-  ];
-
-  const matchesFilter = (calculator) => {
-    if (activeFilter === 'All') return true;
-    if (activeFilter === 'Salary') return calculator.id === 'salary';
-    if (activeFilter === 'Business') return calculator.id === 'business';
-    return calculator.category === 'Withholding';
-  };
-
+  const activeTab = FILTER_TABS.find((t) => t.id === activeFilter);
   const visibleCalculators = useMemo(
-    () => calculators.filter(matchesFilter),
-    [calculators, activeFilter]
+    () =>
+      activeFilter === 'All'
+        ? calculators
+        : calculators.filter((c) => activeTab?.ids.includes(c.id)),
+    [calculators, activeFilter, activeTab]
   );
 
-  const activeCalculator = useMemo(() => calculators.find((c) => c.id === activeId), [calculators, activeId]);
-
-  const relatedButtons = [
-    { id: 'business', label: 'Business Tax' },
-    { id: 'value-added-tax', label: 'Supply of Goods Tax' },
-    { id: 'builder', label: 'Builder Tax' },
-    { id: 'developer', label: 'Developer Tax' },
-  ];
-
-  const renderValueAddedTaxPlaceholder = () => (
-    <Placeholder
-      title="Supply of Goods Tax"
-      subtitle="Enter your Net Price, Tax Amount, Gross Price, or Sales Tax Rate to calculate the remaining values."
-    />
+  const activeCalculator = useMemo(
+    () => calculators.find((c) => c.id === activeId),
+    [calculators, activeId]
   );
 
-  const renderMain = () => {
-    if (!activeId) {
-      return (
-        <div className="px-2 md:px-0">
-          <div className="mb-10 flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
-            {filterTabs.map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveFilter(tab.id)}
-                className={`rounded-full border px-3 py-2 text-xs font-medium transition-all sm:px-5 sm:py-2 sm:text-sm ${
-                  activeFilter === tab.id
-                    ? 'bg-[var(--color-gold)] text-black border-[var(--color-gold)] shadow-md'
-                    : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+  /* ── Grid view (no active calculator) ─── */
+  const renderGrid = () => (
+    <div>
+      {/* Filter pills */}
+      <div className="mb-8 flex flex-wrap justify-center gap-2 sm:gap-3">
+        {FILTER_TABS.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveFilter(tab.id)}
+            className={`rounded-full border px-4 py-2 text-[11px] font-bold uppercase tracking-wider transition-all sm:px-5 ${
+              activeFilter === tab.id
+                ? 'bg-[var(--color-gold)] text-black border-[var(--color-gold)] shadow-lg shadow-[rgba(212,175,55,0.25)]'
+                : 'bg-white text-gray-600 border-gray-200 hover:border-[var(--color-gold)]/50 hover:text-[var(--color-brand-navy)]'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-            {visibleCalculators.map((tile) => (
-              <button
-                key={tile.id}
-                type="button"
-                onClick={() => goToCalculator(tile.id)}
-                aria-label={tile.title}
-                className="group paktax-tile focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] focus:ring-offset-2 text-left"
-              >
-                <div className="paktax-tile-media">
-                  {tile.image ? (
-                    <img
-                      src={tile.image}
-                      alt={tile.title}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="h-full w-full flex items-center justify-center">
-                      <tile.icon size={28} className="text-[var(--color-gold)]" />
-                    </div>
-                  )}
-                  <div className="paktax-tile-overlay" />
-                  <div className="absolute top-4 left-4">
-                    <span className="paktax-tile-chip">{tile.category}</span>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center justify-between gap-3 mb-3">
-                    <div className="paktax-tile-icon">
-                      <tile.icon size={18} className="text-[var(--color-gold)]" />
-                    </div>
-                    <div className="text-xs text-gray-400 font-semibold tracking-[0.2em]">2025-26</div>
-                  </div>
-                  <div className="text-lg font-extrabold text-gray-900 mb-2">
-                    {tile.title}
-                  </div>
-                  <div className="text-sm text-gray-600 leading-relaxed">
-                    Instant results, slab guidance, and support-ready outputs.
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
+      {/* Count */}
+      <div className="text-center mb-8">
+        <p className="text-sm text-[var(--color-text-muted)]">
+          Showing{' '}
+          <span className="font-bold" style={{ color: 'var(--color-brand-navy)' }}>
+            {visibleCalculators.length}
+          </span>{' '}
+          calculator{visibleCalculators.length !== 1 ? 's' : ''}
+        </p>
+      </div>
 
-          <div className="mt-8 text-center text-xs text-gray-500 leading-relaxed">
-            Choose a calculator to get started. Every tool includes compliance notes and consultation support.
-          </div>
+      {/* Tiles */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        {visibleCalculators.map((tile, idx) => (
+          <motion.button
+            key={tile.id}
+            type="button"
+            onClick={() => goToCalculator(tile.id)}
+            aria-label={tile.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: idx * 0.04, duration: 0.35 }}
+            className="group paktax-tile focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] focus:ring-offset-2 text-left"
+          >
+            {/* Image area */}
+            <div className="paktax-tile-media">
+              {tile.image && (
+                <img src={tile.image} alt={tile.title} loading="lazy" />
+              )}
+              <div className="paktax-tile-overlay" />
+              <div className="absolute top-3 left-3">
+                <span className="paktax-tile-chip">{tile.category}</span>
+              </div>
+              <div className="absolute top-3 right-3 text-[10px] font-bold text-white/70 bg-black/30 rounded-full px-2 py-0.5 backdrop-blur-sm">
+                2025–26
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="p-5 flex flex-col flex-1">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="paktax-tile-icon group-hover:bg-[var(--color-gold)] transition-colors duration-300 flex-shrink-0">
+                  <tile.icon size={18} className="text-[var(--color-gold)] group-hover:text-black transition-colors duration-300" />
+                </div>
+                <div className="flex-1 min-w-0" />
+                <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 bg-gray-50 rounded-full px-2 py-0.5">
+                  FY 2025–26
+                </span>
+              </div>
+              <div
+                className="text-base font-extrabold text-gray-900 mb-2 leading-snug group-hover:text-[var(--color-gold)] transition-colors"
+                style={{ fontFamily: 'var(--font-heading)' }}
+              >
+                {tile.title}
+              </div>
+              <div className="text-xs text-[var(--color-text-muted)] leading-relaxed mb-4 flex-grow">
+                {tile.desc}
+              </div>
+              <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
+                <span className="flex items-center gap-1 text-xs font-bold text-[var(--color-gold)] group-hover:gap-2 transition-all">
+                  Try Calculator <ArrowRight size={12} />
+                </span>
+                <span className="flex items-center gap-1 text-[10px] text-gray-400">
+                  <CheckCircle size={11} className="text-green-500" /> Free
+                </span>
+              </div>
+            </div>
+          </motion.button>
+        ))}
+      </div>
+
+      {/* Why Use section */}
+      <div className="mt-16 mb-2">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: 'var(--font-heading)' }}>
+            Why Use Our <span className="text-[var(--color-gold)]">Tax Calculators</span>
+          </h2>
+          <p className="mt-2 text-sm text-[var(--color-text-muted)] max-w-xl mx-auto">
+            Built by Pakistani tax professionals. Always updated. Always free.
+          </p>
         </div>
-      );
-    }
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {WHY_US.map((item) => (
+            <div key={item.title} className="card-surface p-5 text-center group hover:border-[var(--color-gold)]/40 transition-colors">
+              <div className="mx-auto mb-3 h-12 w-12 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300">
+                <item.icon size={22} />
+              </div>
+              <h3 className="font-bold text-sm mb-1.5">{item.title}</h3>
+              <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
-    if (activeId === 'value-added-tax') {
+      <BottomCTA />
+    </div>
+  );
+
+  /* ── Single calculator view ─── */
+  const renderCalculator = () => {
+    if (!activeCalculator) {
       return (
-        <div>
-          <div className="sticky top-14 z-30 mb-6 flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white/90 p-3 backdrop-blur sm:top-[4.5rem] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4 sm:p-4 md:top-[5.25rem]">
-            <div className="min-w-0">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gray-500 sm:text-xs sm:tracking-[0.2em]">Tax Calculator</div>
-              <div className="text-base font-extrabold leading-snug text-gray-900 sm:text-lg">Supply of Goods Tax Calculator</div>
-            </div>
-            <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-3">
-              <button type="button" className="paktax-btn paktax-btn-secondary w-full min-h-[44px] text-sm sm:w-auto sm:min-h-0" onClick={backToCalculators}>
-                Back to all calculators
-              </button>
-              <a href="/contact" className="paktax-btn paktax-btn-primary flex min-h-[44px] w-full items-center justify-center text-sm sm:w-auto sm:min-h-0">Get Help</a>
-            </div>
-          </div>
-          <SupplyOfGoodsTaxCalculator />
-          <RelatedCalculatorsBlock relatedButtons={relatedButtons} goToCalculator={goToCalculator} />
+        <div className="rounded-2xl border border-gray-200 bg-white p-8 text-center">
+          <Calculator size={40} className="mx-auto mb-4 text-gray-300" />
+          <p className="text-gray-500">Calculator not found. Please select one from the list.</p>
+          <button
+            type="button"
+            onClick={backToCalculators}
+            className="mt-4 text-sm font-semibold text-[var(--color-gold)] hover:underline"
+          >
+            ← Back to all calculators
+          </button>
         </div>
       );
     }
 
     return (
       <div>
-        {activeCalculator ? (
-          <>
-            <div className="sticky top-14 z-30 mb-6 flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white/90 p-3 backdrop-blur sm:top-[4.5rem] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4 sm:p-4 md:top-[5.25rem]">
-              <div className="min-w-0">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gray-500 sm:text-xs sm:tracking-[0.2em]">Tax Calculator</div>
-                <div className="text-base font-extrabold leading-snug text-gray-900 sm:text-lg">{activeCalculator.title}</div>
-              </div>
-              <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:justify-end sm:gap-3">
-                <button type="button" className="paktax-btn paktax-btn-secondary w-full min-h-[44px] text-sm sm:w-auto sm:min-h-0" onClick={backToCalculators}>
-                  Back to all calculators
-                </button>
-                <a href="/contact" className="paktax-btn paktax-btn-primary flex min-h-[44px] w-full items-center justify-center text-sm sm:w-auto sm:min-h-0">Get Help</a>
-              </div>
-            </div>
-            {activeCalculator.element}
-          </>
-        ) : (
-          renderValueAddedTaxPlaceholder()
-        )}
-        <RelatedCalculatorsBlock relatedButtons={relatedButtons} goToCalculator={goToCalculator} />
+        {activeCalculator.element}
+        <RelatedCalculatorsBlock
+          calculators={calculators}
+          currentId={activeCalculator.id}
+          goToCalculator={goToCalculator}
+        />
+        <BottomCTA />
       </div>
     );
   };
@@ -397,34 +548,154 @@ const PakTaxCalculators2025Page = () => {
   return (
     <div className="paktax-root">
       <Helmet>
-        <title>Pakistan Tax Calculators 2025-2026 - PAK TAX Calculator</title>
-        <meta name="description" content="Pakistan Tax Calculators 2025-26 for income, capital gains, withholding taxes, and more." />
+        <title>
+          {activeCalculator
+            ? `${activeCalculator.title} | Tax Zilla Consultancy`
+            : 'Pakistan Tax Calculators 2025–2026 | Tax Zilla Consultancy'}
+        </title>
+        <meta
+          name="description"
+          content={
+            activeCalculator
+              ? activeCalculator.desc
+              : 'Free Pakistan tax calculators for FY 2025-26 — salary, business, freelancer, capital gains, withholding, zakat, PTA, and more. Official FBR rates.'
+          }
+        />
       </Helmet>
 
-      {/* Match ServicesPage start (hero + theme) */}
-      <section className="relative overflow-hidden bg-[var(--color-dark-blue)] px-2 pb-14 pt-28 text-center text-white dark-section sm:pb-16 sm:pt-32 md:pb-20">
-        {/* Dull background image (same approach used on other pages) */}
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1493882552576-fce827c6161e')] bg-cover bg-center opacity-15" />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0b1c29]/80 via-[#0d1f2e]/60 to-black/70" />
+      {/* ── Hero: changes based on whether a calculator is active ── */}
+      {activeId && activeCalculator ? (
+        /* Sub-page hero — matches service pages exactly */
+        <section
+          className="relative overflow-hidden px-2 pb-16 pt-28 text-white dark-section sm:pb-20 sm:pt-32"
+          style={{ background: 'var(--color-brand-navy)' }}
+        >
+          <div className="absolute inset-0 bg-brand-overlay opacity-80" />
+          <HeroGrid />
+          <motion.div className="container-custom relative z-10" {...hero}>
+            {/* Breadcrumb */}
+            <nav className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-300 sm:text-sm">
+              <a href="/" className="hover:text-[var(--color-gold)] transition-colors">Home</a>
+              <ChevronRight size={14} className="text-gray-500 flex-shrink-0" />
+              <button
+                type="button"
+                onClick={backToCalculators}
+                className="hover:text-[var(--color-gold)] transition-colors"
+              >
+                Tax Calculators
+              </button>
+              <ChevronRight size={14} className="text-gray-500 flex-shrink-0" />
+              <span className="text-white font-semibold">{activeCalculator.title}</span>
+            </nav>
 
-        <motion.div className="container-custom relative z-10" {...hero}>
-          <h1 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl break-words" style={{ fontFamily: 'var(--font-heading)' }}>
-            Pakistan Tax Calculators
-          </h1>
-          <motion.p
-            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.12 }}
-            className="mx-auto max-w-2xl text-base text-gray-300 sm:text-lg md:text-xl"
-          >
-            Tax professional calculators for individuals & businesses across Pakistan
-          </motion.p>
-        </motion.div>
-      </section>
+            <div className="text-center max-w-4xl mx-auto">
+              {/* Category badge */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/40 bg-[var(--color-gold)]/10 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-gold)] mb-6">
+                {activeCalculator.category} · FY 2025–26
+              </div>
 
-      <main className="section-padding min-w-0 bg-gray-50">
+              {/* Title */}
+              <h1
+                className="px-2 text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl leading-tight"
+                style={{ fontFamily: 'var(--font-heading)' }}
+              >
+                {activeCalculator.title}
+              </h1>
+
+              {/* Description */}
+              <p className="mt-5 px-2 text-base text-gray-300 sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                {activeCalculator.desc}
+              </p>
+            </div>
+          </motion.div>
+        </section>
+      ) : (
+        /* Grid hero */
+        <section
+          className="relative overflow-hidden px-2 pb-20 pt-28 text-white dark-section sm:pb-24 sm:pt-36"
+          style={{ background: 'var(--color-brand-navy)' }}
+        >
+          <div className="absolute inset-0 bg-brand-overlay opacity-70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,_rgba(212,175,55,0.18),_transparent_60%)]" />
+          <HeroGrid />
+
+          <motion.div className="container-custom relative z-10 text-center" {...hero}>
+            <motion.div
+              initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT, delay: reduce ? 0 : 0.08 }}
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/35 bg-[var(--color-gold)]/10 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-gold)] mb-6"
+            >
+              FY 2025–2026 · Free Online Calculators
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0.01 : 0.52, ease: EASE_OUT, delay: reduce ? 0 : 0.16 }}
+              className="px-2 text-3xl font-extrabold sm:text-5xl md:text-6xl leading-tight"
+              style={{ fontFamily: 'var(--font-heading)' }}
+            >
+              Pakistan Tax Calculators
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.24 }}
+              className="mt-5 max-w-2xl mx-auto px-2 text-base text-gray-300 sm:text-lg leading-relaxed"
+            >
+              17 free professional calculators with official FBR 2025–26 rates —
+              income tax, capital gains, withholding, zakat, PTA, and more.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0.01 : 0.44, ease: EASE_OUT, delay: reduce ? 0 : 0.32 }}
+              className="mt-8 flex flex-wrap justify-center gap-3"
+            >
+              <a
+                href={`tel:${SITE.phoneTel}`}
+                className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-semibold text-white/90 backdrop-blur-sm hover:border-[var(--color-gold)]/50 hover:bg-[var(--color-gold)]/15 transition-all"
+              >
+                <Phone size={13} className="text-[var(--color-gold)]" />
+                {SITE.phone}
+              </a>
+              <a
+                href={SITE.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-semibold text-white/90 backdrop-blur-sm hover:border-[var(--color-gold)]/50 hover:bg-[var(--color-gold)]/15 transition-all"
+              >
+                <MessageCircle size={13} className="text-[var(--color-gold)]" />
+                WhatsApp Us
+              </a>
+            </motion.div>
+          </motion.div>
+        </section>
+      )}
+
+      {/* ── Stats Bar — grid page only ────────────────────── */}
+      {!activeId && (
+        <div className="border-b border-white/10" style={{ background: 'var(--color-brand-navy)' }}>
+          <div className="container-custom">
+            <div className="grid grid-cols-4 divide-x divide-white/10">
+              {HERO_STATS.map((stat) => (
+                <div key={stat.label} className="py-5 text-center">
+                  <div className="text-lg sm:text-2xl font-bold text-[var(--color-gold)]">{stat.value}</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400 mt-0.5 font-medium">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Main Content ─────────────────────────────────── */}
+      <main className="section-padding min-w-0 bg-white">
         <div className="container-custom min-w-0" ref={contentRef}>
-          <section>{renderMain()}</section>
+          {activeId ? renderCalculator() : renderGrid()}
         </div>
       </main>
     </div>
@@ -432,4 +703,3 @@ const PakTaxCalculators2025Page = () => {
 };
 
 export default PakTaxCalculators2025Page;
-

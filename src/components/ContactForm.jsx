@@ -219,8 +219,8 @@ const ContactForm = ({ defaultService }) => {
             } focus:border-[var(--color-gold)] focus:ring-2 focus:ring-[var(--color-gold)]/20 outline-none transition-all bg-gray-50 text-gray-900`}
           >
             <option value="">Select a service</option>
-            {services.map(service => (
-              <option key={service} value={service}>{service}</option>
+            {services.map((service, idx) => (
+              <option key={`${service}-${idx}`} value={service}>{service}</option>
             ))}
           </select>
           {errors.service && (

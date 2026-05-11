@@ -223,7 +223,7 @@ const TaxCalculatorModal = ({ isOpen, onClose }) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="space-y-4"
                   >
-                    <div className="bg-gradient-to-br from-[var(--color-dark-blue)] to-black rounded-xl p-6 text-white">
+                    <div className="bg-gradient-to-br from-[var(--color-brand-navy)] to-black rounded-xl p-6 text-white">
                       <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                         <TrendingDown size={20} />
                         Tax Calculation Results

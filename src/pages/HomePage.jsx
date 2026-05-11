@@ -1,282 +1,638 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { FileText, Building2, TrendingUp, ArrowRight } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  FileText, Building2, TrendingUp, ArrowRight, MessageCircle,
+  Phone, ShieldCheck, Clock, UserCheck, Award,
+  CheckCircle, Star, Globe, Users, Landmark, MapPin,
+  Cpu, Briefcase, Box, Heart, Home, Monitor, Truck,
+  Calculator, ChevronDown, Mail, BadgeCheck,
+} from 'lucide-react';
 import Button from '../components/Button.jsx';
 import ClientTestimonials from '../components/ClientTestimonials.jsx';
+import { SITE } from '../data/site.js';
 import {
+  EASE_OUT, VIEWPORT_REVEAL,
+  getStaggerContainer, getStaggerItem, getScaleItem,
+  fadeUp, revealUp, revealLeft, revealRight, revealScale,
   usePageMotion,
-  EASE_OUT,
-  VIEWPORT_REVEAL,
-  getStaggerContainer,
-  getStaggerItem,
 } from '../lib/motion.js';
 
+/* ── Shared decorative grid ─────────────────────────── */
+const Grid = ({ opacity = 0.04 }) => (
+  <div
+    className="absolute inset-0 pointer-events-none"
+    style={{
+      opacity,
+      backgroundImage:
+        'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
+      backgroundSize: '64px 64px',
+    }}
+  />
+);
+
+/* ── Section heading helper ─────────────────────────── */
+const SectionHead = ({ eyebrow, title, subtitle, light = false, centered = true }) => {
+  const reduce = useReducedMotion();
+  return (
+    <motion.div
+      {...revealUp(0, reduce)}
+      className={`mb-12 ${centered ? 'text-center' : ''}`}
+    >
+      {eyebrow && (
+        <div className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] mb-4 ${
+          light
+            ? 'border-[var(--color-gold)]/40 bg-[var(--color-gold)]/10 text-[var(--color-gold)]'
+            : 'border-[var(--color-gold)]/30 bg-[var(--color-gold)]/8 text-[var(--color-gold-dark)]'
+        }`}>
+          {eyebrow}
+        </div>
+      )}
+      <h2
+        className={`text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl leading-tight ${light ? 'text-white' : 'text-gray-900'}`}
+        style={{ fontFamily: 'var(--font-heading)' }}
+      >
+        {title}
+      </h2>
+      {subtitle && (
+        <p className={`mt-4 max-w-2xl ${centered ? 'mx-auto' : ''} text-base leading-relaxed ${light ? 'text-gray-300' : 'text-[var(--color-text-muted)]'}`}>
+          {subtitle}
+        </p>
+      )}
+    </motion.div>
+  );
+};
+
+/* ── Animated number counter ────────────────────────── */
+const CountUp = ({ target, suffix = '', duration = 1800 }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const started = useRef(false);
+  const reduce = useReducedMotion();
+
+  useEffect(() => {
+    if (reduce) { setCount(target); return; }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const start = performance.now();
+          const animate = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.round(eased * target));
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, duration, reduce]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+};
+
+/* ═══════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════ */
+const FEATURED_SERVICES = [
+  { title: 'Income Tax Filing', desc: 'FBR-compliant filing for individuals, AOPs, and companies with full slab guidance.', icon: FileText, count: 10, path: '/services/tax-services-pakistan' },
+  { title: 'Company Registration', desc: 'SECP incorporation of Pvt Ltd, SMC, LLP, and partnership firms — done in days.', icon: Building2, count: 7, path: '/services/corporate-business-services' },
+  { title: 'Sales Tax Services', desc: 'FBR & provincial GST registration, monthly returns, and notice handling.', icon: TrendingUp, count: 6, path: '/services/tax-services-pakistan' },
+  { title: 'Freelancer Tax', desc: 'Reduced IT export tax rates, PSEB registration, and foreign income filing.', icon: Users, count: 5, path: '/services/high-demand-individual-services' },
+  { title: 'Overseas Pakistani', desc: 'Non-resident filings, ATL activation, property tax, and TRC certificates.', icon: Globe, count: 6, path: '/services/overseas-pakistani-tax-services' },
+  { title: 'International Services', desc: 'UAE, USA & Saudi Arabia tax registration, filing, and business setup advisory.', icon: Landmark, count: 19, path: '/services/uae-tax-services' },
+];
+
+const WHY_US = [
+  { icon: ShieldCheck, title: 'Compliance-First', desc: 'Every service strictly aligned with FBR, SECP, ZATCA, and all applicable authorities.' },
+  { icon: Clock, title: 'Timely Delivery', desc: 'Defined milestones, proactive status updates, and zero missed deadlines.' },
+  { icon: UserCheck, title: 'Dedicated Expert', desc: 'One consultant owns your case from document collection to final confirmation.' },
+  { icon: Award, title: '100% Confidential', desc: 'Your financial data is handled with strict professional secrecy and never shared.' },
+];
+
+const IMPACT_STATS = [
+  { value: 500, suffix: '+', label: 'Satisfied Clients' },
+  { value: 10, suffix: '+', label: 'Years of Experience' },
+  { value: 70, suffix: '+', label: 'Services Offered' },
+  { value: 4, suffix: '', label: 'Countries Served' },
+  { value: 18, suffix: '', label: 'Tax Calculators' },
+  { value: 99, suffix: '%', label: 'Client Retention' },
+];
+
+const PROCESS_STEPS = [
+  { n: '01', icon: Phone, title: 'Initial Consultation', desc: 'Share your requirements — we assess scope, timeline, and fees. No surprises.' },
+  { n: '02', icon: FileText, title: 'Document Gathering', desc: 'We share a precise checklist. You provide documents, we verify everything.' },
+  { n: '03', icon: CheckCircle, title: 'Expert Preparation', desc: 'Our consultants prepare and review your filing with full compliance checks.' },
+  { n: '04', icon: BadgeCheck, title: 'Submit & Confirm', desc: 'We submit on your behalf and send you confirmation with a copy of all records.' },
+];
+
+const CALCULATOR_TILES = [
+  { id: 'salary', label: 'Salary Tax Calculator', cat: 'Income Tax' },
+  { id: 'freelancer', label: 'Freelancer Tax Calculator', cat: 'Income Tax' },
+  { id: 'gain-properties', label: 'Property Gain Tax', cat: 'Capital Gains' },
+  { id: 'pta', label: 'PTA Mobile Tax', cat: 'Verification' },
+];
+
+const INDUSTRIES = [
+  { icon: Cpu, title: 'IT & Technology', path: '/industries' },
+  { icon: Briefcase, title: 'Professional Services', path: '/industries' },
+  { icon: Box, title: 'Retail & E-commerce', path: '/industries' },
+  { icon: Heart, title: 'Healthcare', path: '/industries' },
+  { icon: Home, title: 'Real Estate', path: '/industries' },
+  { icon: Truck, title: 'Manufacturing', path: '/industries' },
+  { icon: Globe, title: 'Exporters', path: '/industries' },
+  { icon: Monitor, title: 'Startups & SMEs', path: '/industries' },
+];
+
+/* ═══════════════════════════════════════════════════════
+   PAGE
+═══════════════════════════════════════════════════════ */
 const HomePage = () => {
   const navigate = useNavigate();
-  const { reduce, reveal, revealShort } = usePageMotion();
-
-  const services = [
-    {
-      title: 'Income Tax Filing',
-      description: 'Expert filing for individuals & businesses in compliance with Income Tax Ordinance 2001.',
-      icon: FileText,
-      path: '/services/income-tax-return-filing',
-    },
-    {
-      title: 'Company Registration',
-      description: 'Seamless SECP company incorporation and legal structuring.',
-      icon: Building2,
-      path: '/services/secp-company-registration',
-    },
-    {
-      title: 'Sales Tax Services',
-      description: 'Monthly sales tax returns and GST registration under Sales Tax Act 1990.',
-      icon: TrendingUp,
-      path: '/services/sales-tax-registration-fbr',
-    },
-  ];
-
-  const processSteps = [
-    'Initial Consultation & Assessment',
-    'Document Gathering & Verification',
-    'Expert Filing & Compliance Check',
-  ];
+  const reduce = useReducedMotion();
 
   return (
     <>
       <Helmet>
-        <title>Tax Zilla - Reliable Tax & Legal Consultancy in Pakistan</title>
+        <title>Tax Zilla — Trusted Tax & Legal Consultancy in Pakistan</title>
         <meta
           name="description"
-          content="Expert tax and legal consultancy in Pakistan. FBR compliance, income tax filing, company registration, and legal advisory services in Lahore."
+          content="Expert tax, legal, and compliance services in Pakistan. FBR filing, company registration, sales tax, overseas Pakistani services, UAE & USA tax. 500+ clients. Based in Lahore."
         />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden dark-section">
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-scroll md:bg-fixed tz-hero-bg-motion"
-          style={{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1686149115308-bfdb03c8582e)',
-          }}
-        >
-          <div className="absolute inset-0 bg-brand-dark opacity-95" />
-          <div className="absolute inset-0 bg-brand-overlay opacity-75" />
-        </div>
+      {/* ══════════════════════════════════════════════
+          1. HERO
+      ══════════════════════════════════════════════ */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden dark-section" style={{ background: 'var(--color-brand-navy)' }}>
+        {/* Background layers */}
+        <div className="absolute inset-0 bg-brand-overlay opacity-60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,_rgba(212,175,55,0.22),_transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_80%_at_80%_100%,_rgba(59,130,246,0.08),_transparent)]" />
+        <Grid opacity={0.05} />
 
-        <div className="relative z-10 container-custom px-3 pt-24 pb-10 sm:px-4 sm:pt-28 md:pt-32">
-          <motion.div
-            className="max-w-4xl mx-auto text-center"
-            variants={getStaggerContainer(reduce)}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.div variants={getStaggerItem(reduce)} className="inline-block mb-4">
-              <div className="relative overflow-hidden rounded-full border border-[var(--color-gold)] bg-black/50 px-3 py-1.5 backdrop-blur-sm tz-pill-shimmer sm:px-4">
-                <span className="relative z-10 text-[var(--color-gold)] text-[11px] font-medium uppercase tracking-wide sm:text-sm sm:tracking-widest">
-                  Premier Consultancy in Lahore
+        {/* Floating decorative orbs */}
+        <motion.div
+          className="absolute top-1/4 -left-24 h-72 w-72 rounded-full bg-[var(--color-gold)]/8 blur-3xl"
+          animate={reduce ? {} : { scale: [1, 1.12, 1], opacity: [0.4, 0.7, 0.4] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 -right-24 h-64 w-64 rounded-full bg-blue-500/6 blur-3xl"
+          animate={reduce ? {} : { scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        />
+
+        <div className="relative z-10 container-custom px-4 pt-28 pb-16 sm:pt-32 md:pt-36">
+          <div className="max-w-5xl mx-auto text-center">
+
+            {/* Badge */}
+            <motion.div {...fadeUp(0, reduce)} className="inline-block mb-6">
+              <div className="relative overflow-hidden rounded-full border border-[var(--color-gold)]/50 bg-[var(--color-gold)]/10 px-5 py-2 backdrop-blur-sm tz-pill-shimmer">
+                <span className="relative z-10 text-[var(--color-gold)] text-[11px] font-bold uppercase tracking-[0.3em] sm:text-xs">
+                  Premier Tax & Legal Consultancy · Lahore, Pakistan
                 </span>
               </div>
             </motion.div>
 
-            <motion.h1
-              variants={getStaggerItem(reduce)}
-              className="mb-6 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-              style={{ fontFamily: 'var(--font-heading)' }}
-            >
-              Simplify Your <br />
-              <span className="text-gradient-gold">Tax & Legal Compliance</span>
-            </motion.h1>
+            {/* H1 — staggered lines */}
+            <motion.div {...fadeUp(0.1, reduce)}>
+              <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+                style={{ fontFamily: 'var(--font-heading)' }}>
+                Simplify Your
+              </h1>
+            </motion.div>
+            <motion.div {...fadeUp(0.2, reduce)}>
+              <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-gradient-gold"
+                style={{ fontFamily: 'var(--font-heading)' }}>
+                Tax & Legal
+              </h1>
+            </motion.div>
+            <motion.div {...fadeUp(0.3, reduce)}>
+              <h1 className="text-4xl font-extrabold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-8"
+                style={{ fontFamily: 'var(--font-heading)' }}>
+                Compliance
+              </h1>
+            </motion.div>
 
+            {/* Subtitle */}
             <motion.p
-              variants={getStaggerItem(reduce)}
-              className="mx-auto mb-10 max-w-2xl text-base font-light leading-relaxed text-gray-300 sm:text-lg md:text-xl lg:text-2xl"
+              {...fadeUp(0.42, reduce)}
+              className="mx-auto max-w-2xl text-base font-light leading-relaxed text-gray-300 sm:text-lg md:text-xl mb-10"
             >
-              We handle FBR, SECP, and legal complexities so you can focus on growing your business.
+              We handle FBR, SECP, provincial, and international tax complexities — so you can focus entirely on growing your business.
             </motion.p>
 
+            {/* CTA Buttons */}
             <motion.div
-              variants={getStaggerItem(reduce)}
-              className="flex flex-col justify-center gap-4 sm:flex-row"
+              {...fadeUp(0.54, reduce)}
+              className="flex flex-col justify-center gap-4 sm:flex-row mb-10"
             >
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={() => navigate('/contact')}
-                className="w-full font-bold sm:w-auto"
-              >
-                Book a Consultation
+              <Button variant="primary" size="lg" onClick={() => navigate('/contact')} className="w-full font-bold sm:w-auto px-8">
+                Book Free Consultation
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => navigate('/services')}
-                className="w-full sm:w-auto"
+                onClick={() => window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer')}
+                className="w-full sm:w-auto px-8"
               >
-                Explore Services
+                <MessageCircle size={18} className="mr-2" /> WhatsApp Us
               </Button>
             </motion.div>
 
+            {/* Contact pills */}
+            <motion.div {...fadeUp(0.62, reduce)} className="flex flex-wrap justify-center gap-3 mb-14">
+              <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-semibold text-white/80 hover:border-[var(--color-gold)]/50 hover:text-[var(--color-gold)] transition-all backdrop-blur-sm">
+                <Phone size={12} className="text-[var(--color-gold)]" /> {SITE.phone}
+              </a>
+              <a href={`mailto:${SITE.email}`} className="flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-semibold text-white/80 hover:border-[var(--color-gold)]/50 hover:text-[var(--color-gold)] transition-all backdrop-blur-sm">
+                <Mail size={12} className="text-[var(--color-gold)]" /> {SITE.email}
+              </a>
+            </motion.div>
+
+            {/* Stats row */}
             <motion.div
-              variants={getStaggerItem(reduce)}
-              className="mt-12 flex flex-wrap justify-center gap-6 border-t border-white/10 pt-8 sm:mt-16 sm:gap-10 md:gap-12"
+              {...fadeUp(0.7, reduce)}
+              className="grid grid-cols-3 gap-4 border-t border-white/10 pt-10 max-w-lg mx-auto"
             >
               {[
-                { n: '100%', l: 'Confidential' },
-                { n: '500+', l: 'Clients' },
-                { n: '5+', l: 'Years Exp.' },
+                { v: '500+', l: 'Happy Clients' },
+                { v: '10+', l: 'Years Experience' },
+                { v: '70+', l: 'Services' },
               ].map((s) => (
-                <div key={s.l} className="text-center opacity-90">
-                  <p className="text-2xl font-bold text-white">{s.n}</p>
-                  <p className="text-xs uppercase tracking-wide text-gray-400">{s.l}</p>
+                <div key={s.l} className="text-center">
+                  <p className="text-2xl sm:text-3xl font-bold text-[var(--color-gold)]">{s.v}</p>
+                  <p className="text-[10px] sm:text-xs uppercase tracking-wider text-gray-400 mt-1">{s.l}</p>
                 </div>
               ))}
             </motion.div>
-          </motion.div>
+          </div>
         </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          animate={reduce ? {} : { y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ChevronDown size={28} className="text-[var(--color-gold)]/50" />
+        </motion.div>
       </section>
 
-      {/* Intro / Services Teaser */}
-      <section className="section-padding relative z-20 -mt-6 rounded-t-[1.75rem] bg-white sm:-mt-10 sm:rounded-t-[2.5rem] md:rounded-t-[3rem]">
+      {/* ══════════════════════════════════════════════
+          2. TRUST STRIP
+      ══════════════════════════════════════════════ */}
+      <div className="relative z-20 -mt-1 border-b border-white/10" style={{ background: 'var(--color-brand-navy)' }}>
+        <div className="container-custom py-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs font-semibold text-gray-400">
+            <span className="text-[var(--color-gold)] uppercase tracking-widest text-[10px]">Trusted across</span>
+            {['🇵🇰 Pakistan', '🇦🇪 UAE', '🇺🇸 USA', '🇸🇦 Saudi Arabia'].map((c) => (
+              <span key={c} className="text-gray-300">{c}</span>
+            ))}
+            <span className="hidden sm:inline text-gray-600">·</span>
+            <span className="text-gray-300 hidden sm:inline">500+ businesses & individuals</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════
+          3. FEATURED SERVICES
+      ══════════════════════════════════════════════ */}
+      <section className="section-padding relative z-20 -mt-1 rounded-t-[2rem] bg-white sm:rounded-t-[2.5rem] md:rounded-t-[3rem]">
         <div className="container-custom">
-          <motion.div {...reveal} className="mb-16 text-center">
-            <h2 className="mb-4 text-2xl font-bold sm:text-3xl md:text-4xl">Comprehensive Solutions</h2>
-            <p className="mx-auto max-w-2xl text-gray-600">
-              From individual filing to corporate registration, we cover the full spectrum of Pakistani tax laws.
-            </p>
-          </motion.div>
+          <SectionHead
+            eyebrow="Our Services"
+            title={<>Comprehensive <span className="text-[var(--color-gold)]">Tax & Legal</span> Solutions</>}
+            subtitle="From individual tax filing to corporate registration and international compliance — 70+ services, all under one roof."
+          />
 
           <motion.div
-            className="grid grid-cols-1 gap-8 md:grid-cols-3"
-            variants={getStaggerContainer(reduce)}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={getStaggerContainer(reduce, 0.08)}
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT_REVEAL}
           >
-            {services.map((service) => (
+            {FEATURED_SERVICES.map((s) => (
               <motion.div
-                key={service.path}
-                variants={getStaggerItem(reduce)}
-                whileHover={reduce ? undefined : { y: -8, transition: { duration: 0.25, ease: EASE_OUT } }}
-                className="group rounded-xl border border-gray-100 bg-white p-6 shadow-xl transition-shadow duration-300 hover:border-[var(--color-gold)] hover:shadow-2xl sm:p-8"
+                key={s.title}
+                variants={getScaleItem(reduce)}
+                whileHover={reduce ? undefined : { y: -6, transition: { duration: 0.22, ease: EASE_OUT } }}
+                className="group relative card-surface p-6 flex flex-col cursor-pointer overflow-hidden"
+                onClick={() => navigate(s.path)}
               >
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-gray-50 transition-colors group-hover:bg-[var(--color-gold)]">
-                  <service.icon size={28} className="text-[var(--color-dark-blue)] group-hover:text-black" />
+                <div className="absolute top-0 left-0 right-0 h-[3px] bg-[var(--color-gold)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-t-xl" />
+                <div className="flex items-center justify-between mb-5">
+                  <div className="h-12 w-12 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300">
+                    <s.icon size={24} />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">{s.count} services</span>
                 </div>
-                <h3 className="mb-3 text-xl font-bold">{service.title}</h3>
-                <p className="mb-6 text-sm text-gray-600">{service.description}</p>
-                <button
-                  type="button"
-                  onClick={() => navigate(service.path)}
-                  className="flex items-center text-sm font-bold text-[var(--color-dark-blue)] transition-all group-hover:gap-2"
-                >
-                  Learn More <ArrowRight size={16} className="ml-1" />
-                </button>
+                <h3 className="text-lg font-bold mb-2 group-hover:text-[var(--color-gold)] transition-colors leading-snug" style={{ fontFamily: 'var(--font-heading)' }}>
+                  {s.title}
+                </h3>
+                <p className="text-sm text-[var(--color-text-muted)] mb-5 flex-grow leading-relaxed">{s.desc}</p>
+                <div className="mt-auto flex items-center gap-1 text-sm font-bold text-[var(--color-gold)] group-hover:gap-2 transition-all">
+                  Explore <ArrowRight size={15} />
+                </div>
               </motion.div>
             ))}
           </motion.div>
 
-          <motion.div {...revealShort} className="mt-12 text-center">
-            <Button variant="secondary" onClick={() => navigate('/services')}>
-              View All Services
+          <motion.div {...revealUp(0.1, reduce)} className="mt-10 text-center">
+            <Button variant="secondary" size="lg" onClick={() => navigate('/services')}>
+              View All 70+ Services <ArrowRight size={16} className="ml-2" />
             </Button>
           </motion.div>
         </div>
       </section>
 
-      {/* Process Section Preview */}
-      <section className="relative overflow-hidden bg-brand-dark py-14 text-white dark-section sm:py-16 md:py-20">
-        <div className="absolute inset-0 bg-brand-overlay opacity-70" />
-        <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-            <motion.div
-              initial={{ opacity: reduce ? 1 : 0, x: reduce ? 0 : -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={VIEWPORT_REVEAL}
-              transition={{ duration: reduce ? 0.01 : 0.58, ease: EASE_OUT }}
-            >
-              <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">Streamlined Process for Maximum Efficiency</h2>
-              <p className="mb-8 text-base text-on-dark-muted sm:text-lg">
-                We don&apos;t just file papers; we guide you through a proven methodology designed to minimize risk and
-                maximize compliance.
-              </p>
-
+      {/* ══════════════════════════════════════════════
+          4. WHY CHOOSE US
+      ══════════════════════════════════════════════ */}
+      <section className="section-padding" style={{ background: 'var(--color-surface-muted)' }}>
+        <div className="container-custom">
+          <SectionHead
+            eyebrow="Why Tax Zilla"
+            title={<>Why 500+ Clients <span className="text-[var(--color-gold)]">Trust Us</span></>}
+            subtitle="Our approach is built around your compliance, confidence, and long-term peace of mind."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {WHY_US.map((item, i) => (
               <motion.div
-                className="space-y-6"
-                variants={getStaggerContainer(reduce)}
-                initial="hidden"
-                whileInView="visible"
-                viewport={VIEWPORT_REVEAL}
+                key={item.title}
+                {...revealUp(i * 0.1, reduce)}
+                className="card-surface p-6 text-center group hover:border-[var(--color-gold)]/40 transition-colors"
               >
-                {processSteps.map((step, i) => (
-                  <motion.div key={step} variants={getStaggerItem(reduce)} className="relative z-10 flex items-start gap-3 sm:items-center sm:gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-gold)] text-sm font-bold text-black sm:h-10 sm:w-10 sm:text-base">
-                      {i + 1}
-                    </div>
-                    <p className="min-w-0 text-base font-semibold leading-snug sm:text-lg">{step}</p>
-                  </motion.div>
-                ))}
+                <div className="mx-auto mb-4 h-14 w-14 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300">
+                  <item.icon size={26} />
+                </div>
+                <h3 className="font-bold text-base mb-2">{item.title}</h3>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">{item.desc}</p>
               </motion.div>
-
-              <div className="relative z-10 mt-10">
-                <Button variant="primary" onClick={() => navigate('/our-process')}>
-                  See Full Process
-                </Button>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="relative"
-              initial={{ opacity: reduce ? 1 : 0, x: reduce ? 0 : 28 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={VIEWPORT_REVEAL}
-              transition={{ duration: reduce ? 0.01 : 0.6, ease: EASE_OUT, delay: reduce ? 0 : 0.08 }}
-            >
-              <div className="absolute inset-0 rotate-3 rounded-2xl bg-[var(--color-gold)] opacity-20" />
-              <img
-                src="https://images.unsplash.com/photo-1554224155-a1487473ffd9"
-                alt="Working on documents"
-                className="relative z-10 h-auto w-full max-w-full rounded-2xl shadow-2xl object-cover"
-              />
-            </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="section-padding bg-gray-50">
+      {/* ══════════════════════════════════════════════
+          5. IMPACT NUMBERS (dark)
+      ══════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden py-20 sm:py-24 dark-section" style={{ background: 'var(--color-brand-navy)' }}>
+        <div className="absolute inset-0 bg-brand-overlay opacity-60" />
+        <Grid opacity={0.05} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,_rgba(212,175,55,0.1),_transparent)]" />
+
+        <div className="container-custom relative z-10">
+          <SectionHead
+            eyebrow="Our Impact"
+            title={<>Numbers That <span className="text-[var(--color-gold)]">Speak for Themselves</span></>}
+            subtitle="A decade of trusted expertise, hundreds of satisfied clients, and a growing presence across Pakistan and beyond."
+            light
+          />
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {IMPACT_STATS.map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                {...revealScale(i * 0.08, reduce)}
+                className="text-center p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-[var(--color-gold)]/40 hover:bg-[var(--color-gold)]/5 transition-all"
+              >
+                <div className="text-3xl sm:text-4xl font-extrabold text-[var(--color-gold)] mb-1">
+                  <CountUp target={stat.value} suffix={stat.suffix} />
+                </div>
+                <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          6. OUR PROCESS
+      ══════════════════════════════════════════════ */}
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+          <SectionHead
+            eyebrow="How It Works"
+            title={<>A Process Built for <span className="text-[var(--color-gold)]">Zero Stress</span></>}
+            subtitle="From first contact to final confirmation — every step is defined, transparent, and in your hands."
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            {/* Connector line */}
+            <div className="absolute top-8 left-[12.5%] right-[12.5%] h-px bg-[var(--color-gold)]/20 hidden lg:block" />
+
+            {PROCESS_STEPS.map((step, i) => (
+              <motion.div
+                key={step.title}
+                {...revealUp(i * 0.12, reduce)}
+                className="relative group text-center"
+              >
+                <div className="relative z-10 mx-auto mb-5 h-16 w-16 rounded-full flex items-center justify-center border-2 border-[var(--color-gold)]/30 bg-white shadow-md group-hover:border-[var(--color-gold)] group-hover:bg-[var(--color-gold)] transition-all duration-300">
+                  <step.icon size={24} className="text-[var(--color-gold)] group-hover:text-black transition-colors duration-300" />
+                  <div className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-[var(--color-gold)] text-black text-[10px] font-extrabold flex items-center justify-center">
+                    {step.n}
+                  </div>
+                </div>
+                <h3 className="font-bold text-base mb-2" style={{ fontFamily: 'var(--font-heading)' }}>{step.title}</h3>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div {...revealUp(0.2, reduce)} className="mt-12 text-center">
+            <Button variant="secondary" onClick={() => navigate('/our-process')}>
+              See Full Process <ArrowRight size={16} className="ml-2" />
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          7. TAX CALCULATORS TEASER
+      ══════════════════════════════════════════════ */}
+      <section className="section-padding" style={{ background: 'var(--color-surface-muted)' }}>
+        <div className="container-custom">
+          <SectionHead
+            eyebrow="Free Tools · FY 2025–26"
+            title={<>Pakistan Tax <span className="text-[var(--color-gold)]">Calculators</span></>}
+            subtitle="17 free professional calculators with official FBR 2025–26 rates. No login, no signup."
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            {CALCULATOR_TILES.map((calc, i) => (
+              <motion.div
+                key={calc.id}
+                {...revealScale(i * 0.1, reduce)}
+                className="group card-surface p-5 cursor-pointer hover:border-[var(--color-gold)]/50 transition-all"
+                onClick={() => navigate(`/pakistan-tax-calculators?calc=${calc.id}`)}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="h-10 w-10 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all">
+                    <Calculator size={18} />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-gold)] bg-[var(--color-gold)]/10 rounded-full px-2 py-0.5">
+                    {calc.cat}
+                  </span>
+                </div>
+                <h3 className="font-bold text-sm mb-1 group-hover:text-[var(--color-gold)] transition-colors" style={{ fontFamily: 'var(--font-heading)' }}>
+                  {calc.label}
+                </h3>
+                <p className="text-xs text-[var(--color-text-muted)]">FY 2025–26 · Free</p>
+                <div className="mt-3 flex items-center gap-1 text-xs font-bold text-[var(--color-gold)]">
+                  Try Now <ArrowRight size={12} />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div {...revealUp(0.15, reduce)} className="text-center">
+            <Button variant="primary" size="lg" onClick={() => navigate('/pakistan-tax-calculators')}>
+              <Calculator size={18} className="mr-2" /> Try All 17 Calculators — Free
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          8. TESTIMONIALS
+      ══════════════════════════════════════════════ */}
+      <section className="section-padding bg-white">
         <ClientTestimonials />
       </section>
 
-      {/* CTA Section */}
-      <section className="relative overflow-hidden bg-[var(--color-gold)] py-16 sm:py-20 md:py-24">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
-        <motion.div
-          className="container-custom relative z-10 text-center"
-          initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={VIEWPORT_REVEAL}
-          transition={{ duration: reduce ? 0.01 : 0.55, ease: EASE_OUT }}
-        >
-          <h2 className="mb-6 text-2xl font-bold text-black sm:text-3xl md:text-4xl lg:text-5xl px-2" style={{ fontFamily: 'var(--font-heading)' }}>
-            Ready to Get Compliant?
-          </h2>
-          <p className="mx-auto mb-8 max-w-2xl px-2 text-base font-medium text-black/80 sm:text-lg md:text-xl">
-            Join the growing number of businesses in Pakistan who trust Tax Zilla.
-          </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Button
-              variant="outline"
-              className="border-2 border-black bg-transparent px-10 py-4 text-lg text-black hover:bg-black hover:text-[var(--color-gold)]"
-              onClick={() => navigate('/contact')}
-            >
-              Contact Us Now
-            </Button>
+      {/* ══════════════════════════════════════════════
+          9. INDUSTRIES
+      ══════════════════════════════════════════════ */}
+      <section className="section-padding" style={{ background: 'var(--color-surface-muted)' }}>
+        <div className="container-custom">
+          <SectionHead
+            eyebrow="Industries We Serve"
+            title={<>Expert Compliance for <span className="text-[var(--color-gold)]">Every Sector</span></>}
+            subtitle="Sector-specific knowledge across 8 industries — from IT startups to manufacturing giants."
+          />
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 mb-10">
+            {INDUSTRIES.map((ind, i) => (
+              <motion.div
+                key={ind.title}
+                {...revealScale(i * 0.05, reduce)}
+                className="group card-surface p-4 text-center cursor-pointer hover:border-[var(--color-gold)]/50 transition-all"
+                onClick={() => navigate(ind.path)}
+              >
+                <div className="mx-auto mb-3 h-11 w-11 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300">
+                  <ind.icon size={20} />
+                </div>
+                <p className="text-xs font-bold text-gray-700 group-hover:text-[var(--color-gold)] transition-colors leading-snug">{ind.title}</p>
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
+
+          <motion.div {...revealUp(0.15, reduce)} className="text-center">
+            <Button variant="secondary" onClick={() => navigate('/industries')}>
+              Explore Industries <ArrowRight size={16} className="ml-2" />
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          10. FINAL CTA
+      ══════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden py-20 sm:py-24 dark-section" style={{ background: 'var(--color-brand-navy)' }}>
+        <div className="absolute inset-0 bg-brand-overlay opacity-60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_50%,_rgba(212,175,55,0.15),_transparent)]" />
+        <Grid opacity={0.05} />
+
+        <div className="container-custom relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+            {/* Left */}
+            <motion.div {...revealLeft(0, reduce)}>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/35 bg-[var(--color-gold)]/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-gold)] mb-6">
+                Get Started Today
+              </div>
+              <h2
+                className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight"
+                style={{ fontFamily: 'var(--font-heading)' }}
+              >
+                Ready to Simplify{' '}
+                <span className="text-[var(--color-gold)]">Your Compliance?</span>
+              </h2>
+              <p className="text-gray-300 text-base leading-relaxed mb-8 max-w-xl">
+                Join 500+ businesses and individuals who trust Tax Zilla for FBR filing, company registration, and comprehensive tax advisory — across Pakistan, UAE, USA, and Saudi Arabia.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <Button variant="primary" size="lg" onClick={() => navigate('/contact')}>
+                  Book Free Consultation
+                </Button>
+                <Button variant="outline" size="lg" onClick={() => window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer')}>
+                  <MessageCircle size={18} className="mr-2" /> WhatsApp Now
+                </Button>
+              </div>
+
+              {/* Trust badges */}
+              <div className="flex flex-wrap gap-3">
+                {['FBR Registered', 'SECP Compliant', '100% Confidential', 'Remote Friendly'].map((badge) => (
+                  <span key={badge} className="flex items-center gap-1.5 rounded-full bg-white/8 border border-white/10 px-3 py-1.5 text-xs text-gray-300 font-medium">
+                    <CheckCircle size={12} className="text-[var(--color-gold)]" /> {badge}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right: Contact cards */}
+            <motion.div {...revealRight(0.1, reduce)} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <a href={`tel:${SITE.phoneTel}`} className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-[var(--color-gold)]/40 hover:bg-[var(--color-gold)]/5 transition-all">
+                <div className="h-12 w-12 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+                  <Phone size={20} />
+                </div>
+                <div>
+                  <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Call / WhatsApp</div>
+                  <div className="font-bold text-white text-sm mt-0.5">{SITE.phone}</div>
+                </div>
+              </a>
+
+              <a href={`mailto:${SITE.email}`} className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-[var(--color-gold)]/40 hover:bg-[var(--color-gold)]/5 transition-all">
+                <div className="h-12 w-12 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+                  <Mail size={20} />
+                </div>
+                <div>
+                  <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Email</div>
+                  <div className="font-bold text-white text-sm mt-0.5 break-all">{SITE.email}</div>
+                </div>
+              </a>
+
+              <Link to="/services" className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 hover:border-[var(--color-gold)]/40 hover:bg-[var(--color-gold)]/5 transition-all">
+                <div className="h-12 w-12 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+                  <FileText size={20} />
+                </div>
+                <div>
+                  <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Explore</div>
+                  <div className="font-bold text-white text-sm mt-0.5">All 70+ Services</div>
+                </div>
+              </Link>
+
+              <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 rounded-2xl border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/10 p-5 hover:bg-[var(--color-gold)]/20 transition-all">
+                <div className="h-12 w-12 rounded-xl bg-[var(--color-gold)]/20 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
+                  <MessageCircle size={20} />
+                </div>
+                <div>
+                  <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">WhatsApp</div>
+                  <div className="font-bold text-white text-sm mt-0.5">Instant Response</div>
+                </div>
+              </a>
+            </motion.div>
+          </div>
+        </div>
       </section>
     </>
   );

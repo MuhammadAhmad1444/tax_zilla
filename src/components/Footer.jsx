@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Clock, MapPin } from 'lucide-react';
+import { Mail, Phone, Clock, MapPin, MessageCircle } from 'lucide-react';
 import SocialMediaLinks from './SocialMediaLinks';
 import { usePageMotion, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
 import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
+import { SITE } from '../data/site.js';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -32,9 +33,10 @@ const Footer = () => {
 
   return (
     <footer className="bg-brand-solid text-white border-t-4 border-[var(--color-gold)] dark-section">
+
       <div className="container-custom py-8 md:py-12">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8"
           variants={getStaggerContainer(reduce)}
           initial="hidden"
           whileInView="visible"
@@ -114,45 +116,80 @@ const Footer = () => {
 
           {/* Contact Info */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Contact Us</h4>
-            <ul className="space-y-4 text-sm">
-              <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-[var(--color-gold)] mt-1 flex-shrink-0" />
-                <span className="break-words text-gray-300">7A, Malik Park Main Street, Main Canal Road, Mughalpura, Lahore, Pakistan</span>
+            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Contact</h4>
+            <ul className="space-y-3 text-sm">
+
+              <li>
+                <a
+                  href="https://maps.google.com/?q=Tax+Zilla+Consultancy+Lahore"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2.5 group"
+                >
+                  <MapPin size={15} className="text-[var(--color-gold)] mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-300 group-hover:text-white transition-colors leading-snug">
+                    7A, Malik Park, Main Canal Road, Mughalpura, Lahore
+                  </span>
+                </a>
               </li>
-              <li className="flex items-start gap-3">
-                <Phone size={18} className="text-[var(--color-gold)] mt-1 flex-shrink-0" />
-                <div className="flex flex-col">
-                  <a href="tel:+923399993308" className="text-gray-300 hover:text-white">+92 339 9993308</a>
-                  <a href="tel:+923009860279" className="text-gray-300 hover:text-white">+92 300 9860279</a>
+
+              <li>
+                <a href="tel:+923399993308" className="flex items-center gap-2.5 group">
+                  <Phone size={15} className="text-[var(--color-gold)] flex-shrink-0" />
+                  <span className="text-gray-300 group-hover:text-white transition-colors">+92 339 9993308</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="tel:+923009860279" className="flex items-center gap-2.5 group">
+                  <Phone size={15} className="text-[var(--color-gold)] flex-shrink-0" />
+                  <span className="text-gray-300 group-hover:text-white transition-colors">+92 300 9860279</span>
+                </a>
+              </li>
+
+              <li>
+                <a href={`mailto:${SITE.email}`} className="flex items-center gap-2.5 group">
+                  <Mail size={15} className="text-[var(--color-gold)] flex-shrink-0" />
+                  <span className="text-gray-300 group-hover:text-white transition-colors break-all">{SITE.email}</span>
+                </a>
+              </li>
+
+              <li className="flex items-start gap-2.5">
+                <Clock size={15} className="text-[var(--color-gold)] mt-0.5 flex-shrink-0" />
+                <div className="text-gray-300">
+                  <div>Mon–Fri: 9:00 AM – 6:00 PM</div>
+                  <div>Sat: 10:00 AM – 2:00 PM</div>
                 </div>
               </li>
-              <li className="flex items-start gap-3">
-                <Mail size={18} className="text-[var(--color-gold)] mt-1 flex-shrink-0" />
-                <a href="mailto:taxzilla41@gmail.com" className="text-gray-300 hover:text-white">taxzilla41@gmail.com</a>
+
+              <li className="pt-1">
+                <a
+                  href={SITE.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[var(--color-gold)] hover:text-[var(--color-gold-light)] font-semibold transition-colors"
+                >
+                  <MessageCircle size={14} />
+                  WhatsApp Chat
+                </a>
               </li>
-              <li className="flex items-start gap-3">
-                <Clock size={18} className="text-[var(--color-gold)] mt-1 flex-shrink-0" />
-                <div className="flex flex-col text-gray-300">
-                  <span>Mon-Fri: 9:00 AM - 6:00 PM</span>
-                  <span>Sat: 10:00 AM - 2:00 PM</span>
-                </div>
-              </li>
+
             </ul>
           </motion.div>
         </motion.div>
 
+        {/* Inspiration quote strip */}
         <motion.div
-          className="mt-10 rounded-2xl border border-white/15 bg-white/[0.07] px-6 py-6 text-center shadow-lg shadow-black/20"
+          className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-5 text-center"
           initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT_REVEAL}
           transition={{ duration: reduce ? 0.01 : 0.45 }}
         >
-          <div className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-gold)]">Inspiration</div>
-          <div className="mt-3 text-sm md:text-base text-white font-medium leading-relaxed max-w-3xl mx-auto">
-            Clarity in tax decisions starts with trusted tools. Explore calculators, verify numbers, and stay compliant with confidence.
-          </div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-gold)] mb-2">Free Consultation</div>
+          <p className="text-sm text-gray-400 leading-relaxed max-w-2xl mx-auto">
+            Talk to a specialist today — no commitment required. All services are provided in compliance with Pakistan's Income Tax Ordinance, Sales Tax Act, and Companies Act.
+          </p>
         </motion.div>
       </div>
 

@@ -1,7 +1,8 @@
 export const SITE = {
   name: 'Tax Zilla Consultancy',
   domain: 'https://thetaxzilla.com',
-  phone: '+923399993308',
+  phone: '+92 339 9993308',
+  phoneTel: '+923399993308',
   whatsapp: 'https://wa.me/923399993308',
   email: 'taxzilla41@gmail.com',
   address: {

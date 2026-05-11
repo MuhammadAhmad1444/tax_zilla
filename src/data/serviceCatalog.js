@@ -178,6 +178,16 @@ export const SERVICE_CATEGORIES = [
     areaServed: 'Pakistan',
     faqs: buildCategoryFaqs('Individual Tax Services'),
   },
+    {
+      id: 'high-demand-individual-services',
+      slug: 'high-demand-individual-services',
+      title: 'High Demand Individual Services',
+      shortDesc: 'High-demand tax filing services for individuals and freelancers.',
+      heroEyebrow: 'High demand',
+      heroSubhead: 'Fast-track tax solutions for salaried, freelancer, and property related services.',
+      areaServed: 'Pakistan',
+      faqs: buildCategoryFaqs('High Demand Individual Services'),
+    },
   {
     id: 'audit-investigation',
     slug: 'audit-investigation',
@@ -228,520 +238,183 @@ export const SERVICE_CATEGORIES = [
     areaServed: 'USA',
     faqs: buildCategoryFaqs('USA Tax Services'),
   },
+  {
+    id: 'ksa-tax-services',
+    slug: 'ksa-tax-services',
+    title: 'Saudi Arabia (KSA) Tax & Business Services',
+    shortDesc: 'ZATCA VAT, corporate tax, Zakat, e-invoicing, and business setup services for clients in Saudi Arabia.',
+    heroEyebrow: 'KSA compliance',
+    heroSubhead: 'Expert tax and business services for Saudi Arabia — from ZATCA registration to cross-border Pakistan–KSA advisory.',
+    areaServed: 'Saudi Arabia',
+    faqs: [
+      {
+        q: 'What is ZATCA and who needs to register?',
+        a: 'ZATCA (Zakat, Tax and Customs Authority) oversees VAT, corporate tax, and customs in Saudi Arabia. Any business exceeding SAR 375,000 in taxable turnover must register for VAT.',
+      },
+      {
+        q: 'Do Pakistani businesses operating in KSA need to file taxes there?',
+        a: 'Yes. Foreign companies and branches operating in Saudi Arabia are subject to corporate income tax at 20%, and must comply with ZATCA regulations.',
+      },
+      {
+        q: 'What is the FATOORA e-invoicing system?',
+        a: 'FATOORA is Saudi Arabia\'s mandatory e-invoicing system. All VAT-registered businesses must issue compliant electronic invoices and integrate with ZATCA systems.',
+      },
+      {
+        q: 'Can Tax Zilla handle both Pakistan and Saudi Arabia compliance?',
+        a: 'Yes. We specialize in cross-border Pakistan–KSA tax advisory, helping clients manage dual obligations including double taxation treaty benefits and foreign income declarations.',
+      },
+      {
+        q: 'How do I get started with KSA tax services?',
+        a: 'Send us your details via WhatsApp or the enquiry form. We will assess your requirements, confirm the scope, and begin the registration or filing process.',
+      },
+    ],
+  },
 ];
 
 const RAW_SUBSERVICES = [
   // Tax Services Pakistan
-  {
-    slug: 'income-tax-return-filing',
-    title: 'Income Tax Return Filing',
-    categoryId: 'tax-services-pakistan',
-    shortDesc: 'Annual income tax return preparation and filing for individuals and businesses.',
-  },
-  {
-    slug: 'ntn-registration',
-    title: 'NTN Registration',
-    categoryId: 'tax-services-pakistan',
-    shortDesc: 'Fast NTN registration and FBR profile setup with complete documentation.',
-  },
-  {
-    slug: 'sales-tax-registration-fbr',
-    title: 'Sales Tax Registration (FBR)',
-    categoryId: 'tax-services-pakistan',
-    shortDesc: 'FBR sales tax registration and onboarding for registered businesses.',
-  },
-  {
-    slug: 'withholding-tax-statements',
-    title: 'Withholding Tax Statements',
-    categoryId: 'tax-services-pakistan',
-    shortDesc: 'Quarterly withholding statements preparation and submission support.',
-  },
-  {
-    slug: 'wealth-statement-preparation',
-    title: 'Wealth Statement Preparation',
-    categoryId: 'tax-services-pakistan',
-    shortDesc: 'Wealth statement and asset reconciliation for accurate filings.',
-  },
+  { slug: 'income-tax-return-filing', title: 'Income Tax Return Filing', categoryId: 'tax-services-pakistan', shortDesc: 'Complete income tax return filing for individuals and companies.' },
+  { slug: 'ntn-registration-modification', title: 'NTN Registration & Modification', categoryId: 'tax-services-pakistan', shortDesc: 'Fast-track NTN registration and profile modification on FBR Iris.' },
+  { slug: 'sales-tax-registration-monthly-filing', title: 'Sales Tax Registration & Monthly Filing', categoryId: 'tax-services-pakistan', shortDesc: 'FBR sales tax registration and monthly return filing services.' },
+  { slug: 'fbr-notices-audit-handling', title: 'FBR Notices & Audit Handling', categoryId: 'tax-services-pakistan', shortDesc: 'Professional defense and representation for FBR notices and audits.' },
+  { slug: 'wealth-statement-asset-reconciliation', title: 'Wealth Statement & Asset Reconciliation', categoryId: 'tax-services-pakistan', shortDesc: 'Accurate wealth statement preparation and asset reconciliation.' },
+  { slug: 'tax-planning-advisory', title: 'Tax Planning & Advisory', categoryId: 'tax-services-pakistan', shortDesc: 'Strategic tax planning and advisory to optimize tax liabilities.' },
+  { slug: 'atl-compliance', title: 'ATL Compliance', categoryId: 'tax-services-pakistan', shortDesc: 'Active Taxpayer List (ATL) inclusion and compliance maintenance.' },
+  { slug: 'tax-refunds-adjustments', title: 'Tax Refunds & Adjustments', categoryId: 'tax-services-pakistan', shortDesc: 'Assistance in processing tax refunds and adjustments with FBR.' },
+  { slug: 'late-filing-penalty-handling', title: 'Late Filing & Penalty Handling', categoryId: 'tax-services-pakistan', shortDesc: 'Support for late tax filings and handling penalty waivers.' },
+  { slug: 'iris-profile-correction', title: 'IRIS Profile Correction', categoryId: 'tax-services-pakistan', shortDesc: 'Updates and corrections to FBR IRIS profiles and particulars.' },
 
   // Provincial Sales Tax
-  {
-    slug: 'pra-registration',
-    title: 'PRA Registration',
-    categoryId: 'provincial-sales-tax',
-    shortDesc: 'Punjab Revenue Authority registration and compliance setup.',
-  },
-  {
-    slug: 'srb-registration',
-    title: 'SRB Registration',
-    categoryId: 'provincial-sales-tax',
-    shortDesc: 'Sindh Revenue Board registration and filing support.',
-  },
-  {
-    slug: 'kpra-registration',
-    title: 'KPRA Registration',
-    categoryId: 'provincial-sales-tax',
-    shortDesc: 'Khyber Pakhtunkhwa Revenue Authority registration assistance.',
-  },
-  {
-    slug: 'bra-registration',
-    title: 'BRA Registration',
-    categoryId: 'provincial-sales-tax',
-    shortDesc: 'Balochistan Revenue Authority registration and compliance setup.',
-  },
-  {
-    slug: 'provincial-sales-tax-returns',
-    title: 'Provincial Sales Tax Returns',
-    categoryId: 'provincial-sales-tax',
-    shortDesc: 'Monthly return filing for PRA, SRB, KPRA, and BRA.',
-  },
+  { slug: 'pra-registration', title: 'PRA Registration', categoryId: 'provincial-sales-tax', shortDesc: 'Punjab Revenue Authority (PRA) registration and compliance.' },
+  { slug: 'srb-registration', title: 'SRB Registration', categoryId: 'provincial-sales-tax', shortDesc: 'Sindh Revenue Board (SRB) registration and filing support.' },
+  { slug: 'kpra-registration', title: 'KPRA Registration', categoryId: 'provincial-sales-tax', shortDesc: 'Khyber Pakhtunkhwa Revenue Authority (KPRA) registration.' },
+  { slug: 'bra-registration', title: 'BRA Registration', categoryId: 'provincial-sales-tax', shortDesc: 'Balochistan Revenue Authority (BRA) registration and compliance.' },
+  { slug: 'notices-compliance', title: 'Notices & Compliance', categoryId: 'provincial-sales-tax', shortDesc: 'Handling notices and ensuring compliance across provincial tax boards.' },
 
   // Corporate & Business Services
-  {
-    slug: 'secp-company-registration',
-    title: 'SECP Company Registration',
-    categoryId: 'corporate-business-services',
-    shortDesc: 'End-to-end SECP incorporation with name reservation and documentation.',
-  },
-  {
-    slug: 'private-limited-company-registration',
-    title: 'Private Limited Company Registration',
-    categoryId: 'corporate-business-services',
-    shortDesc: 'Private limited company incorporation and post-registration support.',
-  },
-  {
-    slug: 'single-member-company-registration',
-    title: 'Single Member Company Registration',
-    categoryId: 'corporate-business-services',
-    shortDesc: 'SMC registration with statutory documentation and compliance guidance.',
-  },
-  {
-    slug: 'llp-registration',
-    title: 'LLP Registration',
-    categoryId: 'corporate-business-services',
-    shortDesc: 'Limited liability partnership registration and compliance setup.',
-  },
-  {
-    slug: 'company-annual-filings',
-    title: 'Company Annual Filings',
-    categoryId: 'corporate-business-services',
-    shortDesc: 'Annual return filing, Form A/Form 29 updates, and SECP compliance.',
-  },
+  { slug: 'secp-company-registration', title: 'SECP Company Registration', categoryId: 'corporate-business-services', shortDesc: 'End-to-end company incorporation and registration with SECP.' },
+  { slug: 'partnership-registration', title: 'Partnership Registration', categoryId: 'corporate-business-services', shortDesc: 'Registration of partnership firms and AOPs with the registrar.' },
+  { slug: 'business-ntn-registration', title: 'Business NTN Registration', categoryId: 'corporate-business-services', shortDesc: 'NTN registration for sole proprietors, partnerships, and companies.' },
+  { slug: 'annual-returns', title: 'Annual Returns', categoryId: 'corporate-business-services', shortDesc: 'Preparation and filing of statutory annual returns with SECP.' },
+  { slug: 'chamber-membership', title: 'Chamber Membership', categoryId: 'corporate-business-services', shortDesc: 'Assistance in obtaining membership with the Chamber of Commerce.' },
+  { slug: 'business-documentation', title: 'Business Documentation', categoryId: 'corporate-business-services', shortDesc: 'Drafting and preparation of essential business and corporate documents.' },
+  { slug: 'business-advisory', title: 'Business Advisory', categoryId: 'corporate-business-services', shortDesc: 'Expert advisory services for business growth, compliance, and strategy.' },
 
   // Intellectual Property
-  {
-    slug: 'trademark-registration-pakistan',
-    title: 'Trademark Registration Pakistan',
-    categoryId: 'intellectual-property',
-    shortDesc: 'Trademark search, filing, and registration for brand protection.',
-  },
-  {
-    slug: 'trademark-opposition-response',
-    title: 'Trademark Opposition and Response',
-    categoryId: 'intellectual-property',
-    shortDesc: 'Professional handling of trademark objections and opposition replies.',
-  },
-  {
-    slug: 'copyright-registration',
-    title: 'Copyright Registration',
-    categoryId: 'intellectual-property',
-    shortDesc: 'Copyright registration for creative works and software assets.',
-  },
-  {
-    slug: 'patent-filing-pakistan',
-    title: 'Patent Filing Pakistan',
-    categoryId: 'intellectual-property',
-    shortDesc: 'Patent drafting support and filing guidance for inventors and firms.',
-  },
-  {
-    slug: 'industrial-design-registration',
-    title: 'Industrial Design Registration',
-    categoryId: 'intellectual-property',
-    shortDesc: 'Design registration for product shapes, patterns, and visual identity.',
-  },
+  { slug: 'trademark-registration', title: 'Trademark Registration', categoryId: 'intellectual-property', shortDesc: 'Trademark search, filing, and registration for brand protection.' },
+  { slug: 'copyright-registration', title: 'Copyright Registration', categoryId: 'intellectual-property', shortDesc: 'Copyright registration for creative works and software.' },
+  { slug: 'patent-registration', title: 'Patent Registration', categoryId: 'intellectual-property', shortDesc: 'Patent drafting and filing guidance for inventions.' },
+  { slug: 'trademark-objection-handling', title: 'Trademark Objection Handling', categoryId: 'intellectual-property', shortDesc: 'Professional handling and reply to trademark objections and oppositions.' },
+  { slug: 'trademark-renewal', title: 'Trademark Renewal', categoryId: 'intellectual-property', shortDesc: 'Timely renewal of registered trademarks to maintain protection.' },
+  { slug: 'international-trademark', title: 'International Trademark', categoryId: 'intellectual-property', shortDesc: 'Registration of trademarks globally and under international protocols.' },
 
   // Software & IT Services
-  {
-    slug: 'pseb-registration',
-    title: 'PSEB Registration',
-    categoryId: 'software-it-services',
-    shortDesc: 'PSEB registration for IT companies and software exporters.',
-  },
-  {
-    slug: 'pseb-renewal-annual-returns',
-    title: 'PSEB Renewal and Annual Returns',
-    categoryId: 'software-it-services',
-    shortDesc: 'PSEB renewal support and annual return submissions.',
-  },
-  {
-    slug: 'freelancer-tax-filing',
-    title: 'Freelancer Tax Filing',
-    categoryId: 'software-it-services',
-    shortDesc: 'Tax filings for freelancers with export income and remittance support.',
-  },
-  {
-    slug: 'software-export-tax-advisory',
-    title: 'Software Export Tax Advisory',
-    categoryId: 'software-it-services',
-    shortDesc: 'Export incentive guidance and tax positioning for IT exporters.',
-  },
-  {
-    slug: 'it-company-incorporation',
-    title: 'IT Company Incorporation',
-    categoryId: 'software-it-services',
-    shortDesc: 'Company setup tailored for IT and software businesses.',
-  },
+  { slug: 'pseb-registration', title: 'PSEB Registration', categoryId: 'software-it-services', shortDesc: 'Pakistan Software Export Board (PSEB) registration for IT firms.' },
+  { slug: 'it-company-setup', title: 'IT Company Setup', categoryId: 'software-it-services', shortDesc: 'Complete corporate setup tailored for IT and software businesses.' },
+  { slug: 'freelancer-ntn', title: 'Freelancer NTN', categoryId: 'software-it-services', shortDesc: 'NTN registration and profile setup for IT freelancers.' },
+  { slug: 'software-export-registration', title: 'Software Export Registration', categoryId: 'software-it-services', shortDesc: 'Registration and compliance guidance for software exporters.' },
 
   // Engineering Services
-  {
-    slug: 'pec-registration',
-    title: 'PEC Registration',
-    categoryId: 'engineering-services',
-    shortDesc: 'Pakistan Engineering Council registration and documentation.',
-  },
-  {
-    slug: 'pec-renewal',
-    title: 'PEC Renewal',
-    categoryId: 'engineering-services',
-    shortDesc: 'PEC renewal assistance with compliance review and submissions.',
-  },
-  {
-    slug: 'engineering-firm-ntn',
-    title: 'Engineering Firm NTN',
-    categoryId: 'engineering-services',
-    shortDesc: 'NTN registration for engineering firms and contractors.',
-  },
-  {
-    slug: 'contractor-tax-compliance',
-    title: 'Contractor Tax Compliance',
-    categoryId: 'engineering-services',
-    shortDesc: 'Tax compliance and withholding support for contractors.',
-  },
-  {
-    slug: 'project-withholding-tax',
-    title: 'Project Withholding Tax',
-    categoryId: 'engineering-services',
-    shortDesc: 'Withholding tax review and calculations for engineering projects.',
-  },
+  { slug: 'pec-registration', title: 'PEC Registration', categoryId: 'engineering-services', shortDesc: 'Pakistan Engineering Council (PEC) registration for contractors and engineers.' },
+  { slug: 'consultancy-firm-registration', title: 'Consultancy Firm Registration', categoryId: 'engineering-services', shortDesc: 'Registration of engineering consultancy firms with relevant authorities.' },
+  { slug: 'professional-compliance', title: 'Professional Compliance', categoryId: 'engineering-services', shortDesc: 'Ongoing statutory and tax compliance for engineering professionals.' },
 
   // Legal Services
-  {
-    slug: 'legal-advisory-retainer',
-    title: 'Legal Advisory Retainer',
-    categoryId: 'legal-services',
-    shortDesc: 'Ongoing legal advisory for corporate and commercial matters.',
-  },
-  {
-    slug: 'contract-drafting-review',
-    title: 'Contract Drafting and Review',
-    categoryId: 'legal-services',
-    shortDesc: 'Drafting, review, and negotiation support for contracts.',
-  },
-  {
-    slug: 'legal-notice-reply',
-    title: 'Legal Notice Reply',
-    categoryId: 'legal-services',
-    shortDesc: 'Preparation of legal notice responses and documentation support.',
-  },
-  {
-    slug: 'labor-law-compliance',
-    title: 'Labor Law Compliance',
-    categoryId: 'legal-services',
-    shortDesc: 'Employment law compliance, HR policies, and documentation.',
-  },
-  {
-    slug: 'company-secretarial-services',
-    title: 'Company Secretarial Services',
-    categoryId: 'legal-services',
-    shortDesc: 'Corporate secretarial services and statutory record keeping.',
-  },
+  { slug: 'legal-notices', title: 'Legal Notices', categoryId: 'legal-services', shortDesc: 'Drafting and responding to legal notices and formal communications.' },
+  { slug: 'agreements-contracts', title: 'Agreements & Contracts', categoryId: 'legal-services', shortDesc: 'Drafting, review, and vetting of commercial agreements and contracts.' },
+  { slug: 'power-of-attorney', title: 'Power of Attorney', categoryId: 'legal-services', shortDesc: 'Preparation and registration of General and Special Power of Attorney.' },
+  { slug: 'property-documentation', title: 'Property Documentation', categoryId: 'legal-services', shortDesc: 'Legal documentation for real estate, lease, and property transactions.' },
+  { slug: 'business-legal-advisory', title: 'Business Legal Advisory', categoryId: 'legal-services', shortDesc: 'Expert legal consultation for corporate and commercial operations.' },
 
   // Visa & Immigration Tax Services
-  {
-    slug: 'tax-residency-certificate',
-    title: 'Tax Residency Certificate',
-    categoryId: 'visa-immigration-tax-services',
-    shortDesc: 'TRC application support and documentation for visa cases.',
-  },
-  {
-    slug: 'visa-income-documentation',
-    title: 'Visa Income Documentation',
-    categoryId: 'visa-immigration-tax-services',
-    shortDesc: 'Income documentation packages for visa and immigration files.',
-  },
-  {
-    slug: 'foreign-remittance-certificate',
-    title: 'Foreign Remittance Certificate',
-    categoryId: 'visa-immigration-tax-services',
-    shortDesc: 'Remittance documentation and supporting certificates.',
-  },
-  {
-    slug: 'source-of-funds-letter',
-    title: 'Source of Funds Letter',
-    categoryId: 'visa-immigration-tax-services',
-    shortDesc: 'Structured source of funds letters with supporting evidence.',
-  },
-  {
-    slug: 'visa-tax-compliance-review',
-    title: 'Visa Tax Compliance Review',
-    categoryId: 'visa-immigration-tax-services',
-    shortDesc: 'Review of tax records to strengthen visa applications.',
-  },
+  { slug: 'ntn-for-visa-purpose', title: 'NTN for Visa Purpose', categoryId: 'visa-immigration-tax-services', shortDesc: 'NTN registration and tax profile setup specifically for visa applications.' },
+  { slug: 'income-proof-documentation', title: 'Income Proof Documentation', categoryId: 'visa-immigration-tax-services', shortDesc: 'Preparation of verified income proof documents for immigration files.' },
+  { slug: 'wealth-statement-for-visa', title: 'Wealth Statement for Visa', categoryId: 'visa-immigration-tax-services', shortDesc: 'Wealth statements drafted appropriately for embassy requirements.' },
+  { slug: 'filer-status-activation', title: 'Filer Status Activation', categoryId: 'visa-immigration-tax-services', shortDesc: 'Fast-track activation of Active Taxpayer (Filer) status.' },
+  { slug: 'bank-statement-support', title: 'Bank Statement Support', categoryId: 'visa-immigration-tax-services', shortDesc: 'Reconciliation and documentation support related to bank statements.' },
+  { slug: 'embassy-tax-documents', title: 'Embassy Tax Documents', categoryId: 'visa-immigration-tax-services', shortDesc: 'Preparation of tax compliance certificates requested by embassies.' },
 
   // Overseas Pakistani Tax Services
-  {
-    slug: 'non-resident-tax-filing',
-    title: 'Non-Resident Tax Filing',
-    categoryId: 'overseas-pakistani-tax-services',
-    shortDesc: 'Tax return filing for non-resident Pakistanis with local income.',
-  },
-  {
-    slug: 'overseas-property-income-filing',
-    title: 'Overseas Property Income Filing',
-    categoryId: 'overseas-pakistani-tax-services',
-    shortDesc: 'Property income reporting and compliance for overseas owners.',
-  },
-  {
-    slug: 'overseas-atl-activation',
-    title: 'Overseas ATL Activation',
-    categoryId: 'overseas-pakistani-tax-services',
-    shortDesc: 'Active Taxpayer List restoration for overseas Pakistanis.',
-  },
-  {
-    slug: 'repatriation-documentation',
-    title: 'Repatriation Documentation',
-    categoryId: 'overseas-pakistani-tax-services',
-    shortDesc: 'Documentation support for repatriation of funds and investments.',
-  },
-  {
-    slug: 'poa-tax-representation',
-    title: 'POA Tax Representation',
-    categoryId: 'overseas-pakistani-tax-services',
-    shortDesc: 'Power of attorney and tax representation support in Pakistan.',
-  },
+  { slug: 'overseas-tax-filing', title: 'Overseas Tax Filing', categoryId: 'overseas-pakistani-tax-services', shortDesc: 'Tax return filing and compliance for non-resident Pakistanis.' },
+  { slug: 'section-236c-236k-guidance', title: 'Section 236C & 236K Guidance', categoryId: 'overseas-pakistani-tax-services', shortDesc: 'Guidance on tax deductions for property purchase and sale.' },
+  { slug: 'exemption-certificates-overseas', title: 'Exemption Certificates', categoryId: 'overseas-pakistani-tax-services', shortDesc: 'Processing tax exemption certificates for overseas remittances.' },
+  { slug: 'foreign-income-advisory', title: 'Foreign Income Advisory', categoryId: 'overseas-pakistani-tax-services', shortDesc: 'Advisory on the taxation of foreign-source income and assets.' },
+  { slug: 'double-taxation-support', title: 'Double Taxation Support', categoryId: 'overseas-pakistani-tax-services', shortDesc: 'Relief and compliance under Double Taxation Treaties.' },
+  { slug: 'tax-residency-certificate', title: 'Tax Residency Certificate', categoryId: 'overseas-pakistani-tax-services', shortDesc: 'Obtaining Tax Residency Certificates for claiming international tax benefits.' },
 
   // Certificates & Compliance
-  {
-    slug: 'atl-certificate',
-    title: 'Active Taxpayer Certificate',
-    categoryId: 'certificates-compliance',
-    shortDesc: 'ATL certificate issuance and verification support.',
-  },
-  {
-    slug: 'ntn-certificate-download',
-    title: 'NTN Certificate Download',
-    categoryId: 'certificates-compliance',
-    shortDesc: 'NTN certificate retrieval with profile verification.',
-  },
-  {
-    slug: 'tax-clearance-certificate',
-    title: 'Tax Clearance Certificate',
-    categoryId: 'certificates-compliance',
-    shortDesc: 'Tax clearance certificate preparation and submission support.',
-  },
-  {
-    slug: 'sales-tax-certificate',
-    title: 'Sales Tax Registration Certificate',
-    categoryId: 'certificates-compliance',
-    shortDesc: 'Sales tax certificate issuance and compliance checks.',
-  },
-  {
-    slug: 'secp-compliance-certificate',
-    title: 'SECP Compliance Certificate',
-    categoryId: 'certificates-compliance',
-    shortDesc: 'Compliance certificates and status confirmations from SECP.',
-  },
+  { slug: 'dnfbp-registration', title: 'DNFBP Registration', categoryId: 'certificates-compliance', shortDesc: 'Registration and compliance for Designated Non-Financial Businesses and Professions.' },
+  { slug: 'tax-clearance-certificates', title: 'Tax Clearance Certificates', categoryId: 'certificates-compliance', shortDesc: 'Issuance of tax clearance certificates from relevant tax authorities.' },
+  { slug: 'atl-status-certificate', title: 'ATL Status Certificate', categoryId: 'certificates-compliance', shortDesc: 'Official certification of Active Taxpayer List (ATL) status.' },
+  { slug: 'income-certificates', title: 'Income Certificates', categoryId: 'certificates-compliance', shortDesc: 'Verified income certificates for loans, visas, and other purposes.' },
+  { slug: 'exemption-certificates', title: 'Exemption Certificates', categoryId: 'certificates-compliance', shortDesc: 'Processing of specific tax exemption certificates with FBR.' },
+  { slug: 'lower-tax-certificates', title: 'Lower Tax Certificates', categoryId: 'certificates-compliance', shortDesc: 'Application for reduced withholding tax rate certificates.' },
+  { slug: 'non-resident-certificates', title: 'Non-Resident Certificates', categoryId: 'certificates-compliance', shortDesc: 'Certificates confirming non-resident tax status for individuals.' },
 
-  // Individual Tax Services
-  {
-    slug: 'salaried-tax-return-filing',
-    title: 'Salaried Tax Return Filing',
-    categoryId: 'individual-tax-services',
-    shortDesc: 'Annual tax return filing for salaried individuals.',
-  },
-  {
-    slug: 'sole-proprietor-tax-return',
-    title: 'Sole Proprietor Tax Return',
-    categoryId: 'individual-tax-services',
-    shortDesc: 'Business individual tax return preparation and filing.',
-  },
-  {
-    slug: 'capital-gains-tax-filing',
-    title: 'Capital Gains Tax Filing',
-    categoryId: 'individual-tax-services',
-    shortDesc: 'Capital gains tax reporting for property and securities.',
-  },
-  {
-    slug: 'property-tax-filing',
-    title: 'Property Tax Filing',
-    categoryId: 'individual-tax-services',
-    shortDesc: 'Property income tax filing and compliance support.',
-  },
-  {
-    slug: 'wealth-statement-update',
-    title: 'Wealth Statement Update',
-    categoryId: 'individual-tax-services',
-    shortDesc: 'Annual wealth statement updates and asset reconciliation.',
-  },
+  // High Demand Individual Services
+  { slug: 'salaried-tax-filing', title: 'Salaried Tax Filing', categoryId: 'high-demand-individual-services', shortDesc: 'Quick and accurate annual tax return filing for salaried employees.' },
+  { slug: 'freelancer-tax-filing', title: 'Freelancer Tax Filing', categoryId: 'high-demand-individual-services', shortDesc: 'Tax filing and compliance solutions tailored for freelancers.' },
+  { slug: 'property-capital-gain-tax', title: 'Property Capital Gain Tax', categoryId: 'high-demand-individual-services', shortDesc: 'Calculation and filing of capital gain tax on property sales.' },
+  { slug: 'property-tax-advisory', title: 'Property Tax Advisory', categoryId: 'high-demand-individual-services', shortDesc: 'Advisory on provincial property taxes, valuation, and transfers.' },
+  { slug: 'vehicle-token-tax-guidance', title: 'Vehicle Token Tax Guidance', categoryId: 'high-demand-individual-services', shortDesc: 'Guidance and processing of vehicle token tax and filer benefits.' },
+  { slug: 'non-filer-to-filer', title: 'Non-Filer to Filer', categoryId: 'high-demand-individual-services', shortDesc: 'Complete conversion from non-filer to active taxpayer status.' },
+  { slug: 'backlog-tax-filing', title: 'Backlog Tax Filing', categoryId: 'high-demand-individual-services', shortDesc: 'Filing of missed or previous years\' tax returns to clear backlogs.' },
 
   // Audit & Investigation
-  {
-    slug: 'fbr-audit-assistance',
-    title: 'FBR Audit Assistance',
-    categoryId: 'audit-investigation',
-    shortDesc: 'Audit representation and response support for FBR inquiries.',
-  },
-  {
-    slug: 'fbr-notice-reply',
-    title: 'FBR Notice Reply',
-    categoryId: 'audit-investigation',
-    shortDesc: 'Preparation of professional responses to FBR notices.',
-  },
-  {
-    slug: 'audit-representation',
-    title: 'Audit Representation',
-    categoryId: 'audit-investigation',
-    shortDesc: 'Representation during audit proceedings and hearings.',
-  },
-  {
-    slug: 'sales-tax-audit-assistance',
-    title: 'Sales Tax Audit Assistance',
-    categoryId: 'audit-investigation',
-    shortDesc: 'Support for sales tax audit documentation and submissions.',
-  },
-  {
-    slug: 'internal-compliance-review',
-    title: 'Internal Compliance Review',
-    categoryId: 'audit-investigation',
-    shortDesc: 'Internal tax compliance audit to identify risks and gaps.',
-  },
+  { slug: 'fbr-audit-representation', title: 'FBR Audit Representation', categoryId: 'audit-investigation', shortDesc: 'Professional representation before FBR during tax audits.' },
+  { slug: 'investigation-handling', title: 'Investigation Handling', categoryId: 'audit-investigation', shortDesc: 'Management and defense for tax investigations and inquiries.' },
+  { slug: 'legal-responses', title: 'Legal Responses', categoryId: 'audit-investigation', shortDesc: 'Drafting of formal legal responses to show-cause notices.' },
+  { slug: 'penalty-settlement', title: 'Penalty Settlement', categoryId: 'audit-investigation', shortDesc: 'Negotiation and settlement of tax penalties and default surcharges.' },
 
-  // Business Tax Planning
-  {
-    slug: 'tax-planning-review',
-    title: 'Tax Planning Review',
-    categoryId: 'business-tax-planning',
-    shortDesc: 'Strategic tax planning to optimize liability and cash flow.',
-  },
-  {
-    slug: 'corporate-tax-optimization',
-    title: 'Corporate Tax Optimization',
-    categoryId: 'business-tax-planning',
-    shortDesc: 'Corporate tax structure review and optimization guidance.',
-  },
-  {
-    slug: 'withholding-tax-planning',
-    title: 'Withholding Tax Planning',
-    categoryId: 'business-tax-planning',
-    shortDesc: 'Withholding tax planning and compliance support.',
-  },
-  {
-    slug: 'business-restructuring-tax',
-    title: 'Business Restructuring Tax',
-    categoryId: 'business-tax-planning',
-    shortDesc: 'Tax impact reviews for mergers, restructuring, and transitions.',
-  },
-  {
-    slug: 'international-tax-planning',
-    title: 'International Tax Planning',
-    categoryId: 'business-tax-planning',
-    shortDesc: 'Cross-border tax planning and compliance guidance.',
-  },
+  // Business & Tax Planning
+  { slug: 'tax-structuring', title: 'Tax Structuring', categoryId: 'business-tax-planning', shortDesc: 'Structuring of business transactions and entities for tax efficiency.' },
+  { slug: 'salary-vs-dividend-planning', title: 'Salary vs Dividend Planning', categoryId: 'business-tax-planning', shortDesc: 'Analysis and planning for optimal remuneration extraction from companies.' },
+  { slug: 'expense-optimization', title: 'Expense Optimization', categoryId: 'business-tax-planning', shortDesc: 'Review of business expenses to maximize allowable tax deductions.' },
+  { slug: 'tax-saving-consultancy', title: 'Tax Saving Consultancy', categoryId: 'business-tax-planning', shortDesc: 'Expert consultancy to identify and implement lawful tax savings.' },
 
   // Additional Registrations
-  {
-    slug: 'gst-registration',
-    title: 'GST Registration',
-    categoryId: 'additional-registrations',
-    shortDesc: 'GST registration and onboarding support for businesses.',
-  },
-  {
-    slug: 'eobi-registration',
-    title: 'EOBI Registration',
-    categoryId: 'additional-registrations',
-    shortDesc: 'Employee Old-Age Benefits registration and compliance.',
-  },
-  {
-    slug: 'pessi-registration',
-    title: 'PESSI Registration',
-    categoryId: 'additional-registrations',
-    shortDesc: 'Punjab Employees Social Security registration and setup.',
-  },
-  {
-    slug: 'chamber-of-commerce-registration',
-    title: 'Chamber of Commerce Registration',
-    categoryId: 'additional-registrations',
-    shortDesc: 'Chamber membership registration and supporting documentation.',
-  },
-  {
-    slug: 'psw-registration',
-    title: 'PSW Registration',
-    categoryId: 'additional-registrations',
-    shortDesc: 'Pakistan Single Window registration support for traders.',
-  },
+  { slug: 'ngo-registration', title: 'NGO Registration', categoryId: 'additional-registrations', shortDesc: 'Registration of Non-Governmental Organizations, trusts, and societies.' },
+  { slug: 'import-export-license', title: 'Import Export License', categoryId: 'additional-registrations', shortDesc: 'Assistance in obtaining import and export licenses (WeBOC).' },
+  { slug: 'psw-registration', title: 'PSW Registration', categoryId: 'additional-registrations', shortDesc: 'Pakistan Single Window (PSW) registration for traders and forwarders.' },
+  { slug: 'e-commerce-setup', title: 'E-Commerce Setup', categoryId: 'additional-registrations', shortDesc: 'Legal and tax setup guidance for e-commerce businesses.' },
+  { slug: 'pra-srb-registrations', title: 'PRA/SRB Registrations', categoryId: 'additional-registrations', shortDesc: 'Registration with provincial revenue authorities for services.' },
+  { slug: 'import-export-ntn', title: 'Import Export NTN', categoryId: 'additional-registrations', shortDesc: 'Addition of import/export business in FBR NTN profile.' },
 
   // UAE Tax Services
-  {
-    slug: 'uae-vat-registration',
-    title: 'UAE VAT Registration',
-    categoryId: 'uae-tax-services',
-    shortDesc: 'UAE VAT registration and onboarding for businesses.',
-  },
-  {
-    slug: 'uae-vat-return-filing',
-    title: 'UAE VAT Return Filing',
-    categoryId: 'uae-tax-services',
-    shortDesc: 'UAE VAT return preparation and filing support.',
-  },
-  {
-    slug: 'uae-corporate-tax-registration',
-    title: 'UAE Corporate Tax Registration',
-    categoryId: 'uae-tax-services',
-    shortDesc: 'Corporate tax registration support for UAE entities.',
-  },
-  {
-    slug: 'uae-corporate-tax-return',
-    title: 'UAE Corporate Tax Return',
-    categoryId: 'uae-tax-services',
-    shortDesc: 'Corporate tax return preparation and filing for UAE entities.',
-  },
-  {
-    slug: 'uae-esr-compliance',
-    title: 'UAE ESR Compliance',
-    categoryId: 'uae-tax-services',
-    shortDesc: 'Economic Substance Regulations compliance support.',
-  },
+  { slug: 'uae-vat-registration', title: 'UAE VAT Registration', categoryId: 'uae-tax-services', shortDesc: 'UAE Value Added Tax (VAT) registration and onboarding.' },
+  { slug: 'corporate-tax-registration', title: 'Corporate Tax Registration', categoryId: 'uae-tax-services', shortDesc: 'Registration for UAE Corporate Tax and compliance setup.' },
+  { slug: 'uae-business-setup', title: 'UAE Business Setup', categoryId: 'uae-tax-services', shortDesc: 'Company formation and mainland/freezone business setup in UAE.' },
+  { slug: 'uae-tax-advisory', title: 'UAE Tax Advisory', categoryId: 'uae-tax-services', shortDesc: 'Comprehensive tax advisory for businesses operating in the UAE.' },
 
   // USA Tax Services
-  {
-    slug: 'usa-llc-registration',
-    title: 'USA LLC Registration',
-    categoryId: 'usa-tax-services',
-    shortDesc: 'US LLC formation with documentation and compliance guidance.',
-  },
-  {
-    slug: 'usa-ein-application',
-    title: 'USA EIN Application',
-    categoryId: 'usa-tax-services',
-    shortDesc: 'Employer Identification Number application support.',
-  },
-  {
-    slug: 'usa-llc-tax-filing',
-    title: 'USA LLC Tax Filing',
-    categoryId: 'usa-tax-services',
-    shortDesc: 'Tax filing guidance for US LLCs and foreign-owned entities.',
-  },
-  {
-    slug: 'w8ben-w8bene-guidance',
-    title: 'W-8BEN / W-8BEN-E Guidance',
-    categoryId: 'usa-tax-services',
-    shortDesc: 'W-8BEN and W-8BEN-E documentation support.',
-  },
-  {
-    slug: 'usa-itin-application',
-    title: 'USA ITIN Application',
-    categoryId: 'usa-tax-services',
-    shortDesc: 'ITIN application support with document preparation.',
-  },
+  { slug: 'usa-llc-registration', title: 'USA LLC Registration', categoryId: 'usa-tax-services', shortDesc: 'Formation and registration of LLCs in the United States.' },
+  { slug: 'ein-itin', title: 'EIN & ITIN', categoryId: 'usa-tax-services', shortDesc: 'Application processing for Employer Identification Number and ITIN.' },
+  { slug: 'irs-tax-filing', title: 'IRS Tax Filing', categoryId: 'usa-tax-services', shortDesc: 'Preparation and filing of US federal and state tax returns.' },
+  { slug: 'stripe-paypal-guidance', title: 'Stripe/PayPal Guidance', categoryId: 'usa-tax-services', shortDesc: 'Guidance on setting up US-based payment gateways.' },
+  { slug: 'non-resident-consultancy', title: 'Non-Resident Consultancy', categoryId: 'usa-tax-services', shortDesc: 'Tax consultancy for non-resident aliens and foreign-owned US LLCs.' },
+
+  // Saudi Arabia (KSA) — ZATCA & Taxation
+  { slug: 'zatca-vat-registration', title: 'VAT Registration (ZATCA)', categoryId: 'ksa-tax-services', shortDesc: 'Saudi Arabia VAT registration with the Zakat, Tax and Customs Authority (ZATCA).' },
+  { slug: 'ksa-vat-return-filing', title: 'VAT Return Filing & Compliance', categoryId: 'ksa-tax-services', shortDesc: 'Preparation and submission of periodic VAT returns under Saudi ZATCA rules.' },
+  { slug: 'ksa-corporate-tax-registration', title: 'Corporate Income Tax (Foreign Companies)', categoryId: 'ksa-tax-services', shortDesc: 'Corporate tax registration and filing for foreign companies operating in Saudi Arabia.' },
+  { slug: 'ksa-zakat-filing', title: 'Zakat Calculation & Filing', categoryId: 'ksa-tax-services', shortDesc: 'Annual Zakat calculation and filing for Saudi-owned businesses with ZATCA.' },
+  { slug: 'ksa-withholding-tax', title: 'Withholding Tax Advisory & Filing', categoryId: 'ksa-tax-services', shortDesc: 'Advisory and compliance support for Saudi withholding tax on payments to non-residents.' },
+  { slug: 'fatoora-einvoicing', title: 'E-Invoicing (FATOORA) Compliance', categoryId: 'ksa-tax-services', shortDesc: 'FATOORA e-invoicing integration and compliance for VAT-registered businesses in KSA.' },
+  { slug: 'zatca-audit-notices', title: 'ZATCA Notices, Audit & Penalty Handling', categoryId: 'ksa-tax-services', shortDesc: 'Professional representation and response for ZATCA audits, notices, and penalties.' },
+
+  // Saudi Arabia — Business Setup
+  { slug: 'ksa-company-registration', title: 'Company Registration in Saudi Arabia', categoryId: 'ksa-tax-services', shortDesc: 'End-to-end company formation and legal registration for businesses in KSA.' },
+  { slug: 'ksa-foreign-branch', title: 'Foreign Company Branch Registration', categoryId: 'ksa-tax-services', shortDesc: 'Registration of a foreign company branch or representative office in Saudi Arabia.' },
+  { slug: 'ksa-commercial-registration', title: 'Commercial Registration (CR) Assistance', categoryId: 'ksa-tax-services', shortDesc: 'Obtaining and maintaining the Saudi Commercial Registration (CR) for businesses.' },
+  { slug: 'ksa-tax-file-registration', title: 'Tax File Registration with ZATCA', categoryId: 'ksa-tax-services', shortDesc: 'Opening a tax file with ZATCA for newly established companies in Saudi Arabia.' },
+  { slug: 'ksa-business-licensing', title: 'Business Licensing & Setup Support', categoryId: 'ksa-tax-services', shortDesc: 'Guidance on sector-specific licenses and regulatory approvals in Saudi Arabia.' },
+
+  // Cross-Border Pakistan–Saudi Services
+  { slug: 'saudi-freelancer-tax', title: 'Saudi Freelancers & Contractors Tax Advisory', categoryId: 'ksa-tax-services', shortDesc: 'Tax advisory for Pakistani freelancers and contractors earning from Saudi clients.' },
+  { slug: 'pak-ksa-remittance-guidance', title: 'Foreign Income & Remittance Guidance', categoryId: 'ksa-tax-services', shortDesc: 'Tax guidance on remittances from Saudi Arabia to Pakistan and declaration requirements.' },
+  { slug: 'pak-ksa-double-taxation', title: 'Double Taxation Advisory (Pakistan–KSA)', categoryId: 'ksa-tax-services', shortDesc: 'Advisory on Pakistan–Saudi Arabia double taxation treaty benefits and relief claims.' },
+  { slug: 'ksa-export-services-tax', title: 'Export of Services Tax Structuring', categoryId: 'ksa-tax-services', shortDesc: 'Tax structuring for Pakistani businesses exporting services to Saudi Arabia.' },
+  { slug: 'ksa-international-compliance', title: 'Compliance Support for International Clients', categoryId: 'ksa-tax-services', shortDesc: 'Ongoing tax and regulatory compliance support for businesses with Pakistan–KSA operations.' },
 ];
 
 export const SERVICE_SUBSERVICES = RAW_SUBSERVICES.map((service) => ({

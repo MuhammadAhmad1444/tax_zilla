@@ -12,6 +12,7 @@ import WhyChooseUsPage from './pages/WhyChooseUsPage.jsx';
 import FAQsPage from './pages/FAQsPage.jsx';
 import OurProcessPage from './pages/OurProcessPage.jsx';
 import IndustriesPage from './pages/IndustriesPage.jsx';
+import IndustryDetailPage from './pages/IndustryDetailPage.jsx';
 import ResourcesPage from './pages/ResourcesPage.jsx';
 import PakTaxCalculators2025Page from './pages/PakTaxCalculators2025Page.jsx';
 import IncomeTaxSlabsPlaceholderPage from './pages/IncomeTaxSlabsPlaceholderPage.jsx';
@@ -38,6 +39,7 @@ function AppShell() {
           <Route path="/faqs" element={<FAQsPage />} />
           <Route path="/our-process" element={<OurProcessPage />} />
           <Route path="/industries" element={<IndustriesPage />} />
+          <Route path="/industries/:slug" element={<IndustryDetailPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
 
           {/* PakTax Calculators */}
