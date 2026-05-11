@@ -65,3 +65,360 @@
   --transition-slow: 0.6s ease;
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL ANIMATION KEYFRAMES
+═══════════════════════════════════════════════════════════ */
+
+@keyframes tz-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes tz-pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+  50%       { box-shadow: 0 0 0 8px rgba(212, 175, 55, 0.18); }
+}
+
+@keyframes tz-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes tz-spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes tz-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tz-slide-in-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITY ANIMATION CLASSES
+═══════════════════════════════════════════════════════════ */
+
+/** Floating element — apply to hero decorative shapes */
+.tz-float {
+  animation: tz-float 4.5s ease-in-out infinite;
+}
+.tz-float-slow {
+  animation: tz-float 6.5s ease-in-out infinite;
+}
+.tz-float-delay {
+  animation: tz-float 5s ease-in-out 1.2s infinite;
+}
+
+/** Gold shimmer text — for highlighted words in headings */
+.tz-shimmer-text {
+  background: linear-gradient(
+    120deg,
+    var(--color-gold-dark) 0%,
+    var(--color-gold-light) 40%,
+    var(--color-gold) 60%,
+    var(--color-gold-dark) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: tz-shimmer 3.5s linear infinite;
+}
+
+/** CSS fade-in utility (no JS required for simple reveals) */
+.tz-fade-up {
+  animation: tz-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CARD MICRO-INTERACTIONS
+═══════════════════════════════════════════════════════════ */
+
+/** Standard lift hover — apply to any card */
+.tz-card-hover {
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s ease;
+  will-change: transform;
+}
+.tz-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
+
+/** Gold-accent card — gets a visible gold border-top on hover */
+.tz-card-gold {
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s ease,
+    border-top-color 0.22s ease;
+  border-top: 3px solid transparent;
+  will-change: transform;
+}
+.tz-card-gold:hover {
+  transform: translateY(-5px);
+  border-top-color: var(--color-gold);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.11),
+              0 0 0 1px rgba(212, 175, 55, 0.08);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTON MICRO-INTERACTIONS
+═══════════════════════════════════════════════════════════ */
+
+/** Gold primary button — lift + glow */
+.btn-gold-anim {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+.btn-gold-anim:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.45);
+}
+.btn-gold-anim:active {
+  transform: translateY(0px) scale(0.97);
+}
+
+/** Shimmer sweep on hover */
+.btn-gold-anim::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-position: -200% center;
+  transition: background-position 0.5s ease;
+}
+.btn-gold-anim:hover::after {
+  background-position: 200% center;
+}
+
+/** Dark outline button */
+.btn-outline-anim {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.btn-outline-anim:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+}
+.btn-outline-anim:active {
+  transform: translateY(0px) scale(0.97);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LINK / ICON MICRO-INTERACTIONS
+═══════════════════════════════════════════════════════════ */
+
+/** Smooth underline grow from left */
+.tz-link-underline {
+  position: relative;
+  text-decoration: none;
+}
+.tz-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--color-gold);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tz-link-underline:hover::after {
+  width: 100%;
+}
+
+/** Icon button hover — scale + gold tint */
+.tz-icon-btn {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.tz-icon-btn:hover {
+  transform: scale(1.15);
+  color: var(--color-gold);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION DIVIDERS & ENTRANCE HELPERS
+═══════════════════════════════════════════════════════════ */
+
+/** Thin gold line divider */
+.tz-gold-rule {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  border: none;
+  margin: 0;
+}
+
+/** Stagger entry for lists rendered without Framer */
+.tz-stagger > * {
+  animation: tz-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.tz-stagger > *:nth-child(1)  { animation-delay: 0.05s; }
+.tz-stagger > *:nth-child(2)  { animation-delay: 0.12s; }
+.tz-stagger > *:nth-child(3)  { animation-delay: 0.19s; }
+.tz-stagger > *:nth-child(4)  { animation-delay: 0.26s; }
+.tz-stagger > *:nth-child(5)  { animation-delay: 0.33s; }
+.tz-stagger > *:nth-child(6)  { animation-delay: 0.40s; }
+.tz-stagger > *:nth-child(7)  { animation-delay: 0.47s; }
+.tz-stagger > *:nth-child(8)  { animation-delay: 0.54s; }
+
+/* ═══════════════════════════════════════════════════════════
+   FOCUS STATES — Accessibility + polish
+═══════════════════════════════════════════════════════════ */
+
+*:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SMOOTH SCROLL
+═══════════════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL CARD SURFACE POLISH
+   .card-surface is the Tailwind utility used site-wide
+═══════════════════════════════════════════════════════════ */
+
+.card-surface {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FAQ ACCORDION POLISH
+═══════════════════════════════════════════════════════════ */
+
+/* Smooth max-height transition for accordion panels */
+.tz-accordion-panel {
+  overflow: hidden;
+  transition: max-height 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO SECTION — animated gradient orb
+═══════════════════════════════════════════════════════════ */
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.15;
+  animation: tz-float 7s ease-in-out infinite;
+}
+.hero-orb-gold {
+  background: radial-gradient(circle, var(--color-gold) 0%, transparent 70%);
+}
+.hero-orb-blue {
+  background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+  opacity: 0.08;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAV LINK ACTIVE INDICATOR ANIMATION
+═══════════════════════════════════════════════════════════ */
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-gold);
+  animation: tz-fade-up 0.3s ease both;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STAT NUMBER COUNTER POLISH
+═══════════════════════════════════════════════════════════ */
+
+.stat-number {
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TABLE OF CONTENTS / STICKY SIDEBAR
+═══════════════════════════════════════════════════════════ */
+
+.sticky-sidebar {
+  position: sticky;
+  top: 6rem;
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SMOOTH IMAGE LOAD
+═══════════════════════════════════════════════════════════ */
+
+img {
+  transition: opacity 0.3s ease;
+}
+img[loading="lazy"] {
+  opacity: 0;
+}
+img[loading="lazy"].loaded,
+img:not([loading]) {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SELECTION
+═══════════════════════════════════════════════════════════ */
+
+::selection {
+  background: rgba(212, 175, 55, 0.28);
+  color: inherit;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SKELETON LOADING PULSE
+═══════════════════════════════════════════════════════════ */
+
+@keyframes tz-skeleton {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.tz-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(212, 175, 55, 0.06) 25%,
+    rgba(212, 175, 55, 0.14) 50%,
+    rgba(212, 175, 55, 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: tz-skeleton 1.6s linear infinite;
+  border-radius: 6px;
+}
