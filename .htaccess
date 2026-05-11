@@ -1,0 +1,24 @@
+# ─────────────────────────────────────────────────────────────────
+# ROOT .htaccess  — Tax Zilla / Hostinger
+#
+# The full repo is deployed to public_html by Hostinger GitHub
+# Auto-Deploy. The BUILT website lives in the dist/ subfolder.
+# This file transparently routes all requests into dist/ so the
+# live URL stays clean (no /dist/ visible in the address bar).
+# ─────────────────────────────────────────────────────────────────
+
+Options -MultiViews -Indexes
+RewriteEngine On
+
+# ── 1. Skip if the request is already inside dist/ ───────────────
+RewriteCond %{REQUEST_URI} ^/dist/ [NC]
+RewriteRule ^ - [L]
+
+# ── 2. Serve real files/dirs that exist inside dist/ ─────────────
+RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -d
+RewriteRule ^(.*)$ dist/$1 [L]
+
+# ── 3. SPA fallback — all other routes → dist/index.html ─────────
+#       This makes React Router deep-links work on refresh.
+RewriteRule ^ dist/index.html [L]
