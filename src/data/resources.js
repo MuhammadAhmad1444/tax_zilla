@@ -1,101 +1,285 @@
-/**
- * Resource categories for filtering
- */
+import { SITE } from './site.js';
+
 export const RESOURCE_CATEGORIES = {
   ALL: 'All',
   TAX_GUIDE: 'Tax Guide',
   BUSINESS_GUIDE: 'Business Guide',
-  TOOL: 'Tool'
+  TOOL: 'Tool',
+  COMPLIANCE: 'Compliance',
+  REFERENCE: 'Reference',
 };
 
-/**
- * All available resources with their details and types
- */
+/* WhatsApp request link for a specific guide */
+const waRequest = (title) =>
+  `https://wa.me/${SITE.phoneTel}?text=${encodeURIComponent(
+    `Hi Tax Zilla, I'd like to receive the "${title}" PDF guide. Please send it to me.`
+  )}`;
+
 export const resources = [
+  /* ── TAX GUIDES ─────────────────────────────────────────── */
   {
     id: 'income-tax-ordinance',
-    title: "Income Tax Ordinance 2001 (Overview)",
-    type: "Tax Guide",
-    desc: "A simplified breakdown of the key sections of Pakistan's primary income tax law.",
-    link: "#",
-    external: false
-  },
-  {
-    id: 'atl-check',
-    title: "Active Taxpayer List (ATL) Check",
-    type: "Tool",
-    desc: "Direct link to FBR's portal to check your current ATL status.",
-    link: "https://e.fbr.gov.pk/",
-    external: true
-  },
-  {
-    id: 'salary-tax-calculator',
-    title: "Salary Tax Calculator",
-    type: "Tool",
-    desc: "Calculate your income tax based on the latest Pakistan tax rates and regulations.",
-    link: "#",
-    external: false,
-    isModal: true
-  },
-  {
-    id: 'sales-tax-registration',
-    title: "Sales Tax Registration Guide",
-    type: "Compliance Guide",
-    desc: "Step-by-step checklist for registering for Sales Tax (STRN).",
-    link: "#",
-    external: false
-  },
-  {
-    id: 'starting-business',
-    title: "Starting a Business in Pakistan",
-    type: "Business Guide",
-    desc: "Comprehensive guide covering SECP, FBR, and provincial registrations.",
-    link: "#",
-    external: false
-  },
-  {
-    id: 'withholding-tax-rates',
-    title: "Withholding Tax Rates Card (2025-26)",
-    type: "Reference",
-    desc: "Quick reference card for common withholding tax rates on services and supplies.",
-    link: "#",
-    external: false
+    title: 'Income Tax Ordinance 2001 — Overview',
+    type: 'Tax Guide',
+    badge: 'FBR Verified',
+    desc: "Plain-language breakdown of Pakistan's primary income tax law — key sections every taxpayer must know.",
+    action: 'Request Free PDF',
+    link: waRequest('Income Tax Ordinance 2001 — Overview'),
+    external: true,
   },
   {
     id: 'freelancer-tax-benefits',
-    title: "Freelancer Tax Benefits",
-    type: "Tax Guide",
-    desc: "Detailed explanation of Clause 133 and PSEB registration benefits.",
-    link: "#",
-    external: false
-  }
+    title: 'Freelancer Tax Benefits Guide (Clause 133)',
+    type: 'Tax Guide',
+    badge: 'IT Export',
+    desc: 'Detailed explanation of Clause 133 reduced tax, PSEB registration, and how to claim freelancer tax exemptions.',
+    action: 'Request Free PDF',
+    link: waRequest('Freelancer Tax Benefits Guide'),
+    external: true,
+  },
+  {
+    id: 'income-tax-return-guide',
+    title: 'Income Tax Return Filing Guide (FY 2025–26)',
+    type: 'Tax Guide',
+    badge: '2025–26',
+    desc: 'Step-by-step guide to filing your annual income tax return on FBR IRIS — for salaried and business individuals.',
+    action: 'Request Free PDF',
+    link: waRequest('Income Tax Return Filing Guide FY 2025-26'),
+    external: true,
+  },
+  {
+    id: 'capital-gains-guide',
+    title: 'Capital Gains Tax Guide — Properties & Securities',
+    type: 'Tax Guide',
+    badge: 'CGT',
+    desc: 'Complete guide on CGT on property sales, shares, mutual funds — holding period slabs and filer/non-filer rates.',
+    action: 'Request Free PDF',
+    link: waRequest('Capital Gains Tax Guide'),
+    external: true,
+  },
+  {
+    id: 'overseas-pakistani-tax',
+    title: 'Overseas Pakistani Tax Guide',
+    type: 'Tax Guide',
+    badge: 'NRP',
+    desc: 'Non-resident Pakistanis: property taxes, remittance rules, ATL activation, TRC certificates, and double taxation treaties.',
+    action: 'Request Free PDF',
+    link: waRequest('Overseas Pakistani Tax Guide'),
+    external: true,
+  },
+  {
+    id: 'property-tax-guide',
+    title: 'Property Tax Guide Pakistan (2025–26)',
+    type: 'Tax Guide',
+    badge: 'Property',
+    desc: 'Covers Section 236C/236K withholding, CGT slabs, FBR property valuation tables, and filer vs non-filer rates.',
+    action: 'Request Free PDF',
+    link: waRequest('Property Tax Guide Pakistan 2025-26'),
+    external: true,
+  },
+  {
+    id: 'super-tax-guide',
+    title: 'Super Tax & Wealth Tax Explained',
+    type: 'Tax Guide',
+    badge: 'Section 4C',
+    desc: 'Who pays super tax, at what income thresholds, and how to calculate your super tax liability for FY 2025–26.',
+    action: 'Request Free PDF',
+    link: waRequest('Super Tax & Wealth Tax Explained'),
+    external: true,
+  },
+
+  /* ── BUSINESS GUIDES ────────────────────────────────────── */
+  {
+    id: 'starting-business',
+    title: 'Starting a Business in Pakistan — Full Guide',
+    type: 'Business Guide',
+    badge: 'Startup',
+    desc: 'Complete walkthrough — business structure selection, SECP registration, NTN, STRN, provincial registrations, and bank account setup.',
+    action: 'Request Free PDF',
+    link: waRequest('Starting a Business in Pakistan — Full Guide'),
+    external: true,
+  },
+  {
+    id: 'secp-registration-guide',
+    title: 'SECP Company Registration Guide',
+    type: 'Business Guide',
+    badge: 'SECP',
+    desc: 'How to register a Private Limited (Pvt Ltd) or SMC company on SECP eServices — checklist, documents, and fees.',
+    action: 'Request Free PDF',
+    link: waRequest('SECP Company Registration Guide'),
+    external: true,
+  },
+  {
+    id: 'ntn-registration-guide',
+    title: 'NTN Registration Step-by-Step',
+    type: 'Business Guide',
+    badge: 'NTN',
+    desc: 'How to obtain your National Tax Number (NTN) from FBR IRIS — for individuals, sole proprietors, and companies.',
+    action: 'Request Free PDF',
+    link: waRequest('NTN Registration Step-by-Step Guide'),
+    external: true,
+  },
+  {
+    id: 'sole-prop-vs-company',
+    title: 'Sole Proprietorship vs. Private Limited Company',
+    type: 'Business Guide',
+    badge: 'Comparison',
+    desc: 'Side-by-side comparison — tax rates, liability, compliance costs, and which structure suits your business size.',
+    action: 'Request Free PDF',
+    link: waRequest('Sole Proprietorship vs Private Limited Company Guide'),
+    external: true,
+  },
+  {
+    id: 'uae-business-guide',
+    title: 'UAE Business Setup for Pakistanis',
+    type: 'Business Guide',
+    badge: 'UAE',
+    desc: 'Mainland vs Freezone, VAT registration, Corporate Tax (CT) registration, and Pakistan–UAE double taxation advisory.',
+    action: 'Request Free PDF',
+    link: waRequest('UAE Business Setup for Pakistanis Guide'),
+    external: true,
+  },
+
+  /* ── COMPLIANCE GUIDES ──────────────────────────────────── */
+  {
+    id: 'sales-tax-registration',
+    title: 'Sales Tax Registration Guide (STRN / FBR)',
+    type: 'Compliance',
+    badge: 'STRN',
+    desc: 'Step-by-step checklist for registering for GST/Sales Tax with FBR — documents required, process, and timeline.',
+    action: 'Request Free PDF',
+    link: waRequest('Sales Tax Registration Guide STRN'),
+    external: true,
+  },
+  {
+    id: 'wht-compliance',
+    title: 'Withholding Tax Compliance Checklist',
+    type: 'Compliance',
+    badge: 'WHT',
+    desc: 'Monthly WHT deduction, deposit, and statement filing checklist — avoid penalties under Section 161 of ITO.',
+    action: 'Request Free PDF',
+    link: waRequest('Withholding Tax Compliance Checklist'),
+    external: true,
+  },
+  {
+    id: 'secp-annual-filing',
+    title: 'SECP Annual Filing Checklist',
+    type: 'Compliance',
+    badge: 'Annual',
+    desc: 'Form A, Form 29, audited accounts submission — deadlines, penalties, and what to file each year with SECP.',
+    action: 'Request Free PDF',
+    link: waRequest('SECP Annual Filing Checklist'),
+    external: true,
+  },
+  {
+    id: 'fbr-audit-guide',
+    title: 'FBR Audit Survival Guide',
+    type: 'Compliance',
+    badge: 'Audit',
+    desc: "What to do when you receive an FBR audit notice — your rights, required documents, and how to respond effectively.",
+    action: 'Request Free PDF',
+    link: waRequest('FBR Audit Survival Guide'),
+    external: true,
+  },
+
+  /* ── TOOLS (live links) ─────────────────────────────────── */
+  {
+    id: 'salary-calculator',
+    title: 'Salary Tax Calculator 2025–26',
+    type: 'Tool',
+    badge: 'Free Calculator',
+    desc: 'Calculate your monthly and annual income tax on salary with full slab breakdown for FY 2025–26.',
+    action: 'Open Calculator',
+    link: '/pakistan-tax-calculators?calc=salary',
+    external: false,
+  },
+  {
+    id: 'pta-calculator',
+    title: 'PTA Mobile Tax Calculator',
+    type: 'Tool',
+    badge: 'Free Calculator',
+    desc: 'Estimate PTA import duty on non-registered mobile phones. Compare Passport vs CNIC rates instantly.',
+    action: 'Open Calculator',
+    link: '/pakistan-tax-calculators?calc=pta',
+    external: false,
+  },
+  {
+    id: 'atl-check',
+    title: 'Active Taxpayer List (ATL) — FBR Check',
+    type: 'Tool',
+    badge: 'FBR Portal',
+    desc: "Check if your CNIC / NTN is on FBR's Active Taxpayer List — required to get filer rates on tax deductions.",
+    action: 'Open FBR Portal',
+    link: 'https://e.fbr.gov.pk/',
+    external: true,
+  },
+  {
+    id: 'fbr-iris',
+    title: 'FBR IRIS — Tax Filing Portal',
+    type: 'Tool',
+    badge: 'FBR Portal',
+    desc: 'Official FBR IRIS portal for filing income tax returns, registering NTN, and managing your tax profile.',
+    action: 'Open FBR IRIS',
+    link: 'https://iris.fbr.gov.pk/',
+    external: true,
+  },
+  {
+    id: 'secp-eservices',
+    title: 'SECP eServices — Company Registration',
+    type: 'Tool',
+    badge: 'SECP Portal',
+    desc: 'Official SECP online portal for company incorporation, name reservation, and annual filing submissions.',
+    action: 'Open SECP Portal',
+    link: 'https://eservices.secp.gov.pk/',
+    external: true,
+  },
+  {
+    id: 'property-cgt-calculator',
+    title: 'Property Capital Gains Tax Calculator',
+    type: 'Tool',
+    badge: 'Free Calculator',
+    desc: 'Calculate CGT on property sale based on holding period, FBR valuation rate, and filer/non-filer status.',
+    action: 'Open Calculator',
+    link: '/pakistan-tax-calculators?calc=gain-properties',
+    external: false,
+  },
+
+  /* ── REFERENCE CARDS ────────────────────────────────────── */
+  {
+    id: 'withholding-tax-rates',
+    title: 'Withholding Tax Rates Card (2025–26)',
+    type: 'Reference',
+    badge: '2025–26',
+    desc: 'Quick-reference card for all common WHT rates on services, supplies, contracts, and rent — filer vs non-filer.',
+    action: 'Request Free PDF',
+    link: waRequest('Withholding Tax Rates Card 2025-26'),
+    external: true,
+  },
+  {
+    id: 'income-tax-slabs',
+    title: 'Income Tax Slabs FY 2025–26',
+    type: 'Reference',
+    badge: '2025–26',
+    desc: 'Official FBR income tax slabs for salaried individuals, business income, AOPs, and companies for FY 2025–26.',
+    action: 'Request Free PDF',
+    link: waRequest('Income Tax Slabs FY 2025-26'),
+    external: true,
+  },
+  {
+    id: 'provincial-tax-rates',
+    title: 'Provincial Sales Tax Rates — PRA / SRB / KPRA',
+    type: 'Reference',
+    badge: 'Provincial',
+    desc: 'Comparative rate card for Punjab (PRA), Sindh (SRB), and KP (KPRA) sales tax on services for 2025–26.',
+    action: 'Request Free PDF',
+    link: waRequest('Provincial Sales Tax Rates Card 2025-26'),
+    external: true,
+  },
 ];
 
-/**
- * Get resources filtered by category
- * @param {string} category - Category to filter by (use RESOURCE_CATEGORIES.ALL for all resources)
- * @returns {Array} Filtered resources array
- */
 export const getResourcesByCategory = (category) => {
-  if (category === RESOURCE_CATEGORIES.ALL) {
-    return resources;
-  }
-  
-  // Special handling for 'Guides' category (matches both Tax Guide and Business Guide)
-  if (category === 'Guides') {
-    return resources.filter(resource => resource.type.includes('Guide'));
-  }
-  
-  // Filter by exact type match or if type includes the category
-  return resources.filter(resource => 
-    resource.type === category || resource.type.includes(category)
-  );
+  if (category === RESOURCE_CATEGORIES.ALL) return resources;
+  return resources.filter((r) => r.type === category);
 };
 
-/**
- * Get all unique categories for tabs
- * @returns {Array} Array of category names
- */
-export const getCategories = () => {
-  return Object.values(RESOURCE_CATEGORIES);
-};
+export const getCategories = () => Object.values(RESOURCE_CATEGORIES);

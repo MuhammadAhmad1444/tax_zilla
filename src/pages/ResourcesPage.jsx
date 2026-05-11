@@ -24,7 +24,7 @@ const HeroGrid = () => (
 );
 
 const STATS = [
-  { value: '7+', label: 'Free Resources' },
+  { value: '24+', label: 'Free Resources' },
   { value: 'FBR', label: 'Verified Content' },
   { value: '2025–26', label: 'Updated Rates' },
   { value: '100%', label: 'Free Access' },
@@ -38,11 +38,11 @@ const FEATURES = [
 ];
 
 const TYPE_STYLES = {
-  'Tax Guide':      { bg: 'bg-[var(--color-gold)]/10 text-[var(--color-gold)] border border-[var(--color-gold)]/25', icon: FileText },
-  'Business Guide': { bg: 'bg-blue-50 text-blue-600 border border-blue-100', icon: Briefcase },
-  'Tool':           { bg: 'bg-emerald-50 text-emerald-600 border border-emerald-100', icon: Wrench },
-  'Compliance Guide': { bg: 'bg-purple-50 text-purple-600 border border-purple-100', icon: ShieldCheck },
-  'Reference':      { bg: 'bg-orange-50 text-orange-600 border border-orange-100', icon: BarChart3 },
+  'Tax Guide':      { bg: 'bg-[var(--color-gold)]/10 text-[var(--color-gold)] border border-[var(--color-gold)]/25',    icon: FileText,   bar: 'var(--color-gold)' },
+  'Business Guide': { bg: 'bg-blue-50 text-blue-600 border border-blue-100',                                             icon: Briefcase,  bar: '#3b82f6' },
+  'Tool':           { bg: 'bg-emerald-50 text-emerald-600 border border-emerald-100',                                   icon: Wrench,     bar: '#10b981' },
+  'Compliance':     { bg: 'bg-purple-50 text-purple-600 border border-purple-100',                                      icon: ShieldCheck, bar: '#8b5cf6' },
+  'Reference':      { bg: 'bg-orange-50 text-orange-600 border border-orange-100',                                      icon: BarChart3,  bar: '#f97316' },
 };
 
 const ResourcesPage = () => {
@@ -200,7 +200,7 @@ const ResourcesPage = () => {
                     : 'bg-white text-gray-600 border-gray-200 hover:border-[var(--color-gold)]/50 hover:text-[var(--color-brand-navy)]'
                 }`}
               >
-                {tab === 'All' ? 'All Resources' : `${tab}s`}
+                {tab === 'All' ? 'All Resources' : tab === 'Compliance' ? 'Compliance' : tab === 'Reference' ? 'References' : tab === 'Tool' ? 'Tools' : `${tab}s`}
               </button>
             ))}
           </div>
@@ -225,67 +225,78 @@ const ResourcesPage = () => {
             animate="visible"
           >
             {filteredResources.map((res) => {
-              const typeStyle = TYPE_STYLES[res.type] || TYPE_STYLES['Tool'];
+              const typeStyle = TYPE_STYLES[res.type] || TYPE_STYLES['Reference'];
               const TypeIcon = typeStyle.icon;
+              /* Pick the right icon for the CTA */
+              const ActionIcon = res.type === 'Tool'
+                ? (res.external ? ExternalLink : ArrowRight)
+                : res.action === 'Request Free PDF'
+                  ? MessageCircle
+                  : Download;
 
               return (
                 <motion.div
                   key={res.id}
                   variants={getStaggerItem(reduce)}
-                  whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.2, ease: EASE_OUT } }}
-                  className="group relative card-surface flex flex-col p-6 overflow-hidden"
+                  whileHover={reduce ? undefined : { y: -5, transition: { duration: 0.2, ease: EASE_OUT } }}
+                  className="group relative card-surface flex flex-col overflow-hidden"
+                  style={{ transition: 'transform 0.25s ease, box-shadow 0.25s ease' }}
                 >
-                  {/* Gold top hover bar */}
-                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-[var(--color-gold)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-t-xl" />
+                  {/* Coloured top bar per type */}
+                  <div
+                    className="h-[3px] w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                    style={{ background: typeStyle.bar }}
+                  />
 
-                  {/* Header */}
-                  <div className="flex items-start justify-between mb-5">
-                    <div className="h-12 w-12 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300 flex-shrink-0">
-                      {res.type === 'Tool' ? <Search size={22} /> : <BookOpen size={22} />}
+                  <div className="p-6 flex flex-col flex-1">
+                    {/* Header row */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div
+                        className="h-11 w-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                        style={{ background: `${typeStyle.bar}18`, color: typeStyle.bar }}
+                      >
+                        <TypeIcon size={20} />
+                      </div>
+                      <div className="flex flex-col items-end gap-1">
+                        <span className={`inline-flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${typeStyle.bg}`}>
+                          {res.type}
+                        </span>
+                        {res.badge && (
+                          <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider">{res.badge}</span>
+                        )}
+                      </div>
                     </div>
-                    <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${typeStyle.bg}`}>
-                      <TypeIcon size={10} />
-                      {res.type}
-                    </span>
+
+                    {/* Title */}
+                    <h3
+                      className="text-[15px] font-bold mb-2 text-gray-900 group-hover:text-[var(--color-gold)] transition-colors leading-snug"
+                      style={{ fontFamily: 'var(--font-heading)' }}
+                    >
+                      {res.title}
+                    </h3>
+                    <p className="text-[13px] text-[var(--color-text-muted)] mb-5 leading-relaxed flex-grow">
+                      {res.desc}
+                    </p>
+
+                    {/* CTA button */}
+                    {res.external ? (
+                      <a
+                        href={res.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-auto flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-[var(--color-gold)] text-black font-bold text-sm hover:bg-[var(--color-gold-dark)] transition-all shadow-sm hover:shadow-md btn-gold-anim"
+                      >
+                        {res.action} <ActionIcon size={14} />
+                      </a>
+                    ) : (
+                      <a
+                        href={res.link}
+                        className="mt-auto flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-[var(--color-gold)] text-black font-bold text-sm hover:bg-[var(--color-gold-dark)] transition-all shadow-sm hover:shadow-md btn-gold-anim"
+                      >
+                        {res.action} <ActionIcon size={14} />
+                      </a>
+                    )}
                   </div>
-
-                  {/* Content */}
-                  <h3
-                    className="text-lg font-bold mb-2 text-gray-900 group-hover:text-[var(--color-gold)] transition-colors leading-snug"
-                    style={{ fontFamily: 'var(--font-heading)' }}
-                  >
-                    {res.title}
-                  </h3>
-                  <p className="text-sm text-[var(--color-text-muted)] mb-6 leading-relaxed flex-grow">
-                    {res.desc}
-                  </p>
-
-                  {/* CTA */}
-                  {res.isModal ? (
-                    <button
-                      type="button"
-                      onClick={() => setIsCalculatorOpen(true)}
-                      className="mt-auto flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[var(--color-gold)] text-black font-bold text-sm hover:bg-[var(--color-gold-dark)] transition-all shadow-sm hover:shadow-md"
-                    >
-                      Open Calculator <Search size={15} />
-                    </button>
-                  ) : res.external ? (
-                    <a
-                      href={res.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-auto flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[var(--color-gold)] text-black font-bold text-sm hover:bg-[var(--color-gold-dark)] transition-all shadow-sm hover:shadow-md"
-                    >
-                      Access Tool <ExternalLink size={15} />
-                    </a>
-                  ) : (
-                    <a
-                      href={res.link}
-                      className="mt-auto flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[var(--color-gold)] text-black font-bold text-sm hover:bg-[var(--color-gold-dark)] transition-all shadow-sm hover:shadow-md"
-                    >
-                      Download PDF <Download size={15} />
-                    </a>
-                  )}
                 </motion.div>
               );
             })}
