@@ -1,21 +1,16 @@
-Options -MultiViews -Indexes
-
-# Point the default index to the built app
-DirectoryIndex dist/index.html
-
+Options -MultiViews
 RewriteEngine On
 
-# ── Already inside /dist/ → pass through unchanged ───────────
-RewriteCond %{REQUEST_URI} ^/dist/ [NC]
+# ── 1. Let /dist/ requests pass through as-is ────────────────
+RewriteCond %{REQUEST_URI} ^/dist/
 RewriteRule ^ - [L]
 
-# ── Real file exists inside dist/ → serve it ─────────────────
+# ── 2. Root URL → built index ────────────────────────────────
+RewriteRule ^$ /dist/index.html [L]
+
+# ── 3. Real asset files (JS, CSS, images, fonts) in dist/ ────
 RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f
-RewriteRule ^(.*)$ /dist/$1 [L]
+RewriteRule ^(.+)$ /dist/$1 [L]
 
-# ── Real directory exists inside dist/ → serve it ────────────
-RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -d
-RewriteRule ^(.*)$ /dist/$1 [L]
-
-# ── Everything else → React SPA fallback ─────────────────────
+# ── 4. SPA fallback — all routes → React app ─────────────────
 RewriteRule ^ /dist/index.html [L]
