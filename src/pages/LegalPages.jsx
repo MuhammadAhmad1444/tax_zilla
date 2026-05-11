@@ -7,6 +7,7 @@ import {
   Phone, Mail, MapPin, ChevronRight, CheckCircle, Clock,
 } from 'lucide-react';
 import { SITE } from '../data/site.js';
+import '../styles/print.css';
 
 /* ── Decorative grid ────────────────────────── */
 const Grid = () => (
@@ -27,7 +28,7 @@ const LEGAL_PAGES = [
 
 /* ── Contact info card ──────────────────────── */
 const ContactCard = () => (
-  <div className="rounded-2xl border border-[var(--color-gold)]/20 p-5 mt-4"
+  <div className="legal-contact-card rounded-2xl border border-[var(--color-gold)]/20 p-5 mt-4"
     style={{ background: 'rgba(212,175,55,0.04)' }}>
     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-gold)] mb-3">Contact Us</p>
     <div className="space-y-2.5">
@@ -55,13 +56,13 @@ const ContactCard = () => (
 
 /* ── Section component ──────────────────────── */
 const Section = ({ number, title, children }) => (
-  <div className="mb-10 scroll-mt-8" id={`section-${number}`}>
+  <div className="legal-section mb-10 scroll-mt-8" id={`section-${number}`}>
     <div className="flex items-start gap-3 mb-4">
-      <div className="h-8 w-8 rounded-full flex items-center justify-center text-xs font-extrabold flex-shrink-0 mt-0.5"
+      <div className="legal-section-badge h-8 w-8 rounded-full flex items-center justify-center text-xs font-extrabold flex-shrink-0 mt-0.5"
         style={{ background: 'var(--color-brand-navy)', color: 'var(--color-gold)' }}>
         {number}
       </div>
-      <h3 className="text-lg sm:text-xl font-bold text-gray-900 leading-snug pt-0.5"
+      <h3 className="legal-section-title text-lg sm:text-xl font-bold text-gray-900 leading-snug pt-0.5"
         style={{ fontFamily: 'var(--font-heading)' }}>
         {title}
       </h3>
@@ -74,7 +75,7 @@ const Section = ({ number, title, children }) => (
 
 /* ── Professional bullet list ───────────────── */
 const BulletList = ({ items }) => (
-  <ul className="space-y-2.5">
+  <ul className="legal-bullet-list space-y-2.5">
     {items.map((item, i) => (
       <li key={i} className="flex items-start gap-2.5">
         <CheckCircle size={15} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--color-gold)' }} />
@@ -86,7 +87,7 @@ const BulletList = ({ items }) => (
 
 /* ── Notice/Warning box ─────────────────────── */
 const NoticeBox = ({ children }) => (
-  <div className="rounded-xl border border-[var(--color-gold)]/30 p-5 mb-8 flex items-start gap-3"
+  <div className="legal-notice-box rounded-xl border border-[var(--color-gold)]/30 p-5 mb-8 flex items-start gap-3"
     style={{ background: 'rgba(212,175,55,0.06)' }}>
     <AlertTriangle size={20} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--color-gold)' }} />
     <div className="text-sm leading-relaxed text-gray-700">{children}</div>
@@ -95,7 +96,7 @@ const NoticeBox = ({ children }) => (
 
 /* ── Warning text (inline) ──────────────────── */
 const Warning = ({ children }) => (
-  <div className="rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-800 mt-3">
+  <div className="legal-warning-box rounded-lg border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-800 mt-3">
     ⚠️ {children}
   </div>
 );
@@ -108,7 +109,7 @@ const LegalLayout = ({ title, lastUpdated, pageIcon: PageIcon, badge, children }
 
   const handlePrint = () => {
     setPrinting(true);
-    setTimeout(() => { window.print(); setPrinting(false); }, 100);
+    setTimeout(() => { window.print(); setPrinting(false); }, 150);
   };
 
   return (
@@ -118,9 +119,37 @@ const LegalLayout = ({ title, lastUpdated, pageIcon: PageIcon, badge, children }
         <meta name="robots" content="noindex, follow" />
       </Helmet>
 
-      {/* ── Hero ──────────────────────────────── */}
-      <section className="relative overflow-hidden px-2 pb-14 pt-28 text-white dark-section sm:pb-16 sm:pt-32"
-        style={{ background: 'var(--color-brand-navy)' }}>
+      {/* ══ PRINT-ONLY LETTERHEAD (hidden on screen) ══ */}
+      <div className="legal-print-header hidden" aria-hidden="true">
+        <div className="legal-print-header-top">
+          <div>
+            <div className="legal-print-company">
+              Tax Zilla
+              <span>Professional Tax &amp; Legal Consultancy</span>
+            </div>
+          </div>
+          <div className="legal-print-meta">
+            <div>{SITE.email}</div>
+            <div>{SITE.phone}</div>
+            <div>7A, Malik Park, Main Canal Road, Lahore, Pakistan</div>
+          </div>
+        </div>
+        <div className="legal-print-title-row">
+          <div className="legal-print-doc-title">{title}</div>
+          <div className="legal-print-updated">Last Updated: {lastUpdated}</div>
+        </div>
+      </div>
+
+      {/* ══ PRINT-ONLY FOOTER (fixed at bottom of every page) ══ */}
+      <div className="legal-print-footer hidden" aria-hidden="true">
+        Tax Zilla Consultancy — {title} &nbsp;|&nbsp; {SITE.email} &nbsp;|&nbsp; {SITE.phone} &nbsp;|&nbsp; taxzilla.com.pk
+      </div>
+
+      {/* ── Hero (screen only) ─────────────────── */}
+      <section
+        className="legal-hero-section relative overflow-hidden px-2 pb-14 pt-28 text-white dark-section sm:pb-16 sm:pt-32 print:hidden"
+        style={{ background: 'var(--color-brand-navy)' }}
+      >
         <div className="absolute inset-0 bg-brand-overlay opacity-70" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,_rgba(212,175,55,0.15),_transparent_60%)]" />
         <Grid />
@@ -149,19 +178,24 @@ const LegalLayout = ({ title, lastUpdated, pageIcon: PageIcon, badge, children }
             </div>
 
             {/* Quick actions */}
-            <div className="flex gap-3 print:hidden flex-shrink-0">
+            <div className="flex gap-3 flex-shrink-0">
               <Link to="/" className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/8 px-4 py-2.5 text-xs font-semibold text-white/80 hover:border-[var(--color-gold)]/40 hover:text-[var(--color-gold)] transition-all">
                 <ArrowLeft size={14} /> Home
               </Link>
-              <button type="button" onClick={handlePrint}
-                className="flex items-center gap-1.5 rounded-xl bg-[var(--color-gold)] text-black px-4 py-2.5 text-xs font-bold hover:bg-[var(--color-gold-dark)] transition-all">
-                <Printer size={14} /> Print
+              <button
+                type="button"
+                onClick={handlePrint}
+                disabled={printing}
+                className="flex items-center gap-1.5 rounded-xl bg-[var(--color-gold)] text-black px-4 py-2.5 text-xs font-bold hover:bg-[var(--color-gold-dark)] transition-all disabled:opacity-70"
+              >
+                <Printer size={14} />
+                {printing ? 'Preparing…' : 'Print Document'}
               </button>
             </div>
           </div>
 
           {/* Legal pages nav */}
-          <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t border-white/10 print:hidden">
+          <div className="legal-page-tabs flex flex-wrap gap-2 mt-8 pt-6 border-t border-white/10">
             {LEGAL_PAGES.map(({ path, label, icon: Icon }) => (
               <Link key={path} to={path}
                 className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-all ${
@@ -180,10 +214,10 @@ const LegalLayout = ({ title, lastUpdated, pageIcon: PageIcon, badge, children }
       {/* ── Content ───────────────────────────── */}
       <section className="py-10 sm:py-14" style={{ background: 'var(--color-surface-muted)' }}>
         <div className="container-custom max-w-4xl">
-          <div className="rounded-2xl border border-gray-200 bg-white shadow-lg overflow-hidden">
+          <div className="legal-doc-card rounded-2xl border border-gray-200 bg-white shadow-lg overflow-hidden">
 
             {/* Gold top bar */}
-            <div className="h-1" style={{ background: 'linear-gradient(to right, var(--color-gold), var(--color-gold-dark))' }} />
+            <div className="legal-doc-gold-bar h-1" style={{ background: 'linear-gradient(to right, var(--color-gold), var(--color-gold-dark))' }} />
 
             <div className="p-6 sm:p-10 md:p-14">
               {children}
@@ -191,7 +225,7 @@ const LegalLayout = ({ title, lastUpdated, pageIcon: PageIcon, badge, children }
           </div>
 
           {/* Bottom legal nav */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3 print:hidden">
+          <div className="legal-bottom-nav mt-6 flex flex-wrap justify-center gap-3 print:hidden">
             {LEGAL_PAGES.map(({ path, label, icon: Icon }) => (
               <Link key={path} to={path}
                 className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-gray-600 hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] transition-all shadow-sm">
@@ -210,7 +244,7 @@ const LegalLayout = ({ title, lastUpdated, pageIcon: PageIcon, badge, children }
 ══════════════════════════════════════════════ */
 export const PrivacyPolicyPage = () => (
   <LegalLayout title="Privacy Policy" lastUpdated="January 19, 2026" badge="Data Protection · Pakistan" pageIcon={Shield}>
-    <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-10 pb-8 border-b border-gray-100">
+    <p className="legal-intro-para text-base sm:text-lg text-gray-700 leading-relaxed mb-10 pb-8 border-b border-gray-100">
       <strong className="text-gray-900">Tax Zilla Consultancy</strong> ("we", "our", "us") is committed to protecting the privacy and security of your personal information. This Privacy Policy outlines our practices regarding data collection, use, and protection in compliance with the laws of Pakistan.
     </p>
 
@@ -293,7 +327,7 @@ export const PrivacyPolicyPage = () => (
 ══════════════════════════════════════════════ */
 export const TermsConditionsPage = () => (
   <LegalLayout title="Terms & Conditions" lastUpdated="January 19, 2026" badge="Service Agreement · Pakistan" pageIcon={FileText}>
-    <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-10 pb-8 border-b border-gray-100">
+    <p className="legal-intro-para text-base sm:text-lg text-gray-700 leading-relaxed mb-10 pb-8 border-b border-gray-100">
       Welcome to <strong className="text-gray-900">Tax Zilla Consultancy</strong>. By accessing our website or engaging our services, you agree to comply with and be bound by the following Terms and Conditions. Please read them carefully.
     </p>
 
@@ -387,7 +421,7 @@ export const DisclaimerPage = () => (
       <strong>Important Notice:</strong> The information provided on this website does not constitute legal or financial advice and should not be relied upon as a substitute for professional consultation tailored to your specific circumstances.
     </NoticeBox>
 
-    <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-10 pb-8 border-b border-gray-100">
+    <p className="legal-intro-para text-base sm:text-lg text-gray-700 leading-relaxed mb-10 pb-8 border-b border-gray-100">
       <strong className="text-gray-900">Tax Zilla Consultancy</strong> makes every effort to provide accurate and up-to-date information. However, tax and legal matters in Pakistan are complex and subject to frequent amendment. Please read this disclaimer carefully before relying on any information from this website.
     </p>
 
