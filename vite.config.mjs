@@ -12,7 +12,7 @@ const DEV_PORT = 5173;
 const PREVIEW_PORT = 4173;
 
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [react()],
   server: {
     host: 'localhost',
