@@ -9,7 +9,7 @@ import {
   ShieldCheck, Clock, Award, UserCheck,
 } from 'lucide-react';
 import Button from '../components/Button.jsx';
-import { SERVICE_CATEGORIES, getSubservicesByCategory } from '../data/serviceCatalog.js';
+import { SERVICE_CATEGORIES, getSubservicesByCategory, SERVICE_SUBSERVICES } from '../data/serviceCatalog.js';
 import { SITE } from '../data/site.js';
 import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
 
@@ -99,10 +99,10 @@ const COUNTRY_FILTERS = [
       'visa-immigration-tax-services', 'overseas-pakistani-tax-services',
     ],
   },
-  { id: 'uae', label: 'UAE',          flag: '🇦🇪', href: null, slugs: ['uae-tax-services'] },
-  { id: 'usa', label: 'USA',          flag: '🇺🇸', href: null, slugs: ['usa-tax-services'] },
-  { id: 'ksa', label: 'Saudi Arabia', flag: '🇸🇦', href: null, slugs: ['ksa-tax-services'] },
-  { id: 'uk',  label: 'UK',           flag: '🇬🇧', href: null, slugs: ['uk-tax-services']  },
+  { id: 'uae', label: 'UAE',          flag: '🇦🇪', href: null, slugs: ['uae-tax-services'], categoryId: 'uae-tax-services' },
+  { id: 'usa', label: 'USA',          flag: '🇺🇸', href: null, slugs: ['usa-tax-services'], categoryId: 'usa-tax-services' },
+  { id: 'ksa', label: 'Saudi Arabia', flag: '🇸🇦', href: null, slugs: ['ksa-tax-services'], categoryId: 'ksa-tax-services' },
+  { id: 'uk',  label: 'UK',           flag: '🇬🇧', href: null, slugs: ['uk-tax-services'],  categoryId: 'uk-tax-services'  },
 ];
 
 const TRUST_STATS = [
@@ -275,20 +275,84 @@ const ServicesPage = () => {
             ))}
           </div>
 
-          {/* Count */}
+          {/* ── Subservice grid (country selected) ── */}
+          {countryConfig?.categoryId ? (() => {
+            const subs = SERVICE_SUBSERVICES.filter(s => s.categoryId === countryConfig.categoryId);
+            return (
+              <>
+                <div className="text-center mb-8">
+                  <p className="text-sm text-[var(--color-text-muted)]">
+                    Showing <span className="font-bold text-gray-900">{subs.length}</span> services for{' '}
+                    <span className="font-bold text-gray-900">{countryConfig.flag} {countryConfig.label}</span>
+                  </p>
+                </div>
+                <motion.div
+                  key={activeCountry}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                  variants={getStaggerContainer(reduce)}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  {subs.map((sub) => (
+                    <motion.div
+                      key={sub.slug}
+                      variants={getStaggerItem(reduce)}
+                      whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.2, ease: EASE_OUT } }}
+                      className="group relative card-surface p-6 flex flex-col overflow-hidden cursor-pointer"
+                      onClick={() => navigate(`/services/${sub.slug}`)}
+                    >
+                      <div className="absolute top-0 left-0 right-0 h-[3px] bg-[var(--color-gold)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-t-xl" />
+
+                      {/* Icon + badge */}
+                      <div className="flex items-start justify-between mb-5">
+                        <div className="h-12 w-12 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300">
+                          <FileText size={22} />
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 border border-gray-200 rounded-full px-2 py-0.5">
+                          Service
+                        </span>
+                      </div>
+
+                      <h3
+                        className="text-base font-bold mb-2 leading-snug group-hover:text-[var(--color-gold)] transition-colors"
+                        style={{ fontFamily: 'var(--font-heading)' }}
+                      >
+                        {sub.title}
+                      </h3>
+                      <p className="text-sm text-[var(--color-text-muted)] mb-5 flex-grow leading-relaxed">
+                        {sub.shortDesc}
+                      </p>
+
+                      <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span className="flex items-center gap-1 text-sm font-bold text-[var(--color-gold)] group-hover:gap-2 transition-all">
+                          View Details <ArrowRight size={13} />
+                        </span>
+                        <button
+                          type="button"
+                          aria-label="WhatsApp enquiry"
+                          onClick={(e) => { e.stopPropagation(); window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer'); }}
+                          className="h-8 w-8 rounded-lg bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center hover:bg-[var(--color-gold)] hover:text-black transition-all"
+                        >
+                          <MessageCircle size={14} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </>
+            );
+          })() : (
+          <>
+          {/* ── Category grid (default) ── */}
           <div className="text-center mb-8">
             <p className="text-sm text-[var(--color-text-muted)]">
               Showing{' '}
-              <span className="font-bold text-gray-900">
-                {visibleCategories.length}
-              </span>{' '}
+              <span className="font-bold text-gray-900">{visibleCategories.length}</span>{' '}
               service {visibleCategories.length === 1 ? 'category' : 'categories'}
             </p>
           </div>
-
-          {/* Cards */}
           <motion.div
-            key={activeFilter}
+            key={activeFilter + activeCountry}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={getStaggerContainer(reduce)}
             initial="hidden"
@@ -298,7 +362,6 @@ const ServicesPage = () => {
               const Icon = ICON_MAP[category.slug] || FileText;
               const subCount = getSubservicesByCategory(category.id).length;
               const areaLabel = AREA_LABELS[category.slug];
-
               return (
                 <motion.div
                   key={category.id}
@@ -307,54 +370,31 @@ const ServicesPage = () => {
                   className="group relative card-surface p-6 flex flex-col overflow-hidden cursor-pointer"
                   onClick={() => navigate(`/services/${category.slug}`)}
                 >
-                  {/* Gold top-border on hover */}
                   <div className="absolute top-0 left-0 right-0 h-[3px] bg-[var(--color-gold)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-t-xl" />
-
-                  {/* Area badge */}
                   {areaLabel && (
                     <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--color-gold)]/10 text-[var(--color-gold)] border border-[var(--color-gold)]/25">
                       {areaLabel}
                     </div>
                   )}
-
-                  {/* Icon */}
                   <div className="mb-5 h-14 w-14 rounded-2xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all duration-300 flex-shrink-0">
                     <Icon size={26} />
                   </div>
-
-                  {/* Title */}
-                  <h3
-                    className="text-lg font-bold mb-2 leading-snug group-hover:text-[var(--color-gold)] transition-colors"
-                    style={{ fontFamily: 'var(--font-heading)' }}
-                  >
+                  <h3 className="text-lg font-bold mb-2 leading-snug group-hover:text-[var(--color-gold)] transition-colors" style={{ fontFamily: 'var(--font-heading)' }}>
                     {category.title}
                   </h3>
-
-                  {/* Description */}
-                  <p className="text-sm text-[var(--color-text-muted)] mb-4 flex-grow leading-relaxed">
-                    {category.shortDesc}
-                  </p>
-
-                  {/* Sub-services count */}
+                  <p className="text-sm text-[var(--color-text-muted)] mb-4 flex-grow leading-relaxed">{category.shortDesc}</p>
                   {subCount > 0 && (
                     <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-4 font-medium">
                       <FileText size={11} className="text-[var(--color-gold)]" />
                       <span>{subCount} service{subCount !== 1 ? 's' : ''} included</span>
                     </div>
                   )}
-
-                  {/* Footer row */}
                   <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-100">
                     <span className="flex items-center gap-1 text-sm font-bold text-[var(--color-gold)] group-hover:gap-2 transition-all">
                       Explore <ArrowRight size={14} />
                     </span>
-                    <button
-                      type="button"
-                      aria-label="WhatsApp enquiry"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer');
-                      }}
+                    <button type="button" aria-label="WhatsApp enquiry"
+                      onClick={(e) => { e.stopPropagation(); window.open(SITE.whatsapp, '_blank', 'noopener,noreferrer'); }}
                       className="h-8 w-8 rounded-lg bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center hover:bg-[var(--color-gold)] hover:text-black transition-all"
                     >
                       <MessageCircle size={14} />
@@ -364,6 +404,8 @@ const ServicesPage = () => {
               );
             })}
           </motion.div>
+          </>
+          )}
         </div>
       </section>
 
