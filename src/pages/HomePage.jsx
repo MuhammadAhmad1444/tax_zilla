@@ -347,6 +347,64 @@ const HomePage = () => {
       </div>
 
       {/* ══════════════════════════════════════════════
+          2b. PARTNERS & TRUSTED BRANDS MARQUEE
+      ══════════════════════════════════════════════ */}
+      <section className="py-12 bg-white border-b border-gray-100 overflow-hidden">
+        <div className="container-custom mb-7 text-center">
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-gray-400">
+            Trusted by clients from these organisations
+          </p>
+        </div>
+
+        {/* Marquee wrapper */}
+        <div className="tz-marquee-wrap">
+          <div className="tz-marquee-track">
+            {/* Duplicate the list so the scroll loops seamlessly */}
+            {[...Array(2)].map((_, pass) => (
+              <div key={pass} className="flex items-center gap-8 px-4">
+                {[
+                  { name: 'FBR',          sub: 'Federal Board of Revenue',        color: '#1d4ed8', bg: '#eff6ff' },
+                  { name: 'SECP',         sub: 'Securities & Exchange Commission', color: '#7c3aed', bg: '#f5f3ff' },
+                  { name: 'PSEB',         sub: 'Software Export Board',           color: '#0e7490', bg: '#ecfeff' },
+                  { name: 'P@SHA',        sub: 'Pakistan Software Houses Assoc.',  color: '#0369a1', bg: '#f0f9ff' },
+                  { name: 'HBL',          sub: 'Habib Bank Limited',              color: '#166534', bg: '#f0fdf4' },
+                  { name: 'UBL',          sub: 'United Bank Limited',             color: '#1e3a5f', bg: '#eff6ff' },
+                  { name: 'Meezan',       sub: 'Meezan Bank',                     color: '#92400e', bg: '#fffbeb' },
+                  { name: 'ACCA',         sub: 'Global Accounting Body',          color: '#9f1239', bg: '#fff1f2' },
+                  { name: 'KCCI',         sub: 'Karachi Chamber of Commerce',     color: '#064e3b', bg: '#ecfdf5' },
+                  { name: 'ICMA',         sub: 'Cost & Management Accountants',   color: '#4338ca', bg: '#eef2ff' },
+                  { name: 'JS Bank',      sub: 'JS Bank Limited',                 color: '#b45309', bg: '#fffbeb' },
+                  { name: 'AWS',          sub: 'Amazon Web Services',             color: '#ea580c', bg: '#fff7ed' },
+                  { name: 'ZATCA',        sub: 'Saudi Tax Authority',             color: '#15803d', bg: '#f0fdf4' },
+                  { name: 'FTA UAE',      sub: 'Federal Tax Authority UAE',       color: '#0c4a6e', bg: '#f0f9ff' },
+                  { name: 'Telenor',      sub: 'Telenor Pakistan',                color: '#1d4ed8', bg: '#eff6ff' },
+                  { name: 'NCC',          sub: 'National Clearing Company',       color: '#374151', bg: '#f9fafb' },
+                ].map((brand) => (
+                  <div
+                    key={`${pass}-${brand.name}`}
+                    className="flex-shrink-0 flex items-center gap-2.5 px-5 py-3 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all duration-200 cursor-default group"
+                    style={{ background: '#fff', minWidth: 140 }}
+                  >
+                    {/* Coloured initial badge */}
+                    <div
+                      className="h-9 w-9 rounded-lg flex items-center justify-center flex-shrink-0 text-[11px] font-extrabold leading-none group-hover:scale-110 transition-transform duration-200"
+                      style={{ background: brand.bg, color: brand.color, border: `1.5px solid ${brand.color}20` }}
+                    >
+                      {brand.name.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div>
+                      <div className="text-[13px] font-bold text-gray-800 leading-none">{brand.name}</div>
+                      <div className="text-[9px] text-gray-400 leading-snug mt-0.5 max-w-[90px]">{brand.sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
           3. FEATURED SERVICES
       ══════════════════════════════════════════════ */}
       <section className="section-padding relative z-20 -mt-1 rounded-t-[2rem] bg-white sm:rounded-t-[2.5rem] md:rounded-t-[3rem]">

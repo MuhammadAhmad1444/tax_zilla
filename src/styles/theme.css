@@ -99,6 +99,25 @@
    GLOBAL ANIMATION KEYFRAMES
 ═══════════════════════════════════════════════════════════ */
 
+/* ── Infinite marquee scroll ─────────────────────── */
+@keyframes tz-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.tz-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: tz-marquee 28s linear infinite;
+}
+.tz-marquee-track:hover {
+  animation-play-state: paused;
+}
+.tz-marquee-wrap {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
 @keyframes tz-float {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-8px); }
