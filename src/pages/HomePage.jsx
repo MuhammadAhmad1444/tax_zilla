@@ -347,117 +347,117 @@ const HomePage = () => {
       </div>
 
       {/* ══════════════════════════════════════════════
-          2b. PARTNERS & REGULATORY BODIES MARQUEE
+          2b. REGULATORY BODIES — DUAL MARQUEE
       ══════════════════════════════════════════════ */}
-      <section className="py-10 bg-white border-b border-gray-100 overflow-hidden">
-        <div className="container-custom mb-6 text-center">
-          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-gray-400">
-            Registered &amp; Compliant with Pakistan's Leading Regulatory Bodies
-          </p>
+      <section className="relative overflow-hidden py-14 dark-section" style={{ background: 'var(--color-brand-navy)' }}>
+        {/* Subtle grid */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.06),_transparent_65%)]" />
+
+        {/* Heading */}
+        <div className="container-custom relative z-10 text-center mb-9">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/25 bg-[var(--color-gold)]/8 px-4 py-1.5 text-[9px] font-bold uppercase tracking-[0.3em] text-[var(--color-gold)] mb-3">
+            ✦ Registered &amp; Compliant
+          </div>
+          <h3 className="text-base sm:text-xl font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>
+            Pakistan's Leading <span className="text-[var(--color-gold)]">Regulatory &amp; Professional Bodies</span>
+          </h3>
+          <p className="text-[11px] text-gray-500 mt-1.5">We work directly with these authorities on behalf of our clients</p>
         </div>
 
-        <div className="tz-marquee-wrap">
+        {/* ROW 1 → left */}
+        <div className="tz-marquee-wrap mb-4 relative z-10">
           <div className="tz-marquee-track">
             {[...Array(2)].map((_, pass) => (
-              <div key={pass} className="flex items-center gap-10 px-6">
+              <div key={pass} className="flex items-center gap-3 px-3">
                 {[
-                  {
-                    name: 'FBR',
-                    full: 'Federal Board of Revenue',
-                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Federal_Board_of_Revenue_logo.png/200px-Federal_Board_of_Revenue_logo.png',
-                  },
-                  {
-                    name: 'SECP',
-                    full: 'Securities & Exchange Commission of Pakistan',
-                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Securities_and_Exchange_Commission_of_Pakistan_%28Emblem%29.png/200px-Securities_and_Exchange_Commission_of_Pakistan_%28Emblem%29.png',
-                  },
-                  {
-                    name: 'PSEB',
-                    full: 'Pakistan Software Export Board',
-                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Pakistan_Software_Export_Board_%28PSEB%29_logo.png/200px-Pakistan_Software_Export_Board_%28PSEB%29_logo.png',
-                  },
-                  {
-                    name: 'ACCA',
-                    full: 'Association of Chartered Certified Accountants',
-                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/ACCA_logo.svg/200px-ACCA_logo.svg.png',
-                  },
-                  {
-                    name: 'P@SHA',
-                    full: 'Pakistan Software Houses Association',
-                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Pakistan_Software_Houses_Association_%28PASHA%29_logo.png/200px-Pakistan_Software_Houses_Association_%28PASHA%29_logo.png',
-                  },
-                  {
-                    name: 'KCCI',
-                    full: 'Karachi Chamber of Commerce & Industry',
-                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Karachi_Chamber_of_Commerce_and_Industry_logo.png/200px-Karachi_Chamber_of_Commerce_and_Industry_logo.png',
-                  },
-                  {
-                    name: 'ICAP',
-                    full: 'Institute of Chartered Accountants of Pakistan',
-                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/51/ICAP_logo.png/200px-ICAP_logo.png',
-                  },
-                  {
-                    name: 'ICMA Pakistan',
-                    full: 'Institute of Cost & Management Accountants',
-                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/ICMA_Pakistan_logo.jpg/200px-ICMA_Pakistan_logo.jpg',
-                  },
-                  {
-                    name: 'PRA',
-                    full: 'Punjab Revenue Authority',
-                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/28/Punjab_Revenue_Authority_logo.png/200px-Punjab_Revenue_Authority_logo.png',
-                  },
-                  {
-                    name: 'SRB',
-                    full: 'Sindh Revenue Board',
-                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/25/Sindh_Revenue_Board.png/200px-Sindh_Revenue_Board.png',
-                  },
-                  {
-                    name: 'ZATCA',
-                    full: 'Zakat, Tax & Customs Authority — Saudi Arabia',
-                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/ZATCA_logo.png/200px-ZATCA_logo.png',
-                  },
-                  {
-                    name: 'FTA UAE',
-                    full: 'Federal Tax Authority — UAE',
-                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Federal_Tax_Authority_UAE_logo.png/200px-Federal_Tax_Authority_UAE_logo.png',
-                  },
-                ].map((org) => (
-                  <div
-                    key={`${pass}-${org.name}`}
-                    className="flex-shrink-0 flex flex-col items-center gap-2 cursor-default group"
-                    style={{ minWidth: 90 }}
-                  >
-                    {/* Logo image — grayscale by default, colour on hover */}
-                    <div className="h-12 flex items-center justify-center">
-                      <img
-                        src={org.logo}
-                        alt={org.name}
-                        className="max-h-12 max-w-[80px] object-contain transition-all duration-300"
-                        style={{ filter: 'grayscale(100%) opacity(0.55)' }}
-                        onMouseEnter={e => e.currentTarget.style.filter = 'grayscale(0%) opacity(1)'}
-                        onMouseLeave={e => e.currentTarget.style.filter = 'grayscale(100%) opacity(0.55)'}
-                        onError={e => {
-                          // fallback: hide img, show styled text
-                          e.currentTarget.style.display = 'none';
-                          e.currentTarget.nextSibling.style.display = 'flex';
-                        }}
-                      />
-                      {/* Text fallback (hidden by default) */}
-                      <div
-                        className="hidden items-center justify-center h-12 px-3 rounded-lg text-[11px] font-black tracking-tight"
-                        style={{ background: 'var(--color-surface-muted)', color: 'var(--color-brand-navy)', display: 'none' }}
-                      >
-                        {org.name}
+                  { abbr: 'FBR',   name: 'Federal Board of Revenue',              flag: '🇵🇰', accent: '#3b82f6' },
+                  { abbr: 'SECP',  name: 'Securities & Exchange Commission',       flag: '🇵🇰', accent: '#8b5cf6' },
+                  { abbr: 'ICAP',  name: 'Institute of Chartered Accountants',     flag: '🇵🇰', accent: '#D4AF37' },
+                  { abbr: 'PSEB',  name: 'Pakistan Software Export Board',         flag: '🇵🇰', accent: '#10b981' },
+                  { abbr: 'PRA',   name: 'Punjab Revenue Authority',               flag: '🇵🇰', accent: '#f59e0b' },
+                  { abbr: 'ACCA',  name: 'Chartered Certified Accountants',        flag: '🌍', accent: '#ef4444' },
+                  { abbr: 'KCCI',  name: 'Karachi Chamber of Commerce',            flag: '🇵🇰', accent: '#06b6d4' },
+                  { abbr: 'ICMA',  name: 'Cost & Management Accountants',          flag: '🇵🇰', accent: '#a855f7' },
+                ].map((item) => (
+                  <div key={`${pass}-${item.abbr}`}
+                    className="flex-shrink-0 flex items-center gap-3 rounded-2xl px-5 py-3.5 border border-white/8 cursor-default group hover:border-white/20 transition-all duration-300"
+                    style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(4px)', minWidth: 200 }}>
+                    {/* Accent circle */}
+                    <div className="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0 font-black text-[11px] leading-none transition-transform duration-300 group-hover:scale-110"
+                      style={{ background: `${item.accent}18`, color: item.accent, border: `1.5px solid ${item.accent}35` }}>
+                      {item.abbr.slice(0, 3)}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[13px] font-bold text-white/90 leading-none group-hover:text-[var(--color-gold)] transition-colors">
+                        {item.abbr}
+                      </div>
+                      <div className="text-[10px] text-gray-500 mt-0.5 leading-snug truncate max-w-[130px]">
+                        {item.flag} {item.name}
                       </div>
                     </div>
-                    <span className="text-[9px] font-semibold text-gray-400 text-center leading-tight max-w-[80px] group-hover:text-gray-600 transition-colors">
-                      {org.name}
-                    </span>
                   </div>
                 ))}
               </div>
             ))}
           </div>
+        </div>
+
+        {/* ROW 2 → right (reverse) */}
+        <div className="tz-marquee-wrap relative z-10">
+          <div className="tz-marquee-track-rev">
+            {[...Array(2)].map((_, pass) => (
+              <div key={pass} className="flex items-center gap-3 px-3">
+                {[
+                  { abbr: 'SRB',    name: 'Sindh Revenue Board',                 flag: '🇵🇰', accent: '#f97316' },
+                  { abbr: 'KPRA',   name: 'KP Revenue Authority',                flag: '🇵🇰', accent: '#84cc16' },
+                  { abbr: 'P@SHA',  name: 'Pakistan Software Houses Assoc.',     flag: '🇵🇰', accent: '#0ea5e9' },
+                  { abbr: 'ZATCA',  name: 'Zakat, Tax & Customs — Saudi Arabia', flag: '🇸🇦', accent: '#22c55e' },
+                  { abbr: 'FTA',    name: 'Federal Tax Authority — UAE',         flag: '🇦🇪', accent: '#3b82f6' },
+                  { abbr: 'HMRC',   name: 'HM Revenue & Customs — UK',          flag: '🇬🇧', accent: '#ef4444' },
+                  { abbr: 'IRS',    name: 'Internal Revenue Service — USA',      flag: '🇺🇸', accent: '#6366f1' },
+                  { abbr: 'LCCI',   name: 'Lahore Chamber of Commerce',         flag: '🇵🇰', accent: '#D4AF37' },
+                ].map((item) => (
+                  <div key={`${pass}-${item.abbr}`}
+                    className="flex-shrink-0 flex items-center gap-3 rounded-2xl px-5 py-3.5 border border-white/8 cursor-default group hover:border-white/20 transition-all duration-300"
+                    style={{ background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(4px)', minWidth: 210 }}>
+                    <div className="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0 font-black text-[11px] leading-none transition-transform duration-300 group-hover:scale-110"
+                      style={{ background: `${item.accent}18`, color: item.accent, border: `1.5px solid ${item.accent}35` }}>
+                      {item.abbr.slice(0, 3)}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[13px] font-bold text-white/90 leading-none group-hover:text-[var(--color-gold)] transition-colors">
+                        {item.abbr}
+                      </div>
+                      <div className="text-[10px] text-gray-500 mt-0.5 leading-snug truncate max-w-[130px]">
+                        {item.flag} {item.name}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom count strip */}
+        <div className="container-custom relative z-10 mt-8 flex flex-wrap items-center justify-center gap-6">
+          {[
+            { v: '16', l: 'Regulatory Bodies' },
+            { v: '4',  l: 'Countries' },
+            { v: '997+', l: 'Compliant Clients' },
+            { v: '10+', l: 'Years Filing' },
+          ].map(s => (
+            <div key={s.l} className="flex items-center gap-2">
+              <span className="font-extrabold text-sm" style={{ color: 'var(--color-gold)' }}>{s.v}</span>
+              <span className="text-[10px] text-gray-500 font-medium">{s.l}</span>
+            </div>
+          ))}
         </div>
       </section>
 

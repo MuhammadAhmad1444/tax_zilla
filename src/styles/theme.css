@@ -104,12 +104,22 @@
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+@keyframes tz-marquee-rev {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
 .tz-marquee-track {
   display: flex;
   width: max-content;
-  animation: tz-marquee 28s linear infinite;
+  animation: tz-marquee 32s linear infinite;
 }
-.tz-marquee-track:hover {
+.tz-marquee-track-rev {
+  display: flex;
+  width: max-content;
+  animation: tz-marquee-rev 36s linear infinite;
+}
+.tz-marquee-track:hover,
+.tz-marquee-track-rev:hover {
   animation-play-state: paused;
 }
 .tz-marquee-wrap {
