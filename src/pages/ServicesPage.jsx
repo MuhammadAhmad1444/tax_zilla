@@ -135,16 +135,18 @@ const ServicesPage = () => {
   const { reduce, hero } = usePageMotion();
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeCountry, setActiveCountry] = useState('all-countries');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const catConfig     = CATEGORY_FILTERS.find((f) => f.id === activeFilter);
   const countryConfig = COUNTRY_FILTERS.find((f) => f.id === activeCountry);
 
+  const q = searchQuery.trim().toLowerCase();
+
   const visibleCategories = SERVICE_CATEGORIES.filter((c) => {
-    const passCategory =
-      activeFilter === 'all' || catConfig?.slugs.includes(c.slug);
-    const passCountry =
-      activeCountry === 'all-countries' || countryConfig?.slugs.includes(c.slug);
-    return passCategory && passCountry;
+    const passCategory = activeFilter === 'all' || catConfig?.slugs.includes(c.slug);
+    const passCountry  = activeCountry === 'all-countries' || countryConfig?.slugs.includes(c.slug);
+    const passSearch   = !q || c.title.toLowerCase().includes(q) || c.shortDesc?.toLowerCase().includes(q);
+    return passCategory && passCountry && passSearch;
   });
 
   return (
@@ -275,9 +277,46 @@ const ServicesPage = () => {
             ))}
           </div>
 
+          {/* ── Search bar ── */}
+          <div className="max-w-xl mx-auto mb-8">
+            <div className="relative group">
+              <Search
+                size={16}
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[var(--color-gold)] transition-colors pointer-events-none"
+              />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search services — try 'NTN', 'VAT', 'company', 'UK'..."
+                className="w-full pl-10 pr-10 py-3 rounded-full border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 outline-none focus:border-[var(--color-gold)] focus:ring-2 focus:ring-[var(--color-gold)]/20 transition-all shadow-sm"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Clear search"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+            {searchQuery && (
+              <p className="text-center text-xs text-gray-400 mt-2">
+                {visibleCategories.length === 0
+                  ? 'No services found — try a different keyword'
+                  : `${visibleCategories.length} service${visibleCategories.length !== 1 ? 's' : ''} match "${searchQuery}"`}
+              </p>
+            )}
+          </div>
+
           {/* ── Subservice grid (country selected) ── */}
           {countryConfig?.categoryId ? (() => {
-            const subs = SERVICE_SUBSERVICES.filter(s => s.categoryId === countryConfig.categoryId);
+            const subs = SERVICE_SUBSERVICES.filter(s =>
+              s.categoryId === countryConfig.categoryId &&
+              (!q || s.title.toLowerCase().includes(q) || s.shortDesc?.toLowerCase().includes(q))
+            );
             return (
               <>
                 <div className="text-center mb-8">
