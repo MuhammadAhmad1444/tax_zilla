@@ -1,60 +1,57 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, ArrowRight, Phone, Mail, MessageCircle, Calculator, Building2, Globe, ShieldCheck, FileText, Briefcase } from 'lucide-react';
-import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
+import { Menu, X, ChevronDown, ArrowRight, Phone, Mail, MessageCircle, Calculator, Building2, Globe, ShieldCheck, FileText, Briefcase, MapPin, Scale, Settings, Wrench, Users, CheckCircle, User, Search, TrendingUp, FileCheck, Landmark, ChevronRight } from 'lucide-react';
+import { SERVICE_CATEGORIES, getSubservicesByCategory } from '../data/serviceCatalog.js';
 import { SITE } from '../data/site.js';
 
-// Group service categories into 4 logical columns for the mega-menu
-const SERVICES_COLUMNS = [
+/* ── Category icon map ─────────────────────────────── */
+const CAT_ICONS = {
+  'tax-services-pakistan': FileText, 'provincial-sales-tax': MapPin,
+  'corporate-business-services': Building2, 'intellectual-property': ShieldCheck,
+  'software-it-services': Settings, 'engineering-services': Wrench,
+  'legal-services': Scale, 'secp-related-services': Building2,
+  'competition-commission-services': Scale, 'visa-immigration-tax-services': Globe,
+  'overseas-pakistani-tax-services': Users, 'certificates-compliance': CheckCircle,
+  'individual-tax-services': User, 'high-demand-individual-services': User,
+  'audit-investigation': Search, 'business-tax-planning': TrendingUp,
+  'additional-registrations': FileCheck, 'uae-tax-services': Globe,
+  'usa-tax-services': Landmark, 'ksa-tax-services': Landmark, 'uk-tax-services': Globe,
+};
+
+/* ── Grouped categories for left panel ─────────────── */
+const MEGA_GROUPS = [
   {
-    heading: 'Pakistan Tax & Compliance',
-    slugs: [
-      'tax-services-pakistan',
-      'provincial-sales-tax',
-      'high-demand-individual-services',
-      'audit-investigation',
-      'business-tax-planning',
-      'certificates-compliance',
-    ],
+    id: 'pakistan', label: 'Pakistan Tax & Compliance', flag: '🇵🇰',
+    slugs: ['tax-services-pakistan','provincial-sales-tax','individual-tax-services',
+            'high-demand-individual-services','certificates-compliance',
+            'audit-investigation','business-tax-planning'],
   },
   {
-    heading: 'Corporate & Business',
-    slugs: [
-      'corporate-business-services',
-      'secp-related-services',
-      'competition-commission-services',
-      'intellectual-property',
-      'legal-services',
-      'additional-registrations',
-      'software-it-services',
-    ],
+    id: 'corporate', label: 'Corporate & Business', flag: '🏢',
+    slugs: ['corporate-business-services','secp-related-services',
+            'competition-commission-services','intellectual-property',
+            'legal-services','additional-registrations',
+            'software-it-services','engineering-services'],
   },
   {
-    heading: 'Specialized Services',
-    slugs: [
-      'visa-immigration-tax-services',
-      'overseas-pakistani-tax-services',
-      'individual-tax-services',
-    ],
+    id: 'specialized', label: 'Specialized', flag: '⭐',
+    slugs: ['visa-immigration-tax-services','overseas-pakistani-tax-services'],
   },
   {
-    heading: 'International Services',
-    slugs: [
-      'uae-tax-services',
-      'usa-tax-services',
-      'ksa-tax-services',
-      'uk-tax-services',
-    ],
+    id: 'international', label: 'International', flag: '🌍',
+    slugs: ['uae-tax-services','usa-tax-services','ksa-tax-services','uk-tax-services'],
   },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null); // 'services' | 'tax-calculators' | null
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [megaCategory, setMegaCategory] = useState('tax-services-pakistan');
 
   const location = useLocation();
+  const navigate  = useNavigate();
   const taxMenuWrapperRef = useRef(null);
   const servicesMenuWrapperRef = useRef(null);
   const closeTimerRef = useRef(null);
@@ -129,80 +126,153 @@ const Navbar = () => {
 
   const isCalcActive = (id) => isTaxActive() && activeCalc === id;
 
-  // ── Services Mega Menu ──────────────────────────────────────────────────
-  const colIcons = [ShieldCheck, Building2, Briefcase, Globe];
+  // ── Services Mega Menu — compact 2-panel ──────────────────────────────
+  const activeCatObj = SERVICE_CATEGORIES.find(c => c.id === megaCategory);
+  const activeSubs   = getSubservicesByCategory(megaCategory);
+  const MAX_SUBS     = 9;
+  const previewSubs  = activeSubs.slice(0, MAX_SUBS);
+  const extraCount   = activeSubs.length - MAX_SUBS;
 
   const ServicesMegaMenu = () => (
     <div
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-[min(820px,calc(100vw-2rem))] bg-white rounded-xl shadow-[0_8px_40px_rgba(0,0,0,0.18)] border border-gray-100 overflow-hidden"
+      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+8px)] w-[min(720px,calc(100vw-2rem))] bg-white rounded-xl overflow-hidden"
+      style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.16)', border: '1px solid rgba(0,0,0,0.08)' }}
       role="menu"
-      aria-label="Services menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {/* Slim accent bar */}
-      <div className="h-[3px] w-full" style={{ background: 'linear-gradient(90deg, var(--color-gold), var(--color-brand-navy))' }} />
+      {/* Top accent */}
+      <div className="h-[2px]" style={{ background: 'linear-gradient(90deg,var(--color-gold),var(--color-brand-navy))' }} />
 
-      {/* Header */}
-      <div className="flex items-center justify-between px-5 py-2.5 border-b border-gray-100 bg-gray-50/80">
-        <span className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-gray-400">Our Services</span>
-        <Link
-          to="/services"
-          className="flex items-center gap-1 text-[11px] font-semibold text-[var(--color-brand-navy)] hover:text-[var(--color-gold)] transition-colors"
-          onClick={() => setOpenDropdown(null)}
-        >
-          View All <ArrowRight size={10} />
+      {/* Header row */}
+      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-100" style={{ background: '#f9fafb' }}>
+        <span className="text-[9px] font-extrabold uppercase tracking-[0.25em] text-gray-400">Our Services</span>
+        <Link to="/services" onClick={() => setOpenDropdown(null)}
+          className="flex items-center gap-1 text-[10px] font-semibold hover:text-[var(--color-gold)] transition-colors"
+          style={{ color: 'var(--color-brand-navy)' }}>
+          View All <ArrowRight size={9} />
         </Link>
       </div>
 
-      {/* Columns */}
-      <div className="grid grid-cols-4 divide-x divide-gray-100 p-0">
-        {SERVICES_COLUMNS.map((col, ci) => {
-          const Icon = colIcons[ci];
-          return (
-            <div key={col.heading} className="px-4 py-4">
-              {/* Column heading */}
-              <div className="flex items-center gap-1.5 mb-3">
-                <Icon size={12} className="shrink-0" style={{ color: 'var(--color-gold)' }} />
-                <span className="text-[10px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--color-gold)' }}>
-                  {col.heading}
-                </span>
-              </div>
-              <div className="flex flex-col gap-0">
-                {col.slugs.map((slug) => {
-                  const cat = categoryBySlug[slug];
-                  if (!cat) return null;
-                  const active = location.pathname === `/services/${slug}`;
+      {/* Two-panel body */}
+      <div className="flex" style={{ maxHeight: 340 }}>
+
+        {/* LEFT — category list */}
+        <div className="flex-shrink-0 overflow-y-auto py-1.5"
+          style={{ width: 195, background: 'var(--color-brand-navy)', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
+          {MEGA_GROUPS.map(g => {
+            const cats = SERVICE_CATEGORIES.filter(c => g.slugs.includes(c.id));
+            return (
+              <div key={g.id}>
+                <p className="px-3 pt-3 pb-1 text-[8.5px] font-extrabold uppercase tracking-[0.2em] flex items-center gap-1"
+                  style={{ color: 'rgba(212,175,55,0.65)' }}>
+                  <span>{g.flag}</span>{g.label}
+                </p>
+                {cats.map(cat => {
+                  const active = megaCategory === cat.id;
                   return (
-                    <Link
-                      key={slug}
-                      to={`/services/${slug}`}
-                      className={`group flex items-center gap-1.5 text-[12px] font-medium py-1.5 pl-2 pr-1 rounded-md transition-all duration-150 ${
-                        active
-                          ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8 font-semibold'
-                          : 'text-gray-600 hover:text-[var(--color-brand-navy)] hover:bg-gray-50'
-                      }`}
-                      onClick={() => setOpenDropdown(null)}
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onMouseEnter={() => setMegaCategory(cat.id)}
+                      onClick={() => { navigate(`/services/${cat.slug}`); setOpenDropdown(null); }}
+                      className="w-full flex items-center gap-2 px-3 py-[5px] text-left transition-colors duration-100"
+                      style={active
+                        ? { background: 'rgba(212,175,55,0.12)', borderLeft: '2px solid var(--color-gold)' }
+                        : { borderLeft: '2px solid transparent' }}
                     >
-                      <span className={`w-1 h-1 rounded-full shrink-0 transition-all duration-150 ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
-                      {cat.title}
-                    </Link>
+                      <span className="text-[11px] leading-snug flex-1 truncate font-medium"
+                        style={{ color: active ? 'var(--color-gold)' : 'rgba(255,255,255,0.72)' }}>
+                        {cat.title}
+                      </span>
+                      {active && <ChevronRight size={10} style={{ color: 'var(--color-gold)', flexShrink: 0 }} />}
+                    </button>
                   );
                 })}
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+
+        {/* RIGHT — sub-services */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Category title bar */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`h-${megaCategory}`}
+              initial={{ opacity: 0, x: 6 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18, ease: [0.22,1,0.36,1] }}
+              className="flex items-center gap-2 px-4 py-2 border-b border-gray-100"
+              style={{ background: '#fafafa' }}
+            >
+              {(() => { const Ic = CAT_ICONS[megaCategory] || FileText; return (
+                <Ic size={13} style={{ color: 'var(--color-gold)', flexShrink: 0 }} />
+              ); })()}
+              <span className="font-bold text-[12px] text-gray-900 flex-1 truncate" style={{ fontFamily: 'var(--font-heading)' }}>
+                {activeCatObj?.title}
+              </span>
+              <span className="text-[9px] font-bold rounded-full px-2 py-0.5 flex-shrink-0"
+                style={{ background: 'rgba(212,175,55,0.1)', color: 'var(--color-gold)' }}>
+                {activeSubs.length}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Sub-service links */}
+          <div className="flex-1 overflow-y-auto px-3 py-2">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`s-${megaCategory}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.12 }}
+                className="grid grid-cols-2 gap-x-2 gap-y-0"
+              >
+                {previewSubs.map((sub, i) => (
+                  <motion.div
+                    key={sub.slug}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.03, duration: 0.2, ease: [0.22,1,0.36,1] }}
+                  >
+                    <Link
+                      to={`/services/${sub.slug}`}
+                      onClick={() => setOpenDropdown(null)}
+                      className="group flex items-center gap-1.5 py-[5px] px-2 rounded-md transition-colors duration-100 hover:bg-[rgba(212,175,55,0.06)]"
+                    >
+                      <span className="w-1 h-1 rounded-full flex-shrink-0 transition-colors group-hover:bg-[var(--color-gold)]"
+                        style={{ background: '#d1d5db' }} />
+                      <span className="text-[11px] text-gray-700 group-hover:text-[var(--color-gold)] transition-colors leading-snug truncate font-medium">
+                        {sub.title}
+                      </span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Footer */}
+          <div className="border-t border-gray-100 px-3 py-1.5 flex items-center justify-between" style={{ background: '#f9fafb' }}>
+            <Link to={`/services/${activeCatObj?.slug}`} onClick={() => setOpenDropdown(null)}
+              className="flex items-center gap-1 text-[10px] font-bold hover:text-[var(--color-gold)] transition-colors"
+              style={{ color: 'var(--color-brand-navy)' }}>
+              {extraCount > 0 && `+${extraCount} more · `}All {activeCatObj?.title} <ArrowRight size={9} />
+            </Link>
+            <span className="text-[9px] text-gray-400">Hover to browse</span>
+          </div>
+        </div>
       </div>
 
-      {/* Footer strip */}
-      <div className="border-t border-gray-100 bg-gray-50/60 px-5 py-2.5 flex items-center gap-3">
-        <span className="text-[10px] text-gray-400 font-medium">Need help choosing a service?</span>
-        <Link
-          to="/contact"
-          className="text-[10px] font-bold text-[var(--color-brand-navy)] hover:text-[var(--color-gold)] transition-colors underline underline-offset-2"
-          onClick={() => setOpenDropdown(null)}
-        >
+      {/* Bottom strip */}
+      <div className="border-t border-gray-100 px-4 py-1.5 flex items-center gap-2" style={{ background: '#f9fafb' }}>
+        <span className="text-[9px] text-gray-400">Need help choosing?</span>
+        <Link to="/contact" onClick={() => setOpenDropdown(null)}
+          className="text-[9px] font-bold underline underline-offset-2 hover:text-[var(--color-gold)] transition-colors"
+          style={{ color: 'var(--color-brand-navy)' }}>
           Talk to an Expert →
         </Link>
       </div>

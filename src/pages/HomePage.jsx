@@ -607,68 +607,74 @@ const HomePage = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          7b. PARTNERS & COLLABORATORS — LOGO STRIP
+          7b. PARTNERS & COLLABORATORS — DUAL MARQUEE
       ══════════════════════════════════════════════ */}
-      <section className="py-14 bg-white border-t border-gray-100">
-        <div className="container-custom">
-          <h2 className="text-center text-xl sm:text-2xl font-extrabold text-gray-900 mb-10"
-            style={{ fontFamily: 'var(--font-heading)' }}>
-            Our Partners &amp; Collaborators
-          </h2>
-
-          {/* Styled brand tiles — grayscale → full colour on hover */}
-          <div className="flex flex-wrap justify-center items-center gap-5">
-            {[
-              { n: 'engro',   bg: '#fff',    tc: '#2d7a2d', bc: '#d1e7d1', fw: '800', fs: '17px', fi: true  },
-              { n: 'ICMA',    bg: '#1a3a6e', tc: '#fff',    bc: '#1a3a6e', fw: '900', fs: '13px', fi: false },
-              { n: 'UBL',     bg: '#003087', tc: '#fff',    bc: '#003087', fw: '900', fs: '15px', fi: false },
-              { n: 'KCCI',    bg: '#fff',    tc: '#8b0000', bc: '#e8c8c8', fw: '900', fs: '14px', fi: false },
-              { n: 'PSEB',    bg: '#1d6a2e', tc: '#fff',    bc: '#1d6a2e', fw: '900', fs: '13px', fi: false },
-              { n: 'telenor', bg: '#fff',    tc: '#e4003a', bc: '#fdd',    fw: '800', fs: '16px', fi: true  },
-              { n: 'JS',      bg: '#f5a300', tc: '#000',    bc: '#f5a300', fw: '900', fs: '22px', fi: false },
-              { n: 'ACCA',    bg: '#8b0000', tc: '#fff',    bc: '#8b0000', fw: '900', fs: '14px', fi: false },
-              { n: 'Meezan',  bg: '#fff',    tc: '#5b2d8e', bc: '#e0d0f0', fw: '700', fs: '12px', fi: false },
-              { n: 'SECP',    bg: '#006633', tc: '#fff',    bc: '#006633', fw: '900', fs: '13px', fi: false },
-              { n: 'P@SHA',   bg: '#0057b8', tc: '#fff',    bc: '#0057b8', fw: '900', fs: '12px', fi: false },
-              { n: 'NCC',     bg: '#1b2a5e', tc: '#fff',    bc: '#1b2a5e', fw: '900', fs: '17px', fi: false },
-              { n: 'HBL',     bg: '#00857d', tc: '#fff',    bc: '#00857d', fw: '900', fs: '16px', fi: false },
-              { n: 'aws',     bg: '#fff',    tc: '#232f3e', bc: '#e0d8c8', fw: '800', fs: '17px', fi: false },
-            ].map((b) => (
-              <div
-                key={b.n}
-                className="flex-shrink-0 flex items-center justify-center rounded-xl cursor-default select-none"
-                style={{
-                  width: 96, height: 44,
-                  background: b.bg,
-                  color: b.tc,
-                  border: `1.5px solid ${b.bc}`,
-                  fontSize: b.fs,
-                  fontWeight: b.fw,
-                  fontStyle: b.fi ? 'italic' : 'normal',
-                  letterSpacing: '0.02em',
-                  fontFamily: 'var(--font-heading)',
-                  filter: 'grayscale(90%) opacity(0.5)',
-                  boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
-                  transition: 'all 0.25s ease',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.filter = 'grayscale(0%) opacity(1)';
-                  e.currentTarget.style.transform = 'scale(1.08)';
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.14)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.filter = 'grayscale(90%) opacity(0.5)';
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
-                }}
-              >
-                {b.n}
-              </div>
-            ))}
+      {(() => {
+        const row1 = [
+          { name: 'Engro',       file: 'engro.png'   },
+          { name: 'ICMA',        file: 'icma.png'    },
+          { name: 'UBL',         file: 'ubl.png'     },
+          { name: 'KCCI',        file: 'kcci.png'    },
+          { name: 'Telenor',     file: 'telenor.png' },
+          { name: 'JS Bank',     file: 'jsbank.png'  },
+          { name: 'ACCA',        file: 'acca.png'    },
+          { name: 'Meezan Bank', file: 'meezan.png'  },
+          { name: 'SECP',        file: 'secp.png'    },
+          { name: 'P@SHA',       file: 'pasha.png'   },
+        ];
+        const row2 = [
+          { name: 'HBL',         file: 'hbl.png'     },
+          { name: 'AWS',         file: 'aws.png'     },
+          { name: 'FBR',         file: 'fbr.png'     },
+          { name: 'State Bank',  file: 'sbp.png'     },
+          { name: 'MCB Bank',    file: 'mcb.png'     },
+          { name: 'Bank Alfalah',file: 'alfalah.png' },
+          { name: 'Allied Bank', file: 'allied.png'  },
+          { name: 'PTCL',        file: 'ptcl.png'    },
+          { name: 'Faysal Bank', file: 'faysal.png'  },
+          { name: 'SNGPL',       file: 'sngpl.png'   },
+        ];
+        const LogoImg = ({ p }) => (
+          <div className="flex items-center justify-center px-8" style={{ height: 56, minWidth: 120 }}>
+            <img
+              src={`/images/partners/${p.file}`}
+              alt={p.name}
+              title={p.name}
+              draggable="false"
+              className="max-h-[44px] max-w-[120px] w-auto h-auto object-contain select-none"
+              style={{ filter: 'grayscale(100%) opacity(0.55)', transition: 'filter 0.3s ease, transform 0.3s ease' }}
+              onMouseEnter={e => { e.currentTarget.style.filter = 'grayscale(0%) opacity(1)'; e.currentTarget.style.transform = 'scale(1.1)'; }}
+              onMouseLeave={e => { e.currentTarget.style.filter = 'grayscale(100%) opacity(0.55)'; e.currentTarget.style.transform = 'scale(1)'; }}
+              onError={e => { e.currentTarget.parentElement.style.display = 'none'; }}
+            />
           </div>
-        </div>
-      </section>
+        );
+        return (
+          <section className="py-14 border-t border-b border-gray-100" style={{ background: '#f9fafb' }}>
+            {/* Heading */}
+            <div className="text-center mb-10">
+              <p className="text-xs font-semibold tracking-[0.22em] uppercase text-[var(--color-gold)] mb-2">Trusted By</p>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'var(--font-heading)' }}>
+                Our Partners &amp; Collaborators
+              </h2>
+            </div>
 
+            {/* Row 1 — scrolls RIGHT */}
+            <div className="tz-marquee-wrap mb-5" style={{ '--marquee-dir': '1' }}>
+              <div className="tz-marquee-track-rev">
+                {[...row1, ...row1].map((p, i) => <LogoImg key={`r1-${i}`} p={p} />)}
+              </div>
+            </div>
+
+            {/* Row 2 — scrolls LEFT */}
+            <div className="tz-marquee-wrap">
+              <div className="tz-marquee-track">
+                {[...row2, ...row2].map((p, i) => <LogoImg key={`r2-${i}`} p={p} />)}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
       {/* ══════════════════════════════════════════════
           8. TESTIMONIALS
       ══════════════════════════════════════════════ */}
