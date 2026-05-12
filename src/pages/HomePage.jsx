@@ -279,7 +279,7 @@ const HomePage = () => {
             </motion.div>
 
             {/* Stats */}
-            <motion.div {...fadeUp(0.7, reduce)} className="grid grid-cols-3 gap-4 border-t border-white/10 pt-10 max-w-lg mx-auto">
+            <motion.div {...fadeUp(0.7, reduce)} className="grid grid-cols-3 gap-4 border-t border-white/10 pt-10 pb-10 max-w-lg mx-auto">
               {[
                 { v: '997+', l: 'Happy Clients' },
                 { v: '10+', l: 'Yrs Experience' },
@@ -300,19 +300,18 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator — positioned below stats, no overlap */}
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-0.5"
           initial={reduce ? {} : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
+          transition={{ delay: 1.4, duration: 0.6 }}
         >
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">Scroll</span>
           <motion.div
-            animate={reduce ? {} : { y: [0, 8, 0] }}
+            animate={reduce ? {} : { y: [0, 6, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <ChevronDown size={22} className="text-[var(--color-gold)]/60" />
+            <ChevronDown size={18} className="text-[var(--color-gold)]/50" />
           </motion.div>
         </motion.div>
       </section>
