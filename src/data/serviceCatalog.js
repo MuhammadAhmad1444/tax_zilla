@@ -107,7 +107,7 @@ const CATEGORY_DOCS = {
     'Income tax computation / profit & loss summary (if available)',
     'Salary certificate / employment letter',
     'Business registration documents (if applicable)',
-    'Previous year's tax return (if filed)',
+    'Previous year tax return copy (if filed)',
     'Property documents or rental agreements (if applicable)',
   ],
   'provincial-sales-tax': [
@@ -123,7 +123,7 @@ const CATEGORY_DOCS = {
     'Proposed company name (3 options)',
     'Registered office address and utility bill',
     'Memorandum & Articles of Association (we draft)',
-    'Directors' consent letters and Form 21',
+    'Director consent letters and Form 21',
     'Initial share structure and paid-up capital details',
   ],
   'secp-related-services': [
@@ -606,10 +606,10 @@ const RAW_SUBSERVICES = [
   { slug: 'international-trademark', title: 'International Trademark', categoryId: 'intellectual-property', shortDesc: 'Registration of trademarks globally and under international protocols.' },
 
   // Software & IT Services
-  { slug: 'pseb-registration', title: 'PSEB Registration', categoryId: 'software-it-services', shortDesc: 'Pakistan Software Export Board (PSEB) registration for IT firms.' },
-  { slug: 'it-company-setup', title: 'IT Company Setup', categoryId: 'software-it-services', shortDesc: 'Complete corporate setup tailored for IT and software businesses.' },
-  { slug: 'freelancer-ntn', title: 'Freelancer NTN', categoryId: 'software-it-services', shortDesc: 'NTN registration and profile setup for IT freelancers.' },
-  { slug: 'software-export-registration', title: 'Software Export Registration', categoryId: 'software-it-services', shortDesc: 'Registration and compliance guidance for software exporters.' },
+  { slug: 'pseb-registration', title: 'PSEB Registration', categoryId: 'oftware-it-services', shortDesc: 'Pakistan Software Export Board (PSEB) registration for IT firms.' },
+  { slug: 'it-company-setup', title: 'IT Company Setup', categoryId: 'oftware-it-services', shortDesc: 'Complete corporate setup tailored for IT and software businesses.' },
+  { slug: 'freelancer-ntn', title: 'Freelancer NTN', categoryId: 'oftware-it-services', shortDesc: 'NTN registration and profile setup for IT freelancers.' },
+  { slug: 'software-export-registration', title: 'Software Export Registration', categoryId: 'oftware-it-services', shortDesc: 'Registration and compliance guidance for software exporters.' },
 
   // Engineering Services
   { slug: 'pec-registration', title: 'PEC Registration', categoryId: 'engineering-services', shortDesc: 'Pakistan Engineering Council (PEC) registration for contractors and engineers.' },
