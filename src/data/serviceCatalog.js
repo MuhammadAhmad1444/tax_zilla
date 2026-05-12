@@ -270,6 +270,37 @@ export const SERVICE_CATEGORIES = [
     ],
   },
   {
+    id: 'competition-commission-services',
+    slug: 'competition-commission-services',
+    title: 'Competition Commission Services',
+    shortDesc: 'CCP compliance, merger approvals, anti-competitive conduct advisory, regulatory representation, and competition law training for businesses across all sectors.',
+    heroEyebrow: 'CCP Compliance',
+    heroSubhead: 'Comprehensive Competition Commission of Pakistan (CCP) services — from compliance reviews to merger approvals and regulatory defence.',
+    areaServed: 'Pakistan',
+    faqs: [
+      {
+        q: 'What is the Competition Commission of Pakistan (CCP)?',
+        a: 'The CCP is Pakistan\'s regulatory body that enforces competition law to prevent anti-competitive practices, abuse of dominant position, and deceptive marketing. Non-compliance can result in heavy fines.',
+      },
+      {
+        q: 'Does my business need Competition Law compliance?',
+        a: 'Yes, if your business operates in any sector where pricing, distribution, market share, or mergers are involved. CCP scrutinises all sectors including FMCG, real estate, pharmaceuticals, and digital businesses.',
+      },
+      {
+        q: 'What happens when a business receives a CCP notice?',
+        a: 'A CCP notice must be responded to within the stipulated timeframe with proper legal documentation. Our team handles notice review, response preparation, and regulatory representation before the CCP.',
+      },
+      {
+        q: 'Is pre-merger notification mandatory?',
+        a: 'Yes. Mergers and acquisitions that meet certain thresholds require pre-merger notification filing with the CCP. We assist with filing, documentation, and obtaining merger approval.',
+      },
+      {
+        q: 'Can you train our team on competition law compliance?',
+        a: 'Absolutely. We offer in-house training sessions, compliance workshops, and employee awareness programmes tailored to your industry and business size.',
+      },
+    ],
+  },
+  {
     id: 'secp-related-services',
     slug: 'secp-related-services',
     title: 'SECP Related Services',
@@ -477,6 +508,112 @@ const RAW_SUBSERVICES = [
   { slug: 'pak-ksa-double-taxation', title: 'Double Taxation Advisory (Pakistan–KSA)', categoryId: 'ksa-tax-services', shortDesc: 'Advisory on Pakistan–Saudi Arabia double taxation treaty benefits and relief claims.' },
   { slug: 'ksa-export-services-tax', title: 'Export of Services Tax Structuring', categoryId: 'ksa-tax-services', shortDesc: 'Tax structuring for Pakistani businesses exporting services to Saudi Arabia.' },
   { slug: 'ksa-international-compliance', title: 'Compliance Support for International Clients', categoryId: 'ksa-tax-services', shortDesc: 'Ongoing tax and regulatory compliance support for businesses with Pakistan–KSA operations.' },
+
+  // Competition Commission Services
+  {
+    slug: 'competition-law-compliance',
+    title: 'Competition Law Compliance',
+    categoryId: 'competition-commission-services',
+    shortDesc: 'Assess and strengthen your business compliance with Pakistan\'s Competition Act — advisory, reviews, and corporate compliance policies.',
+    deliverables: [
+      'Competition Law Advisory — legal guidance on CCP regulations and compliance obligations',
+      'Business Compliance Reviews — full audit of operations for competition law alignment',
+      'Anti-Competitive Practice Assessment — identify and eliminate practices that violate CCP rules',
+      'Corporate Compliance Policies — draft and implement internal competition compliance frameworks',
+      'Competition Risk Analysis — sector-specific risk assessment and mitigation planning',
+    ],
+  },
+  {
+    slug: 'merger-acquisition-approval',
+    title: 'Merger & Acquisition Approval',
+    categoryId: 'competition-commission-services',
+    shortDesc: 'End-to-end M&A compliance — pre-merger notification, CCP approval consultancy, acquisition compliance, and transaction documentation.',
+    deliverables: [
+      'Pre-Merger Notification Filing — timely filing with CCP before transaction completion',
+      'Merger Approval Consultancy — strategic guidance to secure CCP merger clearance',
+      'Acquisition Compliance Assistance — ensure acquisitions meet CCP regulatory requirements',
+      'Transaction Documentation Support — prepare all legal and regulatory documents for M&A',
+      'CCP clearance follow-up and approval coordination',
+    ],
+  },
+  {
+    slug: 'ccp-legal-regulatory-services',
+    title: 'CCP Legal & Regulatory Services',
+    categoryId: 'competition-commission-services',
+    shortDesc: 'Expert handling of CCP notices, regulatory representation, investigation support, and compliance documentation before the Competition Commission.',
+    deliverables: [
+      'Reply to CCP Notices — professional, legally sound responses to all CCP notices',
+      'Regulatory Representation — appear and represent clients before the CCP',
+      'Compliance Documentation Preparation — prepare all required submissions and filings',
+      'Investigation Support — assist during CCP investigations with documents and legal defence',
+      'Ongoing CCP correspondence management and compliance tracking',
+    ],
+  },
+  {
+    slug: 'anti-competitive-conduct-advisory',
+    title: 'Anti-Competitive Conduct Advisory',
+    categoryId: 'competition-commission-services',
+    shortDesc: 'Advisory on cartel risks, abuse of dominant position, price fixing, bid rigging, and distribution agreement compliance under CCP law.',
+    deliverables: [
+      'Cartel & Collusion Risk Assessment — identify cartel exposure in business operations',
+      'Abuse of Dominant Position Consultancy — advise dominant-market businesses on lawful conduct',
+      'Price Fixing Compliance Advisory — ensure pricing strategies comply with CCP regulations',
+      'Bid Rigging Compliance — review tendering processes for competition law risks',
+      'Distribution & Dealer Agreement Review — ensure channel agreements are CCP-compliant',
+    ],
+  },
+  {
+    slug: 'consumer-protection-fair-trade',
+    title: 'Consumer Protection & Fair Trade',
+    categoryId: 'competition-commission-services',
+    shortDesc: 'Ensure fair market practices, compliant advertising, and consumer rights compliance under CCP\'s consumer protection mandate.',
+    deliverables: [
+      'Misleading Advertisement Review — audit marketing materials for deceptive claims',
+      'Fair Competition Advisory — ensure promotional and pricing practices meet CCP standards',
+      'Market Practice Compliance — review sales, distribution, and market conduct',
+      'Consumer Rights Compliance — align operations with consumer protection regulations',
+      'Compliance sign-off on marketing campaigns and consumer-facing communications',
+    ],
+  },
+  {
+    slug: 'competition-law-training',
+    title: 'Corporate Training & Awareness',
+    categoryId: 'competition-commission-services',
+    shortDesc: 'In-house competition law training, compliance workshops, employee awareness sessions, and corporate ethics programmes.',
+    deliverables: [
+      'Competition Law Training — in-depth sessions on CCP regulations for management teams',
+      'Compliance Workshops — practical workshops on identifying and avoiding CCP violations',
+      'Employee Awareness Sessions — accessible training for all staff on competition do\'s and don\'ts',
+      'Corporate Ethics & Compliance Programs — design and implement company-wide ethics frameworks',
+      'Training materials, attendance records, and compliance certificates',
+    ],
+  },
+  {
+    slug: 'sector-specific-competition-consultancy',
+    title: 'Sector Specific Consultancy',
+    categoryId: 'competition-commission-services',
+    shortDesc: 'Targeted competition compliance advisory for real estate, e-commerce, pharma, FMCG, and digital business sectors.',
+    deliverables: [
+      'Real Estate Competition Compliance — pricing, agency agreements, and market conduct advisory',
+      'E-Commerce Competition Advisory — platform rules, pricing algorithms, and data practices',
+      'Pharmaceutical Sector Compliance — drug pricing, licensing, and distribution compliance',
+      'FMCG Competition Consultancy — trade terms, promotional pricing, and retailer agreements',
+      'Digital Business Competition Compliance — platform dominance and data-sharing advisory',
+    ],
+  },
+  {
+    slug: 'competition-documentation-filing',
+    title: 'Documentation & Filing Services',
+    categoryId: 'competition-commission-services',
+    shortDesc: 'All CCP-related legal drafting, compliance reports, regulatory filings, and policy documentation for competition law matters.',
+    deliverables: [
+      'Legal Drafting — competition law-compliant contracts, agreements, and corporate policies',
+      'Compliance Reports — prepare detailed compliance status reports for management and regulators',
+      'Corporate Responses & Submissions — draft formal replies and regulatory submissions to CCP',
+      'Regulatory Filing Assistance — file all required documents with CCP within deadlines',
+      'Policy Drafting & Documentation — create internal competition policies and code of conduct',
+    ],
+  },
 
   // SECP Related Services
   {

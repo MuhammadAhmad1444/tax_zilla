@@ -23,11 +23,11 @@ const SERVICES_COLUMNS = [
     slugs: [
       'corporate-business-services',
       'secp-related-services',
+      'competition-commission-services',
       'intellectual-property',
       'legal-services',
       'additional-registrations',
       'software-it-services',
-      'engineering-services',
     ],
   },
   {
