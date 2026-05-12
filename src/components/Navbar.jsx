@@ -22,6 +22,7 @@ const SERVICES_COLUMNS = [
     heading: 'Corporate & Business',
     slugs: [
       'corporate-business-services',
+      'secp-related-services',
       'intellectual-property',
       'legal-services',
       'additional-registrations',

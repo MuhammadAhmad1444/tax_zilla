@@ -21,6 +21,7 @@ const ICON_MAP = {
   'software-it-services': Settings,
   'engineering-services': Wrench,
   'legal-services': Scale,
+  'secp-related-services': Building2,
   'visa-immigration-tax-services': Globe,
   'overseas-pakistani-tax-services': Users,
   'certificates-compliance': CheckCircle,
@@ -61,6 +62,7 @@ const CATEGORY_FILTERS = [
     label: 'Corporate & Legal',
     slugs: [
       'corporate-business-services',
+      'secp-related-services',
       'intellectual-property',
       'legal-services',
       'additional-registrations',
@@ -97,6 +99,7 @@ const COUNTRY_FILTERS = [
       'intellectual-property', 'legal-services', 'additional-registrations',
       'software-it-services', 'engineering-services',
       'visa-immigration-tax-services', 'overseas-pakistani-tax-services',
+      'secp-related-services',
     ],
   },
   { id: 'uae', label: 'UAE',          flag: '🇦🇪', href: null, slugs: ['uae-tax-services'], categoryId: 'uae-tax-services' },
