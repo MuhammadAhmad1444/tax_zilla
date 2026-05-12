@@ -1,15 +1,18 @@
 export const BLOG_CATEGORIES = [
-  { id: 'all',         label: 'All Articles' },
-  { id: 'income-tax',  label: 'Income Tax' },
-  { id: 'business',    label: 'Business & SECP' },
-  { id: 'freelancer',  label: 'Freelancers & IT' },
-  { id: 'overseas',    label: 'Overseas Pakistanis' },
-  { id: 'sales-tax',   label: 'Sales Tax & GST' },
-  { id: 'property',    label: 'Property & CGT' },
+  { id: 'all',           label: 'All Articles' },
+  { id: 'income-tax',    label: 'Income Tax' },
+  { id: 'business',      label: 'Business & SECP' },
+  { id: 'freelancer',    label: 'Freelancers & IT' },
+  { id: 'overseas',      label: 'Overseas Pakistanis' },
+  { id: 'sales-tax',     label: 'Sales Tax & GST' },
+  { id: 'property',      label: 'Property & CGT' },
   { id: 'international', label: 'International Tax' },
 ];
 
 export const BLOG_POSTS = [
+  /* ═══════════════════════════════════════════════════════
+     1. INCOME TAX SLABS 2025-26
+  ═══════════════════════════════════════════════════════ */
   {
     id: 1,
     slug: 'income-tax-slabs-2025-26-pakistan',
@@ -22,20 +25,71 @@ export const BLOG_POSTS = [
     featured: true,
     image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80',
     tags: ['Income Tax', 'FBR', 'Tax Slabs', '2025-26'],
-    content: `Pakistan's Finance Act 2025 introduced revised income tax slabs effective from 1 July 2025. Understanding these changes is critical for tax planning.
-
-**Salaried Individuals (FY 2025–26)**
-The revised slabs for salaried persons are as follows — income up to Rs. 600,000 remains exempt from tax. Income between Rs. 600,001 and Rs. 1,200,000 is taxed at 5%. Higher income brackets attract progressively higher rates up to 35% for income exceeding Rs. 6,000,000.
-
-**Business Individuals & AOPs**
-The tax treatment for business income differs from salary. Business individuals are taxed on their net income after allowable deductions at slab rates starting from 15% for income above Rs. 600,000.
-
-**Key Changes This Year**
-The major changes include revised lower slabs for salaried taxpayers, new advance tax provisions, and enhanced withholding obligations for various transactions.
-
-**What You Should Do**
-Review your income against the new slabs, ensure your employer is deducting the correct amount, and plan any advance tax payments before the due dates.`,
+    toc: ['Overview of Changes', 'Salaried Individual Slabs', 'Business Income Slabs', 'Corporate Tax Rates', 'Key Deductions & Exemptions', 'How to Calculate Your Tax'],
+    keyTakeaways: [
+      'Income up to Rs. 600,000 is fully exempt from tax for salaried individuals',
+      'Salaried persons enjoy lower tax rates than business individuals at the same income level',
+      'Super tax applies at 10% on income exceeding Rs. 150 million',
+      'Filing your return keeps you on the ATL — saving you on every financial transaction',
+      'Advance tax must be paid quarterly if annual tax liability exceeds Rs. 1 million',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'The Finance Act 2025 has brought significant revisions to Pakistan\'s income tax structure. Whether you are salaried, running a business, or a company director, understanding the new slabs is essential for accurate tax planning and legal compliance.' },
+      { type: 'h2', text: 'Overview of Changes for FY 2025–26' },
+      { type: 'p', text: 'The key changes introduced in Budget 2025–26 include revised slab rates for salaried individuals, adjustments to withholding tax obligations, and new compliance requirements under the Finance Act. The FBR has emphasized stricter enforcement and broadening of the tax base.' },
+      { type: 'callout', text: 'Important: The tax year in Pakistan runs from 1 July to 30 June. FY 2025–26 means income earned between 1 July 2025 and 30 June 2026.' },
+      { type: 'h2', text: 'Salaried Individual Tax Slabs (FY 2025–26)' },
+      { type: 'p', text: 'Salaried individuals benefit from lower tax rates compared to business income at the same level. The following slabs apply to salary income:' },
+      { type: 'table', headers: ['Annual Taxable Income', 'Tax Rate', 'Fixed Amount + %'], rows: [
+        ['Up to Rs. 600,000', '0%', 'Nil'],
+        ['Rs. 600,001 – Rs. 1,200,000', '5%', '0 + 5% of amount exceeding 600,000'],
+        ['Rs. 1,200,001 – Rs. 2,200,000', '15%', 'Rs. 30,000 + 15% of amount exceeding 1,200,000'],
+        ['Rs. 2,200,001 – Rs. 3,200,000', '25%', 'Rs. 180,000 + 25% of amount exceeding 2,200,000'],
+        ['Rs. 3,200,001 – Rs. 4,100,000', '30%', 'Rs. 430,000 + 30% of amount exceeding 3,200,000'],
+        ['Above Rs. 4,100,000', '35%', 'Rs. 700,000 + 35% of amount exceeding 4,100,000'],
+      ]},
+      { type: 'h2', text: 'Business Individual & AOP Tax Slabs' },
+      { type: 'p', text: 'Business income and AOP (Association of Persons) income is taxed at higher rates than salary. These slabs also apply to sole proprietors, shopkeepers, traders, and professionals running their own practices.' },
+      { type: 'table', headers: ['Annual Taxable Income', 'Tax Rate'], rows: [
+        ['Up to Rs. 600,000', '0%'],
+        ['Rs. 600,001 – Rs. 1,200,000', '15%'],
+        ['Rs. 1,200,001 – Rs. 1,600,000', '20%'],
+        ['Rs. 1,600,001 – Rs. 3,200,000', '30%'],
+        ['Above Rs. 3,200,000', '35%'],
+      ]},
+      { type: 'h2', text: 'Corporate Tax Rates' },
+      { type: 'ul', items: [
+        'Private Companies (Pvt Ltd): 29% of net income',
+        'Public Companies listed on PSX: 29%',
+        'Banking companies: 39%',
+        'Small Company (as defined by FBR): 20%',
+        'Super Tax applies on income above Rs. 150 million at 10%',
+      ]},
+      { type: 'h2', text: 'Key Deductions & Exemptions' },
+      { type: 'p', text: 'Several deductions reduce your taxable income before the slabs are applied:' },
+      { type: 'ul', items: [
+        'Zakat deducted at source is fully deductible from taxable income',
+        'Donations to approved charitable institutions (up to 30% of income)',
+        'Workers Welfare Fund (WWF) and Workers Profit Participation Fund (WPPF)',
+        'Profit on debt (mortgage interest) up to Rs. 2 million for housing loans',
+        'Investment in approved pension schemes and life insurance premiums',
+        'Education expense allowance for children',
+      ]},
+      { type: 'h2', text: 'How to Calculate Your Tax Liability' },
+      { type: 'ol', items: [
+        'Total all your income sources for the tax year (salary, business, rental, dividends)',
+        'Subtract allowable deductions (Zakat, donations, pension contributions)',
+        'Apply the applicable slab rate on your net taxable income',
+        'Subtract any advance tax or withholding tax already paid',
+        'The remaining amount is your net tax payable to FBR',
+      ]},
+      { type: 'callout', text: 'Pro Tip: Use Tax Zilla\'s free Salary Tax Calculator for an instant, accurate estimate of your FY 2025–26 tax liability. No sign-up required.' },
+    ],
   },
+
+  /* ═══════════════════════════════════════════════════════
+     2. FREELANCER TAX GUIDE
+  ═══════════════════════════════════════════════════════ */
   {
     id: 2,
     slug: 'freelancer-tax-guide-pakistan-2025',
@@ -48,8 +102,63 @@ Review your income against the new slabs, ensure your employer is deducting the 
     featured: true,
     image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80',
     tags: ['Freelancer', 'Clause 133', 'PSEB', 'Upwork', 'Fiverr'],
-    content: `Pakistani freelancers are among the most rapidly growing taxpayer segments. Here is a complete breakdown of your tax obligations and benefits.`,
+    toc: ['Do Freelancers Pay Tax in Pakistan?', 'Clause 133 — The Freelancer Tax Benefit', 'PSEB Registration Benefits', 'How to Register NTN as a Freelancer', 'Declaring Foreign Income in FBR', 'Step-by-Step Filing Guide'],
+    keyTakeaways: [
+      'Pakistani freelancers earning from foreign platforms are subject to income tax in Pakistan',
+      'Clause 133 offers a significantly reduced tax rate on IT export income',
+      'PSEB registration unlocks additional benefits and official IT exporter status',
+      'Foreign income must be declared in your FBR return even if tax is zero',
+      'Payoneer, Wise, and bank transfers are all taxable — platform doesn\'t matter',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'Pakistan has one of the largest freelancing workforces in the world. If you are earning from Upwork, Fiverr, Freelancer, or direct international clients — you have tax obligations in Pakistan that you need to understand.' },
+      { type: 'h2', text: 'Do Freelancers Pay Tax in Pakistan?' },
+      { type: 'p', text: 'Yes. If you are a Pakistani resident earning income — whether from Pakistan or abroad — you are a taxpayer. However, the good news is that freelancers who qualify as IT exporters enjoy significantly reduced tax rates.' },
+      { type: 'p', text: 'The common misconception is that receiving money through Payoneer or Wise makes it "tax-free." This is incorrect. The payment method does not affect your tax liability — what matters is whether it is income earned in a tax year.' },
+      { type: 'h2', text: 'Clause 133 — The Freelancer Tax Benefit' },
+      { type: 'p', text: 'Clause 133 of the Second Schedule to the Income Tax Ordinance, 2001 provides a special reduced tax rate for income from the export of IT services and IT-enabled services. This is the most important provision for Pakistani freelancers.' },
+      { type: 'callout', text: 'Under Clause 133, income from export of IT services is taxed at a reduced rate of 0.25% of export proceeds (subject to conditions) — significantly lower than standard income tax slabs.' },
+      { type: 'ul', items: [
+        'Applies to IT services, software development, app development, digital marketing, content writing, and other IT-enabled services',
+        'Income must be received through banking channels (not cash)',
+        'The freelancer must be registered with FBR and have an active NTN',
+        'PSEB registration strengthens your claim to IT exporter status',
+        'The reduced rate applies on gross export receipts, not net income',
+      ]},
+      { type: 'h2', text: 'PSEB Registration — Why It Matters' },
+      { type: 'p', text: 'PSEB (Pakistan Software Export Board) registration provides official recognition as an IT exporter. While not legally mandatory for Clause 133 benefits, it is strongly recommended:' },
+      { type: 'ul', items: [
+        'Strengthens your claim to IT exporter status during FBR audit',
+        'Provides access to PSEB-facilitated benefits and industry events',
+        'Required for certain government IT contracts and vendor registrations',
+        'Provides a certificate that supports your bank and FBR documentation',
+        'Facilitates easy verification of your IT export business',
+      ]},
+      { type: 'h2', text: 'How to Register NTN as a Freelancer' },
+      { type: 'ol', items: [
+        'Visit the FBR IRIS portal (iris.fbr.gov.pk) and click "New Registration"',
+        'Select "Individual" as taxpayer type and enter your CNIC details',
+        'Provide your mobile number (must be registered on your CNIC)',
+        'Verify via OTP and create your IRIS login credentials',
+        'Complete the registration form — select "Services" as your income type',
+        'Submit the form — your NTN is allocated immediately in most cases',
+      ]},
+      { type: 'h2', text: 'Declaring Foreign Income in Your FBR Return' },
+      { type: 'p', text: 'All foreign income must be declared in your annual FBR income tax return. Here is how to handle it correctly:' },
+      { type: 'ul', items: [
+        'Collect all payment records from Payoneer, Wise, Upwork, Fiverr, etc.',
+        'Convert all foreign currency income to PKR at the applicable exchange rate',
+        'Declare the total amount under "IT Export Income" in your return',
+        'Apply the Clause 133 reduced tax rate',
+        'Include the income in your Wealth Statement as foreign income received',
+      ]},
+      { type: 'callout', text: 'Reminder: The filing deadline for individual taxpayers (including freelancers) is 30 September each year. Filing late attracts penalties under Section 182 of the Income Tax Ordinance.' },
+    ],
   },
+
+  /* ═══════════════════════════════════════════════════════
+     3. PROPERTY CGT
+  ═══════════════════════════════════════════════════════ */
   {
     id: 3,
     slug: 'property-capital-gains-tax-pakistan-2025',
@@ -62,8 +171,58 @@ Review your income against the new slabs, ensure your employer is deducting the 
     featured: false,
     image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80',
     tags: ['CGT', 'Property Tax', 'Section 236C', 'Real Estate'],
-    content: `Capital Gains Tax on property is one of the most complex areas of Pakistani tax law. Here is what every property buyer and seller must know.`,
+    toc: ['What is Capital Gains Tax on Property?', 'CGT Rates by Holding Period', 'Section 236C — Withholding on Sale', 'Section 236K — Withholding on Purchase', 'FBR vs DC Valuation', 'Filer vs Non-Filer Rates', 'How to Minimize CGT'],
+    keyTakeaways: [
+      'CGT on property depends on the holding period — longer holding means lower tax',
+      'After 4 years of holding, property is exempt from CGT for filers',
+      'Non-filers pay double the withholding tax on property transactions',
+      'FBR valuation and DC rate are both considered — the higher value applies',
+      'Being an active filer is the single most effective way to reduce property tax',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'Capital Gains Tax (CGT) on property is one of the most debated tax topics among Pakistani investors and homeowners. Whether you are selling a house, plot, or commercial property — understanding CGT is essential before you sign any transfer deed.' },
+      { type: 'h2', text: 'What is Capital Gains Tax on Property?' },
+      { type: 'p', text: 'CGT is a tax on the profit (gain) you make when you sell a property at a price higher than what you originally paid for it. In Pakistan, CGT on immovable property is governed by Section 37 of the Income Tax Ordinance, 2001.' },
+      { type: 'h2', text: 'CGT Rates Based on Holding Period (FY 2025–26)' },
+      { type: 'p', text: 'The CGT rate decreases as the holding period increases. This incentivises long-term property investment over short-term speculation:' },
+      { type: 'table', headers: ['Holding Period', 'CGT Rate (Filer)', 'CGT Rate (Non-Filer)'], rows: [
+        ['Up to 1 year', '15%', '15%'],
+        ['1 to 2 years', '12.5%', '12.5%'],
+        ['2 to 3 years', '10%', '10%'],
+        ['3 to 4 years', '7.5%', '7.5%'],
+        ['More than 4 years', 'Exempt', 'Exempt (but WHT still applies)'],
+      ]},
+      { type: 'callout', text: 'Good News: If you have held the property for more than 4 years, you are exempt from Capital Gains Tax regardless of the profit made.' },
+      { type: 'h2', text: 'Section 236C — Withholding Tax on Sale of Property' },
+      { type: 'p', text: 'Under Section 236C, withholding tax is collected from the seller at the time of property transfer. The rates are:' },
+      { type: 'table', headers: ['Sale Value', 'Filer Rate', 'Non-Filer Rate'], rows: [
+        ['Up to Rs. 50 million', '3%', '6%'],
+        ['Rs. 50 million to Rs. 100 million', '3.5%', '7%'],
+        ['Above Rs. 100 million', '4%', '8%'],
+      ]},
+      { type: 'h2', text: 'Section 236K — Withholding Tax on Purchase' },
+      { type: 'p', text: 'The buyer also pays withholding tax under Section 236K at the time of purchase. This is adjustable against your final tax liability.' },
+      { type: 'table', headers: ['Purchase Value', 'Filer Rate', 'Non-Filer Rate'], rows: [
+        ['Up to Rs. 50 million', '3%', '12%'],
+        ['Rs. 50 million to Rs. 100 million', '3.5%', '16%'],
+        ['Above Rs. 100 million', '4%', '20%'],
+      ]},
+      { type: 'h2', text: 'FBR Valuation vs DC Rate — Which Applies?' },
+      { type: 'p', text: 'FBR publishes property valuation tables for major cities. For CGT and withholding tax purposes, the higher of FBR valuation or DC rate (or actual transaction value) is used.' },
+      { type: 'h2', text: 'How to Minimize Capital Gains Tax on Property' },
+      { type: 'ul', items: [
+        'Hold the property for more than 4 years to qualify for CGT exemption',
+        'File your annual income tax return and maintain ATL status for lower WHT rates',
+        'Ensure the purchase price is accurately documented — your CGT is based on the gain (selling price minus purchase price)',
+        'Claim all allowable improvement costs against the gain',
+        'Consult a tax advisor before structuring a property transaction',
+      ]},
+    ],
   },
+
+  /* ═══════════════════════════════════════════════════════
+     4. NTN REGISTRATION
+  ═══════════════════════════════════════════════════════ */
   {
     id: 4,
     slug: 'ntn-registration-guide-pakistan',
@@ -76,8 +235,70 @@ Review your income against the new slabs, ensure your employer is deducting the 
     featured: false,
     image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80',
     tags: ['NTN', 'FBR Iris', 'Tax Registration', 'ATL'],
-    content: `Registering your NTN is simpler than most people think. Here is a complete walkthrough of the FBR Iris portal registration.`,
+    toc: ['What is NTN?', 'Who Needs an NTN?', 'Documents Required', 'Step-by-Step Registration on FBR Iris', 'After Registration — What Next?', 'Common Mistakes to Avoid'],
+    keyTakeaways: [
+      'NTN registration is free and can be done online through FBR Iris',
+      'Every person with taxable income or a business must have an NTN',
+      'NTN registration and ATL status are different — you must file a return to join ATL',
+      'Mobile number must be registered on your CNIC for OTP verification',
+      'NTN can be modified online if your details change',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'Your National Tax Number (NTN) is your unique identity with the Federal Board of Revenue. It is the gateway to becoming a registered taxpayer in Pakistan — and it takes just minutes to get one online.' },
+      { type: 'h2', text: 'What is an NTN?' },
+      { type: 'p', text: 'An NTN (National Tax Number) is a unique 7-digit number assigned by FBR to every registered taxpayer. It is used to identify you across all tax filings, payments, and communications with the FBR.' },
+      { type: 'h2', text: 'Who Needs an NTN?' },
+      { type: 'ul', items: [
+        'Salaried individuals with taxable income above the exempt threshold',
+        'Business owners, shopkeepers, traders, and professionals',
+        'Company directors and shareholders',
+        'Freelancers and online sellers receiving foreign income',
+        'Anyone who owns property, a vehicle, or has a bank account with significant transactions',
+        'Overseas Pakistanis with assets or income in Pakistan',
+      ]},
+      { type: 'h2', text: 'Documents Required' },
+      { type: 'ul', items: [
+        'CNIC (Computerised National Identity Card) — front and back',
+        'Mobile number registered on your CNIC (for OTP)',
+        'Email address for FBR Iris account',
+        'Utility bill (electricity or gas) for address proof',
+        'Salary certificate or business details (for income source)',
+      ]},
+      { type: 'h2', text: 'Step-by-Step NTN Registration on FBR Iris' },
+      { type: 'ol', items: [
+        'Open your browser and go to iris.fbr.gov.pk',
+        'Click "Registration for Unregistered Person" on the login page',
+        'Enter your CNIC number and click "Verify"',
+        'Enter the OTP received on your CNIC-registered mobile',
+        'Create a secure password for your FBR Iris account',
+        'Complete the registration form — name, address, income source, bank details',
+        'Upload your CNIC image (front and back)',
+        'Submit the form — your NTN will appear on screen immediately',
+        'Save or print your NTN certificate from the portal',
+      ]},
+      { type: 'h2', text: 'After NTN Registration — What Next?' },
+      { type: 'p', text: 'Getting an NTN is step one. To become an Active Taxpayer and enjoy filer benefits:' },
+      { type: 'ul', items: [
+        'File your first income tax return before 30 September of the current tax year',
+        'You will appear on the Active Taxpayer List (ATL) after filing',
+        'ATL status is updated weekly every Monday',
+        'Maintain ATL by filing your return every year without fail',
+      ]},
+      { type: 'callout', text: 'Remember: Having an NTN does not automatically make you a "filer". You must file your annual return to appear on the ATL and benefit from lower withholding tax rates.' },
+      { type: 'h2', text: 'Common Mistakes to Avoid' },
+      { type: 'ul', items: [
+        'Using a mobile number NOT registered on your CNIC — you won\'t receive the OTP',
+        'Entering incorrect income source — select the most accurate category',
+        'Not completing the wealth statement when filing your first return',
+        'Forgetting to update your address or phone when they change (use NTN Modification)',
+        'Confusing NTN registration with return filing — both are required',
+      ]},
+    ],
   },
+
+  /* ═══════════════════════════════════════════════════════
+     5. SECP COMPANY REGISTRATION
+  ═══════════════════════════════════════════════════════ */
   {
     id: 5,
     slug: 'secp-company-registration-guide-2025',
@@ -90,8 +311,80 @@ Review your income against the new slabs, ensure your employer is deducting the 
     featured: true,
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
     tags: ['SECP', 'Company Registration', 'Pvt Ltd', 'Corporate'],
-    content: `Starting a business in Pakistan? Here is the complete SECP company registration process for 2025.`,
+    toc: ['Why Register a Private Limited Company?', 'Sole Proprietor vs Pvt Ltd', 'Required Documents', 'Step-by-Step SECP Registration', 'SECP Fees & Timeline', 'Post-Incorporation Compliance'],
+    keyTakeaways: [
+      'Pvt Ltd company offers limited liability — personal assets are protected',
+      'SECP registration can be completed in 5–10 working days',
+      'Minimum 2 directors and 2 shareholders are required for a Pvt Ltd',
+      'After incorporation, you must register with FBR for NTN within 30 days',
+      'Annual SECP filings (Form A) are mandatory every year',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'Registering a Private Limited (Pvt Ltd) company is the most popular business structure in Pakistan for growing businesses, IT companies, and entrepreneurs seeking limited liability protection and corporate credibility.' },
+      { type: 'h2', text: 'Why Register a Private Limited Company?' },
+      { type: 'ul', items: [
+        'Limited Liability — directors\' personal assets are protected from business debts',
+        'Separate Legal Entity — the company can own property, enter contracts in its name',
+        'Better Banking — companies get better access to business banking and credit',
+        'Investor Ready — most investors only invest in registered companies',
+        'Tax Benefits — corporate tax rate of 29% may be lower than personal income tax',
+        'Credibility — clients and government agencies prefer dealing with registered entities',
+      ]},
+      { type: 'h2', text: 'Sole Proprietorship vs Private Limited Company' },
+      { type: 'table', headers: ['Feature', 'Sole Proprietor', 'Private Limited (Pvt Ltd)'], rows: [
+        ['Legal Status', 'Not separate from owner', 'Separate legal entity'],
+        ['Liability', 'Unlimited — personal assets at risk', 'Limited to company assets'],
+        ['Tax Rate', 'Individual slab (up to 35%)', 'Corporate rate (29%)'],
+        ['Setup Cost', 'Low', 'Moderate (SECP fees + legal)'],
+        ['Compliance', 'Minimal', 'Annual SECP + FBR filings'],
+        ['Investor Friendly', 'No', 'Yes — shares can be issued'],
+      ]},
+      { type: 'h2', text: 'Required Documents for SECP Registration' },
+      { type: 'ul', items: [
+        'CNIC copies of all proposed directors and shareholders',
+        'Three proposed company names in order of preference',
+        'Registered office address and utility bill',
+        'Memorandum of Association (MOA) — we draft this for you',
+        'Articles of Association (AOA) — we draft this for you',
+        'Director consent letters (Form 28)',
+        'Declaration of compliance (Form 1)',
+        'Initial share structure and paid-up capital amount',
+      ]},
+      { type: 'h2', text: 'Step-by-Step SECP Registration Process' },
+      { type: 'ol', items: [
+        'Name Reservation — search and reserve your company name on SECP eServices portal',
+        'Prepare MOA & AOA — legal documents defining company purpose and internal rules',
+        'Create SECP eServices account and start new company incorporation application',
+        'Upload all required documents including CNIC, MOA/AOA, Form 28, Form 29',
+        'Pay the incorporation fee through the portal',
+        'SECP processes the application — typically 3–5 working days',
+        'Certificate of Incorporation issued — your company is now registered',
+        'Register for NTN with FBR within 30 days of incorporation',
+      ]},
+      { type: 'h2', text: 'SECP Registration Fees' },
+      { type: 'table', headers: ['Authorized Capital', 'Registration Fee (approx.)'], rows: [
+        ['Up to Rs. 100,000', 'Rs. 1,500 + filing charges'],
+        ['Rs. 100,001 – Rs. 500,000', 'Rs. 3,000 + filing charges'],
+        ['Rs. 500,001 – Rs. 1,000,000', 'Rs. 5,500 + filing charges'],
+        ['Rs. 1,000,001 – Rs. 5,000,000', 'Rs. 10,500 + filing charges'],
+        ['Above Rs. 5,000,000', 'Rs. 15,500 + filing charges + 1% of excess'],
+      ]},
+      { type: 'h2', text: 'Post-Incorporation Compliance' },
+      { type: 'ul', items: [
+        'FBR NTN Registration — register company NTN within 30 days',
+        'Sales Tax Registration — if turnover will exceed Rs. 10 million',
+        'Open a company bank account in the company\'s name',
+        'Maintain statutory registers (Register of Members, Directors, etc.)',
+        'File Annual Return (Form A) with SECP every year',
+        'Submit audited financial statements to SECP annually',
+        'File income tax return with FBR before 31st December each year',
+      ]},
+    ],
   },
+
+  /* ═══════════════════════════════════════════════════════
+     6. OVERSEAS PAKISTANI TAX
+  ═══════════════════════════════════════════════════════ */
   {
     id: 6,
     slug: 'overseas-pakistani-tax-obligations',
@@ -104,8 +397,64 @@ Review your income against the new slabs, ensure your employer is deducting the 
     featured: false,
     image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80',
     tags: ['Overseas Pakistani', 'NRP', 'Remittances', 'NICOP'],
-    content: `Overseas Pakistanis have unique tax obligations. Here is what every NRP must know about their Pakistan tax responsibilities.`,
+    toc: ['Are Overseas Pakistanis Taxable in Pakistan?', 'Withholding Tax on Property Transactions', 'Remittances & Foreign Income', 'ATL Benefits for NRPs', 'Tax Residence Certificate (TRC)', 'How to File Return from Abroad'],
+    keyTakeaways: [
+      'Non-resident Pakistanis still have tax obligations on Pakistan-source income',
+      'Property transactions in Pakistan attract withholding tax regardless of residence',
+      'Filing an annual return maintains ATL status and reduces withholding tax rates',
+      'A Tax Residence Certificate (TRC) helps avoid double taxation',
+      'NRPs can file returns remotely — no need to travel to Pakistan',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'Over 9 million Pakistanis live abroad — in the UAE, UK, USA, Saudi Arabia, and beyond. Many assume that living outside Pakistan exempts them from Pakistani taxes. This is a costly misconception.' },
+      { type: 'h2', text: 'Are Overseas Pakistanis Taxable in Pakistan?' },
+      { type: 'p', text: 'Under Pakistan\'s tax law, a person is a resident taxpayer if they spend 183 days or more in Pakistan in a tax year. Overseas Pakistanis who spend less than 183 days are classified as Non-Resident Persons (NRPs).' },
+      { type: 'p', text: 'However, NRPs are still taxable on their Pakistan-source income, which includes:' },
+      { type: 'ul', items: [
+        'Rental income from property located in Pakistan',
+        'Capital gains on sale of property in Pakistan',
+        'Dividends and profits from Pakistani companies',
+        'Salary or business income earned in Pakistan',
+        'Interest from Pakistani bank accounts',
+      ]},
+      { type: 'callout', text: 'Foreign income (income earned and received abroad) is generally NOT taxable in Pakistan for NRPs. However, remittances sent to Pakistan are not income — they are transfers of your already-taxed foreign earnings.' },
+      { type: 'h2', text: 'Withholding Tax on Property Transactions' },
+      { type: 'p', text: 'This is where many overseas Pakistanis face the biggest tax exposure. When buying or selling property in Pakistan:' },
+      { type: 'ul', items: [
+        'Section 236K withholding on purchase: 3% (filer) vs 12% (non-filer) for properties up to Rs. 50 million',
+        'Section 236C withholding on sale: 3% (filer) vs 6% (non-filer)',
+        'Filing an annual return and maintaining ATL status halves your withholding rates',
+        'Even if you are an NRP, you can file a Pakistani tax return to join the ATL',
+      ]},
+      { type: 'h2', text: 'Remittances from Abroad — Are They Taxable?' },
+      { type: 'p', text: 'Remittances sent by overseas Pakistanis to their families in Pakistan are NOT subject to income tax in Pakistan. The government actively encourages remittances and provides no tax on amounts transferred through official banking channels.' },
+      { type: 'p', text: 'However, if you transfer large amounts and cannot explain their source during an FBR audit, this can create problems. Maintaining clear documentation of remittance sources is advised.' },
+      { type: 'h2', text: 'ATL Benefits for Overseas Pakistanis' },
+      { type: 'p', text: 'Filing a Pakistani tax return and joining the ATL provides significant financial benefits even for overseas Pakistanis:' },
+      { type: 'ul', items: [
+        'Lower withholding tax on all property transactions in Pakistan',
+        'Lower withholding tax on dividends and investment income',
+        'Ability to claim refunds on excess withholding tax deducted',
+        'Access to banking transactions at standard (lower) rates',
+        'Protection against future tax notices and inquiries',
+      ]},
+      { type: 'h2', text: 'Tax Residence Certificate (TRC)' },
+      { type: 'p', text: 'A TRC is issued by FBR to confirm that you are a Pakistani tax resident. It is used to claim benefits under double taxation agreements (DTAs) that Pakistan has signed with over 60 countries.' },
+      { type: 'h2', text: 'How to File Your Return from Abroad' },
+      { type: 'ol', items: [
+        'Register on FBR Iris using your NICOP number (instead of CNIC)',
+        'Your mobile number should be reachable for OTP verification',
+        'Complete the income declaration — include only Pakistan-source income for NRPs',
+        'Declare all Pakistani assets in the Wealth Statement',
+        'Submit before 30 September to join the ATL for that year',
+        'Tax Zilla handles the entire process remotely on your behalf',
+      ]},
+    ],
   },
+
+  /* ═══════════════════════════════════════════════════════
+     7. UAE CORPORATE TAX
+  ═══════════════════════════════════════════════════════ */
   {
     id: 7,
     slug: 'uae-corporate-tax-pakistani-businesses',
@@ -118,8 +467,61 @@ Review your income against the new slabs, ensure your employer is deducting the 
     featured: false,
     image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80',
     tags: ['UAE', 'Corporate Tax', 'FTA', 'Dubai'],
-    content: `UAE Corporate Tax is now in effect. Pakistani businesses operating in the UAE need to understand their obligations under this new regime.`,
+    toc: ['UAE Corporate Tax Overview', 'Who is Liable?', 'Free Zone Companies', 'Registration with FTA', 'Pakistan-UAE Double Taxation Treaty', 'Filing & Payment Deadlines'],
+    keyTakeaways: [
+      'UAE Corporate Tax is 9% on taxable income exceeding AED 375,000',
+      'Businesses with income below AED 375,000 qualify for the 0% small business relief',
+      'Free zone entities can maintain 0% rate if they meet substance requirements',
+      'Pakistan-UAE DTA prevents double taxation on the same income',
+      'All UAE businesses must register for Corporate Tax with the FTA',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'The UAE\'s introduction of Corporate Tax marked a historic shift for one of the world\'s most business-friendly economies. Pakistani entrepreneurs and companies operating in the UAE need to understand their new obligations.' },
+      { type: 'h2', text: 'UAE Corporate Tax — Overview' },
+      { type: 'p', text: 'The UAE Federal Corporate Tax came into effect on 1 June 2023. It applies a 9% tax on business profits above AED 375,000 per year. The tax is administered by the Federal Tax Authority (FTA).' },
+      { type: 'table', headers: ['Taxable Income', 'Tax Rate'], rows: [
+        ['Up to AED 375,000', '0%'],
+        ['Above AED 375,000', '9%'],
+        ['Multinational groups (OECD Pillar Two)', '15% (minimum)'],
+      ]},
+      { type: 'h2', text: 'Who is Subject to UAE Corporate Tax?' },
+      { type: 'ul', items: [
+        'All UAE mainland companies and branches',
+        'Free zone entities (subject to conditions for 0% treatment)',
+        'Foreign companies with a permanent establishment in UAE',
+        'Individuals conducting business activities in UAE requiring a commercial licence',
+        'Pakistani-owned companies and partnerships operating in UAE',
+      ]},
+      { type: 'h2', text: 'Free Zone Companies — 0% Rate Conditions' },
+      { type: 'p', text: 'Qualifying Free Zone Persons can maintain the 0% Corporate Tax rate if they meet substance requirements:' },
+      { type: 'ul', items: [
+        'The free zone entity must conduct "qualifying activities" (trading, manufacturing, services to other free zone entities)',
+        'Adequate substance must be maintained in the free zone (offices, employees, management decisions)',
+        'Income from UAE mainland activities is taxed at 9%',
+        'Detailed records and annual financial statements are mandatory',
+      ]},
+      { type: 'h2', text: 'Pakistan-UAE Double Taxation Avoidance Agreement' },
+      { type: 'p', text: 'Pakistan and UAE have a Double Taxation Agreement (DTA) which prevents the same income from being taxed in both countries. Key provisions:' },
+      { type: 'ul', items: [
+        'Business profits taxed only in the country where the business has a permanent establishment',
+        'Dividends paid by UAE company to Pakistani shareholder: taxed at source at reduced rates',
+        'Pakistani IT workers and professionals in UAE: taxed in UAE if present for more than 183 days',
+        'Relief can be claimed by presenting TRC (Tax Residence Certificate) from FBR',
+      ]},
+      { type: 'h2', text: 'Registration & Filing with FTA' },
+      { type: 'ol', items: [
+        'All UAE businesses must register for Corporate Tax on the FTA EmaraTax portal',
+        'Registration must be completed within the deadline based on your financial year start',
+        'Prepare financial statements in accordance with IFRS or acceptable accounting standards',
+        'File annual Corporate Tax Return within 9 months of financial year end',
+        'Pay any tax due by the filing deadline to avoid penalties',
+      ]},
+    ],
   },
+
+  /* ═══════════════════════════════════════════════════════
+     8. SALES TAX REGISTRATION
+  ═══════════════════════════════════════════════════════ */
   {
     id: 8,
     slug: 'sales-tax-registration-fbr-guide',
@@ -132,8 +534,57 @@ Review your income against the new slabs, ensure your employer is deducting the 
     featured: false,
     image: 'https://images.unsplash.com/photo-1554224154-22dec7ec8818?auto=format&fit=crop&w=1200&q=80',
     tags: ['Sales Tax', 'GST', 'FBR', 'STRN'],
-    content: `Sales Tax registration is mandatory for many businesses in Pakistan. Here is everything you need to know about registering with FBR.`,
+    toc: ['Who Needs Sales Tax Registration?', 'FBR vs Provincial Sales Tax', 'Required Documents', 'Registration Process', 'Monthly Return Filing', 'Input/Output Tax & Refunds'],
+    keyTakeaways: [
+      'Businesses with annual turnover above Rs. 10 million must register for Sales Tax with FBR',
+      'Manufacturers are required to register regardless of turnover',
+      'Sales Tax rate on goods is generally 18%',
+      'Monthly returns must be filed by the 18th of the following month',
+      'Registered businesses can claim input tax credits on purchases',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'Sales Tax (GST) registration is mandatory for many businesses in Pakistan. Understanding when you need to register, and what your ongoing obligations are, is critical to avoid FBR notices and penalties.' },
+      { type: 'h2', text: 'Who is Required to Register for Sales Tax?' },
+      { type: 'ul', items: [
+        'Businesses with annual taxable turnover exceeding Rs. 10 million',
+        'All manufacturers of taxable goods — no minimum turnover threshold',
+        'Importers of taxable goods',
+        'Distributors, dealers, and wholesalers (in most sectors)',
+        'Retailers whose annual turnover exceeds Rs. 10 million',
+        'Service providers if services are taxable under FBR (not provincial)',
+      ]},
+      { type: 'h2', text: 'FBR Sales Tax vs Provincial Sales Tax' },
+      { type: 'p', text: 'Pakistan has a dual sales tax system:' },
+      { type: 'table', headers: ['Authority', 'Covers', 'Province'], rows: [
+        ['FBR (Federal)', 'Goods (manufacturing, imports, distribution)', 'All Pakistan'],
+        ['PRA', 'Services', 'Punjab'],
+        ['SRB', 'Services', 'Sindh'],
+        ['KPRA', 'Services', 'Khyber Pakhtunkhwa'],
+        ['BRA', 'Services', 'Balochistan'],
+      ]},
+      { type: 'h2', text: 'Sales Tax Registration Process' },
+      { type: 'ol', items: [
+        'Log in to FBR Iris portal with your existing NTN',
+        'Navigate to Registration and select "Sales Tax Registration"',
+        'Complete the registration form — business details, activity, turnover',
+        'Upload required documents — NTN, CNIC, utility bill, bank account',
+        'Submit the application — STRN is usually issued within 1–3 working days',
+      ]},
+      { type: 'h2', text: 'Monthly Sales Tax Return Filing' },
+      { type: 'p', text: 'Once registered, you must file monthly Sales Tax Returns:' },
+      { type: 'ul', items: [
+        'Due date: 18th of each month (for the previous month\'s transactions)',
+        'Declare all sales (output tax) and purchases (input tax)',
+        'Net tax payable = Output Tax - Input Tax',
+        'Pay any net tax via PSID before or by the due date',
+        'Late filing penalty: Rs. 10,000 per return plus 1% per month of tax due',
+      ]},
+    ],
   },
+
+  /* ═══════════════════════════════════════════════════════
+     9. ATL GUIDE
+  ═══════════════════════════════════════════════════════ */
   {
     id: 9,
     slug: 'active-taxpayer-list-atl-pakistan',
@@ -146,8 +597,42 @@ Review your income against the new slabs, ensure your employer is deducting the 
     featured: false,
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
     tags: ['ATL', 'Filer', 'Non-Filer', 'Withholding Tax'],
-    content: `Being on the FBR Active Taxpayer List can save you significant money on every financial transaction. Here is how to check and maintain ATL status.`,
+    toc: ['What is the ATL?', 'How to Check ATL Status', 'Filer vs Non-Filer Tax Rates', 'How to Get on the ATL', 'ATL Surcharge for Late Filers', 'Benefits Summary'],
+    keyTakeaways: [
+      'The ATL is updated every Monday based on returns filed in the previous week',
+      'Being a filer saves you 50–80% on withholding tax across most transactions',
+      'You must file a return by 30 September to appear on the next ATL update',
+      'Late filers can still join the ATL by paying a surcharge',
+      'Non-filers pay double withholding rates on property, vehicles, and bank transactions',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'The Active Taxpayer List (ATL) is the most important list every Pakistani taxpayer should be on. It is the difference between paying 3% and paying 6% — or 12% vs 24% — on the same transaction.' },
+      { type: 'h2', text: 'What is the Active Taxpayer List?' },
+      { type: 'p', text: 'The ATL is a database maintained by FBR containing all taxpayers who have filed their income tax return for the most recently completed tax year. It is updated every Monday at midnight.' },
+      { type: 'h2', text: 'How to Check Your ATL Status' },
+      { type: 'ol', items: [
+        'Go to the FBR website: fbr.gov.pk',
+        'Click on "ATL Verification" or visit e.fbr.gov.pk',
+        'Enter your CNIC / NTN / STRN number',
+        'Click Verify — your status will show as Active or Not Listed',
+        'You can also check via SMS: Type your CNIC and send to 9966',
+      ]},
+      { type: 'h2', text: 'Financial Impact: Filer vs Non-Filer Rates' },
+      { type: 'table', headers: ['Transaction Type', 'Filer Rate', 'Non-Filer Rate'], rows: [
+        ['Bank cash withdrawal above Rs. 50,000', '0.6%', '1.2%'],
+        ['Property purchase (up to Rs. 50 million)', '3%', '12%'],
+        ['Property sale (up to Rs. 50 million)', '3%', '6%'],
+        ['Vehicle purchase', '1%', '3%'],
+        ['Prize / lottery winnings', '15%', '30%'],
+        ['Cash dividends', '15%', '30%'],
+      ]},
+      { type: 'callout', text: 'On a Rs. 50 million property purchase, a filer pays Rs. 1.5 million in withholding tax. A non-filer pays Rs. 6 million — Rs. 4.5 million more for the same property.' },
+    ],
   },
+
+  /* ═══════════════════════════════════════════════════════
+     10. WITHHOLDING TAX RATES
+  ═══════════════════════════════════════════════════════ */
   {
     id: 10,
     slug: 'withholding-tax-rates-2025-26',
@@ -160,13 +645,42 @@ Review your income against the new slabs, ensure your employer is deducting the 
     featured: false,
     image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
     tags: ['Withholding Tax', 'WHT', 'Rates', 'Filer'],
-    content: `A comprehensive reference for all withholding tax rates applicable in Pakistan for FY 2025–26.`,
+    toc: ['What is Withholding Tax?', 'Section 149 — Salary', 'Section 151 — Bank Profit', 'Section 153 — Contracts & Services', 'Section 231B — Vehicle Purchase', 'Section 236 — Property Transactions', 'How Withholding Tax is Adjusted'],
+    keyTakeaways: [
+      'Withholding tax is collected at source — before you receive the money',
+      'Most withholding taxes are adjustable against your final annual tax liability',
+      'Being a registered filer significantly reduces withholding tax rates across all sections',
+      'Non-filers pay 2x to 4x higher rates than filers',
+      'Always verify if WHT collected from you matches your receipt/invoice',
+    ],
+    contentBlocks: [
+      { type: 'intro', text: 'Withholding Tax (WHT) is Pakistan\'s most widespread tax collection mechanism. It is deducted at the source of a payment — before you receive your money. This reference guide covers the most important withholding tax sections for FY 2025–26.' },
+      { type: 'h2', text: 'What is Withholding Tax?' },
+      { type: 'p', text: 'Withholding tax is a mechanism where the payer deducts tax from the payment before remitting the balance to the recipient. The deducted tax is deposited with FBR. When you file your annual return, withholding tax already paid is adjusted against your total tax liability.' },
+      { type: 'h2', text: 'Section 149 — Withholding on Salary' },
+      { type: 'p', text: 'Employers deduct income tax from salaries on a monthly basis using the applicable slab rates. The employer is the withholding agent and deposits the deducted tax with FBR.' },
+      { type: 'h2', text: 'Section 153 — Contracts & Services' },
+      { type: 'table', headers: ['Nature of Payment', 'Company/AOP Rate', 'Individual Rate'], rows: [
+        ['Goods (sale to registered person)', '4%', '4.5%'],
+        ['Services', '8%', '10%'],
+        ['Contracts (construction, etc.)', '7%', '7.5%'],
+        ['IT & IT-enabled services (export)', '1%', '1%'],
+      ]},
+      { type: 'h2', text: 'Section 236 — Property Transactions' },
+      { type: 'table', headers: ['Transaction', 'Filer', 'Non-Filer'], rows: [
+        ['Property Purchase up to Rs. 50M (Sec 236K)', '3%', '12%'],
+        ['Property Purchase Rs. 50M–100M (Sec 236K)', '3.5%', '16%'],
+        ['Property Purchase above Rs. 100M (Sec 236K)', '4%', '20%'],
+        ['Property Sale up to Rs. 50M (Sec 236C)', '3%', '6%'],
+        ['Property Sale Rs. 50M–100M (Sec 236C)', '3.5%', '7%'],
+        ['Property Sale above Rs. 100M (Sec 236C)', '4%', '8%'],
+      ]},
+      { type: 'callout', text: 'All withholding taxes are adjustable — they are not final taxes (with some exceptions). File your annual return to receive credit for all WHT deducted and potentially claim a refund if more was deducted than your actual liability.' },
+    ],
   },
 ];
 
-export const getFeaturedPosts = () => BLOG_POSTS.filter(p => p.featured);
-export const getPostsByCategory = (cat) =>
-  cat === 'all' ? BLOG_POSTS : BLOG_POSTS.filter(p => p.category === cat);
-export const getPostBySlug = (slug) => BLOG_POSTS.find(p => p.slug === slug);
-export const getRelatedPosts = (post, limit = 3) =>
-  BLOG_POSTS.filter(p => p.id !== post.id && p.category === post.category).slice(0, limit);
+export const getFeaturedPosts  = () => BLOG_POSTS.filter(p => p.featured);
+export const getPostsByCategory = (cat) => cat === 'all' ? BLOG_POSTS : BLOG_POSTS.filter(p => p.category === cat);
+export const getPostBySlug      = (slug) => BLOG_POSTS.find(p => p.slug === slug);
+export const getRelatedPosts    = (post, limit = 3) => BLOG_POSTS.filter(p => p.id !== post.id && p.category === post.category).slice(0, limit);
