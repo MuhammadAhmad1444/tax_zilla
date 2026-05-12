@@ -429,43 +429,6 @@ const CategoryPage = ({ category }) => {
         faqs={category.faqs}
       />
 
-      {/* Explore Other Categories */}
-      <section className="section-padding" style={{ background: 'var(--color-surface-muted)' }}>
-        <div className="container-custom">
-          <SectionHeading
-            title="Explore Other Services"
-            subtitle="Browse our complete range of tax, corporate, and legal services"
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {SERVICE_CATEGORIES.filter((item) => item.id !== category.id)
-              .slice(0, 8)
-              .map((item) => {
-                const ItemIcon = CATEGORY_ICON_MAP[item.slug] || FileText;
-                return (
-                  <Link
-                    key={item.slug}
-                    to={`/services/${item.slug}`}
-                    className="group card-surface p-5 flex flex-col hover:border-[var(--color-gold)]/50 transition-all"
-                  >
-                    <div className="h-10 w-10 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all mb-4">
-                      <ItemIcon size={20} />
-                    </div>
-                    <div
-                      className="text-base font-bold mb-1 group-hover:text-[var(--color-gold)] transition-colors"
-                      style={{ fontFamily: 'var(--font-heading)' }}
-                    >
-                      {item.title}
-                    </div>
-                    <p className="text-xs text-[var(--color-text-muted)] leading-relaxed flex-grow">{item.shortDesc}</p>
-                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-gold)]">
-                      Explore <ArrowRight size={13} />
-                    </span>
-                  </Link>
-                );
-              })}
-          </div>
-        </div>
-      </section>
     </>
   );
 };
@@ -590,9 +553,6 @@ const SubservicePage = ({ service }) => {
           </div>
         </motion.div>
       </section>
-
-      {/* Stats */}
-      <StatsBanner />
 
       {/* Main Content + Sidebar */}
       <section className="section-padding bg-white">

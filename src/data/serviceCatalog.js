@@ -1,3 +1,212 @@
+/* ─── Smart content generation by service category & keywords ──────────── */
+
+const CATEGORY_PROCESSES = {
+  'tax-services-pakistan': [
+    'Initial consultation — understand your income sources and tax obligations',
+    'Document collection — salary slips, bank statements, business accounts',
+    'Return preparation — accurate calculation with all deductions applied',
+    'Client review — confirm figures before submission',
+    'FBR IRIS filing & acknowledgement receipt delivery',
+  ],
+  'provincial-sales-tax': [
+    'Registration eligibility check with relevant authority (PRA/SRB/KPRA/BRA)',
+    'Document preparation — business registration, NTN, address proof',
+    'Online portal filing and registration form submission',
+    'Follow-up with provincial authority for approval',
+    'STRN certificate issuance and monthly filing setup',
+  ],
+  'corporate-business-services': [
+    'Business structure consultation — Pvt Ltd, SMC, AOP, or sole proprietorship',
+    'Document preparation — CNIC, address proof, MOA/AOA drafting',
+    'SECP eServices filing and name reservation',
+    'Company incorporation and certificate of registration',
+    'NTN, bank account guidance, and post-registration compliance setup',
+  ],
+  'secp-related-services': [
+    'Requirement review and SECP portal eligibility check',
+    'Document preparation — resolutions, forms, and supporting papers',
+    'SECP eServices submission with all required attachments',
+    'Status tracking and SECP query resolution',
+    'Confirmation certificate or updated company documents delivery',
+  ],
+  'competition-commission-services': [
+    'Initial compliance assessment and CCP exposure review',
+    'Scope confirmation and documentation requirements briefing',
+    'Preparation of advisory report, submissions, or legal filings',
+    'Client review and sign-off on all deliverables',
+    'Submission to CCP / implementation support and compliance confirmation',
+  ],
+  'intellectual-property': [
+    'IP eligibility check and trademark/patent availability search',
+    'Application preparation — descriptions, class selection, drawings',
+    'IPO Pakistan online portal filing and fee submission',
+    'Examination tracking, objection handling if required',
+    'Certificate of registration delivery and renewal reminder setup',
+  ],
+  'legal-services': [
+    'Scope briefing — understand your legal requirement in detail',
+    'Legal drafting — agreements, notices, powers of attorney',
+    'Client review and revision rounds until final approval',
+    'Attestation, notarisation, or execution as required',
+    'Delivery of final signed/stamped legal document',
+  ],
+  'uae-tax-services': [
+    'UAE tax obligation review — VAT, Corporate Tax, Zakat',
+    'Document preparation — trade licence, Emirates ID, financial records',
+    'FTA portal registration or return filing',
+    'Compliance check and regulatory confirmation',
+    'Ongoing advisory and next filing deadline setup',
+  ],
+  'usa-tax-services': [
+    'US tax obligation review — federal, state, and LLC requirements',
+    'Document collection — SSN/ITIN, formation docs, income statements',
+    'IRS registration or return preparation',
+    'E-filing with IRS and state authorities',
+    'Confirmation and tax ID delivery',
+  ],
+  'ksa-tax-services': [
+    'KSA tax obligation assessment — ZATCA VAT, Corporate Tax, Zakat',
+    'Document preparation — CR, VAT certificate, business records',
+    'ZATCA portal registration or e-invoicing setup',
+    'Filing and compliance confirmation',
+    'Ongoing advisory and dual Pakistan–KSA compliance support',
+  ],
+  'uk-tax-services': [
+    'UK tax obligation review — Self Assessment, UTR, VAT',
+    'Document collection — passport, NI number, income records',
+    'HMRC registration or tax return filing',
+    'Submission and HMRC confirmation receipt',
+    'Pakistan–UK double taxation advisory and FBR declaration support',
+  ],
+  'audit-investigation': [
+    'FBR notice review and legal exposure assessment',
+    'Response strategy and documentation preparation',
+    'Legal reply drafting and client approval',
+    'Submission to FBR and query resolution',
+    'Audit closure confirmation and future compliance advisory',
+  ],
+  'overseas-pakistani-tax-services': [
+    'Non-resident status review and Pakistan tax obligation assessment',
+    'Document collection — NICOP, overseas income proof, property details',
+    'ATL activation and FBR Iris profile update',
+    'Return filing and wealth statement preparation',
+    'TRC certificate application and post-filing compliance advisory',
+  ],
+  default: [
+    'Initial consultation and scope confirmation',
+    'Document checklist and collection',
+    'Professional preparation and review',
+    'Filing, submission, or legal execution',
+    'Completion confirmation and delivery',
+  ],
+};
+
+const CATEGORY_DOCS = {
+  'tax-services-pakistan': [
+    'CNIC / NICOP (front & back)',
+    'Bank statements (last 6–12 months)',
+    'Salary certificate / employment letter',
+    'Business registration documents (if applicable)',
+    'Previous year's tax return (if filed)',
+    'Property documents or rental agreements (if applicable)',
+  ],
+  'provincial-sales-tax': [
+    'CNIC / NICOP of owner or directors',
+    'Business registration certificate / SECP documents',
+    'NTN registration certificate',
+    'Business address proof (utility bill or lease)',
+    'Bank account details and IBAN',
+    'Service description or goods category details',
+  ],
+  'corporate-business-services': [
+    'CNIC of all proposed directors / shareholders',
+    'Proposed company name (3 options)',
+    'Registered office address and utility bill',
+    'Memorandum & Articles of Association (we draft)',
+    'Directors' consent letters and Form 21',
+    'Initial share structure and paid-up capital details',
+  ],
+  'secp-related-services': [
+    'CNIC of all directors and shareholders',
+    'Existing SECP company registration number',
+    'Latest Form A and audited financial statements',
+    'Board resolution / special resolution (we draft)',
+    'Supporting legal documents specific to the service',
+    'SECP eServices login credentials',
+  ],
+  'competition-commission-services': [
+    'Company registration documents (SECP / trade licence)',
+    'Business operations overview and revenue details',
+    'Relevant contracts, agreements, or marketing materials',
+    'Existing compliance policies (if any)',
+    'CCP notices received (if any)',
+    'Sector and market share information',
+  ],
+  'intellectual-property': [
+    'CNIC / passport of applicant or company registration',
+    'Brand name, logo, or invention description',
+    'Trademark class selection (we advise)',
+    'Specimen / sample of the trademark or design',
+    'Power of attorney (if filing on behalf of client)',
+    'Priority claim documents (for international marks)',
+  ],
+  'legal-services': [
+    'CNIC of all parties involved',
+    'Details of the legal matter or agreement scope',
+    'Existing contracts or legal documents (if any)',
+    'Property documents (for property-related matters)',
+    'Court / authority notices received (if applicable)',
+    'Corporate documents (for company-related matters)',
+  ],
+  'uae-tax-services': [
+    'UAE Trade Licence copy',
+    'Emirates ID / passport of owner or manager',
+    'Memorandum of Association (UAE company)',
+    'Bank account statements (last 3 months)',
+    'Audited financial statements (for Corporate Tax)',
+    'Existing VAT registration certificate (if any)',
+  ],
+  'usa-tax-services': [
+    'SSN or ITIN (for individuals)',
+    'LLC / Corporation formation documents',
+    'EIN (Employer Identification Number) if existing',
+    'Bank statements and income records',
+    'W-2 / 1099 forms (for employed individuals)',
+    'Previous US tax returns (if filed)',
+  ],
+  'ksa-tax-services': [
+    'Saudi Commercial Registration (CR)',
+    'ZATCA VAT registration certificate (if existing)',
+    'Iqama / Saudi ID / passport of owner',
+    'Company financial statements',
+    'Pakistan NTN and FBR filing history',
+    'Details of Pakistan–Saudi Arabia transactions',
+  ],
+  'uk-tax-services': [
+    'Passport / National Identity document',
+    'National Insurance (NI) number',
+    'P60 / P45 / payslips (for salaried)',
+    'Self-employment income records / invoices',
+    'UK bank account statements',
+    'Pakistan CNIC and NTN (for dual obligations)',
+  ],
+  default: [
+    'CNIC / NICOP (front & back)',
+    'Business or employment details',
+    'Bank statements (relevant period)',
+    'Existing registration documents (if any)',
+    'Previous correspondence with authority (if any)',
+  ],
+};
+
+function getServiceProcess(categoryId) {
+  return CATEGORY_PROCESSES[categoryId] || CATEGORY_PROCESSES.default;
+}
+
+function getServiceDocs(categoryId) {
+  return CATEGORY_DOCS[categoryId] || CATEGORY_DOCS.default;
+}
+
 const DEFAULT_DELIVERABLES = [
   'Eligibility and requirements checklist',
   'Document review and gap analysis',
@@ -5,12 +214,7 @@ const DEFAULT_DELIVERABLES = [
   'Status update and next-step guidance',
 ];
 
-const DEFAULT_PROCESS = [
-  'Discovery and scope confirmation',
-  'Document collection and validation',
-  'Preparation and review',
-  'Submission and confirmation',
-];
+const DEFAULT_PROCESS = CATEGORY_PROCESSES.default;
 
 const buildMetaTitle = (title) => `${title} | Tax Zilla Consultancy`;
 
@@ -711,7 +915,8 @@ export const SERVICE_SUBSERVICES = RAW_SUBSERVICES.map((service) => ({
   metaTitle: service.metaTitle || buildMetaTitle(service.title),
   metaDescription: service.metaDescription || buildMetaDescription(service.title, service.shortDesc),
   deliverables: service.deliverables || DEFAULT_DELIVERABLES,
-  process: service.process || DEFAULT_PROCESS,
+  process: service.process || getServiceProcess(service.categoryId),
+  typicalDocs: service.typicalDocs || getServiceDocs(service.categoryId),
   faqs: service.faqs || buildFaqs(service.title),
   serviceType: service.serviceType || service.title,
 }));
