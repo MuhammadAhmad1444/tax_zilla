@@ -358,31 +358,26 @@ const Navbar = () => {
       }`}
     >
       {/* ── Main Nav Row ── */}
-      <div className={`transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3 sm:py-4'}`}>
+      <div className={`transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3 sm:py-3'}`}>
       <div className="container-custom">
         <div className="flex items-center justify-between">
 
-          {/* Logo + Brand — tightly unified */}
+          {/* Logo + Brand */}
           <Link to="/" className="flex min-w-0 flex-shrink-0 items-center">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="flex min-w-0 items-center"
-              style={{ gap: '14px' }}
+              className="flex min-w-0 items-center gap-2.5"
             >
               <img
                 src="/images/tax-zilla-logo.png"
                 alt="Tax Zilla logo"
                 className="shrink-0 rounded-full object-cover"
-                style={{ width: '90px', height: '90px', minWidth: '90px' }}
+                style={{ width: '40px', height: '40px' }}
                 loading="eager"
               />
               <h1
-                className="font-extrabold leading-none tracking-tight"
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-                  lineHeight: 1.05,
-                }}
+                className="text-xl sm:text-2xl font-bold leading-none"
+                style={{ fontFamily: 'var(--font-heading)' }}
               >
                 <span className="text-white">Tax </span>
                 <span className="text-gradient-gold">Zilla</span>
