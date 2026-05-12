@@ -585,7 +585,74 @@ export const SERVICE_CATEGORIES = [
 
 const RAW_SUBSERVICES = [
   // Tax Services Pakistan
-  { slug: 'income-tax-return-filing', title: 'Income Tax Return Filing', categoryId: 'tax-services-pakistan', shortDesc: 'Complete income tax return filing for individuals and companies.' },
+  {
+    slug: 'income-tax-return-filing',
+    title: 'Income Tax Return Filing',
+    categoryId: 'tax-services-pakistan',
+    shortDesc: 'Complete FBR income tax return filing for salaried individuals, businesspersons, freelancers, companies, and overseas Pakistanis — with full wealth statement and ATL compliance.',
+    deliverables: [
+      'Salaried Individual Tax Return — salary income, allowances, and employer deductions',
+      'Business / Sole Proprietor Return — profit & loss, business expenses, and tax payable',
+      'Company Annual Tax Return — corporate income, deductions, and advance tax adjustments',
+      'Freelancer Tax Return — foreign platform income with reduced Clause 133 rates',
+      'Rental Income Return — rental receipts, deductions, and property tax adjustments',
+      'Overseas Pakistani Return — foreign income, remittances, and local asset declarations',
+      'Agricultural Income Return — Punjab and other provincial income declarations',
+      'AOP (Association of Persons) Return — partnership income distribution and filings',
+      'Wealth Statement — complete asset, liability, and net worth reconciliation',
+      'ATL status maintenance — ensure Active Taxpayer List inclusion for lower WHT rates',
+      'Advance tax computation and challan preparation',
+      'Tax refund claim filing where overpayment is identified',
+    ],
+    typicalDocs: [
+      'CNIC / NICOP (front & back)',
+      'Salary certificate or Form 16 / payslips (for salaried)',
+      'Business accounts or profit & loss summary (for businesspersons)',
+      'Foreign platform income records — Payoneer, Wise, PayPal (for freelancers)',
+      'Rental agreements and rent receipts (for property income)',
+      'Property documents — purchase/sale deeds, valuation (for wealth statement)',
+      'Vehicle registration documents (for wealth statement)',
+      'Previous year filed return acknowledgement (if already a filer)',
+      'NTN number and FBR Iris login credentials',
+    ],
+    process: [
+      'Income assessment — identify all income sources, deductions, and applicable tax slabs',
+      'Document collection — salary slips, income records, property details, asset list',
+      'Tax computation — accurate calculation of tax payable with all eligible deductions',
+      'Wealth statement preparation — assets, liabilities, and net worth reconciliation',
+      'FBR Iris return filing, submission, and acknowledgement receipt delivery',
+    ],
+    faqs: [
+      {
+        q: 'Who is required to file an income tax return in Pakistan?',
+        a: 'Every person with taxable income above the exemption threshold must file a return. Additionally, anyone who owns property, a vehicle, has a business NTN, or has deducted withholding tax should file to maintain ATL status and claim refunds.',
+      },
+      {
+        q: 'What is the deadline for filing income tax returns?',
+        a: 'For salaried individuals and AOPs, the deadline is 30th September each year. For companies, it is 31st December. FBR may grant extensions. Late filing attracts penalties under Section 182.',
+      },
+      {
+        q: 'What is the difference between a filer and non-filer?',
+        a: 'A filer is someone on FBR\'s Active Taxpayer List (ATL) who has filed their return. Filers pay significantly lower withholding tax on bank transactions, property, vehicles, and contracts. Non-filers pay double or higher rates.',
+      },
+      {
+        q: 'Can freelancers benefit from a lower tax rate?',
+        a: 'Yes. IT and freelance exports earning through foreign platforms like Upwork, Fiverr, and Toptal are taxed at a reduced rate under Clause 133 of the Income Tax Ordinance. This is significantly lower than normal tax slabs.',
+      },
+      {
+        q: 'What is a Wealth Statement and is it mandatory?',
+        a: 'A Wealth Statement discloses all your assets (property, cash, vehicles, investments) and liabilities. It is mandatory for all individuals whose taxable income exceeds Rs. 500,000 or who own assets. Incorrect wealth statements can trigger FBR notices.',
+      },
+      {
+        q: 'Can I claim a tax refund if too much tax was deducted?',
+        a: 'Yes. If excess withholding tax was deducted from your salary, bank transactions, or business payments, you can claim a refund when filing your return. We identify all refund opportunities and file the claim with FBR.',
+      },
+      {
+        q: 'Can overseas Pakistanis file tax returns from abroad?',
+        a: 'Yes. Overseas Pakistanis with a NICOP can file returns remotely. If you have property, bank accounts, or any income in Pakistan, filing a return helps avoid higher withholding taxes and keeps your Pakistani assets legally documented.',
+      },
+    ],
+  },
   {
     slug: 'ntn-registration-modification',
     title: 'NTN Registration & Modification',
