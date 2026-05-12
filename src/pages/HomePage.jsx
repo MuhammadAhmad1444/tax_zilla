@@ -722,6 +722,64 @@ const HomePage = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
+          7b. PARTNERS & COLLABORATORS — LOGO STRIP
+      ══════════════════════════════════════════════ */}
+      <section className="py-14 bg-white border-t border-gray-100">
+        <div className="container-custom">
+          <h2 className="text-center text-xl sm:text-2xl font-extrabold text-gray-900 mb-10"
+            style={{ fontFamily: 'var(--font-heading)' }}>
+            Our Partners &amp; Collaborators
+          </h2>
+
+          {/* Logo grid — two rows */}
+          <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12">
+            {[
+              { name: 'Engro',       domain: 'engro.com' },
+              { name: 'ICMA',        domain: 'icmap.com.pk' },
+              { name: 'UBL',         domain: 'ubl.com.pk' },
+              { name: 'KCCI',        domain: 'kcci.com.pk' },
+              { name: 'PSEB',        domain: 'pseb.org.pk' },
+              { name: 'Telenor',     domain: 'telenor.com' },
+              { name: 'JS Bank',     domain: 'jsbank.com.pk' },
+              { name: 'ACCA',        domain: 'accaglobal.com' },
+              { name: 'Meezan Bank', domain: 'meezanbank.com' },
+              { name: 'SECP',        domain: 'secp.gov.pk' },
+              { name: 'P@SHA',       domain: 'p-asha.org' },
+              { name: 'NCC',         domain: 'ncc.com.pk' },
+              { name: 'HBL',         domain: 'hbl.com' },
+              { name: 'AWS',         domain: 'aws.amazon.com' },
+            ].map((partner) => (
+              <div
+                key={partner.name}
+                className="group flex items-center justify-center"
+                style={{ height: 52, width: 110 }}
+              >
+                <img
+                  src={`https://logo.clearbit.com/${partner.domain}`}
+                  alt={partner.name}
+                  className="max-h-[44px] max-w-[100px] w-auto h-auto object-contain transition-all duration-300"
+                  style={{ filter: 'grayscale(100%) opacity(0.5)' }}
+                  onMouseEnter={e => { e.currentTarget.style.filter = 'grayscale(0%) opacity(1)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.filter = 'grayscale(100%) opacity(0.5)'; }}
+                  onError={e => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextSibling.style.display = 'flex';
+                  }}
+                />
+                {/* Text fallback */}
+                <div
+                  className="items-center justify-center text-sm font-black tracking-tight text-gray-400 group-hover:text-gray-700 transition-colors"
+                  style={{ display: 'none', fontFamily: 'var(--font-heading)' }}
+                >
+                  {partner.name}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
           8. TESTIMONIALS
       ══════════════════════════════════════════════ */}
       <section className="section-padding bg-white">
