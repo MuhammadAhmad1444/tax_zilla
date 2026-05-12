@@ -57,51 +57,42 @@ const WhyChooseUsPage = () => {
         <meta name="description" content="Discover why 997+ clients across Pakistan, UAE, USA, and Saudi Arabia trust Tax Zilla. 10+ years expertise in FBR, SECP, and international tax." />
       </Helmet>
 
-      {/* ══ 1. HERO — FULL IMAGE ══════════════════════════ */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-        <img
-          src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1800&q=80"
-          alt="Professional tax consultancy"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0b1c29]/97 via-[#0b1c29]/85 to-[#0b1c29]/55" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,_rgba(212,175,55,0.12),_transparent_60%)]" />
+      {/* ══ 1. HERO — DARK NAVY (no image) ══════════════════ */}
+      <section className="relative overflow-hidden px-2 pb-20 pt-28 text-white dark-section sm:pb-24 sm:pt-36"
+        style={{ background: 'var(--color-brand-navy)' }}>
+        <div className="absolute inset-0 bg-brand-overlay opacity-70" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,_rgba(212,175,55,0.18),_transparent_60%)]" />
         <Grid />
-        <motion.div className="container-custom relative z-10 py-32" {...hero}>
-          <div className="max-w-3xl">
-            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1, duration: 0.5, ease: EASE_OUT }}
-              className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/40 bg-[var(--color-gold)]/10 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-gold)] mb-7 backdrop-blur-sm">
-              <Sparkles size={11} /> The Tax Zilla Difference
-            </motion.div>
-            <motion.h1 initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.18, duration: 0.6, ease: EASE_OUT }}
-              className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.05] mb-6"
-              style={{ fontFamily: 'var(--font-heading)' }}>
-              Why <span className="text-[var(--color-gold)]">997+</span><br />Clients Trust Us
-            </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28, duration: 0.5, ease: EASE_OUT }}
-              className="text-gray-300 text-lg sm:text-xl leading-relaxed mb-10 max-w-2xl">
-              In a market full of generic tax agents, Tax Zilla operates differently — qualified consultants, transparent pricing, dedicated case ownership, and commitment that does not end when your return is filed.
-            </motion.p>
-            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.38, duration: 0.45, ease: EASE_OUT }}
-              className="flex flex-wrap gap-4">
-              <Link to="/contact"
-                className="flex items-center gap-2 px-8 py-4 rounded-xl bg-[var(--color-gold)] text-black font-bold text-sm hover:bg-[var(--color-gold-dark)] transition-all shadow-xl shadow-[rgba(212,175,55,0.35)]">
-                Book Free Consultation <ArrowRight size={16} />
-              </Link>
-              <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-2 px-8 py-4 rounded-xl border border-white/25 bg-white/5 backdrop-blur-sm text-white font-semibold text-sm hover:border-[var(--color-gold)]/50 transition-all">
-                <MessageCircle size={16} /> Chat on WhatsApp
-              </a>
-            </motion.div>
-          </div>
+        <motion.div className="container-custom relative z-10 text-center max-w-4xl mx-auto" {...hero}>
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08, duration: 0.45, ease: EASE_OUT }}
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/35 bg-[var(--color-gold)]/10 px-5 py-2 text-[10px] font-bold uppercase tracking-[0.35em] text-[var(--color-gold)] mb-6">
+            <Sparkles size={11} /> The Tax Zilla Difference
+          </motion.div>
+          <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.16, duration: 0.55, ease: EASE_OUT }}
+            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight mb-5"
+            style={{ fontFamily: 'var(--font-heading)' }}>
+            Why <span className="text-[var(--color-gold)]">997+ Clients</span><br />Trust Tax Zilla
+          </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.26, duration: 0.5, ease: EASE_OUT }}
+            className="text-gray-300 text-base sm:text-xl leading-relaxed mb-10 max-w-3xl mx-auto">
+            In a market full of generic tax agents, Tax Zilla operates differently — qualified consultants, transparent pricing, dedicated case ownership, and commitment that does not end when your return is filed.
+          </motion.p>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.34, duration: 0.44, ease: EASE_OUT }}
+            className="flex flex-wrap justify-center gap-4">
+            <Link to="/contact"
+              className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[var(--color-gold)] text-black font-bold text-sm hover:bg-[var(--color-gold-dark)] transition-all shadow-lg shadow-[rgba(212,175,55,0.3)]">
+              Book Free Consultation <ArrowRight size={16} />
+            </Link>
+            <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 px-8 py-3.5 rounded-xl border border-white/20 bg-white/8 text-white font-semibold text-sm hover:border-[var(--color-gold)]/50 transition-all">
+              <MessageCircle size={16} /> Chat on WhatsApp
+            </a>
+          </motion.div>
         </motion.div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <div className="w-px h-12 bg-gradient-to-b from-transparent to-[var(--color-gold)] opacity-60" />
-        </div>
       </section>
 
       {/* ══ 2. STATS ═════════════════════════════════════ */}
@@ -160,35 +151,39 @@ const WhyChooseUsPage = () => {
               </div>
             </motion.div>
 
-            {/* Right — styled dark card with quote */}
+            {/* Right — real image with quote overlay */}
             <motion.div {...revealRight(0.1, reduce)}>
-              <div className="relative rounded-3xl overflow-hidden p-8 sm:p-10" style={{ background: 'var(--color-brand-navy)', minHeight: 400 }}>
-                <Grid />
-                <div className="relative z-10">
-                  <div className="text-6xl font-black leading-none mb-4" style={{ color: 'rgba(212,175,55,0.18)', fontFamily: 'var(--font-heading)' }}>"</div>
-                  <blockquote className="text-xl sm:text-2xl font-bold text-white leading-relaxed mb-8" style={{ fontFamily: 'var(--font-heading)' }}>
-                    We do not just file your tax return. We become your financial compliance partner — protecting you, reducing tax legally, and giving you total peace of mind.
+              <div className="relative rounded-3xl overflow-hidden" style={{ minHeight: 460 }}>
+                <img
+                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1000&q=80"
+                  alt="Tax Zilla team at work"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1c29]/95 via-[#0b1c29]/60 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="text-5xl font-black leading-none mb-3" style={{ color: 'rgba(212,175,55,0.25)', fontFamily: 'var(--font-heading)' }}>"</div>
+                  <blockquote className="text-lg sm:text-xl font-bold text-white leading-relaxed mb-5" style={{ fontFamily: 'var(--font-heading)' }}>
+                    We do not just file your return. We become your compliance partner — protecting you, reducing tax legally, and giving you total peace of mind.
                   </blockquote>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="h-11 w-11 rounded-2xl flex items-center justify-center text-base font-black text-black" style={{ background: 'var(--color-gold)' }}>TZ</div>
+                      <div className="h-10 w-10 rounded-xl flex items-center justify-center text-sm font-black text-black" style={{ background: 'var(--color-gold)' }}>TZ</div>
                       <div>
                         <div className="font-bold text-white text-sm">Tax Zilla Consultancy</div>
-                        <div className="text-[11px] text-gray-400">Lahore, Pakistan · Est. 2014</div>
+                        <div className="text-[10px] text-gray-400">Lahore · Est. 2014</div>
                       </div>
                     </div>
                     <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="var(--color-gold)" style={{ color: 'var(--color-gold)' }} />)}
+                      {[...Array(5)].map((_, i) => <Star key={i} size={13} fill="var(--color-gold)" style={{ color: 'var(--color-gold)' }} />)}
                     </div>
                   </div>
-                  {/* Stats row */}
-                  <div className="grid grid-cols-3 gap-3 mt-8 pt-6 border-t border-white/10">
-                    {[{ v: '997+', l: 'Clients' }, { v: '10+', l: 'Years' }, { v: '24/7', l: 'Support' }].map(s => (
-                      <div key={s.l} className="text-center">
-                        <div className="font-extrabold text-lg" style={{ color: 'var(--color-gold)' }}>{s.v}</div>
-                        <div className="text-[10px] text-gray-400">{s.l}</div>
-                      </div>
-                    ))}
+                </div>
+                {/* Floating top badge */}
+                <div className="absolute top-5 right-5 rounded-xl px-3 py-1.5 backdrop-blur-md border border-white/20"
+                  style={{ background: 'rgba(11,28,41,0.8)' }}>
+                  <div className="flex items-center gap-1.5">
+                    {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="var(--color-gold)" style={{ color: 'var(--color-gold)' }} />)}
+                    <span className="text-[10px] text-gray-300 ml-1">5.0 · 997+ clients</span>
                   </div>
                 </div>
               </div>
@@ -211,30 +206,38 @@ const WhyChooseUsPage = () => {
           <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={getStaggerContainer(reduce, 0.07)} initial="hidden" whileInView="visible" viewport={VIEWPORT_REVEAL}>
             {[
-              { icon: UserCheck,     title: 'Dedicated Case Consultant',   badge: 'Your expert for life',          desc: 'One senior consultant owns your case end-to-end. No handoffs, no confusion — just one expert who knows your complete financial picture.' },
-              { icon: BadgeCheck,    title: 'Transparent Pricing',          badge: 'Written quote before we start', desc: 'We confirm scope, timeline, and exact fees in writing before starting. No surprise invoices, no upsells, no hidden government fee markups.' },
-              { icon: Globe,         title: 'Multi-Country Expertise',      badge: 'PK · UAE · USA · KSA · UK',     desc: 'The rare firm handling Pakistan FBR, UAE FTA, US IRS, Saudi ZATCA, and UK HMRC — all from one team with genuine cross-border expertise.' },
-              { icon: Zap,           title: 'Deadline-Driven Delivery',     badge: 'Zero missed deadlines',         desc: 'We track every filing deadline proactively and send reminders before FBR due dates. Your compliance is never at risk.' },
-              { icon: Lock,          title: 'Strict Confidentiality',       badge: 'NDA-grade protection',          desc: 'Your financial data, portal credentials, and business information are handled under strict non-disclosure — never shared without consent.' },
-              { icon: HeartHandshake,title: '60-Day Post-Filing Support',   badge: '60 days included free',         desc: 'Our engagement does not end at submission. Available for FBR queries, notices, or clarifications for 60 days — no extra charge.' },
-              { icon: PhoneCall,     title: '24/7 WhatsApp Access',         badge: 'Always reachable',              desc: 'Tax emergencies do not follow office hours. Our WhatsApp is monitored around the clock for urgent FBR notices and portal issues.' },
-              { icon: ShieldCheck,   title: 'FBR Audit Defence',            badge: 'We represent you before FBR',   desc: 'If FBR selects your return for audit, we represent you and handle all correspondence — clients are never left alone facing FBR.' },
-              { icon: TrendingUp,    title: 'Proactive Tax Planning',       badge: 'Reduce, not just comply',       desc: 'We identify legal ways to reduce your tax liability, optimise your business structure, and plan proactively for the coming year.' },
+              { icon: UserCheck,     title: 'Dedicated Case Consultant',   badge: 'Your expert for life',          desc: 'One senior consultant owns your case end-to-end. No handoffs, no confusion — just one expert who knows your complete financial picture.',           img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=60' },
+              { icon: BadgeCheck,    title: 'Transparent Pricing',          badge: 'Written quote before we start', desc: 'We confirm scope, timeline, and exact fees in writing before starting. No surprise invoices, no upsells, no hidden government fee markups.',      img: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=60' },
+              { icon: Globe,         title: 'Multi-Country Expertise',      badge: 'PK · UAE · USA · KSA · UK',     desc: 'The rare firm handling Pakistan FBR, UAE FTA, US IRS, Saudi ZATCA, and UK HMRC — all from one team with genuine cross-border expertise.',           img: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=60' },
+              { icon: Zap,           title: 'Deadline-Driven Delivery',     badge: 'Zero missed deadlines',         desc: 'We track every filing deadline proactively and send reminders before FBR due dates. Your compliance is never at risk.',                           img: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=600&q=60' },
+              { icon: Lock,          title: 'Strict Confidentiality',       badge: 'NDA-grade protection',          desc: 'Your financial data, portal credentials, and business information are handled under strict non-disclosure — never shared without consent.',         img: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=600&q=60' },
+              { icon: HeartHandshake,title: '60-Day Post-Filing Support',   badge: '60 days included free',         desc: 'Our engagement does not end at submission. Available for FBR queries, notices, or clarifications for 60 days — no extra charge.',                  img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=60' },
+              { icon: PhoneCall,     title: '24/7 WhatsApp Access',         badge: 'Always reachable',              desc: 'Tax emergencies do not follow office hours. Our WhatsApp is monitored around the clock for urgent FBR notices and portal issues.',                img: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=60' },
+              { icon: ShieldCheck,   title: 'FBR Audit Defence',            badge: 'We represent you before FBR',   desc: 'If FBR selects your return for audit, we represent you and handle all correspondence — clients are never left alone facing FBR.',                   img: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=60' },
+              { icon: TrendingUp,    title: 'Proactive Tax Planning',       badge: 'Reduce, not just comply',       desc: 'We identify legal ways to reduce your tax liability, optimise your business structure, and plan proactively for the coming year.',                  img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=60' },
             ].map((item) => (
               <motion.div key={item.title} variants={getStaggerItem(reduce)}
-                className="group relative rounded-2xl bg-white border border-gray-100 p-7 overflow-hidden hover:border-[var(--color-gold)]/40 hover:shadow-xl transition-all duration-300">
-                <div className="absolute top-0 left-0 right-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" style={{ background: 'var(--color-gold)' }} />
-                <div className="mb-5 h-12 w-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
-                  style={{ background: 'rgba(212,175,55,0.1)', color: 'var(--color-gold)' }}>
-                  <item.icon size={22} />
+                className="group relative rounded-2xl bg-white border border-gray-100 overflow-hidden hover:shadow-2xl hover:border-[var(--color-gold)]/30 transition-all duration-300">
+                <div className="relative overflow-hidden" style={{ height: 160 }}>
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/10" />
+                  <div className="absolute top-0 left-0 right-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" style={{ background: 'var(--color-gold)' }} />
+                  <div className="absolute bottom-3 left-3 inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                    style={{ background: 'rgba(212,175,55,0.9)', color: '#000' }}>
+                    <CheckCircle size={8} /> {item.badge}
+                  </div>
                 </div>
-                <h3 className="text-base font-bold text-gray-900 mb-2 group-hover:text-[var(--color-gold)] transition-colors" style={{ fontFamily: 'var(--font-heading)' }}>
-                  {item.title}
-                </h3>
-                <p className="text-[13px] text-gray-500 leading-relaxed mb-4">{item.desc}</p>
-                <div className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
-                  style={{ background: 'rgba(212,175,55,0.08)', color: 'var(--color-gold)', border: '1px solid rgba(212,175,55,0.2)' }}>
-                  <CheckCircle size={9} /> {item.badge}
+                <div className="p-5">
+                  <div className="flex items-center gap-2.5 mb-3">
+                    <div className="h-9 w-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:scale-110"
+                      style={{ background: 'rgba(212,175,55,0.1)', color: 'var(--color-gold)' }}>
+                      <item.icon size={17} />
+                    </div>
+                    <h3 className="text-sm font-bold text-gray-900 group-hover:text-[var(--color-gold)] transition-colors leading-snug" style={{ fontFamily: 'var(--font-heading)' }}>
+                      {item.title}
+                    </h3>
+                  </div>
+                  <p className="text-[12.5px] text-gray-500 leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -420,33 +423,32 @@ const WhyChooseUsPage = () => {
             </h2>
             <p className="text-gray-500 text-sm">One firm, one team, handling your compliance wherever you operate</p>
           </motion.div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { flag: '🇵🇰', country: 'Pakistan',     desc: 'FBR · SECP · PRA · SRB',    color: '#22c55e' },
-              { flag: '🇦🇪', country: 'UAE',           desc: 'FTA VAT · Corporate Tax',   color: '#3b82f6' },
-              { flag: '🇺🇸', country: 'USA',           desc: 'IRS · LLC · ITIN',          color: '#ef4444' },
-              { flag: '🇸🇦', country: 'Saudi Arabia',  desc: 'ZATCA · VAT · Zakat',       color: '#f59e0b' },
-            ].map((c, i) => (
-              <motion.div key={c.country} {...revealScale(i * 0.07, reduce)}
-                className="group rounded-2xl border border-gray-200 bg-white p-6 text-center hover:border-[var(--color-gold)]/40 hover:shadow-lg transition-all">
-                <div className="text-5xl mb-3">{c.flag}</div>
-                <div className="font-bold text-gray-900 mb-1.5" style={{ fontFamily: 'var(--font-heading)' }}>{c.country}</div>
-                <div className="text-[11px] text-gray-400 leading-relaxed">{c.desc}</div>
-                <div className="mt-4 h-0.5 w-10 mx-auto rounded-full transition-all duration-300 group-hover:w-full" style={{ background: 'var(--color-gold)', opacity: 0.4 }} />
+              { flag: '🇵🇰', country: 'Pakistan',    city: 'Lahore HQ', desc: 'FBR · SECP · PRA · SRB', img: 'https://images.unsplash.com/photo-1567422222572-6d93c6a8a3b5?auto=format&fit=crop&w=600&q=60' },
+              { flag: '🇦🇪', country: 'UAE',          city: 'Dubai',     desc: 'FTA VAT · Corporate Tax', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=60' },
+              { flag: '🇺🇸', country: 'USA',          city: 'Remote',    desc: 'IRS · LLC · ITIN',        img: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?auto=format&fit=crop&w=600&q=60' },
+              { flag: '🇸🇦', country: 'Saudi Arabia', city: 'Riyadh',    desc: 'ZATCA · VAT · Zakat',     img: 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?auto=format&fit=crop&w=600&q=60' },
+            ].map((c) => (
+              <motion.div key={c.country} {...revealScale(0, reduce)}
+                className="group relative rounded-2xl overflow-hidden cursor-pointer" style={{ height: 220 }}>
+                <img src={c.img} alt={c.country} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
+                <div className="absolute top-0 left-0 right-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" style={{ background: 'var(--color-gold)' }} />
+                <div className="absolute inset-0 flex flex-col justify-end p-4">
+                  <div className="text-2xl mb-1">{c.flag}</div>
+                  <div className="font-bold text-white text-sm" style={{ fontFamily: 'var(--font-heading)' }}>{c.country}</div>
+                  <div className="text-[10px] text-gray-300">{c.city}</div>
+                  <div className="text-[10px] text-gray-400 mt-1">{c.desc}</div>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ══ 10. FINAL CTA — FULL IMAGE ═══════════════════ */}
-      <section className="relative overflow-hidden py-24">
-        <img
-          src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1800&q=80"
-          alt="Professional office"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0b1c29]/98 via-[#0b1c29]/92 to-[#0b1c29]/80" />
+      {/* ══ 10. FINAL CTA — DARK NAVY (no image) ════════════ */}
+      <section className="relative overflow-hidden py-20 dark-section" style={{ background: 'var(--color-brand-navy)' }}>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.1),_transparent_60%)]" />
         <Grid />
         <div className="container-custom relative z-10 text-center max-w-3xl mx-auto">
