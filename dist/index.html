@@ -77,10 +77,143 @@
 			"url": "https://thetaxzilla.com"
 		}
 		</script>
-		<script type="module" crossorigin src="/assets/index-96f28abb.js"></script>
+
+	<!-- ── Splash loader styles (inline = instant, no FOUC) ── -->
+	<style>
+		#tz-splash {
+			position: fixed;
+			inset: 0;
+			z-index: 99999;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background: #0b1c29;
+			gap: 0;
+			pointer-events: none;
+		}
+		/* Subtle gold grid */
+		#tz-splash::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			opacity: 0.04;
+			background-image:
+				linear-gradient(rgba(212,175,55,1) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px);
+			background-size: 60px 60px;
+		}
+		/* Gold radial glow */
+		#tz-splash::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: radial-gradient(ellipse at center, rgba(212,175,55,0.12) 0%, transparent 65%);
+			pointer-events: none;
+		}
+		.tz-splash-inner {
+			position: relative;
+			z-index: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 20px;
+			animation: tz-splash-in 0.5s ease both;
+		}
+		@keyframes tz-splash-in {
+			from { opacity: 0; transform: translateY(16px); }
+			to   { opacity: 1; transform: translateY(0); }
+		}
+		.tz-splash-logo {
+			width: 88px;
+			height: 88px;
+			border-radius: 50%;
+			-o-object-fit: cover;
+			   object-fit: cover;
+			box-shadow: 0 0 0 3px rgba(212,175,55,0.35), 0 8px 32px rgba(0,0,0,0.4);
+		}
+		.tz-splash-brand {
+			font-family: Georgia, 'Times New Roman', serif;
+			font-size: 2.6rem;
+			font-weight: 800;
+			line-height: 1;
+			letter-spacing: -0.5px;
+			color: #fff;
+		}
+		.tz-splash-brand span {
+			background: linear-gradient(135deg, #D4AF37, #E8C547);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+		.tz-splash-tagline {
+			font-size: 0.72rem;
+			font-weight: 600;
+			letter-spacing: 0.22em;
+			text-transform: uppercase;
+			color: rgba(255,255,255,0.4);
+			margin-top: -12px;
+		}
+		/* Progress bar */
+		.tz-splash-bar-wrap {
+			width: 160px;
+			height: 2px;
+			background: rgba(255,255,255,0.08);
+			border-radius: 999px;
+			overflow: hidden;
+			margin-top: 8px;
+		}
+		.tz-splash-bar {
+			height: 100%;
+			border-radius: 999px;
+			background: linear-gradient(90deg, #B8941F, #D4AF37, #E8C547);
+			animation: tz-bar 1.6s ease-in-out infinite;
+		}
+		@keyframes tz-bar {
+			0%   { width: 0%;   margin-left: 0%; }
+			50%  { width: 70%;  margin-left: 15%; }
+			100% { width: 0%;   margin-left: 100%; }
+		}
+		/* Dot pulse */
+		.tz-splash-dots {
+			display: flex;
+			gap: 6px;
+			margin-top: 4px;
+		}
+		.tz-splash-dots span {
+			width: 5px;
+			height: 5px;
+			border-radius: 50%;
+			background: #D4AF37;
+			animation: tz-dot 1.2s ease-in-out infinite;
+		}
+		.tz-splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+		.tz-splash-dots span:nth-child(3) { animation-delay: 0.4s; }
+		@keyframes tz-dot {
+			0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+			40%            { opacity: 1;   transform: scale(1.2); }
+		}
+	</style>
+		<script type="module" crossorigin src="/assets/index-20c8d41d.js"></script>
 		<link rel="stylesheet" href="/assets/index-7d1522f9.css">
 	</head>
 	<body>
+
+		<!-- ── Branded splash screen (shows instantly, removed by main.jsx) ── -->
+		<div id="tz-splash">
+			<div class="tz-splash-inner">
+				<img class="tz-splash-logo" src="/images/tax-zilla-logo.png" alt="Tax Zilla" />
+				<div class="tz-splash-brand">Tax <span>Zilla</span></div>
+				<div class="tz-splash-tagline">Tax &amp; Legal Consultancy</div>
+				<div class="tz-splash-bar-wrap">
+					<div class="tz-splash-bar"></div>
+				</div>
+				<div class="tz-splash-dots">
+					<span></span><span></span><span></span>
+				</div>
+			</div>
+		</div>
+
 		<div id="root"></div>
 		
 	</body>
