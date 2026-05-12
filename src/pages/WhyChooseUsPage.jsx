@@ -425,7 +425,7 @@ const WhyChooseUsPage = () => {
           </motion.div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { flag: '🇵🇰', country: 'Pakistan',    city: 'Lahore HQ', desc: 'FBR · SECP · PRA · SRB', img: 'https://images.unsplash.com/photo-1567422222572-6d93c6a8a3b5?auto=format&fit=crop&w=600&q=60' },
+              { flag: '🇵🇰', country: 'Pakistan',    city: 'Lahore HQ', desc: 'FBR · SECP · PRA · SRB', img: 'https://images.unsplash.com/photo-1582650949026-2e8e2b87ce87?auto=format&fit=crop&w=600&q=60' },
               { flag: '🇦🇪', country: 'UAE',          city: 'Dubai',     desc: 'FTA VAT · Corporate Tax', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=60' },
               { flag: '🇺🇸', country: 'USA',          city: 'Remote',    desc: 'IRS · LLC · ITIN',        img: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?auto=format&fit=crop&w=600&q=60' },
               { flag: '🇸🇦', country: 'Saudi Arabia', city: 'Riyadh',    desc: 'ZATCA · VAT · Zakat',     img: 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?auto=format&fit=crop&w=600&q=60' },
