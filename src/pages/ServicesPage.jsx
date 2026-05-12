@@ -40,7 +40,8 @@ const AREA_LABELS = {
   'ksa-tax-services': 'Saudi Arabia',
 };
 
-const FILTERS = [
+/* ── Row 1: Category filters ─────────────────────────── */
+const CATEGORY_FILTERS = [
   { id: 'all', label: 'All Services', slugs: [] },
   {
     id: 'tax',
@@ -76,7 +77,59 @@ const FILTERS = [
       'uae-tax-services',
       'usa-tax-services',
       'ksa-tax-services',
+      'uk-tax-services',
     ],
+  },
+];
+
+/* ── Row 2: Country filters ──────────────────────────── */
+const COUNTRY_FILTERS = [
+  { id: 'all-countries', label: 'All Countries', flag: '🌍', slugs: [] },
+  {
+    id: 'pakistan',
+    label: 'Pakistan',
+    flag: '🇵🇰',
+    slugs: [
+      'tax-services-pakistan',
+      'provincial-sales-tax',
+      'individual-tax-services',
+      'high-demand-individual-services',
+      'certificates-compliance',
+      'audit-investigation',
+      'business-tax-planning',
+      'corporate-business-services',
+      'intellectual-property',
+      'legal-services',
+      'additional-registrations',
+      'software-it-services',
+      'engineering-services',
+      'visa-immigration-tax-services',
+      'overseas-pakistani-tax-services',
+    ],
+  },
+  {
+    id: 'uae',
+    label: 'UAE',
+    flag: '🇦🇪',
+    slugs: ['uae-tax-services'],
+  },
+  {
+    id: 'usa',
+    label: 'USA',
+    flag: '🇺🇸',
+    slugs: ['usa-tax-services'],
+  },
+  {
+    id: 'ksa',
+    label: 'Saudi Arabia',
+    flag: '🇸🇦',
+    slugs: ['ksa-tax-services'],
+  },
+  {
+    id: 'uk',
+    label: 'UK',
+    flag: '🇬🇧',
+    slugs: ['uk-tax-services'],
   },
 ];
 
@@ -109,12 +162,18 @@ const ServicesPage = () => {
   const navigate = useNavigate();
   const { reduce, hero } = usePageMotion();
   const [activeFilter, setActiveFilter] = useState('all');
+  const [activeCountry, setActiveCountry] = useState('all-countries');
 
-  const activeConfig = FILTERS.find((f) => f.id === activeFilter);
-  const visibleCategories =
-    activeFilter === 'all'
-      ? SERVICE_CATEGORIES
-      : SERVICE_CATEGORIES.filter((c) => activeConfig?.slugs.includes(c.slug));
+  const catConfig     = CATEGORY_FILTERS.find((f) => f.id === activeFilter);
+  const countryConfig = COUNTRY_FILTERS.find((f) => f.id === activeCountry);
+
+  const visibleCategories = SERVICE_CATEGORIES.filter((c) => {
+    const passCategory =
+      activeFilter === 'all' || catConfig?.slugs.includes(c.slug);
+    const passCountry =
+      activeCountry === 'all-countries' || countryConfig?.slugs.includes(c.slug);
+    return passCategory && passCountry;
+  });
 
   return (
     <>
@@ -207,20 +266,39 @@ const ServicesPage = () => {
       <section className="section-padding bg-white">
         <div className="container-custom">
 
-          {/* Filter pills */}
-          <div className="mb-10 flex flex-wrap justify-center gap-2 sm:gap-3">
-            {FILTERS.map((filter) => (
+          {/* ── Row 1: Category filters ── */}
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-4">
+            {CATEGORY_FILTERS.map((filter) => (
               <button
                 key={filter.id}
                 type="button"
-                onClick={() => setActiveFilter(filter.id)}
-                className={`rounded-full border px-4 py-2 text-[11px] font-bold uppercase tracking-wider transition-all sm:px-6 ${
+                onClick={() => { setActiveFilter(filter.id); setActiveCountry('all-countries'); }}
+                className={`rounded-full border px-5 py-2 text-[11px] font-bold uppercase tracking-wider transition-all ${
                   activeFilter === filter.id
                     ? 'bg-[var(--color-gold)] text-black border-[var(--color-gold)] shadow-lg shadow-[rgba(212,175,55,0.25)]'
                     : 'bg-white text-gray-600 border-gray-200 hover:border-[var(--color-gold)]/50 hover:text-[var(--color-brand-navy)]'
                 }`}
               >
                 {filter.label}
+              </button>
+            ))}
+          </div>
+
+          {/* ── Row 2: Country filters (smaller) ── */}
+          <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-10">
+            {COUNTRY_FILTERS.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => { setActiveCountry(c.id); setActiveFilter('all'); }}
+                className={`rounded-full border px-3 py-1 text-[10px] font-semibold transition-all flex items-center gap-1 ${
+                  activeCountry === c.id
+                    ? 'bg-[var(--color-brand-navy)] text-[var(--color-gold)] border-[var(--color-brand-navy)]'
+                    : 'bg-gray-50 text-gray-500 border-gray-200 hover:border-[var(--color-brand-navy)]/40 hover:text-[var(--color-brand-navy)]'
+                }`}
+              >
+                <span>{c.flag}</span>
+                <span>{c.label}</span>
               </button>
             ))}
           </div>

@@ -43,6 +43,7 @@ const SERVICES_COLUMNS = [
       'uae-tax-services',
       'usa-tax-services',
       'ksa-tax-services',
+      'uk-tax-services',
     ],
   },
 ];

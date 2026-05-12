@@ -269,6 +269,37 @@ export const SERVICE_CATEGORIES = [
       },
     ],
   },
+  {
+    id: 'uk-tax-services',
+    slug: 'uk-tax-services',
+    title: 'UK Tax & Business Services',
+    shortDesc: 'HMRC Self Assessment, UTR registration, UK company formation, VAT registration, and tax advisory for Pakistanis in the UK.',
+    heroEyebrow: 'UK Compliance',
+    heroSubhead: 'Expert UK tax services for Pakistanis in the United Kingdom — from HMRC registration to self-assessment filing and company formation.',
+    areaServed: 'United Kingdom',
+    faqs: [
+      {
+        q: 'Who needs to file a Self Assessment tax return in the UK?',
+        a: 'You must file a Self Assessment if you are self-employed, earn over £100,000, have rental income, or have foreign income. Pakistanis working or running a business in the UK typically need to register with HMRC.',
+      },
+      {
+        q: 'What is a UTR number and how do I get one?',
+        a: 'A Unique Taxpayer Reference (UTR) is your personal 10-digit tax reference issued by HMRC. You need it for Self Assessment filing and running a UK business. We handle the full registration process.',
+      },
+      {
+        q: 'Can I register a UK Limited Company from Pakistan?',
+        a: 'Yes. UK Limited Companies can be registered remotely through Companies House. We assist with full incorporation, registered office address, and HMRC registration.',
+      },
+      {
+        q: 'Do I need to pay tax in both Pakistan and the UK?',
+        a: 'Pakistan and the UK have a Double Taxation Agreement. We advise on how to structure your income to avoid being taxed twice and ensure compliance with both HMRC and FBR.',
+      },
+      {
+        q: 'How do I get started with UK tax services?',
+        a: 'Contact us via WhatsApp or our enquiry form. We will assess your UK tax obligations, confirm the scope of work, and provide a clear quote before starting.',
+      },
+    ],
+  },
 ];
 
 const RAW_SUBSERVICES = [
@@ -415,6 +446,16 @@ const RAW_SUBSERVICES = [
   { slug: 'pak-ksa-double-taxation', title: 'Double Taxation Advisory (Pakistan–KSA)', categoryId: 'ksa-tax-services', shortDesc: 'Advisory on Pakistan–Saudi Arabia double taxation treaty benefits and relief claims.' },
   { slug: 'ksa-export-services-tax', title: 'Export of Services Tax Structuring', categoryId: 'ksa-tax-services', shortDesc: 'Tax structuring for Pakistani businesses exporting services to Saudi Arabia.' },
   { slug: 'ksa-international-compliance', title: 'Compliance Support for International Clients', categoryId: 'ksa-tax-services', shortDesc: 'Ongoing tax and regulatory compliance support for businesses with Pakistan–KSA operations.' },
+
+  // UK Tax Services
+  { slug: 'uk-self-assessment', title: 'UK Self Assessment Tax Return', categoryId: 'uk-tax-services', shortDesc: 'HMRC Self Assessment filing for Pakistanis living, working, or running businesses in the UK.' },
+  { slug: 'uk-utr-registration', title: 'UTR Number Registration (HMRC)', categoryId: 'uk-tax-services', shortDesc: 'Register with HMRC and obtain your Unique Taxpayer Reference (UTR) number quickly.' },
+  { slug: 'uk-company-formation', title: 'UK Limited Company Formation', categoryId: 'uk-tax-services', shortDesc: 'Remote UK company registration via Companies House — including registered office address.' },
+  { slug: 'uk-vat-registration', title: 'UK VAT Registration & Returns', categoryId: 'uk-tax-services', shortDesc: 'HMRC VAT registration, quarterly VAT return filing, and Making Tax Digital compliance.' },
+  { slug: 'uk-payroll-paye', title: 'UK Payroll & PAYE Setup', categoryId: 'uk-tax-services', shortDesc: 'Employer PAYE registration and payroll management for UK businesses.' },
+  { slug: 'uk-double-taxation', title: 'Pakistan–UK Double Taxation Advisory', categoryId: 'uk-tax-services', shortDesc: 'Advice on the Pakistan–UK Double Taxation Agreement to avoid being taxed in both countries.' },
+  { slug: 'uk-rental-income-tax', title: 'UK Rental Income Tax Filing', categoryId: 'uk-tax-services', shortDesc: 'Declaration and tax filing for rental income earned from UK properties.' },
+  { slug: 'uk-fbr-foreign-income', title: 'FBR Declaration for UK Income', categoryId: 'uk-tax-services', shortDesc: 'Declare UK-sourced income in Pakistan FBR returns and manage foreign income compliance.' },
 ];
 
 export const SERVICE_SUBSERVICES = RAW_SUBSERVICES.map((service) => ({
