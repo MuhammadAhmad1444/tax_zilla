@@ -3,7 +3,7 @@
 const CATEGORY_PROCESSES = {
   'tax-services-pakistan': [
     'Initial consultation — understand your income sources and tax obligations',
-    'Document collection — salary slips, bank statements, business accounts',
+    'Document collection — salary slips, income records, business accounts',
     'Return preparation — accurate calculation with all deductions applied',
     'Client review — confirm figures before submission',
     'FBR IRIS filing & acknowledgement receipt delivery',
@@ -104,7 +104,7 @@ const CATEGORY_PROCESSES = {
 const CATEGORY_DOCS = {
   'tax-services-pakistan': [
     'CNIC / NICOP (front & back)',
-    'Bank statements (last 6–12 months)',
+    'Income tax computation / profit & loss summary (if available)',
     'Salary certificate / employment letter',
     'Business registration documents (if applicable)',
     'Previous year's tax return (if filed)',
@@ -162,7 +162,7 @@ const CATEGORY_DOCS = {
     'UAE Trade Licence copy',
     'Emirates ID / passport of owner or manager',
     'Memorandum of Association (UAE company)',
-    'Bank account statements (last 3 months)',
+    'Trade licence and company financial summary',
     'Audited financial statements (for Corporate Tax)',
     'Existing VAT registration certificate (if any)',
   ],
@@ -170,7 +170,7 @@ const CATEGORY_DOCS = {
     'SSN or ITIN (for individuals)',
     'LLC / Corporation formation documents',
     'EIN (Employer Identification Number) if existing',
-    'Bank statements and income records',
+    'W-2 / 1099 income forms or self-employment profit records',
     'W-2 / 1099 forms (for employed individuals)',
     'Previous US tax returns (if filed)',
   ],
@@ -187,13 +187,13 @@ const CATEGORY_DOCS = {
     'National Insurance (NI) number',
     'P60 / P45 / payslips (for salaried)',
     'Self-employment income records / invoices',
-    'UK bank account statements',
+    'UK income records, invoices, or employer payslips',
     'Pakistan CNIC and NTN (for dual obligations)',
   ],
   default: [
     'CNIC / NICOP (front & back)',
     'Business or employment details',
-    'Bank statements (relevant period)',
+    'Existing registration or filing history documents (if any)',
     'Existing registration documents (if any)',
     'Previous correspondence with authority (if any)',
   ],
