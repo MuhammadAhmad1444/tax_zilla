@@ -1,16 +1,19 @@
 Options -MultiViews
-RewriteEngine On
+DirectoryIndex dist/index.html
 
-# ── 1. Let /dist/ requests pass through as-is ────────────────
+RewriteEngine On
+RewriteBase /
+
+# Already in /dist/ — serve directly
 RewriteCond %{REQUEST_URI} ^/dist/
 RewriteRule ^ - [L]
 
-# ── 2. Root URL → built index ────────────────────────────────
-RewriteRule ^$ /dist/index.html [L]
+# Root or index.html → always serve built app
+RewriteRule ^(index\.html)?$ /dist/index.html [L,QSA]
 
-# ── 3. Real asset files (JS, CSS, images, fonts) in dist/ ────
+# Real asset files inside dist/ → serve them
 RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f
-RewriteRule ^(.+)$ /dist/$1 [L]
+RewriteRule ^(.+)$ /dist/$1 [L,QSA]
 
-# ── 4. SPA fallback — all routes → React app ─────────────────
-RewriteRule ^ /dist/index.html [L]
+# SPA fallback — all React routes → built app
+RewriteRule ^ /dist/index.html [L,QSA]
