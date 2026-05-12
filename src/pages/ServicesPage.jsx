@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   FileText, MapPin, Building2, Shield, Settings, Wrench,
   Scale, Globe, Users, CheckCircle, User, Search, TrendingUp,
@@ -84,53 +84,25 @@ const CATEGORY_FILTERS = [
 
 /* ── Row 2: Country filters ──────────────────────────── */
 const COUNTRY_FILTERS = [
-  { id: 'all-countries', label: 'All Countries', flag: '🌍', slugs: [] },
   {
-    id: 'pakistan',
-    label: 'Pakistan',
-    flag: '🇵🇰',
+    id: 'all-countries', label: 'All Countries', flag: '🌍',
+    slugs: [], href: null,
+  },
+  {
+    id: 'pakistan', label: 'Pakistan', flag: '🇵🇰', href: null,
     slugs: [
-      'tax-services-pakistan',
-      'provincial-sales-tax',
-      'individual-tax-services',
-      'high-demand-individual-services',
-      'certificates-compliance',
-      'audit-investigation',
-      'business-tax-planning',
-      'corporate-business-services',
-      'intellectual-property',
-      'legal-services',
-      'additional-registrations',
-      'software-it-services',
-      'engineering-services',
-      'visa-immigration-tax-services',
-      'overseas-pakistani-tax-services',
+      'tax-services-pakistan', 'provincial-sales-tax', 'individual-tax-services',
+      'high-demand-individual-services', 'certificates-compliance',
+      'audit-investigation', 'business-tax-planning', 'corporate-business-services',
+      'intellectual-property', 'legal-services', 'additional-registrations',
+      'software-it-services', 'engineering-services',
+      'visa-immigration-tax-services', 'overseas-pakistani-tax-services',
     ],
   },
-  {
-    id: 'uae',
-    label: 'UAE',
-    flag: '🇦🇪',
-    slugs: ['uae-tax-services'],
-  },
-  {
-    id: 'usa',
-    label: 'USA',
-    flag: '🇺🇸',
-    slugs: ['usa-tax-services'],
-  },
-  {
-    id: 'ksa',
-    label: 'Saudi Arabia',
-    flag: '🇸🇦',
-    slugs: ['ksa-tax-services'],
-  },
-  {
-    id: 'uk',
-    label: 'UK',
-    flag: '🇬🇧',
-    slugs: ['uk-tax-services'],
-  },
+  { id: 'uae', label: 'UAE',          flag: '🇦🇪', href: '/services/uae-tax-services', slugs: [] },
+  { id: 'usa', label: 'USA',          flag: '🇺🇸', href: '/services/usa-tax-services', slugs: [] },
+  { id: 'ksa', label: 'Saudi Arabia', flag: '🇸🇦', href: '/services/ksa-tax-services', slugs: [] },
+  { id: 'uk',  label: 'UK',           flag: '🇬🇧', href: '/services/uk-tax-services',  slugs: [] },
 ];
 
 const TRUST_STATS = [
@@ -286,21 +258,34 @@ const ServicesPage = () => {
 
           {/* ── Row 2: Country filters (smaller) ── */}
           <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-10">
-            {COUNTRY_FILTERS.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => { setActiveCountry(c.id); setActiveFilter('all'); }}
-                className={`rounded-full border px-3 py-1 text-[10px] font-semibold transition-all flex items-center gap-1 ${
-                  activeCountry === c.id
-                    ? 'bg-[var(--color-brand-navy)] text-[var(--color-gold)] border-[var(--color-brand-navy)]'
-                    : 'bg-gray-50 text-gray-500 border-gray-200 hover:border-[var(--color-brand-navy)]/40 hover:text-[var(--color-brand-navy)]'
-                }`}
-              >
-                <span>{c.flag}</span>
-                <span>{c.label}</span>
-              </button>
-            ))}
+            {COUNTRY_FILTERS.map((c) => {
+              const pillClass = `rounded-full border px-3 py-1 text-[10px] font-semibold transition-all flex items-center gap-1.5 ${
+                activeCountry === c.id
+                  ? 'bg-[var(--color-brand-navy)] text-[var(--color-gold)] border-[var(--color-brand-navy)]'
+                  : 'bg-gray-50 text-gray-500 border-gray-200 hover:border-[var(--color-brand-navy)]/40 hover:text-[var(--color-brand-navy)]'
+              }`;
+              const inner = <><span>{c.flag}</span><span>{c.label}</span></>;
+
+              /* Country-specific pages → navigate directly */
+              if (c.href) {
+                return (
+                  <Link key={c.id} to={c.href} className={pillClass}>
+                    {inner}
+                  </Link>
+                );
+              }
+              /* All Countries / Pakistan → filter the grid */
+              return (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => { setActiveCountry(c.id); setActiveFilter('all'); }}
+                  className={pillClass}
+                >
+                  {inner}
+                </button>
+              );
+            })}
           </div>
 
           {/* Count */}
