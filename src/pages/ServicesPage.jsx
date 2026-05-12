@@ -279,24 +279,21 @@ const ServicesPage = () => {
 
           {/* ── Search bar ── */}
           <div className="max-w-xl mx-auto mb-8">
-            <div className="relative group">
-              <Search
-                size={16}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[var(--color-gold)] transition-colors pointer-events-none"
-              />
+            <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border border-gray-200 bg-white shadow-sm focus-within:border-[var(--color-gold)] focus-within:ring-2 focus-within:ring-[var(--color-gold)]/20 transition-all">
+              <Search size={16} className="text-gray-400 flex-shrink-0" style={{ minWidth: 16 }} />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search services — try 'NTN', 'VAT', 'company', 'UK'..."
-                className="w-full pl-11 pr-10 py-3.5 rounded-2xl border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 outline-none focus:border-[var(--color-gold)] focus:ring-2 focus:ring-[var(--color-gold)]/20 transition-all shadow-sm"
+                className="flex-1 bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400 min-w-0"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                  aria-label="Clear search"
+                  className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 text-xs font-bold"
+                  aria-label="Clear"
                 >
                   ✕
                 </button>
