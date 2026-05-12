@@ -616,48 +616,53 @@ const HomePage = () => {
             Our Partners &amp; Collaborators
           </h2>
 
-          {/* Logo grid — two rows */}
-          <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12">
+          {/* Styled brand tiles — grayscale → full colour on hover */}
+          <div className="flex flex-wrap justify-center items-center gap-5">
             {[
-              { name: 'Engro',       domain: 'engro.com' },
-              { name: 'ICMA',        domain: 'icmap.com.pk' },
-              { name: 'UBL',         domain: 'ubl.com.pk' },
-              { name: 'KCCI',        domain: 'kcci.com.pk' },
-              { name: 'PSEB',        domain: 'pseb.org.pk' },
-              { name: 'Telenor',     domain: 'telenor.com' },
-              { name: 'JS Bank',     domain: 'jsbank.com.pk' },
-              { name: 'ACCA',        domain: 'accaglobal.com' },
-              { name: 'Meezan Bank', domain: 'meezanbank.com' },
-              { name: 'SECP',        domain: 'secp.gov.pk' },
-              { name: 'P@SHA',       domain: 'p-asha.org' },
-              { name: 'NCC',         domain: 'ncc.com.pk' },
-              { name: 'HBL',         domain: 'hbl.com' },
-              { name: 'AWS',         domain: 'aws.amazon.com' },
-            ].map((partner) => (
+              { n: 'engro',   bg: '#fff',    tc: '#2d7a2d', bc: '#d1e7d1', fw: '800', fs: '17px', fi: true  },
+              { n: 'ICMA',    bg: '#1a3a6e', tc: '#fff',    bc: '#1a3a6e', fw: '900', fs: '13px', fi: false },
+              { n: 'UBL',     bg: '#003087', tc: '#fff',    bc: '#003087', fw: '900', fs: '15px', fi: false },
+              { n: 'KCCI',    bg: '#fff',    tc: '#8b0000', bc: '#e8c8c8', fw: '900', fs: '14px', fi: false },
+              { n: 'PSEB',    bg: '#1d6a2e', tc: '#fff',    bc: '#1d6a2e', fw: '900', fs: '13px', fi: false },
+              { n: 'telenor', bg: '#fff',    tc: '#e4003a', bc: '#fdd',    fw: '800', fs: '16px', fi: true  },
+              { n: 'JS',      bg: '#f5a300', tc: '#000',    bc: '#f5a300', fw: '900', fs: '22px', fi: false },
+              { n: 'ACCA',    bg: '#8b0000', tc: '#fff',    bc: '#8b0000', fw: '900', fs: '14px', fi: false },
+              { n: 'Meezan',  bg: '#fff',    tc: '#5b2d8e', bc: '#e0d0f0', fw: '700', fs: '12px', fi: false },
+              { n: 'SECP',    bg: '#006633', tc: '#fff',    bc: '#006633', fw: '900', fs: '13px', fi: false },
+              { n: 'P@SHA',   bg: '#0057b8', tc: '#fff',    bc: '#0057b8', fw: '900', fs: '12px', fi: false },
+              { n: 'NCC',     bg: '#1b2a5e', tc: '#fff',    bc: '#1b2a5e', fw: '900', fs: '17px', fi: false },
+              { n: 'HBL',     bg: '#00857d', tc: '#fff',    bc: '#00857d', fw: '900', fs: '16px', fi: false },
+              { n: 'aws',     bg: '#fff',    tc: '#232f3e', bc: '#e0d8c8', fw: '800', fs: '17px', fi: false },
+            ].map((b) => (
               <div
-                key={partner.name}
-                className="group flex items-center justify-center"
-                style={{ height: 52, width: 110 }}
+                key={b.n}
+                className="flex-shrink-0 flex items-center justify-center rounded-xl cursor-default select-none"
+                style={{
+                  width: 96, height: 44,
+                  background: b.bg,
+                  color: b.tc,
+                  border: `1.5px solid ${b.bc}`,
+                  fontSize: b.fs,
+                  fontWeight: b.fw,
+                  fontStyle: b.fi ? 'italic' : 'normal',
+                  letterSpacing: '0.02em',
+                  fontFamily: 'var(--font-heading)',
+                  filter: 'grayscale(90%) opacity(0.5)',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+                  transition: 'all 0.25s ease',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.filter = 'grayscale(0%) opacity(1)';
+                  e.currentTarget.style.transform = 'scale(1.08)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.14)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.filter = 'grayscale(90%) opacity(0.5)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)';
+                }}
               >
-                <img
-                  src={`https://logo.clearbit.com/${partner.domain}`}
-                  alt={partner.name}
-                  className="max-h-[44px] max-w-[100px] w-auto h-auto object-contain transition-all duration-300"
-                  style={{ filter: 'grayscale(100%) opacity(0.5)' }}
-                  onMouseEnter={e => { e.currentTarget.style.filter = 'grayscale(0%) opacity(1)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.filter = 'grayscale(100%) opacity(0.5)'; }}
-                  onError={e => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextSibling.style.display = 'flex';
-                  }}
-                />
-                {/* Text fallback */}
-                <div
-                  className="items-center justify-center text-sm font-black tracking-tight text-gray-400 group-hover:text-gray-700 transition-colors"
-                  style={{ display: 'none', fontFamily: 'var(--font-heading)' }}
-                >
-                  {partner.name}
-                </div>
+                {b.n}
               </div>
             ))}
           </div>
