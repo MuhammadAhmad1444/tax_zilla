@@ -586,7 +586,67 @@ export const SERVICE_CATEGORIES = [
 const RAW_SUBSERVICES = [
   // Tax Services Pakistan
   { slug: 'income-tax-return-filing', title: 'Income Tax Return Filing', categoryId: 'tax-services-pakistan', shortDesc: 'Complete income tax return filing for individuals and companies.' },
-  { slug: 'ntn-registration-modification', title: 'NTN Registration & Modification', categoryId: 'tax-services-pakistan', shortDesc: 'Fast-track NTN registration and profile modification on FBR Iris.' },
+  {
+    slug: 'ntn-registration-modification',
+    title: 'NTN Registration & Modification',
+    categoryId: 'tax-services-pakistan',
+    shortDesc: 'Fast-track NTN registration on FBR Iris for salaried individuals, businesses, freelancers, and overseas Pakistanis — with full documentation support and ATL activation.',
+    deliverables: [
+      'Personal NTN Registration — for salaried individuals and self-employed persons',
+      'Sole Proprietor NTN — for shop owners, traders, and small businesses',
+      'Partnership Firm NTN — for joint business operations and AOPs',
+      'Company NTN Registration — for Pvt Ltd, SMC, and other corporate entities',
+      'Freelancer / E-commerce NTN — for Upwork, Fiverr, Amazon, and online sellers',
+      'ATL (Active Taxpayer List) activation for lower withholding tax deductions',
+      'FBR Iris profile setup and login credentials',
+      'NTN Profile Modification — update name, address, business details, or phone',
+      'Overseas Pakistani NTN — remote registration for non-residents with NICOP',
+      'Tax year and income source configuration on Iris profile',
+    ],
+    typicalDocs: [
+      'CNIC / NICOP (front & back) — for individuals',
+      'Mobile number registered on CNIC (for OTP verification)',
+      'Email address for FBR Iris account',
+      'Latest electricity or gas utility bill (for address proof)',
+      'SECP registration certificate (for companies)',
+      'Partnership Deed (for partnership firms)',
+      'Business address proof — rent agreement or ownership documents',
+      'Salary certificate or employment letter (for salaried individuals)',
+    ],
+    process: [
+      'Consultation — confirm taxpayer type (individual, business, freelancer, overseas)',
+      'Document collection — CNIC, utility bill, mobile number, and supporting docs',
+      'FBR Iris application preparation and eligibility verification',
+      'Online submission on FBR Iris portal with all required details',
+      'NTN allocation, ATL activation, and Iris login credentials delivery',
+    ],
+    faqs: [
+      {
+        q: 'How long does NTN registration take?',
+        a: 'NTN registration is typically completed within 1–3 working days after all documents are submitted. In most cases, it can be done the same day.',
+      },
+      {
+        q: 'Is NTN necessary for freelancers and online sellers?',
+        a: 'Yes. Freelancers, Upwork/Fiverr earners, and Amazon/e-commerce sellers must register NTN to become compliant taxpayers, avoid higher withholding tax deductions, and benefit from reduced tax rates under Clause 133.',
+      },
+      {
+        q: 'Can overseas Pakistanis register NTN from abroad?',
+        a: 'Yes. Overseas Pakistanis with a valid NICOP can register NTN remotely. We handle the entire process online without any requirement to visit Pakistan or FBR offices.',
+      },
+      {
+        q: 'What is the benefit of being on the Active Taxpayer List (ATL)?',
+        a: 'Being on the ATL significantly reduces withholding tax rates on bank transactions, property purchases, vehicle registration, and cash withdrawals. Non-filers pay double the withholding rates.',
+      },
+      {
+        q: 'What is NTN Modification and when do I need it?',
+        a: 'NTN Modification is required when you need to update your registered name, address, phone number, business type, or add a new income source on your existing FBR Iris profile. We handle all modification requests.',
+      },
+      {
+        q: 'Do I need a separate NTN for my company and personal income?',
+        a: 'Yes. Your personal NTN covers individual income. A separately incorporated company (Pvt Ltd or SMC) requires its own company NTN registered with FBR under the corporate entity.',
+      },
+    ],
+  },
   { slug: 'sales-tax-registration-monthly-filing', title: 'Sales Tax Registration & Monthly Filing', categoryId: 'tax-services-pakistan', shortDesc: 'FBR sales tax registration and monthly return filing services.' },
   { slug: 'fbr-notices-audit-handling', title: 'FBR Notices & Audit Handling', categoryId: 'tax-services-pakistan', shortDesc: 'Professional defense and representation for FBR notices and audits.' },
   { slug: 'wealth-statement-asset-reconciliation', title: 'Wealth Statement & Asset Reconciliation', categoryId: 'tax-services-pakistan', shortDesc: 'Accurate wealth statement preparation and asset reconciliation.' },
