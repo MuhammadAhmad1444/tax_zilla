@@ -347,55 +347,112 @@ const HomePage = () => {
       </div>
 
       {/* ══════════════════════════════════════════════
-          2b. PARTNERS & TRUSTED BRANDS MARQUEE
+          2b. PARTNERS & REGULATORY BODIES MARQUEE
       ══════════════════════════════════════════════ */}
-      <section className="py-12 bg-white border-b border-gray-100 overflow-hidden">
-        <div className="container-custom mb-7 text-center">
+      <section className="py-10 bg-white border-b border-gray-100 overflow-hidden">
+        <div className="container-custom mb-6 text-center">
           <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-gray-400">
-            Trusted by clients from these organisations
+            Registered &amp; Compliant with Pakistan's Leading Regulatory Bodies
           </p>
         </div>
 
-        {/* Marquee wrapper */}
         <div className="tz-marquee-wrap">
           <div className="tz-marquee-track">
-            {/* Duplicate the list so the scroll loops seamlessly */}
             {[...Array(2)].map((_, pass) => (
-              <div key={pass} className="flex items-center gap-8 px-4">
+              <div key={pass} className="flex items-center gap-10 px-6">
                 {[
-                  { name: 'FBR',          sub: 'Federal Board of Revenue',        color: '#1d4ed8', bg: '#eff6ff' },
-                  { name: 'SECP',         sub: 'Securities & Exchange Commission', color: '#7c3aed', bg: '#f5f3ff' },
-                  { name: 'PSEB',         sub: 'Software Export Board',           color: '#0e7490', bg: '#ecfeff' },
-                  { name: 'P@SHA',        sub: 'Pakistan Software Houses Assoc.',  color: '#0369a1', bg: '#f0f9ff' },
-                  { name: 'HBL',          sub: 'Habib Bank Limited',              color: '#166534', bg: '#f0fdf4' },
-                  { name: 'UBL',          sub: 'United Bank Limited',             color: '#1e3a5f', bg: '#eff6ff' },
-                  { name: 'Meezan',       sub: 'Meezan Bank',                     color: '#92400e', bg: '#fffbeb' },
-                  { name: 'ACCA',         sub: 'Global Accounting Body',          color: '#9f1239', bg: '#fff1f2' },
-                  { name: 'KCCI',         sub: 'Karachi Chamber of Commerce',     color: '#064e3b', bg: '#ecfdf5' },
-                  { name: 'ICMA',         sub: 'Cost & Management Accountants',   color: '#4338ca', bg: '#eef2ff' },
-                  { name: 'JS Bank',      sub: 'JS Bank Limited',                 color: '#b45309', bg: '#fffbeb' },
-                  { name: 'AWS',          sub: 'Amazon Web Services',             color: '#ea580c', bg: '#fff7ed' },
-                  { name: 'ZATCA',        sub: 'Saudi Tax Authority',             color: '#15803d', bg: '#f0fdf4' },
-                  { name: 'FTA UAE',      sub: 'Federal Tax Authority UAE',       color: '#0c4a6e', bg: '#f0f9ff' },
-                  { name: 'Telenor',      sub: 'Telenor Pakistan',                color: '#1d4ed8', bg: '#eff6ff' },
-                  { name: 'NCC',          sub: 'National Clearing Company',       color: '#374151', bg: '#f9fafb' },
-                ].map((brand) => (
+                  {
+                    name: 'FBR',
+                    full: 'Federal Board of Revenue',
+                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Federal_Board_of_Revenue_logo.png/200px-Federal_Board_of_Revenue_logo.png',
+                  },
+                  {
+                    name: 'SECP',
+                    full: 'Securities & Exchange Commission of Pakistan',
+                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Securities_and_Exchange_Commission_of_Pakistan_%28Emblem%29.png/200px-Securities_and_Exchange_Commission_of_Pakistan_%28Emblem%29.png',
+                  },
+                  {
+                    name: 'PSEB',
+                    full: 'Pakistan Software Export Board',
+                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Pakistan_Software_Export_Board_%28PSEB%29_logo.png/200px-Pakistan_Software_Export_Board_%28PSEB%29_logo.png',
+                  },
+                  {
+                    name: 'ACCA',
+                    full: 'Association of Chartered Certified Accountants',
+                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/ACCA_logo.svg/200px-ACCA_logo.svg.png',
+                  },
+                  {
+                    name: 'P@SHA',
+                    full: 'Pakistan Software Houses Association',
+                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Pakistan_Software_Houses_Association_%28PASHA%29_logo.png/200px-Pakistan_Software_Houses_Association_%28PASHA%29_logo.png',
+                  },
+                  {
+                    name: 'KCCI',
+                    full: 'Karachi Chamber of Commerce & Industry',
+                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Karachi_Chamber_of_Commerce_and_Industry_logo.png/200px-Karachi_Chamber_of_Commerce_and_Industry_logo.png',
+                  },
+                  {
+                    name: 'ICAP',
+                    full: 'Institute of Chartered Accountants of Pakistan',
+                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/51/ICAP_logo.png/200px-ICAP_logo.png',
+                  },
+                  {
+                    name: 'ICMA Pakistan',
+                    full: 'Institute of Cost & Management Accountants',
+                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/ICMA_Pakistan_logo.jpg/200px-ICMA_Pakistan_logo.jpg',
+                  },
+                  {
+                    name: 'PRA',
+                    full: 'Punjab Revenue Authority',
+                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/28/Punjab_Revenue_Authority_logo.png/200px-Punjab_Revenue_Authority_logo.png',
+                  },
+                  {
+                    name: 'SRB',
+                    full: 'Sindh Revenue Board',
+                    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/25/Sindh_Revenue_Board.png/200px-Sindh_Revenue_Board.png',
+                  },
+                  {
+                    name: 'ZATCA',
+                    full: 'Zakat, Tax & Customs Authority — Saudi Arabia',
+                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/ZATCA_logo.png/200px-ZATCA_logo.png',
+                  },
+                  {
+                    name: 'FTA UAE',
+                    full: 'Federal Tax Authority — UAE',
+                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Federal_Tax_Authority_UAE_logo.png/200px-Federal_Tax_Authority_UAE_logo.png',
+                  },
+                ].map((org) => (
                   <div
-                    key={`${pass}-${brand.name}`}
-                    className="flex-shrink-0 flex items-center gap-2.5 px-5 py-3 rounded-xl border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all duration-200 cursor-default group"
-                    style={{ background: '#fff', minWidth: 140 }}
+                    key={`${pass}-${org.name}`}
+                    className="flex-shrink-0 flex flex-col items-center gap-2 cursor-default group"
+                    style={{ minWidth: 90 }}
                   >
-                    {/* Coloured initial badge */}
-                    <div
-                      className="h-9 w-9 rounded-lg flex items-center justify-center flex-shrink-0 text-[11px] font-extrabold leading-none group-hover:scale-110 transition-transform duration-200"
-                      style={{ background: brand.bg, color: brand.color, border: `1.5px solid ${brand.color}20` }}
-                    >
-                      {brand.name.slice(0, 2).toUpperCase()}
+                    {/* Logo image — grayscale by default, colour on hover */}
+                    <div className="h-12 flex items-center justify-center">
+                      <img
+                        src={org.logo}
+                        alt={org.name}
+                        className="max-h-12 max-w-[80px] object-contain transition-all duration-300"
+                        style={{ filter: 'grayscale(100%) opacity(0.55)' }}
+                        onMouseEnter={e => e.currentTarget.style.filter = 'grayscale(0%) opacity(1)'}
+                        onMouseLeave={e => e.currentTarget.style.filter = 'grayscale(100%) opacity(0.55)'}
+                        onError={e => {
+                          // fallback: hide img, show styled text
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      {/* Text fallback (hidden by default) */}
+                      <div
+                        className="hidden items-center justify-center h-12 px-3 rounded-lg text-[11px] font-black tracking-tight"
+                        style={{ background: 'var(--color-surface-muted)', color: 'var(--color-brand-navy)', display: 'none' }}
+                      >
+                        {org.name}
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-[13px] font-bold text-gray-800 leading-none">{brand.name}</div>
-                      <div className="text-[9px] text-gray-400 leading-snug mt-0.5 max-w-[90px]">{brand.sub}</div>
-                    </div>
+                    <span className="text-[9px] font-semibold text-gray-400 text-center leading-tight max-w-[80px] group-hover:text-gray-600 transition-colors">
+                      {org.name}
+                    </span>
                   </div>
                 ))}
               </div>
