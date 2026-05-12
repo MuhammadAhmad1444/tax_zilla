@@ -425,14 +425,19 @@ const WhyChooseUsPage = () => {
           </motion.div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { flag: '🇵🇰', country: 'Pakistan',    city: 'Lahore HQ', desc: 'FBR · SECP · PRA · SRB', img: 'https://images.unsplash.com/photo-1582650949026-2e8e2b87ce87?auto=format&fit=crop&w=600&q=60' },
+              { flag: '🇵🇰', country: 'Pakistan',    city: 'Lahore HQ', desc: 'FBR · SECP · PRA · SRB', img: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=600&q=60' },
               { flag: '🇦🇪', country: 'UAE',          city: 'Dubai',     desc: 'FTA VAT · Corporate Tax', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=60' },
               { flag: '🇺🇸', country: 'USA',          city: 'Remote',    desc: 'IRS · LLC · ITIN',        img: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?auto=format&fit=crop&w=600&q=60' },
               { flag: '🇸🇦', country: 'Saudi Arabia', city: 'Riyadh',    desc: 'ZATCA · VAT · Zakat',     img: 'https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?auto=format&fit=crop&w=600&q=60' },
             ].map((c) => (
               <motion.div key={c.country} {...revealScale(0, reduce)}
                 className="group relative rounded-2xl overflow-hidden cursor-pointer" style={{ height: 220 }}>
-                <img src={c.img} alt={c.country} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <img
+                  src={c.img}
+                  alt={c.country}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
                 <div className="absolute top-0 left-0 right-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" style={{ background: 'var(--color-gold)' }} />
                 <div className="absolute inset-0 flex flex-col justify-end p-4">
