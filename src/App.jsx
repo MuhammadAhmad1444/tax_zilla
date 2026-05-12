@@ -25,6 +25,7 @@ import {
   TermsConditionsPage,
   DisclaimerPage,
 } from './pages/LegalPages.jsx';
+import BlogPage from './pages/BlogPage.jsx';
 
 /* ── Smooth page transition wrapper ─────────────────────────────────── */
 const EASE_OUT = [0.22, 1, 0.36, 1];
@@ -73,6 +74,7 @@ const AnimatedRoutes = () => {
 
         <Route path="/services/:slug" element={<PageTransition><ServiceSlugPage /></PageTransition>} />
 
+        <Route path="/blog" element={<PageTransition><BlogPage /></PageTransition>} />
         <Route path="/legal/privacy-policy" element={<PageTransition><PrivacyPolicyPage /></PageTransition>} />
         <Route path="/legal/terms-conditions" element={<PageTransition><TermsConditionsPage /></PageTransition>} />
         <Route path="/legal/disclaimer" element={<PageTransition><DisclaimerPage /></PageTransition>} />

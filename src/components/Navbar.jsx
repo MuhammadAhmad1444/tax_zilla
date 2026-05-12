@@ -110,6 +110,7 @@ const Navbar = () => {
     { name: 'Industries', path: '/industries' },
     { name: 'Services', path: '/services' },
     { name: 'Tax Calculators 2025-2026', path: '/pakistan-tax-calculators' },
+    { name: 'Blog', path: '/blog' },
     { name: 'Resources', path: '/resources' },
     { name: 'FAQs', path: '/faqs' },
     { name: 'Contact', path: '/contact' },
