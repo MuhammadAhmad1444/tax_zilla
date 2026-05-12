@@ -148,6 +148,7 @@ const PakTaxCalculators2025Page = () => {
   const activeId = searchParams.get('calc');
   const contentRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useLayoutEffect(() => {
     const scrollNow = () => {
@@ -323,13 +324,15 @@ const PakTaxCalculators2025Page = () => {
   );
 
   const activeTab = FILTER_TABS.find((t) => t.id === activeFilter);
-  const visibleCalculators = useMemo(
-    () =>
-      activeFilter === 'All'
-        ? calculators
-        : calculators.filter((c) => activeTab?.ids.includes(c.id)),
-    [calculators, activeFilter, activeTab]
-  );
+  const q = searchQuery.trim().toLowerCase();
+
+  const visibleCalculators = useMemo(() => {
+    return calculators.filter((c) => {
+      const passFilter = activeFilter === 'All' || activeTab?.ids.includes(c.id);
+      const passSearch = !q || c.title.toLowerCase().includes(q) || c.desc?.toLowerCase().includes(q) || c.category?.toLowerCase().includes(q);
+      return passFilter && passSearch;
+    });
+  }, [calculators, activeFilter, activeTab, q]);
 
   const activeCalculator = useMemo(
     () => calculators.find((c) => c.id === activeId),
@@ -339,13 +342,13 @@ const PakTaxCalculators2025Page = () => {
   /* ── Grid view (no active calculator) ─── */
   const renderGrid = () => (
     <div>
-      {/* Filter pills */}
-      <div className="mb-8 flex flex-wrap justify-center gap-2 sm:gap-3">
+      {/* ── Category filter pills ── */}
+      <div className="mb-4 flex flex-wrap justify-center gap-2 sm:gap-3">
         {FILTER_TABS.map((tab) => (
           <button
             key={tab.id}
             type="button"
-            onClick={() => setActiveFilter(tab.id)}
+            onClick={() => { setActiveFilter(tab.id); setSearchQuery(''); }}
             className={`rounded-full border px-4 py-2 text-[11px] font-bold uppercase tracking-wider transition-all sm:px-5 ${
               activeFilter === tab.id
                 ? 'bg-[var(--color-gold)] text-black border-[var(--color-gold)] shadow-lg shadow-[rgba(212,175,55,0.25)]'
@@ -357,16 +360,50 @@ const PakTaxCalculators2025Page = () => {
         ))}
       </div>
 
-      {/* Count */}
-      <div className="text-center mb-8">
-        <p className="text-sm text-gray-500">
-          Showing{' '}
-          <span className="font-bold text-gray-900">
-            {visibleCalculators.length}
-          </span>{' '}
-          calculator{visibleCalculators.length !== 1 ? 's' : ''}
-        </p>
+      {/* ── Search bar ── */}
+      <div className="max-w-xl mx-auto mb-8">
+        <div className="relative group">
+          <Calculator
+            size={15}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[var(--color-gold)] transition-colors pointer-events-none"
+          />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search calculators — try 'salary', 'property', 'zakat'..."
+            className="w-full pl-10 pr-10 py-3 rounded-full border border-gray-200 bg-white text-sm text-gray-700 placeholder-gray-400 outline-none focus:border-[var(--color-gold)] focus:ring-2 focus:ring-[var(--color-gold)]/20 transition-all shadow-sm"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+              aria-label="Clear"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+        {searchQuery && (
+          <p className="text-center text-xs text-gray-400 mt-2">
+            {visibleCalculators.length === 0
+              ? 'No calculators found — try a different keyword'
+              : `${visibleCalculators.length} calculator${visibleCalculators.length !== 1 ? 's' : ''} match "${searchQuery}"`}
+          </p>
+        )}
       </div>
+
+      {/* Count */}
+      {!searchQuery && (
+        <div className="text-center mb-8">
+          <p className="text-sm text-gray-500">
+            Showing{' '}
+            <span className="font-bold text-gray-900">{visibleCalculators.length}</span>{' '}
+            calculator{visibleCalculators.length !== 1 ? 's' : ''}
+          </p>
+        </div>
+      )}
 
       {/* Tiles */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
