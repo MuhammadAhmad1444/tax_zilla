@@ -99,10 +99,10 @@ const COUNTRY_FILTERS = [
       'visa-immigration-tax-services', 'overseas-pakistani-tax-services',
     ],
   },
-  { id: 'uae', label: 'UAE',          flag: '🇦🇪', href: '/services/uae-tax-services', slugs: [] },
-  { id: 'usa', label: 'USA',          flag: '🇺🇸', href: '/services/usa-tax-services', slugs: [] },
-  { id: 'ksa', label: 'Saudi Arabia', flag: '🇸🇦', href: '/services/ksa-tax-services', slugs: [] },
-  { id: 'uk',  label: 'UK',           flag: '🇬🇧', href: '/services/uk-tax-services',  slugs: [] },
+  { id: 'uae', label: 'UAE',          flag: '🇦🇪', href: null, slugs: ['uae-tax-services'] },
+  { id: 'usa', label: 'USA',          flag: '🇺🇸', href: null, slugs: ['usa-tax-services'] },
+  { id: 'ksa', label: 'Saudi Arabia', flag: '🇸🇦', href: null, slugs: ['ksa-tax-services'] },
+  { id: 'uk',  label: 'UK',           flag: '🇬🇧', href: null, slugs: ['uk-tax-services']  },
 ];
 
 const TRUST_STATS = [
@@ -258,34 +258,21 @@ const ServicesPage = () => {
 
           {/* ── Row 2: Country filters (smaller) ── */}
           <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-10">
-            {COUNTRY_FILTERS.map((c) => {
-              const pillClass = `rounded-full border px-3 py-1 text-[10px] font-semibold transition-all flex items-center gap-1.5 ${
-                activeCountry === c.id
-                  ? 'bg-[var(--color-brand-navy)] text-[var(--color-gold)] border-[var(--color-brand-navy)]'
-                  : 'bg-gray-50 text-gray-500 border-gray-200 hover:border-[var(--color-brand-navy)]/40 hover:text-[var(--color-brand-navy)]'
-              }`;
-              const inner = <><span>{c.flag}</span><span>{c.label}</span></>;
-
-              /* Country-specific pages → navigate directly */
-              if (c.href) {
-                return (
-                  <Link key={c.id} to={c.href} className={pillClass}>
-                    {inner}
-                  </Link>
-                );
-              }
-              /* All Countries / Pakistan → filter the grid */
-              return (
-                <button
-                  key={c.id}
-                  type="button"
-                  onClick={() => { setActiveCountry(c.id); setActiveFilter('all'); }}
-                  className={pillClass}
-                >
-                  {inner}
-                </button>
-              );
-            })}
+            {COUNTRY_FILTERS.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => { setActiveCountry(c.id); setActiveFilter('all'); }}
+                className={`rounded-full border px-3 py-1 text-[10px] font-semibold transition-all flex items-center gap-1.5 ${
+                  activeCountry === c.id
+                    ? 'bg-[var(--color-brand-navy)] text-[var(--color-gold)] border-[var(--color-brand-navy)]'
+                    : 'bg-gray-50 text-gray-500 border-gray-200 hover:border-[var(--color-brand-navy)]/40 hover:text-[var(--color-brand-navy)]'
+                }`}
+              >
+                <span>{c.flag}</span>
+                <span>{c.label}</span>
+              </button>
+            ))}
           </div>
 
           {/* Count */}
