@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import {
@@ -68,6 +68,54 @@ const CONTACT_CARDS = [
     sub: 'WhatsApp available 24/7',
   },
 ];
+
+/* ── Map with loading skeleton ───────────────────────────── */
+const MapEmbed = ({ revealScale, reduceMotion }) => {
+  const [mapLoaded, setMapLoaded] = useState(false);
+  return (
+    <motion.div
+      {...revealScale(0.1, reduceMotion)}
+      className="relative overflow-hidden rounded-2xl border border-gray-200 shadow-xl"
+      style={{ height: '420px' }}
+    >
+      {/* Loading overlay — visible until iframe fires onLoad */}
+      {!mapLoaded && (
+        <div
+          className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4"
+          style={{ background: 'var(--color-surface-muted)' }}
+        >
+          {/* Skeleton strips */}
+          <div className="w-full max-w-xs space-y-3">
+            <div className="h-3 rounded-full bg-gray-200 animate-pulse" />
+            <div className="h-3 rounded-full bg-gray-200 animate-pulse w-4/5" />
+            <div className="h-3 rounded-full bg-gray-200 animate-pulse w-3/5" />
+          </div>
+          {/* Gold spinner ring */}
+          <div className="relative h-14 w-14 mt-1">
+            <div className="absolute inset-0 rounded-full border-4 border-gray-200" />
+            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[var(--color-gold)] animate-spin" />
+            <MapPin size={18} className="absolute inset-0 m-auto" style={{ color: 'var(--color-gold)' }} />
+          </div>
+          <p className="text-sm font-semibold text-gray-500">Loading map…</p>
+          <p className="text-xs text-gray-400">7A, Malik Park, Lahore</p>
+        </div>
+      )}
+
+      {/* Google Map iframe — fades in once loaded */}
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3400.916362576402!2d74.3725713!3d31.5265217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391905001c2957b9%3A0x6b80140226493a7!2sTax%20Zilla%20Consultancy!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+        width="100%"
+        height="100%"
+        style={{ border: 0, opacity: mapLoaded ? 1 : 0, transition: 'opacity 0.6s ease' }}
+        allowFullScreen=""
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        title="Tax Zilla Consultancy Location — Lahore"
+        onLoad={() => setMapLoaded(true)}
+      />
+    </motion.div>
+  );
+};
 
 const ContactPage = () => {
   const { reduce, hero } = usePageMotion();
@@ -306,22 +354,7 @@ const ContactPage = () => {
             </p>
           </motion.div>
 
-          <motion.div
-            {...revealScale(0.1, reduceMotion)}
-            className="overflow-hidden rounded-2xl border border-gray-200 shadow-xl"
-            style={{ height: '380px' }}
-          >
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3400.916362576402!2d74.3725713!3d31.5265217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391905001c2957b9%3A0x6b80140226493a7!2sTax%20Zilla%20Consultancy!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Tax Zilla Consultancy Location — Lahore"
-            />
-          </motion.div>
+          <MapEmbed revealScale={revealScale} reduceMotion={reduceMotion} />
 
           {/* Quick info below map */}
           <motion.div
