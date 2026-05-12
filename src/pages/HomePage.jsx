@@ -201,7 +201,7 @@ const HomePage = () => {
                 className="relative overflow-hidden rounded-full border border-[var(--color-gold)]/50 bg-[var(--color-gold)]/10 px-5 py-2 backdrop-blur-sm tz-pill-shimmer cursor-default"
               >
                 <span className="relative z-10 text-[var(--color-gold)] text-[11px] font-bold uppercase tracking-[0.3em] sm:text-xs">
-                  ✦ Premier Tax & Legal Consultancy · Lahore, Pakistan
+                  ✦ Premier Tax & Legal Consultancy
                 </span>
               </motion.div>
             </motion.div>
@@ -243,7 +243,7 @@ const HomePage = () => {
               {...fadeUp(0.42, reduce)}
               className="mx-auto max-w-2xl text-base font-light leading-relaxed text-gray-300 sm:text-lg md:text-xl mb-10"
             >
-              We handle FBR, SECP, provincial, and international tax complexities — so you can focus entirely on growing your business.
+              From tax filings to complex compliance matters, we manage everything professionally so you stay worry-free.
             </motion.p>
 
             {/* CTA buttons with spring hover */}
@@ -281,8 +281,8 @@ const HomePage = () => {
             {/* Stats */}
             <motion.div {...fadeUp(0.7, reduce)} className="grid grid-cols-3 gap-4 border-t border-white/10 pt-10 max-w-lg mx-auto">
               {[
-                { v: '500+', l: 'Happy Clients' },
-                { v: '10+', l: 'Years Experience' },
+                { v: '997+', l: 'Happy Clients' },
+                { v: '10+', l: 'Yrs Experience' },
                 { v: '70+', l: 'Services' },
               ].map((s, i) => (
                 <motion.div
@@ -342,7 +342,7 @@ const HomePage = () => {
               </motion.span>
             ))}
             <span className="hidden sm:inline text-gray-600">·</span>
-            <span className="text-gray-300 hidden sm:inline">500+ businesses & individuals</span>
+            <span className="text-gray-300 hidden sm:inline">997+ businesses & individuals</span>
           </div>
         </div>
       </div>
@@ -419,7 +419,7 @@ const HomePage = () => {
         <div className="container-custom">
           <SectionHead
             eyebrow="Why Tax Zilla"
-            title={<>Why 500+ Clients <span className="text-[var(--color-gold)]">Trust Us</span></>}
+            title={<>Why 997+ Clients <span className="text-[var(--color-gold)]">Trust Us</span></>}
             subtitle="Our approach is built around your compliance, confidence, and long-term peace of mind."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -687,7 +687,7 @@ const HomePage = () => {
                 <span className="text-[var(--color-gold)]">Your Compliance?</span>
               </h2>
               <p className="text-gray-300 text-base leading-relaxed mb-8 max-w-xl">
-                Join 500+ businesses and individuals who trust Tax Zilla for FBR filing, company registration, and comprehensive tax advisory across Pakistan, UAE, USA, and Saudi Arabia.
+                Join 997+ businesses and individuals who trust Tax Zilla for FBR filing, company registration, and comprehensive tax advisory across Pakistan, UAE, USA, and Saudi Arabia.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-8">

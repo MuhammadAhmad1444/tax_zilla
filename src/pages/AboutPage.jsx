@@ -22,7 +22,7 @@ const Grid = () => (
 );
 
 const STATS = [
-  { value: '500+', label: 'Clients Served' },
+  { value: '997+', label: 'Clients Served' },
   { value: '10+', label: 'Years Experience' },
   { value: '70+', label: 'Services Offered' },
   { value: '4', label: 'Countries Served' },
@@ -97,7 +97,7 @@ const AboutPage = () => {
             transition={{ duration: reduce ? 0.01 : 0.48, ease: EASE_OUT, delay: reduce ? 0 : 0.24 }}
             className="max-w-2xl mx-auto px-2 text-base text-gray-300 sm:text-lg leading-relaxed mb-8"
           >
-            A decade of trusted expertise in tax, legal, and compliance services — helping 500+ clients across Pakistan, UAE, USA, and Saudi Arabia navigate their regulatory obligations with confidence.
+            A decade of trusted expertise in tax, legal, and compliance services — helping 997+ clients across Pakistan, UAE, USA, and Saudi Arabia navigate their regulatory obligations with confidence.
           </motion.p>
           <motion.div
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
@@ -167,7 +167,7 @@ const AboutPage = () => {
               className="grid grid-cols-2 gap-4">
               {[
                 { v: '100%', l: 'Compliance Rate', sub: 'Zero penalties on our filings' },
-                { v: '500+', l: 'Clients Served', sub: 'Across 4 countries' },
+                { v: '997+', l: 'Clients Served', sub: 'Across 4 countries' },
                 { v: '10+', l: 'Years Experience', sub: 'Deep regulatory expertise' },
                 { v: '24/7', l: 'WhatsApp Support', sub: 'Always available for you' },
               ].map((s) => (
@@ -355,7 +355,7 @@ const AboutPage = () => {
             Ready to Work <span className="text-[var(--color-gold)]">With Us?</span>
           </h2>
           <p className="text-gray-300 max-w-xl mx-auto mb-8 text-base leading-relaxed">
-            Join 500+ businesses and individuals who trust Tax Zilla for accurate, timely, and stress-free tax and legal compliance.
+            Join 997+ businesses and individuals who trust Tax Zilla for accurate, timely, and stress-free tax and legal compliance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="primary" size="lg" onClick={() => navigate('/contact')}>

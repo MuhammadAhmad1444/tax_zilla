@@ -24,7 +24,7 @@ const WhatsAppButton = () => {
   return (
     <motion.button
       onClick={handleClick}
-      className="fixed bottom-[max(1rem,env(safe-area-inset-bottom,0px))] right-[max(0.75rem,env(safe-area-inset-right,0px))] z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl transition-colors group hover:bg-[#20BA5A] sm:bottom-6 sm:right-6 md:h-16 md:w-16"
+      className="fixed bottom-5 right-5 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-colors group hover:bg-[#20BA5A] sm:bottom-6 sm:right-6 sm:h-12 sm:w-12"
       aria-label="Chat with us on WhatsApp"
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
@@ -39,7 +39,7 @@ const WhatsAppButton = () => {
     >
       {/* WhatsApp Icon SVG */}
       <svg
-        className="w-8 h-8 md:w-9 md:h-9"
+        className="w-6 h-6 sm:w-7 sm:h-7"
         fill="currentColor"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"

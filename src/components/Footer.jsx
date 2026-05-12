@@ -197,7 +197,7 @@ const Footer = () => {
       <div className="bg-black py-6 border-t border-gray-800">
         <div className="container-custom flex flex-col items-center justify-between gap-4 px-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
           <p className="text-gray-500 text-xs text-center md:text-left">
-            © {currentYear} Tax Zilla Consultancy. All rights reserved.
+            © {currentYear} Tax Zilla. All rights reserved.
           </p>
           <p className="text-gray-500 text-xs text-center md:text-right">
             All services are provided in accordance with Pakistan laws and FBR regulations.

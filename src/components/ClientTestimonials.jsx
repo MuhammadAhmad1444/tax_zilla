@@ -157,7 +157,7 @@ const ClientTestimonials = () => {
           viewport={VIEWPORT_REVEAL}
         >
           {[
-            { h: '500+', l: 'Happy Clients' },
+            { h: '997+', l: 'Happy Clients' },
             { h: '98%', l: 'Retention Rate' },
             { h: '100%', l: 'Data Privacy' },
             { h: '24/7', l: 'Support' },

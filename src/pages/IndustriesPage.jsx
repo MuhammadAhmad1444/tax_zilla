@@ -21,7 +21,7 @@ const Grid = () => (
 const STATS = [
   { value: '8', label: 'Industries Served' },
   { value: '10+', label: 'Years Experience' },
-  { value: '500+', label: 'Clients Helped' },
+  { value: '997+', label: 'Clients Helped' },
   { value: 'Remote', label: 'Friendly' },
 ];
 

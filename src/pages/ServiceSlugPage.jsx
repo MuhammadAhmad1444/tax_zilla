@@ -68,7 +68,7 @@ const CATEGORY_ICON_MAP = {
 };
 
 const TRUST_STATS = [
-  { value: '500+', label: 'Satisfied Clients' },
+  { value: '997+', label: 'Satisfied Clients' },
   { value: '10+', label: 'Years Experience' },
   { value: '70+', label: 'Services Offered' },
   { value: '24/7', label: 'WhatsApp Support' },

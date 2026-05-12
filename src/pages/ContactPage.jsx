@@ -29,7 +29,7 @@ const HERO_STATS = [
   { value: '< 2hrs', label: 'Response Time' },
   { value: 'Free', label: 'Consultation' },
   { value: '24/7', label: 'WhatsApp Support' },
-  { value: '500+', label: 'Clients Helped' },
+  { value: '997+', label: 'Clients Helped' },
 ];
 
 const WHY_CONTACT = [
