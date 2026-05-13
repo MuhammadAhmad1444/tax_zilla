@@ -48,6 +48,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [hoveredService, setHoveredService] = useState(null);
 
   const location = useLocation();
   const navigate  = useNavigate();
@@ -125,9 +127,7 @@ const Navbar = () => {
 
   const isCalcActive = (id) => isTaxActive() && activeCalc === id;
 
-  // ── Services Mega Menu — clean professional multi-panel ──────────────────
-  const [hoveredCategory, setHoveredCategory] = useState(null);
-
+  // ── Services Mega Menu — interactive expandable professional ──────────────────
   const ServicesMegaMenu = () => {
     const mainCats = MEGA_GROUPS;
     const selectedGroup = hoveredCategory
@@ -138,112 +138,176 @@ const Navbar = () => {
       ? SERVICE_CATEGORIES.filter(c => selectedGroup.slugs.includes(c.id))
       : [];
 
+    const selectedService = hoveredService
+      ? selectedCats.find(c => c.id === hoveredService)
+      : null;
+
     return (
       <motion.div
-        initial={{ opacity: 0, y: -8 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] w-[min(820px,calc(100vw-2rem))] bg-white rounded-xl overflow-hidden flex"
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)]"
         style={{
-          boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
-          border: '1px solid rgba(0,0,0,0.05)'
+          width: selectedService ? 'min(1000px, calc(100vw-2rem))' : 'min(700px, calc(100vw-2rem))',
+          background: '#ffffff',
+          boxShadow: '0 25px 80px rgba(0,0,0,0.16), 0 0 1px rgba(0,0,0,0.1)',
+          borderRadius: '14px',
+          border: '1px solid rgba(0,0,0,0.06)',
+          overflow: 'hidden',
+          display: 'flex'
         }}
         role="menu"
         onMouseEnter={cancelClose}
         onMouseLeave={scheduleClose}
       >
-        {/* LEFT PANEL — Main categories */}
-        <div className="w-56 border-r border-gray-100" style={{ background: '#fafbfc' }}>
-          <div className="px-4 py-3 border-b border-gray-100">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">CATEGORIES</span>
+        {/* LEFT PANEL — Categories */}
+        <div className="w-52 flex-shrink-0 border-r border-gray-100" style={{ background: '#f8f9fa' }}>
+          <div className="px-5 py-4 border-b border-gray-100">
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-gray-600">Categories</span>
           </div>
-          <div className="py-2">
+          <div className="py-3 space-y-1">
             {mainCats.map(group => {
               const catCount = SERVICE_CATEGORIES.filter(c => group.slugs.includes(c.id)).length;
               const isActive = hoveredCategory === group.id || (!hoveredCategory && group.id === mainCats[0].id);
 
               return (
-                <button
+                <motion.button
                   key={group.id}
                   type="button"
-                  onMouseEnter={() => setHoveredCategory(group.id)}
-                  className={`w-full flex items-center gap-2 px-4 py-3 text-left transition-all duration-150 ${
-                    isActive
-                      ? 'bg-[var(--color-gold)]/8 border-r-2 border-[var(--color-gold)]'
-                      : 'border-r-2 border-transparent hover:bg-gray-50'
-                  }`}
+                  onMouseEnter={() => { setHoveredCategory(group.id); setHoveredService(null); }}
+                  className={`w-full px-5 py-3 text-left flex items-center gap-3 transition-all duration-150 rounded-lg mx-2`}
+                  style={{
+                    background: isActive ? 'rgba(212,175,55,0.1)' : 'transparent',
+                    borderLeft: isActive ? '3px solid var(--color-gold)' : '3px solid transparent'
+                  }}
+                  whileHover={{ x: 4 }}
                 >
-                  <span className="text-lg">{group.flag}</span>
+                  <span className="text-xl flex-shrink-0">{group.flag}</span>
                   <div className="flex-1 min-w-0">
-                    <p className={`text-xs font-bold ${isActive ? 'text-[var(--color-gold)]' : 'text-gray-900'} transition-colors`}>
+                    <p className={`text-xs font-bold transition-colors ${isActive ? 'text-[var(--color-gold)]' : 'text-gray-900'}`}>
                       {group.label}
                     </p>
                     <p className="text-[9px] text-gray-500">{catCount} services</p>
                   </div>
-                </button>
+                </motion.button>
               );
             })}
           </div>
         </div>
 
-        {/* MIDDLE PANEL — Subcategories */}
-        <div className="w-48 border-r border-gray-100 overflow-y-auto" style={{ background: '#ffffff', maxHeight: '350px' }}>
-          <div className="px-4 py-3 border-b border-gray-100 sticky top-0" style={{ background: '#fafbfc' }}>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">SERVICES</span>
+        {/* MIDDLE PANEL — Services */}
+        <div className="w-56 flex-shrink-0 border-r border-gray-100 overflow-y-auto" style={{ background: '#ffffff', maxHeight: '380px' }}>
+          <div className="px-5 py-4 border-b border-gray-100 sticky top-0" style={{ background: '#f8f9fa' }}>
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-gray-600">Services</span>
           </div>
-          <div className="py-2">
+          <div className="py-3 space-y-1">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedGroup?.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.15 }}
+                className="space-y-1"
               >
-                {selectedCats.map(cat => (
-                  <Link
-                    key={cat.id}
-                    to={`/services/${cat.slug}`}
-                    onClick={() => setOpenDropdown(null)}
-                    className="group flex items-center gap-2 px-4 py-2.5 text-left hover:bg-[var(--color-gold)]/5 transition-colors duration-150"
-                  >
-                    <span className="text-xs text-[var(--color-gold)] group-hover:text-[var(--color-brand-navy)]">→</span>
-                    <span className="text-xs font-medium text-gray-700 group-hover:text-[var(--color-gold)] transition-colors truncate">
-                      {cat.title}
-                    </span>
-                  </Link>
-                ))}
+                {selectedCats.map((cat, idx) => {
+                  const isServiceActive = hoveredService === cat.id;
+                  return (
+                    <motion.div
+                      key={cat.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: idx * 0.03 }}
+                    >
+                      <button
+                        type="button"
+                        onMouseEnter={() => setHoveredService(cat.id)}
+                        onClick={() => { navigate(`/services/${cat.slug}`); setOpenDropdown(null); }}
+                        className={`w-full px-5 py-2.5 text-left flex items-center gap-2.5 transition-all duration-150 rounded-lg mx-2 group`}
+                        style={{
+                          background: isServiceActive ? 'rgba(212,175,55,0.08)' : 'transparent',
+                          borderLeft: isServiceActive ? '2px solid var(--color-gold)' : '2px solid transparent'
+                        }}
+                      >
+                        <span className="text-[var(--color-gold)] transition-transform group-hover:translate-x-1">→</span>
+                        <span className={`text-xs font-medium transition-colors truncate ${isServiceActive ? 'text-[var(--color-gold)] font-bold' : 'text-gray-700'}`}>
+                          {cat.title}
+                        </span>
+                      </button>
+                    </motion.div>
+                  );
+                })}
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
 
-        {/* RIGHT PANEL — Description & CTA */}
-        <div className="flex-1 p-6 flex flex-col justify-between" style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.03) 0%, transparent 100%)' }}>
-          <div>
-            <h3 className="text-sm font-bold text-gray-900 mb-2">
-              {selectedGroup?.label}
-            </h3>
-            <p className="text-xs text-gray-600 leading-relaxed mb-4">
-              {selectedGroup?.id === 'pakistan' && 'Complete Pakistan tax & compliance solutions'}
-              {selectedGroup?.id === 'corporate' && 'Corporate registration & business services'}
-              {selectedGroup?.id === 'specialized' && 'Specialized visa & immigration tax services'}
-              {selectedGroup?.id === 'international' && 'International tax filing & setup'}
-            </p>
-            <p className="text-[11px] font-bold text-[var(--color-gold)]">
-              {selectedCats.length} Services
-            </p>
-          </div>
+        {/* RIGHT PANEL — Expanded Service Details */}
+        <AnimatePresence mode="wait">
+          {selectedService && (
+            <motion.div
+              key={selectedService.id}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.2 }}
+              className="flex-1 p-6 flex flex-col justify-between"
+              style={{
+                background: 'linear-gradient(135deg, rgba(212,175,55,0.06) 0%, rgba(212,175,55,0.02) 100%)',
+                borderLeft: '2px solid rgba(212,175,55,0.2)'
+              }}
+            >
+              <div>
+                <div className="flex items-start gap-3 mb-4">
+                  {(() => {
+                    const Icon = CAT_ICONS[selectedService.id] || FileText;
+                    return (
+                      <div className="p-3 rounded-lg" style={{ background: 'rgba(212,175,55,0.15)' }}>
+                        <Icon size={20} style={{ color: 'var(--color-gold)' }} strokeWidth={1.5} />
+                      </div>
+                    );
+                  })()}
+                  <div className="flex-1">
+                    <h4 className="text-sm font-bold text-gray-900 mb-1">
+                      {selectedService.title}
+                    </h4>
+                    <p className="text-[9px] text-gray-600 font-medium">
+                      Professional service solution
+                    </p>
+                  </div>
+                </div>
 
-          <Link
-            to="/services"
-            onClick={() => setOpenDropdown(null)}
-            className="flex items-center gap-2 text-xs font-bold text-[var(--color-brand-navy)] hover:text-[var(--color-gold)] transition-colors group"
-          >
-            View All Services <ArrowRight size={11} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
+                <div className="space-y-3 mb-5">
+                  <p className="text-xs text-gray-700 leading-relaxed">
+                    Comprehensive {selectedService.title.toLowerCase()} services tailored to your business needs with expert guidance.
+                  </p>
+
+                  <div className="bg-white/60 rounded-lg p-3 border border-gray-100">
+                    <p className="text-[10px] font-bold text-gray-900 mb-2">Key Services:</p>
+                    <ul className="space-y-1.5">
+                      {getSubservicesByCategory(selectedService.id).slice(0, 3).map(sub => (
+                        <li key={sub.slug} className="text-[9px] text-gray-700 flex items-start gap-2">
+                          <span className="text-[var(--color-gold)] mt-0.5">•</span>
+                          <span>{sub.title}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                to={`/services/${selectedService.slug}`}
+                onClick={() => setOpenDropdown(null)}
+                className="flex items-center gap-2 text-xs font-bold text-[var(--color-brand-navy)] hover:text-[var(--color-gold)] transition-colors group py-2 px-3 rounded-lg hover:bg-[var(--color-gold)]/5"
+              >
+                Explore {selectedService.title} <ArrowRight size={12} strokeWidth={2.5} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     );
   };
