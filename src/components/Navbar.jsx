@@ -125,14 +125,14 @@ const Navbar = () => {
 
   const isCalcActive = (id) => isTaxActive() && activeCalc === id;
 
-  // ── Services Mega Menu — clean grid design (Moz-inspired) ──────────────────
+  // ── Services Mega Menu — horizontal professional grid ──────────────────
   const ServicesMegaMenu = () => (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] w-[min(1100px,calc(100vw-2rem))] bg-white rounded-xl overflow-hidden"
+      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] w-[min(1350px,calc(100vw-2rem))] bg-white rounded-xl overflow-hidden"
       style={{
         boxShadow: '0 25px 80px rgba(0,0,0,0.16), 0 0 1px rgba(0,0,0,0.1)',
         border: '1px solid rgba(0,0,0,0.06)'
@@ -141,101 +141,91 @@ const Navbar = () => {
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      <div className="grid grid-cols-3 gap-0">
-        {/* Main content — Services grid */}
-        <div className="col-span-2 p-8">
-          {/* Header */}
-          <div className="mb-6 flex items-center justify-between">
-            <div>
-              <h3 className="text-sm font-bold text-gray-900 mb-1">Our Services</h3>
-              <p className="text-xs text-gray-600">Explore our {SERVICE_CATEGORIES.length}+ professional tax & legal solutions</p>
-            </div>
-            <Link to="/services" onClick={() => setOpenDropdown(null)}
-              className="flex items-center gap-1.5 text-xs font-bold text-[var(--color-gold)] hover:text-[var(--color-brand-navy)] transition-colors"
+      {/* Header bar */}
+      <div className="px-6 py-3.5 border-b border-gray-100 flex items-center justify-between" style={{ background: '#fafbfc' }}>
+        <div>
+          <h3 className="text-xs font-bold text-gray-900">Our Services</h3>
+        </div>
+        <Link to="/services" onClick={() => setOpenDropdown(null)}
+          className="flex items-center gap-1 text-xs font-bold text-[var(--color-gold)] hover:text-[var(--color-brand-navy)] transition-colors"
+        >
+          View All <ArrowRight size={11} strokeWidth={2.5} />
+        </Link>
+      </div>
+
+      {/* Services grid — 4 columns, compact */}
+      <div className="grid grid-cols-4 gap-3 p-6">
+        {SERVICE_CATEGORIES.map((cat, idx) => {
+          const subs = getSubservicesByCategory(cat.id);
+          const Icon = CAT_ICONS[cat.id] || FileText;
+
+          return (
+            <motion.div
+              key={cat.id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.03, duration: 0.25 }}
             >
-              View All <ArrowRight size={12} strokeWidth={2.5} />
-            </Link>
-          </div>
+              <Link
+                to={`/services/${cat.slug}`}
+                onClick={() => setOpenDropdown(null)}
+                className="group block p-3.5 rounded-lg transition-all duration-200 h-full"
+                style={{
+                  background: '#f8f9fa',
+                  border: '1px solid rgba(0,0,0,0.05)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                  e.currentTarget.style.background = 'rgba(212,175,55,0.06)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.background = '#f8f9fa';
+                }}
+              >
+                {/* Icon */}
+                <div className="mb-2 inline-flex p-2 rounded-md transition-all duration-200" style={{ background: 'rgba(212,175,55,0.12)' }}>
+                  <Icon size={14} strokeWidth={1.5} style={{ color: 'var(--color-gold)' }} />
+                </div>
 
-          {/* Services grid — 2 columns */}
-          <div className="grid grid-cols-2 gap-6">
-            {SERVICE_CATEGORIES.map((cat, idx) => {
-              const subs = getSubservicesByCategory(cat.id);
-              const Icon = CAT_ICONS[cat.id] || FileText;
+                {/* Title */}
+                <h4 className="text-[11px] font-bold text-gray-900 mb-1 group-hover:text-[var(--color-gold)] transition-colors leading-snug line-clamp-2">
+                  {cat.title}
+                </h4>
 
-              return (
-                <motion.div
-                  key={cat.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.04, duration: 0.3 }}
-                >
-                  <Link
-                    to={`/services/${cat.slug}`}
-                    onClick={() => setOpenDropdown(null)}
-                    className="group block p-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105"
-                    style={{
-                      background: '#f8f9fa',
-                      border: '1px solid rgba(0,0,0,0.06)',
-                    }}
-                  >
-                    {/* Icon */}
-                    <div className="mb-3 inline-flex p-2.5 rounded-lg transition-all duration-200 group-hover:bg-[var(--color-gold)]/15"
-                      style={{ background: 'rgba(212,175,55,0.1)' }}>
-                      <Icon size={16} strokeWidth={1.5} style={{ color: 'var(--color-gold)' }} className="group-hover:text-[var(--color-brand-navy)] transition-colors" />
-                    </div>
+                {/* Service count */}
+                <p className="text-[9px] text-gray-600 font-medium mb-2">
+                  {subs.length} service{subs.length !== 1 ? 's' : ''}
+                </p>
 
-                    {/* Title */}
-                    <h4 className="text-sm font-bold text-gray-900 mb-1.5 group-hover:text-[var(--color-gold)] transition-colors leading-tight">
-                      {cat.title}
-                    </h4>
-
-                    {/* Description */}
-                    <p className="text-xs text-gray-600 mb-3 leading-relaxed">
-                      {subs.length} services
+                {/* Services preview — compact */}
+                <div className="space-y-1 pt-2 border-t border-gray-200">
+                  {subs.slice(0, 2).map(sub => (
+                    <p key={sub.slug} className="text-[8px] text-gray-700 flex items-start gap-1.5">
+                      <span className="text-[var(--color-gold)] flex-shrink-0 mt-0.5">•</span>
+                      <span className="line-clamp-1 leading-tight">{sub.title}</span>
                     </p>
+                  ))}
+                  {subs.length > 2 && (
+                    <p className="text-[8px] font-bold text-[var(--color-gold)] mt-1">+{subs.length - 2} more</p>
+                  )}
+                </div>
+              </Link>
+            </motion.div>
+          );
+        })}
+      </div>
 
-                    {/* Services preview */}
-                    <div className="space-y-1.5 pt-3 border-t border-gray-200">
-                      {subs.slice(0, 2).map(sub => (
-                        <p key={sub.slug} className="text-[10px] text-gray-700 flex items-start gap-2">
-                          <span className="text-[var(--color-gold)] flex-shrink-0">•</span>
-                          <span className="line-clamp-1">{sub.title}</span>
-                        </p>
-                      ))}
-                      {subs.length > 2 && (
-                        <p className="text-[10px] font-bold text-[var(--color-gold)]">+ {subs.length - 2} more</p>
-                      )}
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Right sidebar — Premium CTA */}
-        <div className="p-8 flex flex-col justify-center" style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.05) 100%)', borderLeft: '1px solid rgba(212,175,55,0.2)' }}>
-          <div className="mb-6">
-            <p className="text-[11px] font-extrabold uppercase tracking-widest text-gray-600 mb-2">Expert Support</p>
-            <h3 className="text-sm font-bold text-gray-900 mb-3 leading-snug">
-              Not sure which service you need?
-            </h3>
-            <p className="text-xs text-gray-700 mb-4 leading-relaxed">
-              Our tax & legal experts are ready to guide you to the perfect solution.
-            </p>
-          </div>
-
-          <Link to="/contact" onClick={() => setOpenDropdown(null)}
-            className="flex items-center justify-center gap-2 py-2.5 px-4 bg-[var(--color-gold)] text-[var(--color-brand-navy)] font-bold text-xs rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 group"
-          >
-            Talk to Expert <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-
-          <p className="text-[9px] text-gray-600 text-center mt-4">
-            Available Monday - Friday, 9am - 6pm
-          </p>
-        </div>
+      {/* Footer CTA */}
+      <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.06) 0%, transparent 100%)' }}>
+        <p className="text-[10px] text-gray-600">
+          Need expert guidance? <span className="font-bold text-[var(--color-gold)]">Our consultants are ready to help</span>
+        </p>
+        <Link to="/contact" onClick={() => setOpenDropdown(null)}
+          className="flex items-center gap-1.5 py-2 px-4 bg-[var(--color-gold)] text-[var(--color-brand-navy)] font-bold text-xs rounded-lg transition-all duration-200 hover:shadow-lg group flex-shrink-0"
+        >
+          Expert Consultation <ArrowRight size={10} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
+        </Link>
       </div>
     </motion.div>
   );
