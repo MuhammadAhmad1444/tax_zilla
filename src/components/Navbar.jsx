@@ -125,14 +125,14 @@ const Navbar = () => {
 
   const isCalcActive = (id) => isTaxActive() && activeCalc === id;
 
-  // ── Services Mega Menu — horizontal professional grid ──────────────────
+  // ── Services Mega Menu — ultra-wide horizontal professional ──────────────────
   const ServicesMegaMenu = () => (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] w-[min(1350px,calc(100vw-2rem))] bg-white rounded-xl overflow-hidden"
+      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] w-[min(1500px,calc(100vw-1rem))] bg-white rounded-xl overflow-hidden"
       style={{
         boxShadow: '0 25px 80px rgba(0,0,0,0.16), 0 0 1px rgba(0,0,0,0.1)',
         border: '1px solid rgba(0,0,0,0.06)'
@@ -141,11 +141,9 @@ const Navbar = () => {
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {/* Header bar */}
-      <div className="px-6 py-3.5 border-b border-gray-100 flex items-center justify-between" style={{ background: '#fafbfc' }}>
-        <div>
-          <h3 className="text-xs font-bold text-gray-900">Our Services</h3>
-        </div>
+      {/* Header bar — minimal */}
+      <div className="px-6 py-2.5 border-b border-gray-100 flex items-center justify-between" style={{ background: '#fafbfc' }}>
+        <h3 className="text-xs font-bold text-gray-900">Our Services</h3>
         <Link to="/services" onClick={() => setOpenDropdown(null)}
           className="flex items-center gap-1 text-xs font-bold text-[var(--color-gold)] hover:text-[var(--color-brand-navy)] transition-colors"
         >
@@ -153,8 +151,8 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Services grid — 4 columns, compact */}
-      <div className="grid grid-cols-4 gap-3 p-6">
+      {/* Ultra-wide grid — 7 columns, minimal vertical */}
+      <div className="grid grid-cols-7 gap-2 p-5">
         {SERVICE_CATEGORIES.map((cat, idx) => {
           const subs = getSubservicesByCategory(cat.id);
           const Icon = CAT_ICONS[cat.id] || FileText;
@@ -162,21 +160,21 @@ const Navbar = () => {
           return (
             <motion.div
               key={cat.id}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.03, duration: 0.25 }}
+              transition={{ delay: idx * 0.02, duration: 0.2 }}
             >
               <Link
                 to={`/services/${cat.slug}`}
                 onClick={() => setOpenDropdown(null)}
-                className="group block p-3.5 rounded-lg transition-all duration-200 h-full"
+                className="group block p-3 rounded-lg transition-all duration-200 h-full"
                 style={{
                   background: '#f8f9fa',
                   border: '1px solid rgba(0,0,0,0.05)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
-                  e.currentTarget.style.background = 'rgba(212,175,55,0.06)';
+                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.1)';
+                  e.currentTarget.style.background = 'rgba(212,175,55,0.05)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.boxShadow = 'none';
@@ -184,48 +182,36 @@ const Navbar = () => {
                 }}
               >
                 {/* Icon */}
-                <div className="mb-2 inline-flex p-2 rounded-md transition-all duration-200" style={{ background: 'rgba(212,175,55,0.12)' }}>
-                  <Icon size={14} strokeWidth={1.5} style={{ color: 'var(--color-gold)' }} />
+                <div className="mb-2 inline-flex p-1.5 rounded-md" style={{ background: 'rgba(212,175,55,0.12)' }}>
+                  <Icon size={13} strokeWidth={1.5} style={{ color: 'var(--color-gold)' }} />
                 </div>
 
                 {/* Title */}
-                <h4 className="text-[11px] font-bold text-gray-900 mb-1 group-hover:text-[var(--color-gold)] transition-colors leading-snug line-clamp-2">
+                <h4 className="text-[10px] font-bold text-gray-900 mb-1 group-hover:text-[var(--color-gold)] transition-colors leading-tight line-clamp-2">
                   {cat.title}
                 </h4>
 
                 {/* Service count */}
-                <p className="text-[9px] text-gray-600 font-medium mb-2">
-                  {subs.length} service{subs.length !== 1 ? 's' : ''}
+                <p className="text-[8px] text-gray-600 font-medium mb-1.5">
+                  {subs.length} services
                 </p>
 
-                {/* Services preview — compact */}
-                <div className="space-y-1 pt-2 border-t border-gray-200">
-                  {subs.slice(0, 2).map(sub => (
-                    <p key={sub.slug} className="text-[8px] text-gray-700 flex items-start gap-1.5">
+                {/* Services preview — ultra compact */}
+                <div className="space-y-0.5 pt-1.5 border-t border-gray-200">
+                  {subs.slice(0, 1).map(sub => (
+                    <p key={sub.slug} className="text-[7px] text-gray-700 flex items-start gap-1">
                       <span className="text-[var(--color-gold)] flex-shrink-0 mt-0.5">•</span>
                       <span className="line-clamp-1 leading-tight">{sub.title}</span>
                     </p>
                   ))}
-                  {subs.length > 2 && (
-                    <p className="text-[8px] font-bold text-[var(--color-gold)] mt-1">+{subs.length - 2} more</p>
+                  {subs.length > 1 && (
+                    <p className="text-[7px] font-bold text-[var(--color-gold)]">+{subs.length - 1} more</p>
                   )}
                 </div>
               </Link>
             </motion.div>
           );
         })}
-      </div>
-
-      {/* Footer CTA */}
-      <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.06) 0%, transparent 100%)' }}>
-        <p className="text-[10px] text-gray-600">
-          Need expert guidance? <span className="font-bold text-[var(--color-gold)]">Our consultants are ready to help</span>
-        </p>
-        <Link to="/contact" onClick={() => setOpenDropdown(null)}
-          className="flex items-center gap-1.5 py-2 px-4 bg-[var(--color-gold)] text-[var(--color-brand-navy)] font-bold text-xs rounded-lg transition-all duration-200 hover:shadow-lg group flex-shrink-0"
-        >
-          Expert Consultation <ArrowRight size={10} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
-        </Link>
       </div>
     </motion.div>
   );
