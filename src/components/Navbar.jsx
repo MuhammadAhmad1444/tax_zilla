@@ -213,6 +213,46 @@ const Navbar = () => {
           );
         })}
       </div>
+
+      {/* Professional footer bar — horizontal CTAs */}
+      <div className="border-t border-gray-100 px-5 py-3.5 flex items-center gap-4 flex-wrap" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.05) 0%, transparent 100%)' }}>
+        {/* View All button */}
+        <Link to="/services" onClick={() => setOpenDropdown(null)}
+          className="inline-flex items-center gap-1.5 py-2 px-4 bg-[var(--color-gold)] text-[var(--color-brand-navy)] font-bold text-[11px] rounded-full transition-all duration-200 hover:shadow-lg hover:scale-105"
+        >
+          <span>All Services</span>
+        </Link>
+
+        {/* Divider */}
+        <div className="w-px h-5" style={{ background: 'rgba(0,0,0,0.1)' }} />
+
+        {/* Category links */}
+        <div className="flex items-center gap-3">
+          <span className="text-[9px] font-bold text-gray-600 uppercase tracking-wider">Browse by:</span>
+          {MEGA_GROUPS.map(group => (
+            <button
+              key={group.id}
+              type="button"
+              onClick={() => navigate('/services')}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-bold text-gray-700 hover:bg-gray-100 transition-all duration-200"
+            >
+              <span>{group.flag}</span>
+              <span className="line-clamp-1">{group.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Expert CTA */}
+        <Link to="/contact" onClick={() => setOpenDropdown(null)}
+          className="inline-flex items-center gap-1.5 py-2 px-4 text-[var(--color-brand-navy)] font-bold text-[11px] rounded-full transition-all duration-200 hover:bg-[var(--color-gold)]/10 group"
+        >
+          <span>Talk to Expert</span>
+          <ArrowRight size={10} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
+        </Link>
+      </div>
     </motion.div>
   );
 
