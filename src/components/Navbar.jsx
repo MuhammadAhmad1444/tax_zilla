@@ -125,34 +125,36 @@ const Navbar = () => {
 
   const isCalcActive = (id) => isTaxActive() && activeCalc === id;
 
-  // ── Services Mega Menu — ultra-wide horizontal professional ──────────────────
+  // ── Services Mega Menu — full-width professional dropdown ──────────────────
   const ServicesMegaMenu = () => (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] w-[min(1500px,calc(100vw-1rem))] bg-white rounded-xl overflow-hidden"
+      className="absolute left-0 right-0 top-[calc(100%+12px)] w-screen bg-white overflow-hidden"
       style={{
-        boxShadow: '0 25px 80px rgba(0,0,0,0.16), 0 0 1px rgba(0,0,0,0.1)',
-        border: '1px solid rgba(0,0,0,0.06)'
+        boxShadow: '0 25px 80px rgba(0,0,0,0.16), 0 0 1px rgba(0,0,0,0.1)'
       }}
       role="menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {/* Header bar — minimal */}
+      {/* Header bar — minimal, full-width container */}
       <div className="px-6 py-2.5 border-b border-gray-100 flex items-center justify-between" style={{ background: '#fafbfc' }}>
-        <h3 className="text-xs font-bold text-gray-900">Our Services</h3>
-        <Link to="/services" onClick={() => setOpenDropdown(null)}
-          className="flex items-center gap-1 text-xs font-bold text-[var(--color-gold)] hover:text-[var(--color-brand-navy)] transition-colors"
-        >
-          View All <ArrowRight size={11} strokeWidth={2.5} />
-        </Link>
+        <div className="container-custom flex items-center justify-between w-full">
+          <h3 className="text-xs font-bold text-gray-900">Our Services</h3>
+          <Link to="/services" onClick={() => setOpenDropdown(null)}
+            className="flex items-center gap-1 text-xs font-bold text-[var(--color-gold)] hover:text-[var(--color-brand-navy)] transition-colors"
+          >
+            View All <ArrowRight size={11} strokeWidth={2.5} />
+          </Link>
+        </div>
       </div>
 
-      {/* Ultra-wide grid — 7 columns, minimal vertical */}
-      <div className="grid grid-cols-7 gap-2 p-5">
+      {/* Ultra-wide grid — 7 columns, minimal vertical, centered content */}
+      <div className="container-custom">
+        <div className="grid grid-cols-7 gap-2 p-5">
         {SERVICE_CATEGORIES.map((cat, idx) => {
           const subs = getSubservicesByCategory(cat.id);
           const Icon = CAT_ICONS[cat.id] || FileText;
@@ -212,10 +214,12 @@ const Navbar = () => {
             </motion.div>
           );
         })}
+        </div>
       </div>
 
-      {/* Professional footer bar — horizontal CTAs */}
-      <div className="border-t border-gray-100 px-5 py-3.5 flex items-center gap-4 flex-wrap" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.05) 0%, transparent 100%)' }}>
+      {/* Professional footer bar — horizontal CTAs, full-width */}
+      <div className="border-t border-gray-100 py-3.5 flex items-center gap-4 flex-wrap" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.05) 0%, transparent 100%)' }}>
+        <div className="container-custom flex items-center gap-4 flex-wrap w-full">
         {/* View All button */}
         <Link to="/services" onClick={() => setOpenDropdown(null)}
           className="inline-flex items-center gap-1.5 py-2 px-4 bg-[var(--color-gold)] text-[var(--color-brand-navy)] font-bold text-[11px] rounded-full transition-all duration-200 hover:shadow-lg hover:scale-105"
@@ -246,12 +250,13 @@ const Navbar = () => {
         <div className="flex-1" />
 
         {/* Expert CTA */}
-        <Link to="/contact" onClick={() => setOpenDropdown(null)}
-          className="inline-flex items-center gap-1.5 py-2 px-4 text-[var(--color-brand-navy)] font-bold text-[11px] rounded-full transition-all duration-200 hover:bg-[var(--color-gold)]/10 group"
-        >
-          <span>Talk to Expert</span>
-          <ArrowRight size={10} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
-        </Link>
+          <Link to="/contact" onClick={() => setOpenDropdown(null)}
+            className="inline-flex items-center gap-1.5 py-2 px-4 text-[var(--color-brand-navy)] font-bold text-[11px] rounded-full transition-all duration-200 hover:bg-[var(--color-gold)]/10 group"
+          >
+            <span>Talk to Expert</span>
+            <ArrowRight size={10} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
       </div>
     </motion.div>
   );
