@@ -125,127 +125,128 @@ const Navbar = () => {
 
   const isCalcActive = (id) => isTaxActive() && activeCalc === id;
 
-  // ── Services Mega Menu — premium professional dropdown ──────────────────
-  const ServicesMegaMenu = () => (
-    <motion.div
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] w-[min(460px,calc(100vw-2rem))]"
-      style={{
-        boxShadow: '0 20px 60px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.08)',
-        background: 'linear-gradient(to bottom, #ffffff 0%, #fafbfc 100%)',
-        borderRadius: '12px',
-        border: '1px solid rgba(0,0,0,0.05)',
-        overflow: 'hidden'
-      }}
-      role="menu"
-      onMouseEnter={cancelClose}
-      onMouseLeave={scheduleClose}
-    >
-      {/* Premium header with gradient accent */}
-      <div className="px-5 py-4" style={{ borderBottom: '1px solid rgba(0,0,0,0.06)', background: 'linear-gradient(135deg, rgba(212,175,55,0.04) 0%, rgba(212,175,55,0.02) 100%)' }}>
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-[11px] font-extrabold uppercase tracking-[0.15em] text-gray-500" style={{ letterSpacing: '0.12em' }}>
-            Services
-          </span>
-          <Link to="/services" onClick={() => setOpenDropdown(null)}
-            className="text-[11px] font-bold text-[var(--color-gold)] hover:text-[var(--color-brand-navy)] transition-all duration-200 flex items-center gap-1.5"
+  // ── Services Mega Menu — clean professional multi-panel ──────────────────
+  const [hoveredCategory, setHoveredCategory] = useState(null);
+
+  const ServicesMegaMenu = () => {
+    const mainCats = MEGA_GROUPS;
+    const selectedGroup = hoveredCategory
+      ? mainCats.find(g => g.id === hoveredCategory)
+      : mainCats[0];
+
+    const selectedCats = selectedGroup
+      ? SERVICE_CATEGORIES.filter(c => selectedGroup.slugs.includes(c.id))
+      : [];
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] w-[min(820px,calc(100vw-2rem))] bg-white rounded-xl overflow-hidden flex"
+        style={{
+          boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+          border: '1px solid rgba(0,0,0,0.05)'
+        }}
+        role="menu"
+        onMouseEnter={cancelClose}
+        onMouseLeave={scheduleClose}
+      >
+        {/* LEFT PANEL — Main categories */}
+        <div className="w-56 border-r border-gray-100" style={{ background: '#fafbfc' }}>
+          <div className="px-4 py-3 border-b border-gray-100">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">CATEGORIES</span>
+          </div>
+          <div className="py-2">
+            {mainCats.map(group => {
+              const catCount = SERVICE_CATEGORIES.filter(c => group.slugs.includes(c.id)).length;
+              const isActive = hoveredCategory === group.id || (!hoveredCategory && group.id === mainCats[0].id);
+
+              return (
+                <button
+                  key={group.id}
+                  type="button"
+                  onMouseEnter={() => setHoveredCategory(group.id)}
+                  className={`w-full flex items-center gap-2 px-4 py-3 text-left transition-all duration-150 ${
+                    isActive
+                      ? 'bg-[var(--color-gold)]/8 border-r-2 border-[var(--color-gold)]'
+                      : 'border-r-2 border-transparent hover:bg-gray-50'
+                  }`}
+                >
+                  <span className="text-lg">{group.flag}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className={`text-xs font-bold ${isActive ? 'text-[var(--color-gold)]' : 'text-gray-900'} transition-colors`}>
+                      {group.label}
+                    </p>
+                    <p className="text-[9px] text-gray-500">{catCount} services</p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* MIDDLE PANEL — Subcategories */}
+        <div className="w-48 border-r border-gray-100 overflow-y-auto" style={{ background: '#ffffff', maxHeight: '350px' }}>
+          <div className="px-4 py-3 border-b border-gray-100 sticky top-0" style={{ background: '#fafbfc' }}>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">SERVICES</span>
+          </div>
+          <div className="py-2">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedGroup?.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                {selectedCats.map(cat => (
+                  <Link
+                    key={cat.id}
+                    to={`/services/${cat.slug}`}
+                    onClick={() => setOpenDropdown(null)}
+                    className="group flex items-center gap-2 px-4 py-2.5 text-left hover:bg-[var(--color-gold)]/5 transition-colors duration-150"
+                  >
+                    <span className="text-xs text-[var(--color-gold)] group-hover:text-[var(--color-brand-navy)]">→</span>
+                    <span className="text-xs font-medium text-gray-700 group-hover:text-[var(--color-gold)] transition-colors truncate">
+                      {cat.title}
+                    </span>
+                  </Link>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* RIGHT PANEL — Description & CTA */}
+        <div className="flex-1 p-6 flex flex-col justify-between" style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.03) 0%, transparent 100%)' }}>
+          <div>
+            <h3 className="text-sm font-bold text-gray-900 mb-2">
+              {selectedGroup?.label}
+            </h3>
+            <p className="text-xs text-gray-600 leading-relaxed mb-4">
+              {selectedGroup?.id === 'pakistan' && 'Complete Pakistan tax & compliance solutions'}
+              {selectedGroup?.id === 'corporate' && 'Corporate registration & business services'}
+              {selectedGroup?.id === 'specialized' && 'Specialized visa & immigration tax services'}
+              {selectedGroup?.id === 'international' && 'International tax filing & setup'}
+            </p>
+            <p className="text-[11px] font-bold text-[var(--color-gold)]">
+              {selectedCats.length} Services
+            </p>
+          </div>
+
+          <Link
+            to="/services"
+            onClick={() => setOpenDropdown(null)}
+            className="flex items-center gap-2 text-xs font-bold text-[var(--color-brand-navy)] hover:text-[var(--color-gold)] transition-colors group"
           >
-            All Services <ArrowRight size={12} strokeWidth={2.5} />
+            View All Services <ArrowRight size={11} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
-        <p className="text-[9px] text-gray-500 mt-1">Explore our {SERVICE_CATEGORIES.length}+ professional services</p>
-      </div>
-
-      {/* Premium categories grid */}
-      <div className="grid grid-cols-2 divide-x divide-y divide-gray-100">
-        {SERVICE_CATEGORIES.map((cat, idx) => {
-          const subs = getSubservicesByCategory(cat.id);
-          const topSubs = subs.slice(0, 2);
-          const Icon = CAT_ICONS[cat.id] || FileText;
-
-          return (
-            <motion.div
-              key={cat.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: idx * 0.02, duration: 0.3 }}
-            >
-              <Link
-                to={`/services/${cat.slug}`}
-                onClick={() => setOpenDropdown(null)}
-                className="group block p-4 transition-all duration-200"
-                style={{
-                  background: 'transparent',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-              >
-                {/* Hover background effect */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                  style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.04) 100%)' }} />
-
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Icon + Title */}
-                  <div className="flex items-start gap-3 mb-3">
-                    <div className="p-2 rounded-lg transition-all duration-200 group-hover:bg-[var(--color-gold)]/10"
-                      style={{ background: 'rgba(212,175,55,0.08)' }}>
-                      <Icon
-                        size={16}
-                        strokeWidth={1.5}
-                        className="group-hover:text-[var(--color-gold)] transition-colors duration-200"
-                        style={{ color: 'var(--color-gold)' }}
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-[12px] font-bold text-gray-900 group-hover:text-[var(--color-gold)] transition-colors duration-200 leading-tight">
-                        {cat.title}
-                      </h4>
-                      <p className="text-[9px] text-gray-500 mt-1 font-medium">
-                        {subs.length} service{subs.length !== 1 ? 's' : ''}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Top services preview */}
-                  {topSubs.length > 0 && (
-                    <div className="flex flex-col gap-1.5 pl-11">
-                      {topSubs.map(sub => (
-                        <div key={sub.slug} className="flex items-start gap-2">
-                          <span className="text-[var(--color-gold)] mt-0.5 flex-shrink-0">∙</span>
-                          <span className="text-[9px] text-gray-600 group-hover:text-gray-800 transition-colors duration-200 leading-snug">
-                            {sub.title}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </Link>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Premium footer CTA */}
-      <div className="px-5 py-3.5" style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(212,175,55,0.02) 100%)', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
-        <Link to="/contact" onClick={() => setOpenDropdown(null)}
-          className="flex items-center justify-center gap-2 text-[11px] font-bold transition-all duration-200 group py-2 px-3 rounded-lg"
-          style={{
-            color: 'var(--color-brand-navy)',
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(212,175,55,0.1)'}
-          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-        >
-          <span>Expert Consultation Available</span>
-          <ArrowRight size={12} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
-        </Link>
-      </div>
-    </motion.div>
-  );
+      </motion.div>
+    );
+  };
 
   // ── Tax Calculators Mega Menu ───────────────────────────────────────────
   const TaxCalculatorsMegaMenu = () => (
