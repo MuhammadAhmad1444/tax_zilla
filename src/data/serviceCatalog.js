@@ -882,7 +882,7 @@ const RAW_SUBSERVICES = [
     title: 'Criminal Law Services',
     categoryId: 'legal-services',
     shortDesc: 'Expert criminal defense, case representation, and legal advocacy in criminal matters.',
-    whatYouGet: [
+    deliverables: [
       'FIR review, bail applications, and pre-arrest bail filings',
       'Trial representation in Sessions Courts and High Courts',
       'Appeals, revisions, and writ petitions in superior courts',
@@ -918,7 +918,7 @@ const RAW_SUBSERVICES = [
     title: 'Civil Law Services',
     categoryId: 'legal-services',
     shortDesc: 'Civil litigation, dispute resolution, and property law expertise.',
-    whatYouGet: [
+    deliverables: [
       'Civil suit drafting and filing — recovery, declaration, injunction',
       'Property disputes, partition suits, and title verification',
       'Rent, ejectment, and landlord-tenant matters',

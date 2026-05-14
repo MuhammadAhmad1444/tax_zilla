@@ -104,6 +104,71 @@ const CountUp = ({ target, suffix = '', duration = 1800 }) => {
   return <span ref={ref}>{count}{suffix}</span>;
 };
 
+/* ── Rotating headline word ───────────────────────── */
+const RotatingWord = ({ words, reduce, className = '' }) => {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (reduce) return;
+    const t = setInterval(() => setI((p) => (p + 1) % words.length), 2200);
+    return () => clearInterval(t);
+  }, [words.length, reduce]);
+  return (
+    <span className={`inline-block relative align-top ${className}`} style={{ minHeight: '1em' }}>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={words[i]}
+          initial={reduce ? {} : { y: '0.6em', opacity: 0, filter: 'blur(8px)' }}
+          animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+          exit={reduce ? {} : { y: '-0.6em', opacity: 0, filter: 'blur(8px)' }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-block text-gradient-gold"
+        >
+          {words[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+};
+
+/* ── Live activity pill ───────────────────────────── */
+const LiveActivityPill = ({ reduce }) => {
+  const messages = [
+    { txt: 'Income tax return filed for Lahore client', dot: 'bg-emerald-400' },
+    { txt: 'SECP company registration completed', dot: 'bg-amber-400' },
+    { txt: 'UAE corporate tax filing submitted', dot: 'bg-blue-400' },
+    { txt: 'Freelancer PSEB registration approved', dot: 'bg-purple-400' },
+    { txt: 'Sales tax monthly return acknowledged', dot: 'bg-emerald-400' },
+  ];
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    if (reduce) return;
+    const t = setInterval(() => setI((p) => (p + 1) % messages.length), 3200);
+    return () => clearInterval(t);
+  }, [reduce, messages.length]);
+  return (
+    <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3.5 py-1.5 backdrop-blur-md max-w-full">
+      <span className="relative flex h-2 w-2 flex-shrink-0">
+        <span className={`absolute inline-flex h-full w-full animate-ping rounded-full ${messages[i].dot} opacity-75`} />
+        <span className={`relative inline-flex h-2 w-2 rounded-full ${messages[i].dot}`} />
+      </span>
+      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-gold)]">Live</span>
+      <span className="text-gray-600">·</span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={messages[i].txt}
+          initial={reduce ? {} : { opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduce ? {} : { opacity: 0, y: -6 }}
+          transition={{ duration: 0.35 }}
+          className="text-[11px] font-medium text-gray-300 truncate max-w-[260px] sm:max-w-md"
+        >
+          {messages[i].txt}
+        </motion.span>
+      </AnimatePresence>
+    </div>
+  );
+};
+
 /* ═══════════════════════════════════════════════════
    DATA
 ═══════════════════════════════════════════════════ */
@@ -193,6 +258,16 @@ const HomePage = () => {
         <div className="relative z-10 container-custom px-4 pt-28 pb-16 sm:pt-32 md:pt-36">
           <div className="max-w-5xl mx-auto text-center">
 
+            {/* Live activity pill */}
+            <motion.div
+              initial={reduce ? {} : { opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: EASE_OUT }}
+              className="flex justify-center mb-4"
+            >
+              <LiveActivityPill reduce={reduce} />
+            </motion.div>
+
             {/* Animated badge */}
             <motion.div {...fadeUp(0, reduce)} className="inline-block mb-6">
               <motion.div
@@ -222,9 +297,12 @@ const HomePage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE_OUT, delay: reduce ? 0 : 0.18 }}
             >
-              <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-gradient-gold"
+              <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
                 style={{ fontFamily: 'var(--font-heading)' }}>
-                Tax & Legal
+                <RotatingWord
+                  reduce={reduce}
+                  words={['Tax & Legal', 'Income Tax', 'Sales Tax', 'SECP', 'Compliance']}
+                />
               </h1>
             </motion.div>
             <motion.div
@@ -317,32 +395,43 @@ const HomePage = () => {
       </section>
 
       {/* ══════════════════════════════════════════════
-          2. TRUST STRIP (marquee-style)
+          2. TRUST STRIP (true marquee)
       ══════════════════════════════════════════════ */}
-      <div className="relative z-20 -mt-1 border-b border-white/10 overflow-hidden" style={{ background: 'var(--color-brand-navy)' }}>
-        <div className="container-custom py-4">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-xs font-semibold text-gray-400">
-            <motion.span
-              className="text-[var(--color-gold)] uppercase tracking-widest text-[10px]"
-              animate={reduce ? {} : { opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              ✦ Trusted across
-            </motion.span>
-            {['🇵🇰 Pakistan', '🇦🇪 UAE', '🇺🇸 USA', '🇸🇦 Saudi Arabia'].map((c, i) => (
-              <motion.span
-                key={c}
-                className="text-gray-300"
-                initial={reduce ? {} : { opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 * i, duration: 0.4 }}
-              >
-                {c}
-              </motion.span>
-            ))}
-            <span className="hidden sm:inline text-gray-600">·</span>
-            <span className="text-gray-300 hidden sm:inline">997+ businesses & individuals</span>
-          </div>
+      <div className="relative z-20 -mt-1 border-y border-white/10 overflow-hidden" style={{ background: 'var(--color-brand-navy)' }}>
+        {/* Edge fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-[var(--color-brand-navy)] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 z-10 bg-gradient-to-l from-[var(--color-brand-navy)] to-transparent" />
+        <div className="py-4">
+          <motion.div
+            className="flex items-center gap-12 whitespace-nowrap text-xs font-semibold text-gray-300"
+            animate={reduce ? {} : { x: ['0%', '-50%'] }}
+            transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
+            style={{ width: 'max-content' }}
+          >
+            {[...Array(2)].flatMap((_, dup) =>
+              [
+                '✦ FBR Approved',
+                '🇵🇰 Pakistan',
+                '✦ SECP Registered',
+                '🇦🇪 UAE',
+                '✦ ZATCA Compliant',
+                '🇺🇸 USA',
+                '✦ HMRC Familiar',
+                '🇸🇦 Saudi Arabia',
+                '✦ 997+ Clients',
+                '🇬🇧 UK',
+                '✦ 70+ Services',
+                '✦ 10+ Years',
+              ].map((item, idx) => (
+                <span
+                  key={`${dup}-${idx}`}
+                  className={item.startsWith('✦') ? 'text-[var(--color-gold)] uppercase tracking-[0.25em] text-[10px]' : 'text-gray-300'}
+                >
+                  {item}
+                </span>
+              ))
+            )}
+          </motion.div>
         </div>
       </div>
 
