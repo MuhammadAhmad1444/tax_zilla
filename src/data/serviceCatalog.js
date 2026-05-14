@@ -877,6 +877,8 @@ const RAW_SUBSERVICES = [
   { slug: 'power-of-attorney', title: 'Power of Attorney', categoryId: 'legal-services', shortDesc: 'Preparation and registration of General and Special Power of Attorney.' },
   { slug: 'property-documentation', title: 'Property Documentation', categoryId: 'legal-services', shortDesc: 'Legal documentation for real estate, lease, and property transactions.' },
   { slug: 'business-legal-advisory', title: 'Business Legal Advisory', categoryId: 'legal-services', shortDesc: 'Expert legal consultation for corporate and commercial operations.' },
+  { slug: 'criminal-law-services', title: 'Criminal Law Services', categoryId: 'legal-services', shortDesc: 'Expert criminal defense, case representation, and legal advocacy in criminal matters.' },
+  { slug: 'civil-law-services', title: 'Civil Law Services', categoryId: 'legal-services', shortDesc: 'Civil litigation, dispute resolution, and property law expertise.' },
 
   // Visa & Immigration Tax Services
   { slug: 'ntn-for-visa-purpose', title: 'NTN for Visa Purpose', categoryId: 'visa-immigration-tax-services', shortDesc: 'NTN registration and tax profile setup specifically for visa applications.' },

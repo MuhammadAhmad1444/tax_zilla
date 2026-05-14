@@ -125,312 +125,293 @@ const Navbar = () => {
 
   const isCalcActive = (id) => isTaxActive() && activeCalc === id;
 
-  // ── Services Mega Menu — Moz-style 3-column + sidebar professional ──────────────────
+  // ── Services Mega Menu — Full-width horizontal layout ──────────────────
   const ServicesMegaMenu = () => (
     <motion.div
-      initial={{ opacity: 0, y: -10 }}
+      initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+12px)] bg-white rounded-xl overflow-hidden"
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed left-0 right-0 w-screen bg-white"
       style={{
-        width: 'min(1200px, calc(100vw-2rem))',
-        boxShadow: '0 25px 80px rgba(0,0,0,0.16), 0 0 1px rgba(0,0,0,0.1)',
-        display: 'flex'
+        top: '64px',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+        display: 'block',
+        zIndex: 40
       }}
       role="menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {/* LEFT SECTION — 3 columns of services */}
-      <div className="flex-1 p-6" style={{ minHeight: '320px' }}>
-        <h3 className="text-sm font-bold text-gray-900 mb-6">Our Services</h3>
-
-        {/* 3-column grid */}
-        <div className="grid grid-cols-3 gap-8">
-          {/* Column 1 — First 5 services */}
-          <div className="space-y-4">
-            {SERVICE_CATEGORIES.slice(0, 5).map((cat, idx) => {
-              const subs = getSubservicesByCategory(cat.id);
-              const Icon = CAT_ICONS[cat.id] || FileText;
-
-              return (
-                <motion.div
-                  key={cat.id}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.04 }}
-                >
-                  <Link
-                    to={`/services/${cat.slug}`}
-                    onClick={() => setOpenDropdown(null)}
-                    className="group block transition-all duration-200"
-                  >
-                    <div className="flex items-start gap-3 mb-2">
-                      <div className="p-2 rounded-lg" style={{ background: 'rgba(212,175,55,0.12)' }}>
-                        <Icon size={14} strokeWidth={1.5} style={{ color: 'var(--color-gold)' }} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xs font-bold text-gray-900 group-hover:text-[var(--color-gold)] transition-colors leading-tight">
-                          {cat.title}
-                        </h4>
-                        <p className="text-[9px] text-gray-600 mt-0.5">{subs.length} services</p>
-                      </div>
-                    </div>
-                    <div className="space-y-1 ml-9">
-                      {subs.slice(0, 1).map(sub => (
-                        <p key={sub.slug} className="text-[9px] text-gray-700 group-hover:text-[var(--color-gold)] transition-colors">
-                          • {sub.title}
-                        </p>
-                      ))}
-                    </div>
+      {/* Professional Premium Layout */}
+      <div className="container-custom py-3 px-6 flex gap-8">
+        {/* Left Content - Services Grid */}
+        <div className="flex-1">
+          <div className="grid grid-cols-4 gap-6">
+            {/* Column 1 - Pakistan */}
+            <div>
+              <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
+                <div className="p-1 rounded-lg bg-red-50">
+                  <Globe size={12} className="text-red-600" />
+                </div>
+                <h4 className="text-xs font-extrabold text-gray-900">Pakistan</h4>
+                <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-red-100 text-red-700">4</span>
+              </div>
+              <div className="space-y-1.5">
+                {SERVICE_CATEGORIES.filter(c => ['tax-services-pakistan', 'individual-tax-services', 'certificates-compliance', 'audit-investigation'].includes(c.slug)).map((cat) => (
+                  <Link key={cat.id} to={`/services/${cat.slug}`} onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
+                    <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">{cat.title}</h5>
                   </Link>
-                </motion.div>
-              );
-            })}
+                ))}
+              </div>
+            </div>
+
+            {/* Column 2 - Corporate */}
+            <div>
+              <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
+                <div className="p-1 rounded-lg bg-blue-50">
+                  <Briefcase size={12} className="text-blue-600" />
+                </div>
+                <h4 className="text-xs font-extrabold text-gray-900">Corporate</h4>
+                <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700">3</span>
+              </div>
+              <div className="space-y-1.5">
+                {SERVICE_CATEGORIES.filter(c => ['corporate-business-services', 'secp-related-services', 'intellectual-property'].includes(c.slug)).map((cat) => (
+                  <Link key={cat.id} to={`/services/${cat.slug}`} onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
+                    <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">{cat.title}</h5>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 3 - International */}
+            <div>
+              <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
+                <div className="p-1 rounded-lg bg-green-50">
+                  <Globe size={12} className="text-green-600" />
+                </div>
+                <h4 className="text-xs font-extrabold text-gray-900">International</h4>
+                <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-green-100 text-green-700">4</span>
+              </div>
+              <div className="space-y-1.5">
+                {SERVICE_CATEGORIES.filter(c => ['uae-tax-services', 'usa-tax-services', 'ksa-tax-services', 'uk-tax-services'].includes(c.slug)).map((cat) => (
+                  <Link key={cat.id} to={`/services/${cat.slug}`} onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
+                    <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">{cat.title}</h5>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 4 - Legal Services (with Criminal & Civil subservices) */}
+            <div>
+              <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
+                <div className="p-1 rounded-lg bg-orange-50">
+                  <Scale size={12} className="text-orange-600" />
+                </div>
+                <h4 className="text-xs font-extrabold text-gray-900">Legal Services</h4>
+                <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-orange-100 text-orange-700">3</span>
+              </div>
+              <div className="space-y-1.5">
+                <Link to="/services/legal-services" onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
+                  <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">Legal Services</h5>
+                </Link>
+                <Link to="/services/legal-services/criminal-law-services" onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
+                  <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">Criminal Law Services</h5>
+                </Link>
+                <Link to="/services/legal-services/civil-law-services" onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
+                  <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">Civil Law Services</h5>
+                </Link>
+              </div>
+            </div>
           </div>
+        </div>
 
-          {/* Column 2 — Next 5 services */}
-          <div className="space-y-4">
-            {SERVICE_CATEGORIES.slice(5, 10).map((cat, idx) => {
-              const subs = getSubservicesByCategory(cat.id);
-              const Icon = CAT_ICONS[cat.id] || FileText;
-
-              return (
-                <motion.div
-                  key={cat.id}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: (idx + 5) * 0.04 }}
-                >
-                  <Link
-                    to={`/services/${cat.slug}`}
-                    onClick={() => setOpenDropdown(null)}
-                    className="group block transition-all duration-200"
-                  >
-                    <div className="flex items-start gap-3 mb-2">
-                      <div className="p-2 rounded-lg" style={{ background: 'rgba(212,175,55,0.12)' }}>
-                        <Icon size={14} strokeWidth={1.5} style={{ color: 'var(--color-gold)' }} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xs font-bold text-gray-900 group-hover:text-[var(--color-gold)] transition-colors leading-tight">
-                          {cat.title}
-                        </h4>
-                        <p className="text-[9px] text-gray-600 mt-0.5">{subs.length} services</p>
-                      </div>
-                    </div>
-                    <div className="space-y-1 ml-9">
-                      {subs.slice(0, 1).map(sub => (
-                        <p key={sub.slug} className="text-[9px] text-gray-700 group-hover:text-[var(--color-gold)] transition-colors">
-                          • {sub.title}
-                        </p>
-                      ))}
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Column 3 — Last 4 services */}
-          <div className="space-y-4">
-            {SERVICE_CATEGORIES.slice(10).map((cat, idx) => {
-              const subs = getSubservicesByCategory(cat.id);
-              const Icon = CAT_ICONS[cat.id] || FileText;
-
-              return (
-                <motion.div
-                  key={cat.id}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: (idx + 10) * 0.04 }}
-                >
-                  <Link
-                    to={`/services/${cat.slug}`}
-                    onClick={() => setOpenDropdown(null)}
-                    className="group block transition-all duration-200"
-                  >
-                    <div className="flex items-start gap-3 mb-2">
-                      <div className="p-2 rounded-lg" style={{ background: 'rgba(212,175,55,0.12)' }}>
-                        <Icon size={14} strokeWidth={1.5} style={{ color: 'var(--color-gold)' }} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xs font-bold text-gray-900 group-hover:text-[var(--color-gold)] transition-colors leading-tight">
-                          {cat.title}
-                        </h4>
-                        <p className="text-[9px] text-gray-600 mt-0.5">{subs.length} services</p>
-                      </div>
-                    </div>
-                    <div className="space-y-1 ml-9">
-                      {subs.slice(0, 1).map(sub => (
-                        <p key={sub.slug} className="text-[9px] text-gray-700 group-hover:text-[var(--color-gold)] transition-colors">
-                          • {sub.title}
-                        </p>
-                      ))}
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
+        {/* Right Sidebar - Professional CTA Card */}
+        <div className="w-64 flex-shrink-0">
+          <div className="bg-gradient-to-br from-[var(--color-gold)]/20 to-white border border-[var(--color-gold)]/30 p-4 rounded-lg overflow-hidden" style={{ boxShadow: '0 4px 12px rgba(212,175,55,0.15)' }}>
+            <div className="mb-3">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="p-1.5 rounded-lg bg-[var(--color-gold)]/10">
+                  <CheckCircle size={13} style={{ color: 'var(--color-gold)' }} />
+                </div>
+                <span className="text-xs font-extrabold text-[var(--color-gold)] uppercase tracking-wider">Expert Support</span>
+              </div>
+              <h3 className="text-sm font-extrabold text-gray-900">Professional Guidance</h3>
+            </div>
+            <p className="text-xs text-gray-700 mb-4 leading-relaxed">
+              Get expert assistance from our dedicated tax & legal team
+            </p>
+            <Link
+              to="/contact"
+              onClick={() => setOpenDropdown(null)}
+              className="block w-full px-4 py-2.5 rounded-lg font-semibold text-white text-xs text-center transition-all hover:shadow-lg"
+              style={{ background: 'var(--color-gold)' }}
+            >
+              Consult Now
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* RIGHT SECTION — Premium CTA Sidebar */}
-      <div className="w-72 flex-shrink-0 p-6 flex flex-col justify-center" style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0.05) 100%)', borderLeft: '1px solid rgba(212,175,55,0.2)' }}>
-        <div className="mb-6">
-          <p className="text-[10px] font-extrabold uppercase tracking-widest text-[var(--color-gold)] mb-3">Expert Support</p>
-          <h3 className="text-sm font-bold text-gray-900 mb-2">
-            Comprehensive Tax & Legal Solutions
-          </h3>
-          <p className="text-xs text-gray-700 leading-relaxed mb-4">
-            From tax filing to compliance - our experts have you covered.
-          </p>
+      {/* Compact Footer */}
+      <div className="border-t border-gray-100 bg-gradient-to-r from-gray-50 to-white py-2.5 px-6">
+        <div className="container-custom flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold text-purple-700 bg-purple-100">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+              Professional Services
+            </span>
+            <span className="text-[9px] font-medium text-gray-600">•</span>
+            <span className="text-[9px] font-medium text-gray-600">Trusted by 997+ Clients</span>
+          </div>
+          <Link to="/services" onClick={() => setOpenDropdown(null)} className="text-[10px] font-semibold text-[var(--color-gold)] hover:text-gray-900 transition-colors flex items-center gap-1">
+            View All Services <ArrowRight size={10} />
+          </Link>
         </div>
-
-        <Link to="/contact" onClick={() => setOpenDropdown(null)}
-          className="inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-[var(--color-gold)] text-[var(--color-brand-navy)] font-bold text-xs rounded-lg transition-all duration-200 hover:shadow-lg mb-4 group"
-        >
-          Talk to Expert <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform" />
-        </Link>
-
-        <Link to="/services" onClick={() => setOpenDropdown(null)}
-          className="text-[10px] font-bold text-[var(--color-gold)] hover:text-[var(--color-brand-navy)] transition-colors text-center"
-        >
-          View All Services →
-        </Link>
       </div>
-    </motion.div>
-  );
     </motion.div>
   );
 
   // ── Tax Calculators Mega Menu ───────────────────────────────────────────
   const TaxCalculatorsMegaMenu = () => (
     <div
-      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+10px)] w-[min(720px,calc(100vw-2rem))] bg-white rounded-xl shadow-[0_8px_40px_rgba(0,0,0,0.18)] border border-gray-100 overflow-hidden"
+      className="fixed left-0 right-0 w-screen bg-white"
+      style={{
+        top: '64px',
+        border: 'none',
+        borderBottom: '1px solid #e5e7eb',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+        display: 'block',
+        zIndex: 40
+      }}
       role="menu"
       aria-label="Tax Calculators menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {/* Slim accent bar */}
-      <div className="h-[3px] w-full" style={{ background: 'linear-gradient(90deg, var(--color-gold), var(--color-brand-navy))' }} />
-
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-2.5 border-b border-gray-100 bg-gray-50/80">
-        <div className="flex items-center gap-2">
-          <Calculator size={11} style={{ color: 'var(--color-gold)' }} />
-          <span className="text-[10px] font-extrabold uppercase tracking-[0.22em] text-gray-400">Tax Calculators 2025–26</span>
+      <div className="container-custom py-2.5 px-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded bg-[var(--color-gold)]/10">
+            <Calculator size={13} style={{ color: 'var(--color-gold)' }} />
+          </div>
+          <div>
+            <h4 className="text-xs font-extrabold text-gray-900">Tax Calculators 2025-26</h4>
+            <p className="text-[8px] text-gray-500">FBR Official Rates</p>
+          </div>
         </div>
         <Link
           to="/pakistan-tax-calculators"
-          className="flex items-center gap-1 text-[11px] font-semibold text-[var(--color-brand-navy)] hover:text-[var(--color-gold)] transition-colors"
+          className="flex items-center gap-1 px-3 py-1.5 text-[10px] font-semibold text-white rounded transition-all"
+          style={{ background: 'var(--color-gold)', hover: { opacity: 0.9 } }}
           onClick={() => setOpenDropdown(null)}
         >
-          View All <ArrowRight size={10} />
+          All <ArrowRight size={11} />
         </Link>
       </div>
 
-      <div className="grid grid-cols-3 divide-x divide-gray-100">
-        {/* Column 1 */}
-        <div className="px-4 py-4">
-          <div className="flex items-center gap-1.5 mb-3">
-            <FileText size={11} style={{ color: 'var(--color-gold)' }} />
-            <span className="text-[10px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--color-gold)' }}>
-              Essentials
-            </span>
+      <div className="container-custom grid grid-cols-3 divide-x divide-gray-100 py-3 px-6 gap-0">
+        {/* Column 1 - Essentials */}
+        <div className="pl-0 pr-6">
+          <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
+            <div className="p-1 rounded-lg bg-blue-50">
+              <FileText size={12} className="text-blue-600" />
+            </div>
+            <h5 className="text-xs font-extrabold text-gray-900">Essentials</h5>
+            <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700">5</span>
           </div>
-          <div className="flex flex-col gap-0">
+          <div className="space-y-1.5">
             {[
-              { id: 'pta', label: 'PTA Tax Calculator' },
-              { id: 'zakat', label: 'Zakat Calculator' },
-              { id: 'fbr-online', label: 'FBR Online Verifications' },
-              { id: 'value-added-tax', label: 'Supply of Goods Tax' },
-              { id: 'agri-land-punjab', label: 'Agricultural Land Tax' },
-            ].map(({ id, label }) => {
+              { id: 'pta', label: 'PTA Tax Calculator', desc: 'Individual tax filing' },
+              { id: 'zakat', label: 'Zakat Calculator', desc: 'Zakat computation' },
+              { id: 'fbr-online', label: 'FBR Online Verifications', desc: 'Verify NTN & records' },
+              { id: 'value-added-tax', label: 'Supply of Goods Tax', desc: 'Sales tax calculation' },
+              { id: 'agri-land-punjab', label: 'Agricultural Land Tax', desc: 'Land tax estimation' },
+            ].map(({ id, label, desc }) => {
               const active = isCalcActive(id);
               return (
                 <Link
                   key={id}
                   to={`/pakistan-tax-calculators?calc=${id}`}
-                  className={`group flex items-center gap-1.5 text-[12px] font-medium py-1.5 pl-2 pr-1 rounded-md transition-all duration-150 ${
-                    active ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8 font-semibold' : 'text-gray-600 hover:text-[var(--color-brand-navy)] hover:bg-gray-50'
+                  className={`group flex items-center gap-1.5 px-2 py-1.5 rounded-md transition-all ${
+                    active ? 'bg-[var(--color-gold)]/12 border border-[var(--color-gold)]/30' : 'hover:bg-gray-50 border border-transparent'
                   }`}
                   onClick={() => setOpenDropdown(null)}
                 >
-                  <span className={`w-1 h-1 rounded-full shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
-                  {label}
+                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
+                  <p className={`text-[10px] font-semibold ${active ? 'text-[var(--color-gold)]' : 'text-gray-800 group-hover:text-[var(--color-gold)]'} transition-colors leading-tight`}>{label}</p>
                 </Link>
               );
             })}
           </div>
         </div>
 
-        {/* Column 2 */}
-        <div className="px-4 py-4">
-          <div className="flex items-center gap-1.5 mb-3">
-            <FileText size={11} style={{ color: 'var(--color-gold)' }} />
-            <span className="text-[10px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--color-gold)' }}>
-              Capital Gains
-            </span>
+        {/* Column 2 - Capital Gains */}
+        <div className="px-6">
+          <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
+            <div className="p-1 rounded-lg bg-green-50">
+              <TrendingUp size={12} className="text-green-600" />
+            </div>
+            <h5 className="text-xs font-extrabold text-gray-900">Capital Gains</h5>
+            <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-green-100 text-green-700">5</span>
           </div>
-          <div className="flex flex-col gap-0">
+          <div className="space-y-2">
             {[
-              { id: 'gain-securities', label: 'Gain Tax on Securities' },
-              { id: 'gain-mutual-funds', label: 'Gain Tax on Mutual Funds' },
-              { id: 'gain-properties', label: 'Gain Tax on Properties' },
-              { id: 'withholding-income-properties', label: 'Withholding – Properties' },
-              { id: 'withholding-brokerage-commission', label: 'Withholding – Brokerage' },
-            ].map(({ id, label }) => {
+              { id: 'gain-securities', label: 'Gain Tax on Securities', desc: 'Stock gains tax' },
+              { id: 'gain-mutual-funds', label: 'Gain Tax on Mutual Funds', desc: 'Fund gains tax' },
+              { id: 'gain-properties', label: 'Gain Tax on Properties', desc: 'Property gains tax' },
+              { id: 'withholding-income-properties', label: 'Withholding – Properties', desc: 'Property withholding' },
+              { id: 'withholding-brokerage-commission', label: 'Withholding – Brokerage', desc: 'Broker withholding' },
+            ].map(({ id, label, desc }) => {
               const active = isCalcActive(id);
               return (
                 <Link
                   key={id}
                   to={`/pakistan-tax-calculators?calc=${id}`}
-                  className={`group flex items-center gap-1.5 text-[12px] font-medium py-1.5 pl-2 pr-1 rounded-md transition-all duration-150 ${
-                    active ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8 font-semibold' : 'text-gray-600 hover:text-[var(--color-brand-navy)] hover:bg-gray-50'
+                  className={`group flex items-center gap-1.5 px-2 py-1.5 rounded-md transition-all ${
+                    active ? 'bg-[var(--color-gold)]/12 border border-[var(--color-gold)]/30' : 'hover:bg-gray-50 border border-transparent'
                   }`}
                   onClick={() => setOpenDropdown(null)}
                 >
-                  <span className={`w-1 h-1 rounded-full shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
-                  {label}
+                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
+                  <p className={`text-[10px] font-semibold ${active ? 'text-[var(--color-gold)]' : 'text-gray-800 group-hover:text-[var(--color-gold)]'} transition-colors leading-tight`}>{label}</p>
                 </Link>
               );
             })}
           </div>
         </div>
 
-        {/* Column 3 */}
-        <div className="px-4 py-4">
-          <div className="flex items-center gap-1.5 mb-3">
-            <Briefcase size={11} style={{ color: 'var(--color-gold)' }} />
-            <span className="text-[10px] font-extrabold uppercase tracking-[0.18em]" style={{ color: 'var(--color-gold)' }}>
-              Income & Business
-            </span>
+        {/* Column 3 - Income & Business */}
+        <div className="pl-6 pr-0">
+          <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
+            <div className="p-1 rounded-lg bg-purple-50">
+              <Briefcase size={12} className="text-purple-600" />
+            </div>
+            <h5 className="text-xs font-extrabold text-gray-900">Income & Business</h5>
+            <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700">7</span>
           </div>
-          <div className="flex flex-col gap-0">
+          <div className="space-y-2">
             {[
-              { id: 'salary', label: 'Salary Tax Calculator' },
-              { id: 'business', label: 'Business Tax Calculator' },
-              { id: 'freelancer', label: 'Freelancer Tax Calculator' },
-              { id: 'super-tax', label: 'Super Tax on Income' },
-              { id: 'company-income', label: 'Company Income Tax' },
-              { id: 'builder', label: 'Builder Tax Calculator' },
-              { id: 'developer', label: 'Developer Tax Calculator' },
-            ].map(({ id, label }) => {
+              { id: 'salary', label: 'Salary Tax Calculator', desc: 'Salary tax computation' },
+              { id: 'business', label: 'Business Tax Calculator', desc: 'Business income tax' },
+              { id: 'freelancer', label: 'Freelancer Tax Calculator', desc: 'Freelance income tax' },
+              { id: 'super-tax', label: 'Super Tax on Income', desc: 'Super tax calculation' },
+              { id: 'company-income', label: 'Company Income Tax', desc: 'Corporate income tax' },
+              { id: 'builder', label: 'Builder Tax Calculator', desc: 'Builder taxation' },
+              { id: 'developer', label: 'Developer Tax Calculator', desc: 'Developer taxation' },
+            ].map(({ id, label, desc }) => {
               const active = isCalcActive(id);
               return (
                 <Link
                   key={id}
                   to={`/pakistan-tax-calculators?calc=${id}`}
-                  className={`group flex items-center gap-1.5 text-[12px] font-medium py-1.5 pl-2 pr-1 rounded-md transition-all duration-150 ${
-                    active ? 'text-[var(--color-gold)] bg-[var(--color-gold)]/8 font-semibold' : 'text-gray-600 hover:text-[var(--color-brand-navy)] hover:bg-gray-50'
+                  className={`group flex items-center gap-1.5 px-2 py-1.5 rounded-md transition-all ${
+                    active ? 'bg-[var(--color-gold)]/12 border border-[var(--color-gold)]/30' : 'hover:bg-gray-50 border border-transparent'
                   }`}
                   onClick={() => setOpenDropdown(null)}
                 >
-                  <span className={`w-1 h-1 rounded-full shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
-                  {label}
+                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
+                  <p className={`text-[10px] font-semibold ${active ? 'text-[var(--color-gold)]' : 'text-gray-800 group-hover:text-[var(--color-gold)]'} transition-colors leading-tight`}>{label}</p>
                 </Link>
               );
             })}
@@ -438,10 +419,16 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Footer strip */}
-      <div className="border-t border-gray-100 bg-gray-50/60 px-5 py-2.5 flex items-center gap-3">
-        <span className="text-[10px] text-gray-400 font-medium">All calculators use official FBR 2025-26 rates.</span>
-        <span className="text-[10px] font-bold text-emerald-600">Free &amp; Instant</span>
+      {/* Footer */}
+      <div className="container-custom border-t border-gray-100 bg-gradient-to-r from-gray-50 to-white py-2 px-6 flex items-center gap-3">
+        <div className="flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold text-emerald-700 bg-emerald-100">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            Free & Instant
+          </span>
+          <span className="text-[9px] font-medium text-gray-600">•</span>
+          <span className="text-[9px] font-medium text-gray-600">Official FBR Rates</span>
+        </div>
       </div>
     </div>
   );
