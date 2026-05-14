@@ -273,7 +273,7 @@ const CategoryPage = ({ category }) => {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <SectionHeading
-            title={`${category.title} Services`}
+            title={category.title.endsWith('Services') ? category.title : `${category.title} Services`}
             subtitle="Select any service below for detailed requirements, timelines, and expert guidance."
           />
           {subservices.length === 0 ? (
