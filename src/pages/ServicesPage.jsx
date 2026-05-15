@@ -201,28 +201,49 @@ const ServicesPage = () => {
             Pakistan, UAE, USA, and Saudi Arabia.
           </motion.p>
 
+          {/* ── Search bar inside hero ── */}
           <motion.div
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.44, ease: EASE_OUT, delay: reduce ? 0 : 0.32 }}
-            className="mt-8 flex flex-wrap justify-center gap-3"
+            className="mt-8 max-w-lg mx-auto"
           >
-            <a
-              href={`tel:${SITE.phoneTel}`}
-              className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-semibold text-white/90 backdrop-blur-sm hover:border-[var(--color-gold)]/50 hover:bg-[var(--color-gold)]/15 transition-all"
+            <div
+              className="flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all"
+              style={{
+                background: 'rgba(11,28,41,0.6)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+              }}
             >
-              <Phone size={13} className="text-[var(--color-gold)]" />
-              {SITE.phone}
-            </a>
-            <a
-              href={SITE.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-semibold text-white/90 backdrop-blur-sm hover:border-[var(--color-gold)]/50 hover:bg-[var(--color-gold)]/15 transition-all"
-            >
-              <MessageCircle size={13} className="text-[var(--color-gold)]" />
-              WhatsApp Us
-            </a>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search services — NTN, VAT, company, UK..."
+                style={{
+                  background: 'transparent',
+                  outline: 'none',
+                  color: '#fff',
+                  fontSize: '0.875rem',
+                  flex: 1,
+                  minWidth: 0,
+                  border: 'none',
+                  WebkitAppearance: 'none',
+                  appearance: 'none',
+                }}
+                className="placeholder-gray-500"
+              />
+              {searchQuery && (
+                <button type="button" onClick={() => setSearchQuery('')} className="text-gray-500 hover:text-white text-xs font-bold flex-shrink-0">✕</button>
+              )}
+            </div>
+            {searchQuery && (
+              <p className="text-center text-xs mt-2" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                {visibleCategories.length === 0 ? 'No services found' : `${visibleCategories.length} service${visibleCategories.length !== 1 ? 's' : ''} found`}
+              </p>
+            )}
           </motion.div>
         </motion.div>
       </section>
@@ -282,36 +303,6 @@ const ServicesPage = () => {
             ))}
           </div>
 
-          {/* ── Search bar ── */}
-          <div className="max-w-xl mx-auto mb-8">
-            <div className="flex items-center gap-3 px-4 py-3 rounded-2xl border border-gray-200 bg-white shadow-sm focus-within:border-[var(--color-gold)] focus-within:ring-2 focus-within:ring-[var(--color-gold)]/20 transition-all">
-              <Search size={16} className="text-gray-400 flex-shrink-0" style={{ minWidth: 16 }} />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search services — try 'NTN', 'VAT', 'company', 'UK'..."
-                className="flex-1 bg-transparent outline-none text-sm text-gray-700 placeholder-gray-400 min-w-0"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery('')}
-                  className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0 text-xs font-bold"
-                  aria-label="Clear"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-            {searchQuery && (
-              <p className="text-center text-xs text-gray-400 mt-2">
-                {visibleCategories.length === 0
-                  ? 'No services found — try a different keyword'
-                  : `${visibleCategories.length} service${visibleCategories.length !== 1 ? 's' : ''} match "${searchQuery}"`}
-              </p>
-            )}
-          </div>
 
           {/* ── Subservice grid (country selected) ── */}
           {countryConfig?.categoryId ? (() => {

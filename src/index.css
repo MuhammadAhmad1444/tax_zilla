@@ -12,6 +12,13 @@
   -ms-overflow-style: none;    /* IE / Edge */
 }
 
+/* Reset browser default white background on form inputs */
+input, textarea, select {
+  background-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 *::-webkit-scrollbar {
   display: none;               /* Chrome / Safari / Opera */
 }
