@@ -76,6 +76,26 @@
   position: relative;
 }
 
+/* Gold left accent line — appears on every dark hero section across all pages */
+.dark-section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(212, 175, 55, 0.5) 20%,
+    rgba(212, 175, 55, 0.75) 50%,
+    rgba(212, 175, 55, 0.5) 80%,
+    transparent 100%
+  );
+}
+
 /*
  * Gold grid overlay — auto-applied to every .dark-section.
  * Sections that already render a <Grid /> JSX component will
