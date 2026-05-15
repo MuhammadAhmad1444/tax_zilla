@@ -42,13 +42,6 @@ const FooterLink = ({ to, children }) => (
   </li>
 );
 
-const stats = [
-  { icon: Users,  value: '997+',  label: 'Happy Clients' },
-  { icon: Award,  value: '10+',   label: 'Years of Excellence' },
-  { icon: Globe,  value: '3+',    label: 'Countries Served' },
-  { icon: Shield, value: '100%',  label: 'Compliance Rate' },
-];
-
 /* ══════════════════════════════════════════════════════════ */
 const Footer = () => {
   const currentYear = new Date().getFullYear();
