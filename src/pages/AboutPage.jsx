@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useReducedMotion } from 'framer-motion';
 import {
   Shield, Award, CheckCircle,
-  MessageCircle, Phone, MapPin, Clock, Users,
+  MessageCircle, Phone, MapPin, Clock, Users, Mail, ArrowRight,
   ShieldCheck, Zap, UserCheck, Heart, Globe, TrendingUp, Building2, FileText,
 } from 'lucide-react';
 import Button from '../components/Button.jsx';
@@ -303,45 +303,123 @@ const AboutPage = () => {
       </section>
 
       {/* ── Office / Location ───────────────────────── */}
-      <section className="section-padding" style={{ background: 'var(--color-surface-muted)' }}>
-        <div className="container-custom">
-          <motion.div {...revealUp(0, reduceMotion)} className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: 'var(--font-heading)' }}>
-              Find <span className="text-[var(--color-gold)]">Us</span>
+      <section className="relative overflow-hidden py-16 lg:py-20" style={{ background: 'var(--color-brand-navy)' }}>
+        {/* Gold top accent */}
+        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.6) 30%, rgba(212,175,55,0.9) 50%, rgba(212,175,55,0.6) 70%, transparent)' }} />
+        {/* Subtle radial glow */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212,175,55,0.07), transparent 70%)' }} />
+
+        <div className="container-custom relative z-10">
+
+          {/* Header */}
+          <motion.div {...revealUp(0, reduceMotion)} className="text-center mb-12">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-3" style={{ color: 'rgba(212,175,55,0.65)' }}>
+              Get In Touch
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>
+              Find <em className="not-italic" style={{ color: 'var(--color-gold)' }}>Us</em>
             </h2>
+            <div className="w-12 h-px mx-auto mt-4" style={{ background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.6), transparent)' }} />
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { icon: MapPin, title: 'Office', lines: ['7A, Malik Park Main Street', 'Main Canal Road, Mughalpura', 'Lahore, Pakistan'], href: 'https://maps.google.com/?q=Tax+Zilla+Consultancy+Lahore' },
-              { icon: Phone, title: 'Phone / WhatsApp', lines: ['+92 339 9993308', '+92 300 9860279'], href: `tel:${SITE.phoneTel}` },
-              { icon: MessageCircle, title: 'Email', lines: ['info@taxzilla.com'], href: `mailto:${SITE.email}` },
-              { icon: Clock, title: 'Working Hours', lines: ['Mon – Fri: 9:00 AM – 6:00 PM', 'Sat: 10:00 AM – 2:00 PM', 'WhatsApp: 24/7'], href: null },
-            ].map((card) => {
-              const Inner = (
-                <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0">
-                    <card.icon size={18} />
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">{card.title}</div>
-                    {card.lines.map(l => (
-                      <div key={l} className="text-sm font-semibold text-gray-800 leading-snug">{l}</div>
-                    ))}
-                  </div>
-                </div>
-              );
-              return card.href ? (
-                <a key={card.title} href={card.href}
-                  target={card.href.startsWith('http') ? '_blank' : undefined}
-                  rel="noopener noreferrer"
-                  className="group card-surface p-5 hover:border-[var(--color-gold)]/50 transition-all block">
-                  {Inner}
-                </a>
-              ) : (
-                <div key={card.title} className="card-surface p-5">{Inner}</div>
-              );
-            })}
+
+          {/* Cards grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+
+            {/* Office */}
+            <motion.a
+              {...revealUp(0, reduceMotion)}
+              href="https://maps.google.com/?q=Tax+Zilla+Consultancy+Lahore"
+              target="_blank" rel="noopener noreferrer"
+              className="group relative block rounded-xl p-6 transition-all duration-200"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+              onMouseEnter={e => e.currentTarget.style.border = '1px solid rgba(212,175,55,0.35)'}
+              onMouseLeave={e => e.currentTarget.style.border = '1px solid rgba(255,255,255,0.07)'}
+            >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-200" style={{ background: 'rgba(212,175,55,0.1)' }}>
+                <MapPin size={18} style={{ color: 'var(--color-gold)' }} />
+              </div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(212,175,55,0.6)' }}>Office</p>
+              <p className="text-sm font-medium text-white leading-relaxed">7A, Malik Park Main Street</p>
+              <p className="text-sm text-white/60 leading-relaxed">Main Canal Road, Mughalpura</p>
+              <p className="text-sm text-white/60 leading-relaxed">Lahore, Pakistan</p>
+              <p className="mt-3 text-[11px] font-semibold flex items-center gap-1" style={{ color: 'var(--color-gold)' }}>
+                View on Map <ArrowRight size={11} />
+              </p>
+            </motion.a>
+
+            {/* Phone */}
+            <motion.a
+              {...revealUp(0.05, reduceMotion)}
+              href={`tel:${SITE.phoneTel}`}
+              className="group relative block rounded-xl p-6 transition-all duration-200"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+              onMouseEnter={e => e.currentTarget.style.border = '1px solid rgba(212,175,55,0.35)'}
+              onMouseLeave={e => e.currentTarget.style.border = '1px solid rgba(255,255,255,0.07)'}
+            >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(212,175,55,0.1)' }}>
+                <Phone size={18} style={{ color: 'var(--color-gold)' }} />
+              </div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(212,175,55,0.6)' }}>Phone / WhatsApp</p>
+              <p className="text-sm font-medium text-white">+92 339 9993308</p>
+              <p className="text-sm text-white/60 mt-0.5">+92 300 9860279</p>
+              <p className="mt-3 text-[11px] font-semibold flex items-center gap-1" style={{ color: 'var(--color-gold)' }}>
+                Call Now <ArrowRight size={11} />
+              </p>
+            </motion.a>
+
+            {/* Email — both addresses */}
+            <motion.div
+              {...revealUp(0.1, reduceMotion)}
+              className="relative rounded-xl p-6"
+              style={{ background: 'rgba(212,175,55,0.05)', border: '1px solid rgba(212,175,55,0.18)' }}
+            >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(212,175,55,0.12)' }}>
+                <Mail size={18} style={{ color: 'var(--color-gold)' }} />
+              </div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'rgba(212,175,55,0.6)' }}>Email</p>
+              <a href="mailto:info@taxzilla.com" className="block text-sm font-medium text-white hover:text-yellow-300 transition-colors break-all mb-2">
+                info@taxzilla.com
+              </a>
+              <div className="h-px my-2" style={{ background: 'rgba(212,175,55,0.15)' }} />
+              <a href="mailto:taxzilla41@gmail.com" className="block text-sm text-white/60 hover:text-white transition-colors break-all">
+                taxzilla41@gmail.com
+              </a>
+            </motion.div>
+
+            {/* Hours */}
+            <motion.div
+              {...revealUp(0.15, reduceMotion)}
+              className="relative rounded-xl p-6"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+            >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: 'rgba(212,175,55,0.1)' }}>
+                <Clock size={18} style={{ color: 'var(--color-gold)' }} />
+              </div>
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: 'rgba(212,175,55,0.6)' }}>Working Hours</p>
+              <p className="text-sm font-medium text-white">Mon – Fri: 9:00 AM – 6:00 PM</p>
+              <p className="text-sm text-white/60 mt-0.5">Sat: 10:00 AM – 2:00 PM</p>
+              <div className="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold" style={{ background: 'rgba(34,197,94,0.12)', color: '#4ade80', border: '1px solid rgba(34,197,94,0.2)' }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                WhatsApp 24/7
+              </div>
+            </motion.div>
+
           </div>
+
+          {/* Map embed */}
+          <motion.div {...revealUp(0.1, reduceMotion)} className="mt-6 rounded-xl overflow-hidden" style={{ border: '1px solid rgba(212,175,55,0.15)', height: '260px' }}>
+            <iframe
+              title="Tax Zilla Office Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3400.3!2d74.3736!3d31.5497!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391904dcc5555555%3A0x0!2sMalik+Park+Main+Canal+Road+Mughalpura+Lahore!5e0!3m2!1sen!2spk!4v1"
+              width="100%"
+              height="260"
+              style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) saturate(0.8) brightness(0.85)', display: 'block' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </motion.div>
+
         </div>
       </section>
 
