@@ -463,7 +463,7 @@ const Navbar = () => {
                 src="/images/brand-mark.png"
                 alt="Tax Zilla logo"
                 className="shrink-0 object-contain"
-                style={{ height: '52px', width: 'auto', maxWidth: '200px' }}
+                style={{ height: '64px', width: 'auto', maxWidth: '220px' }}
                 loading="eager"
               />
               <h1
