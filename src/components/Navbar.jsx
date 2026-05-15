@@ -38,26 +38,17 @@ const ColHeader = ({ label }) => (
   </div>
 );
 
-const MenuLink = ({ to, onClick, children, active, icon: Icon }) => (
+const MenuLink = ({ to, onClick, children, active }) => (
   <Link
     to={to}
     onClick={onClick}
     className="group flex items-center gap-2.5 px-2 py-1.5 rounded transition-all duration-150 hover:bg-white/[0.04]"
     style={active ? { background: 'rgba(212,175,55,0.08)', borderLeft: `2px solid ${GOLD}`, paddingLeft: '6px' } : {}}
   >
-    {Icon ? (
-      <div
-        className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 transition-all duration-150"
-        style={{ background: 'rgba(212,175,55,0.1)' }}
-      >
-        <Icon size={11} style={{ color: GOLD }} />
-      </div>
-    ) : (
-      <span
-        className="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-150"
-        style={{ background: active ? GOLD : 'rgba(255,255,255,0.18)' }}
-      />
-    )}
+    <span
+      className="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-150"
+      style={{ background: active ? GOLD : 'rgba(255,255,255,0.18)' }}
+    />
     <span
       className="text-[11px] leading-snug transition-colors duration-150 group-hover:text-white"
       style={{ color: active ? GOLD : 'rgba(255,255,255,0.55)' }}
@@ -232,7 +223,7 @@ const Navbar = () => {
               {SERVICE_CATEGORIES
                 .filter(c => ['tax-services-pakistan','individual-tax-services','certificates-compliance','audit-investigation'].includes(c.slug))
                 .map(cat => (
-                  <MenuLink key={cat.id} to={`/services/${cat.slug}`} onClick={closeMenu} icon={CAT_ICONS[cat.slug]}>
+                  <MenuLink key={cat.id} to={`/services/${cat.slug}`} onClick={closeMenu}>
                     {cat.title}
                   </MenuLink>
                 ))}
@@ -246,7 +237,7 @@ const Navbar = () => {
               {SERVICE_CATEGORIES
                 .filter(c => ['corporate-business-services','secp-related-services','intellectual-property'].includes(c.slug))
                 .map(cat => (
-                  <MenuLink key={cat.id} to={`/services/${cat.slug}`} onClick={closeMenu} icon={CAT_ICONS[cat.slug]}>
+                  <MenuLink key={cat.id} to={`/services/${cat.slug}`} onClick={closeMenu}>
                     {cat.title}
                   </MenuLink>
                 ))}
@@ -260,7 +251,7 @@ const Navbar = () => {
               {SERVICE_CATEGORIES
                 .filter(c => ['uae-tax-services','usa-tax-services','ksa-tax-services','uk-tax-services'].includes(c.slug))
                 .map(cat => (
-                  <MenuLink key={cat.id} to={`/services/${cat.slug}`} onClick={closeMenu} icon={CAT_ICONS[cat.slug]}>
+                  <MenuLink key={cat.id} to={`/services/${cat.slug}`} onClick={closeMenu}>
                     {cat.title}
                   </MenuLink>
                 ))}
@@ -272,11 +263,11 @@ const Navbar = () => {
             <ColHeader label="Legal Services" />
             <div className="space-y-0.5">
               {[
-                { id: 'l1', to: '/services/legal-services',                         label: 'Legal Services',  icon: Scale },
-                { id: 'l2', to: '/services/legal-services/criminal-law-services',   label: 'Criminal Law',    icon: Scale },
-                { id: 'l3', to: '/services/legal-services/civil-law-services',      label: 'Civil Law',       icon: Scale },
-              ].map(({ id, to, label, icon }) => (
-                <MenuLink key={id} to={to} onClick={closeMenu} icon={icon}>{label}</MenuLink>
+                { id: 'l1', to: '/services/legal-services',                         label: 'Legal Services' },
+                { id: 'l2', to: '/services/legal-services/criminal-law-services',   label: 'Criminal Law' },
+                { id: 'l3', to: '/services/legal-services/civil-law-services',      label: 'Civil Law' },
+              ].map(({ id, to, label }) => (
+                <MenuLink key={id} to={to} onClick={closeMenu}>{label}</MenuLink>
               ))}
             </div>
           </div>
