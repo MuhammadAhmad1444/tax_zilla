@@ -1,15 +1,59 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Clock, MapPin, MessageCircle } from 'lucide-react';
+import { Mail, Phone, Clock, MapPin, MessageCircle, ArrowRight, Shield, Users, Globe, Award } from 'lucide-react';
 import SocialMediaLinks from './SocialMediaLinks';
 import { usePageMotion, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
 import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
 import { SITE } from '../data/site.js';
 
+/* ─── constants ───────────────────────────────────────── */
+const GOLD     = '#D4AF37';
+const GOLD_DIM = 'rgba(212,175,55,0.18)';
+const BG       = '#070e16';
+
+const ColHeader = ({ label }) => (
+  <div className="flex items-center gap-2.5 mb-5">
+    <span className="w-1 h-4 flex-shrink-0 rounded-full" style={{ background: GOLD }} />
+    <h4
+      className="text-[10px] font-bold uppercase tracking-[0.2em]"
+      style={{ color: GOLD, fontFamily: 'var(--font-heading)' }}
+    >
+      {label}
+    </h4>
+  </div>
+);
+
+const FooterLink = ({ to, children }) => (
+  <li>
+    <Link
+      to={to}
+      className="group flex items-center gap-2 text-[13px] leading-snug transition-all duration-200"
+      style={{ color: 'rgba(255,255,255,0.48)' }}
+      onMouseEnter={e => { e.currentTarget.style.color = '#fff'; }}
+      onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.48)'; }}
+    >
+      <span
+        className="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-200 group-hover:bg-gold"
+        style={{ background: 'rgba(255,255,255,0.2)' }}
+      />
+      {children}
+    </Link>
+  </li>
+);
+
+const stats = [
+  { icon: Users,  value: '997+',  label: 'Happy Clients' },
+  { icon: Award,  value: '10+',   label: 'Years of Excellence' },
+  { icon: Globe,  value: '3+',    label: 'Countries Served' },
+  { icon: Shield, value: '100%',  label: 'Compliance Rate' },
+];
+
+/* ══════════════════════════════════════════════════════════ */
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { reduce } = usePageMotion();
+
   const primaryServiceSlugs = [
     'tax-services-pakistan',
     'provincial-sales-tax',
@@ -26,208 +70,348 @@ const Footer = () => {
     'usa-tax-services',
   ];
 
-  const buildCategoryLinks = (slugs) =>
-    slugs
-      .map((slug) => SERVICE_CATEGORIES.find((category) => category.slug === slug))
-      .filter(Boolean);
+  const buildLinks = (slugs) =>
+    slugs.map((s) => SERVICE_CATEGORIES.find((c) => c.slug === s)).filter(Boolean);
 
   return (
-    <footer className="bg-brand-solid text-white border-t-4 border-[var(--color-gold)] dark-section">
+    <footer style={{ background: BG, color: '#fff' }}>
 
-      <div className="container-custom py-8 md:py-12">
+      {/* ── Gold top accent ───────────────────────────── */}
+      <div
+        className="h-px w-full"
+        style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.5) 25%, rgba(212,175,55,0.95) 50%, rgba(212,175,55,0.5) 75%, transparent 100%)' }}
+      />
+
+      {/* ── Brand statement ──────────────────────────── */}
+      <motion.div
+        className="container-custom pt-14 pb-10"
+        initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={VIEWPORT_REVEAL}
+        transition={{ duration: reduce ? 0.01 : 0.5 }}
+      >
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+          <div>
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.25em] mb-3"
+              style={{ color: 'rgba(212,175,55,0.65)' }}
+            >
+              Trusted Consultancy Since 2014
+            </p>
+            <h2
+              className="font-bold leading-tight"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+                color: '#fff',
+              }}
+            >
+              Pakistan's Most Trusted{' '}
+              <em style={{ color: GOLD, fontStyle: 'italic' }}>Tax &amp; Legal</em>{' '}
+              Consultancy
+            </h2>
+          </div>
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2.5 px-7 py-3 text-[13px] font-bold tracking-wide transition-opacity duration-200 hover:opacity-90 flex-shrink-0"
+            style={{ background: GOLD, color: '#070e16', borderRadius: 0 }}
+          >
+            Free Consultation <ArrowRight size={15} />
+          </Link>
+        </div>
+
+        {/* Gold rule */}
+        <div className="mt-8 h-px" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.4), rgba(212,175,55,0.08) 60%, transparent)' }} />
+      </motion.div>
+
+      {/* ── Stats row ────────────────────────────────── */}
+      <motion.div
+        className="container-custom pb-12"
+        initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={VIEWPORT_REVEAL}
+        transition={{ duration: reduce ? 0.01 : 0.4, delay: 0.1 }}
+      >
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
+          {stats.map(({ icon: Icon, value, label }, i) => (
+            <div
+              key={label}
+              className="flex items-center gap-3.5 py-5 px-4"
+              style={{
+                borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+                borderRight: i < stats.length - 1 ? 'none' : 'none',
+              }}
+            >
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{ background: 'rgba(212,175,55,0.1)' }}
+              >
+                <Icon size={16} style={{ color: GOLD }} />
+              </div>
+              <div>
+                <p
+                  className="font-bold leading-none mb-0.5"
+                  style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', color: GOLD }}
+                >
+                  {value}
+                </p>
+                <p className="text-[11px] leading-snug" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                  {label}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Divider */}
+        <div className="h-px mt-2" style={{ background: 'rgba(255,255,255,0.05)' }} />
+      </motion.div>
+
+      {/* ── Main grid ────────────────────────────────── */}
+      <div className="container-custom pb-14">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-x-8 gap-y-10"
           variants={getStaggerContainer(reduce)}
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT_REVEAL}
         >
-          {/* Company Info */}
-          <motion.div variants={getStaggerItem(reduce)}>
-            <div className="mb-4">
+
+          {/* ── Brand ── */}
+          <motion.div variants={getStaggerItem(reduce)} className="xl:col-span-1">
+            <div className="mb-5">
               <img
                 src="/images/brand-mark.png"
-                alt="Tax Zilla logo"
+                alt="Tax Zilla"
                 className="object-contain"
-                style={{ height: '48px', width: 'auto', maxWidth: '180px' }}
+                style={{ height: '44px', width: 'auto', maxWidth: '160px' }}
                 loading="lazy"
               />
             </div>
-            <p className="text-gray-400 mb-6 text-sm leading-relaxed">
-              Tax Zilla Consultancy is your premier partner for tax and legal solutions in Pakistan. We specialize in FBR compliance, SECP registration, and corporate legal advisory.
+            <p className="text-[13px] leading-relaxed mb-6" style={{ color: 'rgba(255,255,255,0.42)' }}>
+              Premier tax &amp; legal consultancy. FBR compliance, SECP registration, and corporate advisory — delivered with precision.
             </p>
-            <SocialMediaLinks variant="footer" iconSize={18} />
+            <SocialMediaLinks variant="footer" iconSize={16} />
+            <a
+              href={SITE.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 text-[12px] font-semibold transition-opacity hover:opacity-80"
+              style={{ color: GOLD }}
+            >
+              <MessageCircle size={13} />
+              WhatsApp Us Now
+            </a>
           </motion.div>
 
-          {/* Services */}
+          {/* ── Core Services ── */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-sm font-bold text-[var(--color-gold)] mb-5 uppercase tracking-widest">Core Services</h4>
+            <ColHeader label="Core Services" />
             <ul className="space-y-2.5">
-              {buildCategoryLinks(primaryServiceSlugs).map((category) => (
-                <li key={category.slug}>
-                  <Link to={`/services/${category.slug}`} className="tz-footer-link text-sm">
-                    {category.title}
-                  </Link>
-                </li>
+              {buildLinks(primaryServiceSlugs).map((cat) => (
+                <FooterLink key={cat.slug} to={`/services/${cat.slug}`}>
+                  {cat.title}
+                </FooterLink>
               ))}
             </ul>
           </motion.div>
 
-          {/* International Services */}
+          {/* ── International ── */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-sm font-bold text-[var(--color-gold)] mb-5 uppercase tracking-widest">International</h4>
+            <ColHeader label="International" />
             <ul className="space-y-2.5">
-              {buildCategoryLinks(internationalServiceSlugs).map((category) => (
-                <li key={category.slug}>
-                  <Link to={`/services/${category.slug}`} className="tz-footer-link text-sm">
-                    {category.title}
-                  </Link>
-                </li>
+              {buildLinks(internationalServiceSlugs).map((cat) => (
+                <FooterLink key={cat.slug} to={`/services/${cat.slug}`}>
+                  {cat.title}
+                </FooterLink>
               ))}
             </ul>
           </motion.div>
 
-          {/* Calculators */}
+          {/* ── Calculators ── */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-sm font-bold text-[var(--color-gold)] mb-5 uppercase tracking-widest">Calculators</h4>
-            <ul className="space-y-2.5">
-              {[
-                { path: 'salary', label: 'Salary Tax Calculator' },
-                { path: 'freelancer', label: 'Freelancer Tax Calculator' },
-                { path: 'business', label: 'Business Tax Calculator' },
-                { path: 'super-tax', label: 'Super Tax Calculator' },
-                { path: 'company-income', label: 'Corporate Tax Calculator' },
-                { path: 'builder', label: 'Builder Tax Calculator' },
-                { path: 'developer', label: 'Developer Tax Calculator' },
-              ].map(({ path, label }) => (
-                <li key={path}>
-                  <Link to={`/pakistan-tax-calculators?calc=${path}`} className="tz-footer-link text-sm">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Useful Links */}
-          <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-sm font-bold text-[var(--color-gold)] mb-5 uppercase tracking-widest">Useful Links</h4>
+            <ColHeader label="Tax Calculators" />
             <ul className="space-y-2.5">
               {[
-                { path: '/services', label: 'Services' },
-                { path: '/about', label: 'About Us' },
-                { path: '/resources', label: 'Resources' },
-                { path: '/contact', label: 'Contact Us' },
-                { path: '/faqs', label: 'FAQs' },
+                { path: 'salary',         label: 'Salary Tax' },
+                { path: 'freelancer',     label: 'Freelancer Tax' },
+                { path: 'business',       label: 'Business Tax' },
+                { path: 'super-tax',      label: 'Super Tax' },
+                { path: 'company-income', label: 'Corporate Tax' },
+                { path: 'gain-properties',label: 'Property Gains Tax' },
+                { path: 'builder',        label: 'Builder Tax' },
               ].map(({ path, label }) => (
-                <li key={path}>
-                  <Link to={path} className="tz-footer-link text-sm">{label}</Link>
-                </li>
+                <FooterLink key={path} to={`/pakistan-tax-calculators?calc=${path}`}>
+                  {label}
+                </FooterLink>
               ))}
             </ul>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* ── Contact ── */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Contact</h4>
-            <ul className="space-y-3 text-sm">
+            <ColHeader label="Get in Touch" />
+            <ul className="space-y-4">
 
               <li>
                 <a
                   href="https://maps.google.com/?q=Tax+Zilla+Consultancy+Lahore"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-2.5 group"
+                  className="flex items-start gap-3 group"
                 >
-                  <MapPin size={15} className="text-[var(--color-gold)] mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-300 group-hover:text-white transition-colors leading-snug">
-                    7A, Malik Park, Main Canal Road, Mughalpura, Lahore
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: 'rgba(212,175,55,0.1)' }}>
+                    <MapPin size={12} style={{ color: GOLD }} />
+                  </div>
+                  <span className="text-[12px] leading-snug" style={{ color: 'rgba(255,255,255,0.45)' }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                  >
+                    7A, Malik Park, Main Canal Road,<br />Mughalpura, Lahore
                   </span>
                 </a>
               </li>
 
               <li>
-                <a href="tel:+923399993308" className="flex items-center gap-2.5 group">
-                  <Phone size={15} className="text-[var(--color-gold)] flex-shrink-0" />
-                  <span className="text-gray-300 group-hover:text-white transition-colors">+92 339 9993308</span>
+                <a href="tel:+923399993308" className="flex items-center gap-3 group">
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(212,175,55,0.1)' }}>
+                    <Phone size={12} style={{ color: GOLD }} />
+                  </div>
+                  <span
+                    className="text-[12px] transition-colors"
+                    style={{ color: 'rgba(255,255,255,0.45)' }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                  >
+                    +92 339 9993308
+                  </span>
                 </a>
               </li>
 
               <li>
-                <a href="tel:+923009860279" className="flex items-center gap-2.5 group">
-                  <Phone size={15} className="text-[var(--color-gold)] flex-shrink-0" />
-                  <span className="text-gray-300 group-hover:text-white transition-colors">+92 300 9860279</span>
+                <a href={`mailto:${SITE.email}`} className="flex items-center gap-3 group">
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(212,175,55,0.1)' }}>
+                    <Mail size={12} style={{ color: GOLD }} />
+                  </div>
+                  <span
+                    className="text-[12px] break-all transition-colors"
+                    style={{ color: 'rgba(255,255,255,0.45)' }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                  >
+                    {SITE.email}
+                  </span>
                 </a>
               </li>
 
-              <li>
-                <a href={`mailto:${SITE.email}`} className="flex items-center gap-2.5 group">
-                  <Mail size={15} className="text-[var(--color-gold)] flex-shrink-0" />
-                  <span className="text-gray-300 group-hover:text-white transition-colors break-all">{SITE.email}</span>
-                </a>
-              </li>
-
-              <li className="flex items-start gap-2.5">
-                <Clock size={15} className="text-[var(--color-gold)] mt-0.5 flex-shrink-0" />
-                <div className="text-gray-300">
-                  <div>Mon–Fri: 9:00 AM – 6:00 PM</div>
-                  <div>Sat: 10:00 AM – 2:00 PM</div>
+              <li className="flex items-start gap-3">
+                <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: 'rgba(212,175,55,0.1)' }}>
+                  <Clock size={12} style={{ color: GOLD }} />
                 </div>
-              </li>
-
-              <li className="pt-1">
-                <a
-                  href={SITE.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[var(--color-gold)] hover:text-[var(--color-gold-light)] font-semibold transition-colors"
-                >
-                  <MessageCircle size={14} />
-                  WhatsApp Chat
-                </a>
+                <div className="text-[12px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                  Mon–Fri: 9:00 AM – 6:00 PM<br />
+                  Sat: 10:00 AM – 2:00 PM
+                </div>
               </li>
 
             </ul>
           </motion.div>
-        </motion.div>
 
-        {/* Consultation strip */}
-        <motion.div
-          className="mt-10 rounded-2xl overflow-hidden"
-          style={{
-            background: 'linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.03) 100%)',
-            border: '1px solid rgba(212,175,55,0.18)',
-          }}
-          initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={VIEWPORT_REVEAL}
-          transition={{ duration: reduce ? 0.01 : 0.45 }}
-        >
-          <div className="px-6 py-5 text-center">
-            <span className="tz-badge tz-badge-gold mb-3 inline-flex">Free Consultation</span>
-            <p className="text-sm text-gray-400 leading-relaxed max-w-2xl mx-auto">
-              Talk to a specialist today — no commitment required. All services are provided in compliance with Pakistan's Income Tax Ordinance, Sales Tax Act, and Companies Act.
-            </p>
-          </div>
         </motion.div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="bg-black py-6 border-t border-gray-800">
-        <div className="container-custom flex flex-col items-center justify-between gap-4 px-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-3">
-          <p className="text-gray-500 text-xs text-center md:text-left">
-            © {currentYear} Tax Zilla. All rights reserved.
-          </p>
-          <p className="text-gray-500 text-xs text-center md:text-right">
-            All services are provided in accordance with Pakistan laws and FBR regulations.
-          </p>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-500 sm:justify-end">
-            <Link to="/legal/privacy-policy" className="hover:text-[var(--color-gold)] transition-colors">Privacy</Link>
-            <Link to="/legal/terms-conditions" className="hover:text-[var(--color-gold)] transition-colors">Terms</Link>
-            <Link to="/legal/disclaimer" className="hover:text-[var(--color-gold)] transition-colors">Disclaimer</Link>
+      {/* ── CTA strip ────────────────────────────────── */}
+      <motion.div
+        className="container-custom pb-12"
+        initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={VIEWPORT_REVEAL}
+        transition={{ duration: reduce ? 0.01 : 0.4 }}
+      >
+        <div
+          className="px-8 py-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5"
+          style={{
+            border: `1px solid ${GOLD_DIM}`,
+            background: 'linear-gradient(135deg, rgba(212,175,55,0.06) 0%, rgba(212,175,55,0.02) 60%, transparent 100%)',
+          }}
+        >
+          <div>
+            <p
+              className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1.5"
+              style={{ color: 'rgba(212,175,55,0.6)' }}
+            >
+              No Commitment Required
+            </p>
+            <p
+              className="font-bold text-white"
+              style={{ fontFamily: 'var(--font-heading)', fontSize: '1.05rem' }}
+            >
+              Talk to a Tax Specialist Today
+            </p>
+            <p className="text-[12px] mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
+              All services comply with Pakistan's Income Tax Ordinance, Sales Tax Act &amp; Companies Act.
+            </p>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <a
+              href={SITE.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-[12px] font-semibold transition-all duration-200 hover:opacity-80"
+              style={{ border: `1px solid ${GOLD_DIM}`, color: GOLD }}
+            >
+              <MessageCircle size={13} /> WhatsApp
+            </a>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-6 py-2.5 text-[12px] font-bold transition-opacity hover:opacity-90"
+              style={{ background: GOLD, color: '#070e16' }}
+            >
+              Book Now <ArrowRight size={13} />
+            </Link>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* ── Bottom bar ───────────────────────────────── */}
+      <div style={{ background: '#030609', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+        <div className="container-custom py-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+            {/* Left: copyright */}
+            <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.28)' }}>
+              © {currentYear} <span style={{ color: 'rgba(212,175,55,0.7)' }}>Tax Zilla Consultancy</span>. All rights reserved.
+            </p>
+
+            {/* Center: legal */}
+            <p className="text-[11px] text-center hidden lg:block" style={{ color: 'rgba(255,255,255,0.22)' }}>
+              Regulated under Pakistan's Income Tax Ordinance, Sales Tax Act 1990 &amp; Companies Act 2017
+            </p>
+
+            {/* Right: links */}
+            <div className="flex items-center gap-5">
+              {[
+                { to: '/legal/privacy-policy',   label: 'Privacy' },
+                { to: '/legal/terms-conditions',  label: 'Terms' },
+                { to: '/legal/disclaimer',        label: 'Disclaimer' },
+              ].map(({ to, label }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className="text-[11px] transition-colors duration-200"
+                  style={{ color: 'rgba(255,255,255,0.3)' }}
+                  onMouseEnter={e => e.currentTarget.style.color = GOLD}
+                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.3)'}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+
           </div>
         </div>
       </div>
+
     </footer>
   );
 };
