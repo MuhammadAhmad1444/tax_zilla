@@ -45,10 +45,10 @@ const HeroGrid = () => (
 );
 
 const HERO_STATS = [
-  { value: '17', label: 'Free Calculators' },
+  { value: '17',        label: 'Free Calculators' },
   { value: 'FY 2025–26', label: 'Official FBR Rates' },
-  { value: '100%', label: 'Free to Use' },
-  { value: '24/7', label: 'Expert Support' },
+  { value: '100%',      label: 'Free to Use' },
+  { value: '24/7',      label: 'Expert Support' },
 ];
 
 const WHY_US = [

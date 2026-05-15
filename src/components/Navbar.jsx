@@ -58,14 +58,32 @@ const MenuLink = ({ to, onClick, children, active }) => (
   </Link>
 );
 
-const MenuFooter = ({ trustText, viewAllTo, viewAllLabel, onClose }) => (
+const MenuFooter = ({ trustText, badges, viewAllTo, viewAllLabel, onClose }) => (
   <div
     className="py-2.5 px-6 flex items-center justify-between"
     style={{ background: 'rgba(0,0,0,0.25)', borderTop: '1px solid rgba(255,255,255,0.04)' }}
   >
-    <span className="text-[10px] uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.28)' }}>
-      {trustText}
-    </span>
+    {badges ? (
+      <div className="flex items-center gap-4">
+        {badges.map(({ icon: Icon, label }) => (
+          <div key={label} className="flex items-center gap-1.5">
+            <div
+              className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+              style={{ background: 'rgba(212,175,55,0.12)' }}
+            >
+              <Icon size={10} style={{ color: GOLD }} />
+            </div>
+            <span className="text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              {label}
+            </span>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <span className="text-[10px] uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.28)' }}>
+        {trustText}
+      </span>
+    )}
     <Link
       to={viewAllTo}
       onClick={onClose}
@@ -294,7 +312,12 @@ const Navbar = () => {
       </div>
 
       <MenuFooter
-        trustText="Trusted by 997+ clients"
+        badges={[
+          { icon: ShieldCheck, label: 'FBR Registered' },
+          { icon: CheckCircle, label: '997+ Clients' },
+          { icon: Globe,       label: '3+ Countries' },
+          { icon: Users,       label: 'Dedicated Expert' },
+        ]}
         viewAllTo="/services"
         viewAllLabel="View All Services"
         onClose={closeMenu}
