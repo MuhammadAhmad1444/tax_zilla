@@ -4,7 +4,7 @@ export const SITE = {
   phone: '+92 339 9993308',
   phoneTel: '+923399993308',
   whatsapp: 'https://wa.me/923399993308',
-  email: 'taxzilla41@gmail.com',
+  email: 'info@taxzilla.com',
   address: {
     streetAddress: '7A, Malik Park Main Street, Main Canal Road, Mughalpura',
     addressLocality: 'Lahore',

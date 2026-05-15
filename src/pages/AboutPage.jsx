@@ -314,7 +314,7 @@ const AboutPage = () => {
             {[
               { icon: MapPin, title: 'Office', lines: ['7A, Malik Park Main Street', 'Main Canal Road, Mughalpura', 'Lahore, Pakistan'], href: 'https://maps.google.com/?q=Tax+Zilla+Consultancy+Lahore' },
               { icon: Phone, title: 'Phone / WhatsApp', lines: ['+92 339 9993308', '+92 300 9860279'], href: `tel:${SITE.phoneTel}` },
-              { icon: MessageCircle, title: 'Email', lines: ['taxzilla41@gmail.com'], href: `mailto:${SITE.email}` },
+              { icon: MessageCircle, title: 'Email', lines: ['info@taxzilla.com'], href: `mailto:${SITE.email}` },
               { icon: Clock, title: 'Working Hours', lines: ['Mon – Fri: 9:00 AM – 6:00 PM', 'Sat: 10:00 AM – 2:00 PM', 'WhatsApp: 24/7'], href: null },
             ].map((card) => {
               const Inner = (

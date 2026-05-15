@@ -49,8 +49,8 @@ const CONTACT_CARDS = [
   {
     icon: Mail,
     label: 'Email Us',
-    lines: ['taxzilla41@gmail.com'],
-    href: 'mailto:taxzilla41@gmail.com',
+    lines: ['info@taxzilla.com'],
+    href: 'mailto:info@taxzilla.com',
     sub: 'We reply within 2 hours',
   },
   {
@@ -127,7 +127,7 @@ const ContactPage = () => {
         <title>Contact Us — Tax Zilla Consultancy</title>
         <meta
           name="description"
-          content="Contact Tax Zilla Consultancy in Lahore. Free tax consultation, FBR filing help, and company registration services. Call: +92 339 9993308. Email: taxzilla41@gmail.com."
+          content="Contact Tax Zilla Consultancy in Lahore. Free tax consultation, FBR filing help, and company registration services. Call: +92 339 9993308. Email: info@taxzilla.com."
         />
       </Helmet>
 

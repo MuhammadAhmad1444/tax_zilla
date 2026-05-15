@@ -5,7 +5,7 @@ import { Toaster } from './components/ui/toaster.jsx';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import WhatsAppButton from './components/WhatsAppButton.jsx';
-import ScrollProgressBar from './components/ScrollProgressBar.jsx';
+// ScrollProgressBar removed
 import ScrollToTop from './components/ScrollToTop.jsx';
 import HomePage from './pages/HomePage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
@@ -89,9 +89,6 @@ const AnimatedRoutes = () => {
 function AppShell() {
   return (
     <div className="min-h-screen flex flex-col font-sans">
-      {/* Thin gold scroll progress bar — sits above everything */}
-      <ScrollProgressBar />
-
       <Navbar />
 
       <main className="flex-grow min-w-0 w-full overflow-x-hidden" style={{ background: 'var(--color-brand-navy)' }}>

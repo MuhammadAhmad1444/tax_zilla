@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Clock, MapPin, MessageCircle, ArrowRight, Shield, Users, Globe, Award } from 'lucide-react';
+import { Mail, Phone, Clock, MapPin, MessageCircle, ArrowRight } from 'lucide-react';
 import SocialMediaLinks from './SocialMediaLinks';
 import { usePageMotion, VIEWPORT_REVEAL, getStaggerContainer, getStaggerItem } from '../lib/motion.js';
 import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
@@ -124,48 +124,6 @@ const Footer = () => {
         <div className="mt-8 h-px" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.4), rgba(212,175,55,0.08) 60%, transparent)' }} />
       </motion.div>
 
-      {/* ── Stats row ────────────────────────────────── */}
-      <motion.div
-        className="container-custom pb-12"
-        initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={VIEWPORT_REVEAL}
-        transition={{ duration: reduce ? 0.01 : 0.4, delay: 0.1 }}
-      >
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0">
-          {stats.map(({ icon: Icon, value, label }, i) => (
-            <div
-              key={label}
-              className="flex items-center gap-3.5 py-5 px-4"
-              style={{
-                borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.05)' : 'none',
-                borderRight: i < stats.length - 1 ? 'none' : 'none',
-              }}
-            >
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-                style={{ background: 'rgba(212,175,55,0.1)' }}
-              >
-                <Icon size={16} style={{ color: GOLD }} />
-              </div>
-              <div>
-                <p
-                  className="font-bold leading-none mb-0.5"
-                  style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', color: GOLD }}
-                >
-                  {value}
-                </p>
-                <p className="text-[11px] leading-snug" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                  {label}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Divider */}
-        <div className="h-px mt-2" style={{ background: 'rgba(255,255,255,0.05)' }} />
-      </motion.div>
 
       {/* ── Main grid ────────────────────────────────── */}
       <div className="container-custom pb-14">
@@ -289,7 +247,7 @@ const Footer = () => {
               </li>
 
               <li>
-                <a href={`mailto:${SITE.email}`} className="flex items-center gap-3 group">
+                <a href="mailto:info@taxzilla.com" className="flex items-center gap-3 group">
                   <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(212,175,55,0.1)' }}>
                     <Mail size={12} style={{ color: GOLD }} />
                   </div>
@@ -299,7 +257,22 @@ const Footer = () => {
                     onMouseEnter={e => e.currentTarget.style.color = '#fff'}
                     onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
                   >
-                    {SITE.email}
+                    info@taxzilla.com
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:taxzilla41@gmail.com" className="flex items-center gap-3 group">
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(212,175,55,0.1)' }}>
+                    <Mail size={12} style={{ color: GOLD }} />
+                  </div>
+                  <span
+                    className="text-[12px] break-all transition-colors"
+                    style={{ color: 'rgba(255,255,255,0.45)' }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                  >
+                    taxzilla41@gmail.com
                   </span>
                 </a>
               </li>
