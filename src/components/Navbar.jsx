@@ -460,9 +460,9 @@ const Navbar = () => {
               className="flex min-w-0 items-center gap-2.5"
             >
               <img
-                src="/images/tax-zilla-logo.png"
+                src="/images/brand-mark.png"
                 alt="Tax Zilla logo"
-                className="shrink-0 rounded-full object-cover"
+                className="shrink-0 object-contain"
                 style={{ width: '40px', height: '40px' }}
                 loading="eager"
               />

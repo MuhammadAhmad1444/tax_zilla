@@ -44,10 +44,19 @@ const Footer = () => {
         >
           {/* Company Info */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-              <span className="text-white">Tax </span>
-              <span className="text-gradient-gold">Zilla</span>
-            </h3>
+            <div className="flex items-center gap-2.5 mb-4">
+              <img
+                src="/images/brand-mark.png"
+                alt="Tax Zilla logo"
+                className="shrink-0 object-contain"
+                style={{ width: '38px', height: '38px' }}
+                loading="lazy"
+              />
+              <h3 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-heading)' }}>
+                <span className="text-white">Tax </span>
+                <span className="text-gradient-gold">Zilla</span>
+              </h3>
+            </div>
             <p className="text-gray-400 mb-6 text-sm leading-relaxed">
               Tax Zilla Consultancy is your premier partner for tax and legal solutions in Pakistan. We specialize in FBR compliance, SECP registration, and corporate legal advisory.
             </p>
