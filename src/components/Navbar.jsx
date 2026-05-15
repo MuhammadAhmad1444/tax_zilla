@@ -457,7 +457,7 @@ const Navbar = () => {
           <Link to="/" className="flex min-w-0 flex-shrink-0 items-center">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="flex min-w-0 items-center"
+              className="flex min-w-0 items-center gap-2.5"
             >
               <img
                 src="/images/brand-mark.png"
@@ -466,6 +466,13 @@ const Navbar = () => {
                 style={{ height: '52px', width: 'auto', maxWidth: '200px' }}
                 loading="eager"
               />
+              <h1
+                className="text-xl sm:text-2xl font-bold leading-none"
+                style={{ fontFamily: 'var(--font-heading)' }}
+              >
+                <span className="text-white">Tax </span>
+                <span className="text-gradient-gold">Zilla</span>
+              </h1>
             </motion.div>
           </Link>
 
