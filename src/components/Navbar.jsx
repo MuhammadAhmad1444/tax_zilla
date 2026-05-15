@@ -1,75 +1,106 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, ArrowRight, Phone, Mail, MessageCircle, Calculator, Building2, Globe, ShieldCheck, FileText, Briefcase, MapPin, Scale, Settings, Wrench, Users, CheckCircle, User, Search, TrendingUp, FileCheck, Landmark, ChevronRight } from 'lucide-react';
-import { SERVICE_CATEGORIES, getSubservicesByCategory } from '../data/serviceCatalog.js';
+import {
+  Menu, X, ChevronDown, ArrowRight, Phone, Mail, MessageCircle,
+  Calculator, Building2, Globe, ShieldCheck, FileText, Briefcase,
+  MapPin, Scale, Settings, Wrench, Users, CheckCircle, User, Search,
+  TrendingUp, FileCheck, Landmark, ChevronRight,
+} from 'lucide-react';
+import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
 import { SITE } from '../data/site.js';
 
-/* ── Category icon map ─────────────────────────────── */
-const CAT_ICONS = {
-  'tax-services-pakistan': FileText, 'provincial-sales-tax': MapPin,
-  'corporate-business-services': Building2, 'intellectual-property': ShieldCheck,
-  'software-it-services': Settings, 'engineering-services': Wrench,
-  'legal-services': Scale, 'secp-related-services': Building2,
-  'competition-commission-services': Scale, 'visa-immigration-tax-services': Globe,
-  'overseas-pakistani-tax-services': Users, 'certificates-compliance': CheckCircle,
-  'individual-tax-services': User, 'high-demand-individual-services': User,
-  'audit-investigation': Search, 'business-tax-planning': TrendingUp,
-  'additional-registrations': FileCheck, 'uae-tax-services': Globe,
-  'usa-tax-services': Landmark, 'ksa-tax-services': Landmark, 'uk-tax-services': Globe,
+/* ─── shared menu style ─────────────────────────────────────── */
+const MENU_STYLE = {
+  background: 'rgba(8, 20, 30, 0.98)',
+  backdropFilter: 'blur(28px)',
+  WebkitBackdropFilter: 'blur(28px)',
+  borderTop: '2px solid rgba(212,175,55,0.4)',
+  borderBottom: '1px solid rgba(212,175,55,0.08)',
+  boxShadow: '0 32px 80px rgba(0,0,0,0.75), inset 0 1px 0 rgba(212,175,55,0.12)',
+  zIndex: 40,
 };
 
-/* ── Grouped categories for left panel ─────────────── */
-const MEGA_GROUPS = [
-  {
-    id: 'pakistan', label: 'Pakistan Tax & Compliance', flag: '🇵🇰',
-    slugs: ['tax-services-pakistan','provincial-sales-tax','individual-tax-services',
-            'high-demand-individual-services','certificates-compliance',
-            'audit-investigation','business-tax-planning'],
-  },
-  {
-    id: 'corporate', label: 'Corporate & Business', flag: '🏢',
-    slugs: ['corporate-business-services','secp-related-services',
-            'competition-commission-services','intellectual-property',
-            'legal-services','additional-registrations',
-            'software-it-services','engineering-services'],
-  },
-  {
-    id: 'specialized', label: 'Specialized', flag: '⭐',
-    slugs: ['visa-immigration-tax-services','overseas-pakistani-tax-services'],
-  },
-  {
-    id: 'international', label: 'International', flag: '🌍',
-    slugs: ['uae-tax-services','usa-tax-services','ksa-tax-services','uk-tax-services'],
-  },
-];
+const GOLD  = '#D4AF37';
+const NAVY  = '#0b1c29';
 
+/* ─── reusable sub-components ───────────────────────────────── */
+const ColHeader = ({ label }) => (
+  <div className="flex items-center gap-2 mb-3 pb-2" style={{ borderBottom: '1px solid rgba(212,175,55,0.15)' }}>
+    <span className="w-3 h-px flex-shrink-0" style={{ background: GOLD }} />
+    <h4
+      className="text-[10px] font-bold uppercase tracking-[0.18em]"
+      style={{ color: GOLD, fontFamily: 'var(--font-heading)' }}
+    >
+      {label}
+    </h4>
+  </div>
+);
+
+const MenuLink = ({ to, onClick, children, active }) => (
+  <Link
+    to={to}
+    onClick={onClick}
+    className="group flex items-center gap-2.5 px-2 py-1.5 rounded transition-all duration-150 hover:bg-white/[0.04]"
+    style={active ? { background: 'rgba(212,175,55,0.08)', borderLeft: `2px solid ${GOLD}`, paddingLeft: '6px' } : {}}
+  >
+    <span
+      className="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-150"
+      style={{ background: active ? GOLD : 'rgba(255,255,255,0.18)' }}
+    />
+    <span
+      className="text-[11px] leading-snug transition-colors duration-150 group-hover:text-white"
+      style={{ color: active ? GOLD : 'rgba(255,255,255,0.55)' }}
+    >
+      {children}
+    </span>
+  </Link>
+);
+
+const MenuFooter = ({ trustText, viewAllTo, viewAllLabel, onClose }) => (
+  <div
+    className="py-2.5 px-6 flex items-center justify-between"
+    style={{ background: 'rgba(0,0,0,0.25)', borderTop: '1px solid rgba(255,255,255,0.04)' }}
+  >
+    <span className="text-[10px] uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.28)' }}>
+      {trustText}
+    </span>
+    <Link
+      to={viewAllTo}
+      onClick={onClose}
+      className="flex items-center gap-1 text-[10px] font-semibold transition-opacity hover:opacity-80"
+      style={{ color: GOLD }}
+    >
+      {viewAllLabel} <ArrowRight size={9} />
+    </Link>
+  </div>
+);
+
+/* ══════════════════════════════════════════════════════════════ */
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isOpen, setIsOpen]           = useState(false);
+  const [isScrolled, setIsScrolled]   = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [navBottom, setNavBottom] = useState(80);
+  const [navBottom, setNavBottom]     = useState(80);
 
-  const location = useLocation();
-  const navigate  = useNavigate();
-  const navRef = useRef(null);
-  const taxMenuWrapperRef = useRef(null);
+  const location   = useLocation();
+  const navigate   = useNavigate();
+  const navRef     = useRef(null);
+  const taxMenuWrapperRef      = useRef(null);
   const servicesMenuWrapperRef = useRef(null);
-  const closeTimerRef = useRef(null);
-  const searchParams = new URLSearchParams(location.search);
-  const activeCalc = searchParams.get('calc');
+  const closeTimerRef          = useRef(null);
 
-  // Build a fast lookup map: slug → category object
-  const categoryBySlug = Object.fromEntries(
-    SERVICE_CATEGORIES.map((c) => [c.slug, c])
-  );
+  const searchParams = new URLSearchParams(location.search);
+  const activeCalc   = searchParams.get('calc');
+
+  /* ── measure navbar bottom ──────────────────────────────── */
+  const measure = () => {
+    if (navRef.current) setNavBottom(navRef.current.getBoundingClientRect().bottom);
+  };
 
   const openMenu = (menu) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    // Measure nav bottom right before opening so top is always accurate
-    if (navRef.current) {
-      setNavBottom(navRef.current.getBoundingClientRect().bottom);
-    }
+    measure();
     setOpenDropdown(menu);
   };
 
@@ -82,20 +113,12 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const measure = () => {
-      if (navRef.current) {
-        setNavBottom(navRef.current.getBoundingClientRect().bottom);
-      }
-    };
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-      measure();
-    };
+    const onScroll = () => { setIsScrolled(window.scrollY > 20); measure(); };
     measure();
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', measure, { passive: true });
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', measure);
     };
   }, []);
@@ -106,362 +129,304 @@ const Navbar = () => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // Fallback: close on outside click
   useEffect(() => {
     if (!openDropdown) return;
-    const onDocMouseDown = (e) => {
+    const onMouseDown = (e) => {
       if (taxMenuWrapperRef.current?.contains(e.target)) return;
       if (servicesMenuWrapperRef.current?.contains(e.target)) return;
       setOpenDropdown(null);
     };
-    document.addEventListener('mousedown', onDocMouseDown);
-    return () => document.removeEventListener('mousedown', onDocMouseDown);
+    document.addEventListener('mousedown', onMouseDown);
+    return () => document.removeEventListener('mousedown', onMouseDown);
   }, [openDropdown]);
 
-  const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Why Us', path: '/why-choose-us' },
-    { name: 'Process', path: '/our-process' },
-    { name: 'Industries', path: '/industries' },
-    { name: 'Services', path: '/services' },
-    { name: 'Tax Calculators 2025-2026', path: '/pakistan-tax-calculators' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Resources', path: '/resources' },
-    { name: 'FAQs', path: '/faqs' },
-    { name: 'Contact', path: '/contact' },
-  ];
-
+  /* ── helpers ────────────────────────────────────────────── */
   const isActive = (path) => {
     if (path === '/services')
       return location.pathname === '/services' || location.pathname.startsWith('/services/');
     return location.pathname === path || (path !== '/' && location.pathname === `${path}/`);
   };
 
-  const isTaxActive = () =>
+  const isTaxActive  = () =>
     location.pathname === '/pakistan-tax-calculators' ||
     location.pathname === '/pakistan-tax-calculators/';
 
   const isCalcActive = (id) => isTaxActive() && activeCalc === id;
 
-  // ── Services Mega Menu — Full-width horizontal layout ──────────────────
+  const navItems = [
+    { name: 'Home',     path: '/' },
+    { name: 'About',    path: '/about' },
+    { name: 'Why Us',   path: '/why-choose-us' },
+    { name: 'Process',  path: '/our-process' },
+    { name: 'Industries', path: '/industries' },
+    { name: 'Services', path: '/services' },
+    { name: 'Tax Calculators 2025-2026', path: '/pakistan-tax-calculators' },
+    { name: 'Blog',     path: '/blog' },
+    { name: 'Resources', path: '/resources' },
+    { name: 'FAQs',     path: '/faqs' },
+    { name: 'Contact',  path: '/contact' },
+  ];
+
+  const closeMenu = () => setOpenDropdown(null);
+
+  /* ══ SERVICES MEGA MENU ══════════════════════════════════════ */
   const ServicesMegaMenu = () => (
     <motion.div
+      key="services-menu"
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -4 }}
       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
       className="fixed left-0 right-0 w-screen"
-      style={{
-        top: `${navBottom}px`,
-        background: 'rgba(255,255,255,0.97)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        boxShadow: '0 12px 40px rgba(0,0,0,0.14), 0 1px 0 rgba(212,175,55,0.12)',
-        borderBottom: '1px solid rgba(229,231,235,0.8)',
-        display: 'block',
-        zIndex: 40
-      }}
+      style={{ top: `${navBottom}px`, ...MENU_STYLE }}
       role="menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {/* Professional Premium Layout */}
-      <div className="container-custom py-3 px-6 flex gap-8">
-        {/* Left Content - Services Grid */}
-        <div className="flex-1">
-          <div className="grid grid-cols-4 gap-6">
-            {/* Column 1 - Pakistan */}
-            <div>
-              <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
-                <div className="p-1 rounded-lg bg-red-50">
-                  <Globe size={12} className="text-red-600" />
-                </div>
-                <h4 className="text-xs font-extrabold text-gray-900">Pakistan</h4>
-                <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-red-100 text-red-700">4</span>
-              </div>
-              <div className="space-y-1.5">
-                {SERVICE_CATEGORIES.filter(c => ['tax-services-pakistan', 'individual-tax-services', 'certificates-compliance', 'audit-investigation'].includes(c.slug)).map((cat) => (
-                  <Link key={cat.id} to={`/services/${cat.slug}`} onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
-                    <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">{cat.title}</h5>
-                  </Link>
-                ))}
-              </div>
-            </div>
+      <div className="container-custom py-5 px-6 flex gap-10">
 
-            {/* Column 2 - Corporate */}
-            <div>
-              <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
-                <div className="p-1 rounded-lg bg-blue-50">
-                  <Briefcase size={12} className="text-blue-600" />
-                </div>
-                <h4 className="text-xs font-extrabold text-gray-900">Corporate</h4>
-                <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700">3</span>
-              </div>
-              <div className="space-y-1.5">
-                {SERVICE_CATEGORIES.filter(c => ['corporate-business-services', 'secp-related-services', 'intellectual-property'].includes(c.slug)).map((cat) => (
-                  <Link key={cat.id} to={`/services/${cat.slug}`} onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
-                    <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">{cat.title}</h5>
-                  </Link>
-                ))}
-              </div>
-            </div>
+        {/* ── 4 columns ── */}
+        <div className="flex-1 grid grid-cols-4 gap-6">
 
-            {/* Column 3 - International */}
-            <div>
-              <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
-                <div className="p-1 rounded-lg bg-green-50">
-                  <Globe size={12} className="text-green-600" />
-                </div>
-                <h4 className="text-xs font-extrabold text-gray-900">International</h4>
-                <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-green-100 text-green-700">4</span>
-              </div>
-              <div className="space-y-1.5">
-                {SERVICE_CATEGORIES.filter(c => ['uae-tax-services', 'usa-tax-services', 'ksa-tax-services', 'uk-tax-services'].includes(c.slug)).map((cat) => (
-                  <Link key={cat.id} to={`/services/${cat.slug}`} onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
-                    <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">{cat.title}</h5>
-                  </Link>
+          {/* Pakistan */}
+          <div>
+            <ColHeader label="Pakistan" />
+            <div className="space-y-0.5">
+              {SERVICE_CATEGORIES
+                .filter(c => ['tax-services-pakistan','individual-tax-services','certificates-compliance','audit-investigation'].includes(c.slug))
+                .map(cat => (
+                  <MenuLink key={cat.id} to={`/services/${cat.slug}`} onClick={closeMenu}>
+                    {cat.title}
+                  </MenuLink>
                 ))}
-              </div>
-            </div>
-
-            {/* Column 4 - Legal Services (with Criminal & Civil subservices) */}
-            <div>
-              <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
-                <div className="p-1 rounded-lg bg-orange-50">
-                  <Scale size={12} className="text-orange-600" />
-                </div>
-                <h4 className="text-xs font-extrabold text-gray-900">Legal Services</h4>
-                <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-orange-100 text-orange-700">3</span>
-              </div>
-              <div className="space-y-1.5">
-                <Link to="/services/legal-services" onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
-                  <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">Legal Services</h5>
-                </Link>
-                <Link to="/services/legal-services/criminal-law-services" onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
-                  <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">Criminal Law Services</h5>
-                </Link>
-                <Link to="/services/legal-services/civil-law-services" onClick={() => setOpenDropdown(null)} className="group block px-2 py-1.5 rounded-md hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all">
-                  <h5 className="text-[10px] font-semibold text-gray-800 group-hover:text-[var(--color-gold)] transition-colors">Civil Law Services</h5>
-                </Link>
-              </div>
             </div>
           </div>
+
+          {/* Corporate */}
+          <div>
+            <ColHeader label="Corporate" />
+            <div className="space-y-0.5">
+              {SERVICE_CATEGORIES
+                .filter(c => ['corporate-business-services','secp-related-services','intellectual-property'].includes(c.slug))
+                .map(cat => (
+                  <MenuLink key={cat.id} to={`/services/${cat.slug}`} onClick={closeMenu}>
+                    {cat.title}
+                  </MenuLink>
+                ))}
+            </div>
+          </div>
+
+          {/* International */}
+          <div>
+            <ColHeader label="International" />
+            <div className="space-y-0.5">
+              {SERVICE_CATEGORIES
+                .filter(c => ['uae-tax-services','usa-tax-services','ksa-tax-services','uk-tax-services'].includes(c.slug))
+                .map(cat => (
+                  <MenuLink key={cat.id} to={`/services/${cat.slug}`} onClick={closeMenu}>
+                    {cat.title}
+                  </MenuLink>
+                ))}
+            </div>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <ColHeader label="Legal Services" />
+            <div className="space-y-0.5">
+              {[
+                { id: 'l1', to: '/services/legal-services',                         label: 'Legal Services' },
+                { id: 'l2', to: '/services/legal-services/criminal-law-services',   label: 'Criminal Law' },
+                { id: 'l3', to: '/services/legal-services/civil-law-services',      label: 'Civil Law' },
+              ].map(({ id, to, label }) => (
+                <MenuLink key={id} to={to} onClick={closeMenu}>{label}</MenuLink>
+              ))}
+            </div>
+          </div>
+
         </div>
 
-        {/* Right Sidebar - Professional CTA Card */}
-        <div className="w-64 flex-shrink-0">
-          <div className="bg-gradient-to-br from-[var(--color-gold)]/20 to-white border border-[var(--color-gold)]/30 p-4 rounded-lg overflow-hidden" style={{ boxShadow: '0 4px 12px rgba(212,175,55,0.15)' }}>
-            <div className="mb-3">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="p-1.5 rounded-lg bg-[var(--color-gold)]/10">
-                  <CheckCircle size={13} style={{ color: 'var(--color-gold)' }} />
-                </div>
-                <span className="text-xs font-extrabold text-[var(--color-gold)] uppercase tracking-wider">Expert Support</span>
-              </div>
-              <h3 className="text-sm font-extrabold text-gray-900">Professional Guidance</h3>
+        {/* ── CTA card ── */}
+        <div className="w-52 flex-shrink-0">
+          <div
+            className="p-5 h-full flex flex-col"
+            style={{
+              border: `1px solid rgba(212,175,55,0.22)`,
+              background: 'linear-gradient(135deg, rgba(212,175,55,0.07) 0%, rgba(212,175,55,0.02) 100%)',
+            }}
+          >
+            <div
+              className="w-9 h-9 rounded-full flex items-center justify-center mb-4"
+              style={{ background: 'rgba(212,175,55,0.12)' }}
+            >
+              <CheckCircle size={16} style={{ color: GOLD }} />
             </div>
-            <p className="text-xs text-gray-700 mb-4 leading-relaxed">
-              Get expert assistance from our dedicated tax & legal team
+            <h3
+              className="text-sm font-bold text-white mb-2 leading-snug"
+              style={{ fontFamily: 'var(--font-heading)' }}
+            >
+              Expert Guidance
+            </h3>
+            <p className="text-[11px] leading-relaxed mb-5 flex-1" style={{ color: 'rgba(255,255,255,0.45)' }}>
+              Dedicated tax & legal professionals ready to help you navigate every regulation.
             </p>
             <Link
               to="/contact"
-              onClick={() => setOpenDropdown(null)}
-              className="block w-full px-4 py-2.5 rounded-lg font-semibold text-white text-xs text-center transition-all hover:shadow-lg"
-              style={{ background: 'var(--color-gold)' }}
+              onClick={closeMenu}
+              className="block w-full py-2.5 text-center text-[11px] font-bold tracking-wide transition-opacity hover:opacity-90"
+              style={{ background: GOLD, color: NAVY }}
             >
-              Consult Now
+              Free Consultation
             </Link>
           </div>
         </div>
+
       </div>
 
-      {/* Compact Footer */}
-      <div className="border-t border-gray-100 bg-gradient-to-r from-gray-50 to-white py-2.5 px-6">
-        <div className="container-custom flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold text-purple-700 bg-purple-100">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-              Professional Services
-            </span>
-            <span className="text-[9px] font-medium text-gray-600">•</span>
-            <span className="text-[9px] font-medium text-gray-600">Trusted by 997+ Clients</span>
-          </div>
-          <Link to="/services" onClick={() => setOpenDropdown(null)} className="text-[10px] font-semibold text-[var(--color-gold)] hover:text-gray-900 transition-colors flex items-center gap-1">
-            View All Services <ArrowRight size={10} />
-          </Link>
-        </div>
-      </div>
+      <MenuFooter
+        trustText="Trusted by 997+ clients"
+        viewAllTo="/services"
+        viewAllLabel="View All Services"
+        onClose={closeMenu}
+      />
     </motion.div>
   );
 
-  // ── Tax Calculators Mega Menu ───────────────────────────────────────────
+  /* ══ TAX CALCULATORS MEGA MENU ══════════════════════════════ */
   const TaxCalculatorsMegaMenu = () => (
     <motion.div
+      key="tax-menu"
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -4 }}
       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
       className="fixed left-0 right-0 w-screen"
-      style={{
-        top: `${navBottom}px`,
-        background: 'rgba(255,255,255,0.97)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        boxShadow: '0 12px 40px rgba(0,0,0,0.14), 0 1px 0 rgba(212,175,55,0.12)',
-        borderBottom: '1px solid rgba(229,231,235,0.8)',
-        display: 'block',
-        zIndex: 40
-      }}
+      style={{ top: `${navBottom}px`, ...MENU_STYLE }}
       role="menu"
       aria-label="Tax Calculators menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
     >
-      {/* Header */}
-      <div className="container-custom py-2.5 px-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded bg-[var(--color-gold)]/10">
-            <Calculator size={13} style={{ color: 'var(--color-gold)' }} />
+      {/* Menu header bar */}
+      <div
+        className="container-custom py-2.5 px-6 flex items-center justify-between"
+        style={{ borderBottom: '1px solid rgba(212,175,55,0.12)', background: 'rgba(0,0,0,0.2)' }}
+      >
+        <div className="flex items-center gap-3">
+          <div
+            className="w-7 h-7 rounded-full flex items-center justify-center"
+            style={{ background: 'rgba(212,175,55,0.12)' }}
+          >
+            <Calculator size={13} style={{ color: GOLD }} />
           </div>
           <div>
-            <h4 className="text-xs font-extrabold text-gray-900">Tax Calculators 2025-26</h4>
-            <p className="text-[8px] text-gray-500">FBR Official Rates</p>
+            <h4
+              className="text-[11px] font-bold text-white"
+              style={{ fontFamily: 'var(--font-heading)' }}
+            >
+              Tax Calculators 2025–26
+            </h4>
+            <p className="text-[9px]" style={{ color: 'rgba(255,255,255,0.35)' }}>
+              FBR Official Rates
+            </p>
           </div>
         </div>
         <Link
           to="/pakistan-tax-calculators"
-          className="flex items-center gap-1 px-3 py-1.5 text-[10px] font-semibold text-white rounded transition-all"
-          style={{ background: 'var(--color-gold)', hover: { opacity: 0.9 } }}
-          onClick={() => setOpenDropdown(null)}
+          onClick={closeMenu}
+          className="flex items-center gap-1.5 px-4 py-1.5 text-[11px] font-bold transition-opacity hover:opacity-90"
+          style={{ background: GOLD, color: NAVY }}
         >
-          All <ArrowRight size={11} />
+          All Calculators <ArrowRight size={11} />
         </Link>
       </div>
 
-      <div className="container-custom grid grid-cols-3 divide-x divide-gray-100 py-3 px-6 gap-0">
-        {/* Column 1 - Essentials */}
-        <div className="pl-0 pr-6">
-          <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
-            <div className="p-1 rounded-lg bg-blue-50">
-              <FileText size={12} className="text-blue-600" />
-            </div>
-            <h5 className="text-xs font-extrabold text-gray-900">Essentials</h5>
-            <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700">5</span>
-          </div>
-          <div className="space-y-1.5">
+      {/* 3-column grid */}
+      <div className="container-custom grid grid-cols-3 gap-0 py-4 px-6">
+
+        {/* Essentials */}
+        <div className="pr-6" style={{ borderRight: '1px solid rgba(255,255,255,0.05)' }}>
+          <ColHeader label="Essentials" />
+          <div className="space-y-0.5">
             {[
-              { id: 'pta', label: 'PTA Tax Calculator', desc: 'Individual tax filing' },
-              { id: 'zakat', label: 'Zakat Calculator', desc: 'Zakat computation' },
-              { id: 'fbr-online', label: 'FBR Online Verifications', desc: 'Verify NTN & records' },
-              { id: 'value-added-tax', label: 'Supply of Goods Tax', desc: 'Sales tax calculation' },
-              { id: 'agri-land-punjab', label: 'Agricultural Land Tax', desc: 'Land tax estimation' },
-            ].map(({ id, label, desc }) => {
-              const active = isCalcActive(id);
-              return (
-                <Link
-                  key={id}
-                  to={`/pakistan-tax-calculators?calc=${id}`}
-                  className={`group flex items-center gap-1.5 px-2 py-1.5 rounded-md transition-all ${
-                    active ? 'bg-[var(--color-gold)]/12 border border-[var(--color-gold)]/30' : 'hover:bg-gray-50 border border-transparent'
-                  }`}
-                  onClick={() => setOpenDropdown(null)}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
-                  <p className={`text-[10px] font-semibold ${active ? 'text-[var(--color-gold)]' : 'text-gray-800 group-hover:text-[var(--color-gold)]'} transition-colors leading-tight`}>{label}</p>
-                </Link>
-              );
-            })}
+              { id: 'pta',           label: 'PTA Tax Calculator' },
+              { id: 'zakat',         label: 'Zakat Calculator' },
+              { id: 'fbr-online',    label: 'FBR Online Verifications' },
+              { id: 'value-added-tax', label: 'Supply of Goods Tax' },
+              { id: 'agri-land-punjab', label: 'Agricultural Land Tax' },
+            ].map(({ id, label }) => (
+              <MenuLink
+                key={id}
+                to={`/pakistan-tax-calculators?calc=${id}`}
+                onClick={closeMenu}
+                active={isCalcActive(id)}
+              >
+                {label}
+              </MenuLink>
+            ))}
           </div>
         </div>
 
-        {/* Column 2 - Capital Gains */}
-        <div className="px-6">
-          <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
-            <div className="p-1 rounded-lg bg-green-50">
-              <TrendingUp size={12} className="text-green-600" />
-            </div>
-            <h5 className="text-xs font-extrabold text-gray-900">Capital Gains</h5>
-            <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-green-100 text-green-700">5</span>
-          </div>
-          <div className="space-y-2">
+        {/* Capital Gains */}
+        <div className="px-6" style={{ borderRight: '1px solid rgba(255,255,255,0.05)' }}>
+          <ColHeader label="Capital Gains" />
+          <div className="space-y-0.5">
             {[
-              { id: 'gain-securities', label: 'Gain Tax on Securities', desc: 'Stock gains tax' },
-              { id: 'gain-mutual-funds', label: 'Gain Tax on Mutual Funds', desc: 'Fund gains tax' },
-              { id: 'gain-properties', label: 'Gain Tax on Properties', desc: 'Property gains tax' },
-              { id: 'withholding-income-properties', label: 'Withholding – Properties', desc: 'Property withholding' },
-              { id: 'withholding-brokerage-commission', label: 'Withholding – Brokerage', desc: 'Broker withholding' },
-            ].map(({ id, label, desc }) => {
-              const active = isCalcActive(id);
-              return (
-                <Link
-                  key={id}
-                  to={`/pakistan-tax-calculators?calc=${id}`}
-                  className={`group flex items-center gap-1.5 px-2 py-1.5 rounded-md transition-all ${
-                    active ? 'bg-[var(--color-gold)]/12 border border-[var(--color-gold)]/30' : 'hover:bg-gray-50 border border-transparent'
-                  }`}
-                  onClick={() => setOpenDropdown(null)}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
-                  <p className={`text-[10px] font-semibold ${active ? 'text-[var(--color-gold)]' : 'text-gray-800 group-hover:text-[var(--color-gold)]'} transition-colors leading-tight`}>{label}</p>
-                </Link>
-              );
-            })}
+              { id: 'gain-securities',              label: 'Gain Tax on Securities' },
+              { id: 'gain-mutual-funds',             label: 'Gain Tax on Mutual Funds' },
+              { id: 'gain-properties',               label: 'Gain Tax on Properties' },
+              { id: 'withholding-income-properties', label: 'Withholding – Properties' },
+              { id: 'withholding-brokerage-commission', label: 'Withholding – Brokerage' },
+            ].map(({ id, label }) => (
+              <MenuLink
+                key={id}
+                to={`/pakistan-tax-calculators?calc=${id}`}
+                onClick={closeMenu}
+                active={isCalcActive(id)}
+              >
+                {label}
+              </MenuLink>
+            ))}
           </div>
         </div>
 
-        {/* Column 3 - Income & Business */}
-        <div className="pl-6 pr-0">
-          <div className="flex items-center gap-2 mb-2.5 pb-2 border-b border-gray-100">
-            <div className="p-1 rounded-lg bg-purple-50">
-              <Briefcase size={12} className="text-purple-600" />
-            </div>
-            <h5 className="text-xs font-extrabold text-gray-900">Income & Business</h5>
-            <span className="ml-auto text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700">7</span>
-          </div>
-          <div className="space-y-2">
+        {/* Income & Business */}
+        <div className="pl-6">
+          <ColHeader label="Income & Business" />
+          <div className="space-y-0.5">
             {[
-              { id: 'salary', label: 'Salary Tax Calculator', desc: 'Salary tax computation' },
-              { id: 'business', label: 'Business Tax Calculator', desc: 'Business income tax' },
-              { id: 'freelancer', label: 'Freelancer Tax Calculator', desc: 'Freelance income tax' },
-              { id: 'super-tax', label: 'Super Tax on Income', desc: 'Super tax calculation' },
-              { id: 'company-income', label: 'Company Income Tax', desc: 'Corporate income tax' },
-              { id: 'builder', label: 'Builder Tax Calculator', desc: 'Builder taxation' },
-              { id: 'developer', label: 'Developer Tax Calculator', desc: 'Developer taxation' },
-            ].map(({ id, label, desc }) => {
-              const active = isCalcActive(id);
-              return (
-                <Link
-                  key={id}
-                  to={`/pakistan-tax-calculators?calc=${id}`}
-                  className={`group flex items-center gap-1.5 px-2 py-1.5 rounded-md transition-all ${
-                    active ? 'bg-[var(--color-gold)]/12 border border-[var(--color-gold)]/30' : 'hover:bg-gray-50 border border-transparent'
-                  }`}
-                  onClick={() => setOpenDropdown(null)}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all ${active ? 'bg-[var(--color-gold)]' : 'bg-gray-300 group-hover:bg-[var(--color-gold)]'}`} />
-                  <p className={`text-[10px] font-semibold ${active ? 'text-[var(--color-gold)]' : 'text-gray-800 group-hover:text-[var(--color-gold)]'} transition-colors leading-tight`}>{label}</p>
-                </Link>
-              );
-            })}
+              { id: 'salary',       label: 'Salary Tax Calculator' },
+              { id: 'business',     label: 'Business Tax Calculator' },
+              { id: 'freelancer',   label: 'Freelancer Tax Calculator' },
+              { id: 'super-tax',    label: 'Super Tax on Income' },
+              { id: 'company-income', label: 'Company Income Tax' },
+              { id: 'builder',      label: 'Builder Tax Calculator' },
+              { id: 'developer',    label: 'Developer Tax Calculator' },
+            ].map(({ id, label }) => (
+              <MenuLink
+                key={id}
+                to={`/pakistan-tax-calculators?calc=${id}`}
+                onClick={closeMenu}
+                active={isCalcActive(id)}
+              >
+                {label}
+              </MenuLink>
+            ))}
           </div>
         </div>
+
       </div>
 
-      {/* Footer */}
-      <div className="container-custom border-t border-gray-100 bg-gradient-to-r from-gray-50 to-white py-2 px-6 flex items-center gap-3">
-        <div className="flex items-center gap-1.5">
-          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold text-emerald-700 bg-emerald-100">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-            Free & Instant
-          </span>
-          <span className="text-[9px] font-medium text-gray-600">•</span>
-          <span className="text-[9px] font-medium text-gray-600">Official FBR Rates</span>
-        </div>
-      </div>
+      <MenuFooter
+        trustText="Free · Instant · Official FBR Rates"
+        viewAllTo="/pakistan-tax-calculators"
+        viewAllLabel="All Calculators"
+        onClose={closeMenu}
+      />
     </motion.div>
   );
 
+  /* ══ RENDER ══════════════════════════════════════════════════ */
   return (
     <motion.nav
       ref={navRef}
@@ -472,129 +437,146 @@ const Navbar = () => {
         isScrolled ? 'nav-glass-scrolled' : 'nav-glass-top'
       }`}
     >
-      {/* ── Main Nav Row ── */}
-      <div className={`transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3 sm:py-3'}`}>
-      <div className="container-custom">
-        <div className="flex items-center justify-between">
+      {/* Gold top accent line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+        style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.55) 25%, rgba(212,175,55,0.9) 50%, rgba(212,175,55,0.55) 75%, transparent 100%)' }}
+      />
 
-          {/* Logo + Brand */}
-          <Link to="/" className="flex min-w-0 flex-shrink-0 items-center">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="flex min-w-0 items-center gap-2.5"
-            >
-              <img
-                src="/images/brand-mark.png"
-                alt="Tax Zilla logo"
-                className="shrink-0 object-contain"
-                style={{ height: '64px', width: 'auto', maxWidth: '220px' }}
-                loading="eager"
-              />
-              <h1
-                className="text-xl sm:text-2xl font-bold leading-none"
-                style={{ fontFamily: 'var(--font-heading)' }}
-              >
-                <span className="text-white">Tax </span>
-                <span className="text-gradient-gold">Zilla</span>
-              </h1>
-            </motion.div>
-          </Link>
+      {/* ── Main nav row ── */}
+      <div className={`transition-all duration-300 ${isScrolled ? 'py-2' : 'py-3'}`}>
+        <div className="container-custom">
+          <div className="flex items-center justify-between gap-6">
 
-          {/* Desktop Navigation */}
-          <div className="hidden xl:flex items-center space-x-6">
-            {navItems.map((item) => {
-              const isServices = item.path === '/services';
-              const isTaxCalc = item.path === '/pakistan-tax-calculators';
-              const hasDropdown = isServices || isTaxCalc;
-
-              return (
-                <div
-                  key={item.path}
-                  className="relative"
-                  ref={
-                    isTaxCalc
-                      ? taxMenuWrapperRef
-                      : isServices
-                      ? servicesMenuWrapperRef
-                      : null
-                  }
-                  onMouseEnter={
-                    hasDropdown
-                      ? () => openMenu(isServices ? 'services' : 'tax-calculators')
-                      : undefined
-                  }
-                  onMouseLeave={hasDropdown ? scheduleClose : undefined}
+            {/* Logo */}
+            <Link to="/" className="flex-shrink-0 flex items-center gap-2.5 group">
+              <motion.div whileHover={{ scale: 1.02 }} className="flex items-center gap-2.5">
+                <img
+                  src="/images/brand-mark.png"
+                  alt="Tax Zilla"
+                  className="object-contain flex-shrink-0"
+                  style={{ height: '52px', width: 'auto', maxWidth: '190px' }}
+                  loading="eager"
+                />
+                <span
+                  className="text-xl font-bold text-white leading-none"
+                  style={{ fontFamily: 'var(--font-heading)' }}
                 >
-                  {hasDropdown ? (
-                    <>
-                      <Link
-                        to={item.path}
-                        className="flex items-center"
-                        onClick={() => setOpenDropdown(null)}
-                      >
+                  Tax <span style={{ color: GOLD }}>Zilla</span>
+                </span>
+              </motion.div>
+            </Link>
+
+            {/* Desktop nav */}
+            <div className="hidden xl:flex items-center gap-7 flex-1 justify-end">
+
+              {navItems.map((item) => {
+                const isServices = item.path === '/services';
+                const isTaxCalc  = item.path === '/pakistan-tax-calculators';
+                const hasDropdown = isServices || isTaxCalc;
+                const active = isActive(item.path);
+
+                return (
+                  <div
+                    key={item.path}
+                    className="relative"
+                    ref={isTaxCalc ? taxMenuWrapperRef : isServices ? servicesMenuWrapperRef : null}
+                    onMouseEnter={hasDropdown ? () => openMenu(isServices ? 'services' : 'tax-calculators') : undefined}
+                    onMouseLeave={hasDropdown ? scheduleClose : undefined}
+                  >
+                    {hasDropdown ? (
+                      <>
+                        <Link
+                          to={item.path}
+                          onClick={closeMenu}
+                          className="flex items-center gap-0.5 group"
+                        >
+                          <span
+                            className="text-[13px] font-medium tracking-wide transition-colors duration-200"
+                            style={{ color: active ? GOLD : 'rgba(255,255,255,0.72)' }}
+                            onMouseEnter={e => { if (!active) e.target.style.color = '#fff'; }}
+                            onMouseLeave={e => { if (!active) e.target.style.color = 'rgba(255,255,255,0.72)'; }}
+                          >
+                            {item.name}
+                          </span>
+                          <ChevronDown
+                            size={13}
+                            className="transition-transform duration-200 ml-0.5"
+                            style={{
+                              color: 'rgba(212,175,55,0.55)',
+                              transform: openDropdown === (isServices ? 'services' : 'tax-calculators') ? 'rotate(180deg)' : 'none',
+                            }}
+                          />
+                        </Link>
+                        {active && (
+                          <span
+                            className="absolute -bottom-1 left-0 right-0 h-px"
+                            style={{ background: `rgba(212,175,55,0.5)` }}
+                          />
+                        )}
+                        <AnimatePresence>
+                          {openDropdown === (isServices ? 'services' : 'tax-calculators') && (
+                            isServices
+                              ? <ServicesMegaMenu key="services" />
+                              : <TaxCalculatorsMegaMenu key="tax" />
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <Link to={item.path} className="relative group">
                         <span
-                          className={`text-sm font-medium transition-colors duration-300 ${
-                            isActive(item.path)
-                              ? 'text-[var(--color-gold)]'
-                              : 'text-white hover:text-[var(--color-gold)]'
-                          }`}
+                          className="text-[13px] font-medium tracking-wide transition-colors duration-200"
+                          style={{ color: active ? GOLD : 'rgba(255,255,255,0.72)' }}
                         >
                           {item.name}
                         </span>
-                        <ChevronDown
-                          size={14}
-                          className={`ml-1 transition-all duration-200 ${
-                            openDropdown === (isServices ? 'services' : 'tax-calculators')
-                              ? 'rotate-180 text-[var(--color-gold)]'
-                              : 'text-[var(--color-gold)]/60'
-                          }`}
+                        <span
+                          className="absolute -bottom-1 left-0 right-0 h-px origin-left transition-transform duration-300"
+                          style={{
+                            background: GOLD,
+                            transform: active ? 'scaleX(1)' : 'scaleX(0)',
+                          }}
                         />
-                      </Link>
-
-                      <AnimatePresence>
-                        {openDropdown === (isServices ? 'services' : 'tax-calculators') && (
-                          isServices ? <ServicesMegaMenu key="services" /> : <TaxCalculatorsMegaMenu key="tax" />
+                        {!active && (
+                          <span
+                            className="absolute -bottom-1 left-0 right-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                            style={{ background: `rgba(212,175,55,0.45)` }}
+                          />
                         )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    <Link to={item.path} className="relative group">
-                      <span
-                        className={`text-sm font-medium transition-colors duration-300 ${
-                          isActive(item.path)
-                            ? 'text-[var(--color-gold)]'
-                            : 'text-white hover:text-[var(--color-gold)]'
-                        }`}
-                      >
-                        {item.name}
-                      </span>
-                      <span
-                        className={`absolute bottom-[-4px] left-0 w-full h-0.5 bg-[var(--color-gold)] transform origin-left transition-transform duration-300 ${
-                          isActive(item.path) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                        }`}
-                      />
-                    </Link>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
 
-          {/* Mobile Menu Button */}
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className="xl:hidden min-h-[44px] min-w-[44px] shrink-0 text-white flex items-center justify-center rounded-lg hover:bg-white/10 hover:text-[var(--color-gold)] transition-colors"
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+              {/* CTA */}
+              <Link
+                to="/contact"
+                className="ml-2 px-5 py-2 text-[13px] font-bold tracking-wide transition-opacity duration-200 hover:opacity-90 flex-shrink-0"
+                style={{ background: GOLD, color: NAVY, borderRadius: 0 }}
+              >
+                Free Consultation
+              </Link>
+
+            </div>
+
+            {/* Mobile toggle */}
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              className="xl:hidden min-h-[44px] min-w-[44px] flex-shrink-0 text-white flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
+              style={{ color: 'rgba(255,255,255,0.8)' }}
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X size={26} /> : <Menu size={26} />}
+            </button>
+
+          </div>
         </div>
       </div>
-      </div>{/* end transition-all wrapper */}
 
-      {/* Mobile Navigation */}
+      {/* ── Mobile nav ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -602,87 +584,85 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="xl:hidden absolute left-0 right-0 w-full max-h-[min(88dvh,36rem)] shadow-[0_16px_48px_rgba(0,0,0,0.4)] overflow-hidden"
+            className="xl:hidden absolute left-0 right-0 w-full max-h-[min(88dvh,36rem)] overflow-hidden shadow-2xl"
             style={{
-              background: 'rgba(9, 22, 32, 0.97)',
+              background: 'rgba(8, 20, 30, 0.98)',
               backdropFilter: 'blur(24px)',
               WebkitBackdropFilter: 'blur(24px)',
-              borderTop: '1px solid rgba(212,175,55,0.18)',
+              borderTop: `1px solid rgba(212,175,55,0.2)`,
             }}
           >
             <div className="container-custom max-h-[inherit] overflow-y-auto overscroll-contain py-4 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]">
 
-              {/* Main nav items */}
+              {/* Nav items */}
               <div className="space-y-0.5 mb-4">
                 {navItems.map((item, i) => (
                   <motion.div
                     key={item.path}
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.035, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ delay: i * 0.03, duration: 0.22, ease: [0.22,1,0.36,1] }}
                   >
                     <Link
                       to={item.path}
-                      className={`flex items-center justify-between min-h-[48px] rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 sm:text-base ${
+                      className="flex items-center justify-between min-h-[46px] px-4 py-2.5 text-sm font-medium transition-all duration-200"
+                      style={
                         isActive(item.path)
-                          ? 'bg-[var(--color-gold)] text-black font-semibold shadow-[0_2px_12px_rgba(212,175,55,0.35)]'
-                          : 'text-white/90 hover:bg-white/[0.07] hover:text-[var(--color-gold)]'
-                      }`}
+                          ? { background: GOLD, color: NAVY, fontWeight: 700 }
+                          : { color: 'rgba(255,255,255,0.75)' }
+                      }
                     >
                       {item.name}
-                      {isActive(item.path) && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-black/40" />
-                      )}
                     </Link>
                   </motion.div>
                 ))}
               </div>
 
               {/* Service categories */}
-              <div className="border-t border-white/[0.08] pt-4 mb-4">
-                <p className="text-[9px] font-black text-[var(--color-gold)] px-4 mb-2.5 uppercase tracking-[0.2em]">
+              <div className="mb-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                <p className="text-[9px] font-bold uppercase tracking-[0.22em] px-4 mb-3" style={{ color: GOLD }}>
                   Service Categories
                 </p>
-                <div className="grid grid-cols-2 gap-1">
-                  {SERVICE_CATEGORIES.map((category) => (
+                <div className="grid grid-cols-2 gap-0.5">
+                  {SERVICE_CATEGORIES.map((cat) => (
                     <Link
-                      key={category.slug}
-                      to={`/services/${category.slug}`}
-                      className="block py-2 px-4 text-xs text-white/60 hover:text-[var(--color-gold)] hover:bg-white/[0.05] rounded-lg transition-all duration-150 leading-snug"
+                      key={cat.slug}
+                      to={`/services/${cat.slug}`}
+                      className="block py-2 px-4 text-[11px] leading-snug transition-colors duration-150"
+                      style={{ color: 'rgba(255,255,255,0.5)' }}
+                      onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                      onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
                     >
-                      {category.title}
+                      {cat.title}
                     </Link>
                   ))}
                 </div>
               </div>
 
               {/* Contact */}
-              <div className="border-t border-white/[0.08] pt-4 mb-4">
-                <p className="text-[9px] font-black text-[var(--color-gold)] px-4 mb-2.5 uppercase tracking-[0.2em]">Contact Us</p>
-                <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-2.5 py-2.5 px-4 text-sm text-white/70 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
-                  <Phone size={13} className="text-[var(--color-gold)] flex-shrink-0" />
+              <div className="pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                <p className="text-[9px] font-bold uppercase tracking-[0.22em] px-4 mb-3" style={{ color: GOLD }}>Contact Us</p>
+                <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-3 py-2.5 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <Phone size={13} style={{ color: GOLD, flexShrink: 0 }} />
                   <span className="truncate">{SITE.phone}</span>
                 </a>
-                <a href={`mailto:${SITE.email}`} className="flex items-center gap-2.5 py-2.5 px-4 text-sm text-white/70 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
-                  <Mail size={13} className="text-[var(--color-gold)] flex-shrink-0" />
+                <a href={`mailto:${SITE.email}`} className="flex items-center gap-3 py-2.5 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <Mail size={13} style={{ color: GOLD, flexShrink: 0 }} />
                   <span className="truncate">{SITE.email}</span>
                 </a>
-                <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 py-2.5 px-4 text-sm text-white/70 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
-                  <MessageCircle size={13} className="text-[var(--color-gold)] flex-shrink-0" />
+                <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 py-2.5 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                  <MessageCircle size={13} style={{ color: GOLD, flexShrink: 0 }} />
                   WhatsApp Now
                 </a>
               </div>
 
               {/* Legal */}
-              <div className="border-t border-white/[0.08] pt-4">
-                <p className="text-[9px] font-black text-[var(--color-gold)] px-4 mb-2 uppercase tracking-[0.2em]">Legal</p>
-                <Link to="/legal/privacy-policy" className="block py-2 px-4 text-sm text-white/60 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
-                  Privacy Policy
-                </Link>
-                <Link to="/legal/terms-conditions" className="block py-2 px-4 text-sm text-white/60 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
-                  Terms & Conditions
-                </Link>
+              <div className="pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                <p className="text-[9px] font-bold uppercase tracking-[0.22em] px-4 mb-2" style={{ color: GOLD }}>Legal</p>
+                <Link to="/legal/privacy-policy"    className="block py-2 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.45)' }}>Privacy Policy</Link>
+                <Link to="/legal/terms-conditions"  className="block py-2 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.45)' }}>Terms &amp; Conditions</Link>
               </div>
+
             </div>
           </motion.div>
         )}
