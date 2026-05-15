@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -170,15 +171,14 @@ const Navbar = () => {
   const closeMenu = () => setOpenDropdown(null);
 
   /* ══ SERVICES MEGA MENU ══════════════════════════════════════ */
-  const ServicesMegaMenu = () => (
+  const ServicesMegaMenu = () => createPortal(
     <motion.div
       key="services-menu"
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -4 }}
       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed left-0 right-0 w-screen"
-      style={{ top: `${navBottom}px`, ...MENU_STYLE }}
+      style={{ position: 'fixed', top: `${navBottom}px`, left: 0, right: 0, width: '100vw', zIndex: 9999, ...MENU_STYLE }}
       role="menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
@@ -289,19 +289,19 @@ const Navbar = () => {
         viewAllLabel="View All Services"
         onClose={closeMenu}
       />
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 
   /* ══ TAX CALCULATORS MEGA MENU ══════════════════════════════ */
-  const TaxCalculatorsMegaMenu = () => (
+  const TaxCalculatorsMegaMenu = () => createPortal(
     <motion.div
       key="tax-menu"
       initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -4 }}
       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed left-0 right-0 w-screen"
-      style={{ top: `${navBottom}px`, ...MENU_STYLE }}
+      style={{ position: 'fixed', top: `${navBottom}px`, left: 0, right: 0, width: '100vw', zIndex: 9999, ...MENU_STYLE }}
       role="menu"
       aria-label="Tax Calculators menu"
       onMouseEnter={cancelClose}
@@ -423,7 +423,8 @@ const Navbar = () => {
         viewAllLabel="All Calculators"
         onClose={closeMenu}
       />
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 
   /* ══ RENDER ══════════════════════════════════════════════════ */
@@ -468,7 +469,7 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop nav */}
-            <div className="hidden xl:flex items-center gap-7 flex-1 justify-end">
+            <div className="hidden xl:flex items-center gap-4 flex-1 justify-end flex-wrap-0">
 
               {navItems.map((item) => {
                 const isServices = item.path === '/services';
@@ -492,7 +493,7 @@ const Navbar = () => {
                           className="flex items-center gap-0.5 group"
                         >
                           <span
-                            className="text-[13px] font-medium tracking-wide transition-colors duration-200"
+                            className="text-[12px] font-medium tracking-wide transition-colors duration-200 whitespace-nowrap"
                             style={{ color: active ? GOLD : 'rgba(255,255,255,0.72)' }}
                             onMouseEnter={e => { if (!active) e.target.style.color = '#fff'; }}
                             onMouseLeave={e => { if (!active) e.target.style.color = 'rgba(255,255,255,0.72)'; }}
@@ -525,7 +526,7 @@ const Navbar = () => {
                     ) : (
                       <Link to={item.path} className="relative group">
                         <span
-                          className="text-[13px] font-medium tracking-wide transition-colors duration-200"
+                          className="text-[12px] font-medium tracking-wide transition-colors duration-200 whitespace-nowrap"
                           style={{ color: active ? GOLD : 'rgba(255,255,255,0.72)' }}
                         >
                           {item.name}
@@ -552,7 +553,7 @@ const Navbar = () => {
               {/* CTA */}
               <Link
                 to="/contact"
-                className="ml-2 px-5 py-2 text-[13px] font-bold tracking-wide transition-opacity duration-200 hover:opacity-90 flex-shrink-0"
+                className="ml-2 px-4 py-2 text-[12px] font-bold tracking-wide transition-opacity duration-200 hover:opacity-90 flex-shrink-0 whitespace-nowrap"
                 style={{ background: GOLD, color: NAVY, borderRadius: 0 }}
               >
                 Free Consultation

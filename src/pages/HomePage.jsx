@@ -133,7 +133,7 @@ const RotatingWord = ({ words, reduce, className = '' }) => {
 /* ── Live activity pill ───────────────────────────── */
 const LiveActivityPill = ({ reduce }) => {
   const messages = [
-    { txt: 'Income tax return filed for Lahore client', dot: 'bg-emerald-400' },
+    { txt: 'Income tax return filed for worldwide client', dot: 'bg-emerald-400' },
     { txt: 'SECP company registration completed', dot: 'bg-amber-400' },
     { txt: 'UAE corporate tax filing submitted', dot: 'bg-blue-400' },
     { txt: 'Freelancer PSEB registration approved', dot: 'bg-purple-400' },
