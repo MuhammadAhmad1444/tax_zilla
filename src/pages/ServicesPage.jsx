@@ -222,18 +222,7 @@ const ServicesPage = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search services — NTN, VAT, company, UK..."
-                style={{
-                  background: 'transparent',
-                  outline: 'none',
-                  color: '#fff',
-                  fontSize: '0.875rem',
-                  flex: 1,
-                  minWidth: 0,
-                  border: 'none',
-                  WebkitAppearance: 'none',
-                  appearance: 'none',
-                }}
-                className="placeholder-gray-500"
+                className="hero-search-input"
               />
               {searchQuery && (
                 <button type="button" onClick={() => setSearchQuery('')} className="text-gray-500 hover:text-white text-xs font-bold flex-shrink-0">✕</button>
