@@ -94,14 +94,24 @@ const Navbar = () => {
   const searchParams = new URLSearchParams(location.search);
   const activeCalc   = searchParams.get('calc');
 
-  /* ── measure navbar bottom ──────────────────────────────── */
+  /* ── measure navbar height ─────────────────────────────────
+     offsetHeight is transform-independent — stays accurate even
+     while the entrance animation (translateY) is still running.
+     getBoundingClientRect().bottom includes transform offsets
+     and can return a wrong value during page-transition animations.
+  ─────────────────────────────────────────────────────────── */
   const measure = () => {
-    if (navRef.current) setNavBottom(navRef.current.getBoundingClientRect().bottom);
+    if (navRef.current) {
+      setNavBottom(navRef.current.offsetHeight);
+    }
   };
 
   const openMenu = (menu) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    measure();
+    // Re-measure inside rAF so any pending paint/layout is flushed first
+    requestAnimationFrame(() => {
+      if (navRef.current) setNavBottom(navRef.current.offsetHeight);
+    });
     setOpenDropdown(menu);
   };
 
