@@ -76,7 +76,7 @@
   position: relative;
 }
 
-/* Gold left accent line — appears on every dark hero section across all pages */
+/* Gold left accent line — on every dark hero section across all pages */
 .dark-section::after {
   content: '';
   position: absolute;
@@ -94,6 +94,11 @@
     rgba(212, 175, 55, 0.5) 80%,
     transparent 100%
   );
+}
+
+/* Tax Calculators page already has this line — suppress duplicate */
+.paktax-root .dark-section::after {
+  display: none;
 }
 
 /*
