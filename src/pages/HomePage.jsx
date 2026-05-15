@@ -876,58 +876,36 @@ const HomePage = () => {
               </div>
             </motion.div>
 
-            {/* ── Premium brand visual ── */}
-            <motion.div {...revealRight(0.1, reduce)} className="flex items-center justify-center">
-              <div className="relative w-full rounded-2xl overflow-hidden" style={{
-                minHeight: '340px',
-                background: 'linear-gradient(135deg, #0d2035 0%, #0b1c29 55%, #071422 100%)',
-                border: '1px solid rgba(212,175,55,0.18)',
-              }}>
+            {/* ── Professional photo panel ── */}
+            <motion.div {...revealRight(0.1, reduce)}>
+              <div className="relative w-full rounded-2xl overflow-hidden" style={{ minHeight: '380px', border: '1px solid rgba(212,175,55,0.2)' }}>
 
-                {/* Gold radial glow */}
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(212,175,55,0.13) 0%, transparent 70%)',
-                }} />
+                {/* Real photo */}
+                <img
+                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=900&auto=format&fit=crop&q=80"
+                  alt="Tax Zilla professional consultation"
+                  className="w-full h-full object-cover absolute inset-0"
+                  style={{ minHeight: '380px' }}
+                />
 
-                {/* Subtle grid */}
-                <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{
-                  backgroundImage: 'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
-                  backgroundSize: '40px 40px',
-                }} />
+                {/* Dark overlay to match site tone */}
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(7,14,22,0.45) 0%, rgba(7,14,22,0.25) 40%, rgba(7,14,22,0.72) 100%)' }} />
 
-                {/* Concentric gold rings */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full pointer-events-none" style={{ border: '1px solid rgba(212,175,55,0.07)' }} />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full pointer-events-none" style={{ border: '1px solid rgba(212,175,55,0.1)' }} />
+                {/* Gold top border accent */}
+                <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.8), transparent)' }} />
 
-                {/* Brand mark — centrepiece */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <img
-                    src="/images/brand-mark.png"
-                    alt="Tax Zilla"
-                    style={{
-                      height: '110px',
-                      width: 'auto',
-                      filter: 'drop-shadow(0 0 32px rgba(212,175,55,0.45)) drop-shadow(0 0 8px rgba(212,175,55,0.3))',
-                    }}
-                  />
-                </div>
-
-                {/* Top-left badge */}
-                <div className="absolute top-5 left-5">
-                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: 'rgba(212,175,55,0.12)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
+                {/* Top badges */}
+                <div className="absolute top-5 left-5 right-5 flex justify-between">
+                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full backdrop-blur-sm" style={{ background: 'rgba(7,14,22,0.6)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.3)' }}>
                     FBR Registered
                   </span>
-                </div>
-
-                {/* Top-right badge */}
-                <div className="absolute top-5 right-5">
-                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: 'rgba(212,175,55,0.12)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
+                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full backdrop-blur-sm" style={{ background: 'rgba(7,14,22,0.6)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.3)' }}>
                     SECP Compliant
                   </span>
                 </div>
 
                 {/* Bottom stats strip */}
-                <div className="absolute bottom-0 left-0 right-0 flex items-center justify-around px-6 py-4" style={{ background: 'rgba(0,0,0,0.35)', borderTop: '1px solid rgba(212,175,55,0.12)' }}>
+                <div className="absolute bottom-0 left-0 right-0 flex items-center justify-around px-6 py-4 backdrop-blur-md" style={{ background: 'rgba(7,14,22,0.75)', borderTop: '1px solid rgba(212,175,55,0.15)' }}>
                   {[
                     { value: '997+', label: 'Clients' },
                     { value: '10+',  label: 'Years' },
@@ -936,10 +914,10 @@ const HomePage = () => {
                   ].map(({ value, label }, i, arr) => (
                     <React.Fragment key={label}>
                       <div className="text-center">
-                        <p className="font-bold leading-none mb-0.5" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', color: '#D4AF37' }}>{value}</p>
-                        <p className="text-[10px] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.38)' }}>{label}</p>
+                        <p className="font-bold leading-none mb-0.5" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', color: '#D4AF37' }}>{value}</p>
+                        <p className="text-[10px] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.45)' }}>{label}</p>
                       </div>
-                      {i < arr.length - 1 && <div className="w-px h-6" style={{ background: 'rgba(255,255,255,0.08)' }} />}
+                      {i < arr.length - 1 && <div className="w-px h-5" style={{ background: 'rgba(255,255,255,0.1)' }} />}
                     </React.Fragment>
                   ))}
                 </div>
