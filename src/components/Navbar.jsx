@@ -104,37 +104,40 @@ const Navbar = () => {
 
   const location   = useLocation();
   const navigate   = useNavigate();
-  const navRef     = useRef(null);
-  const taxMenuWrapperRef      = useRef(null);
+  const navRef              = useRef(null);
+  const taxMenuWrapperRef   = useRef(null);
   const servicesMenuWrapperRef = useRef(null);
-  const closeTimerRef          = useRef(null);
+  const closeTimerRef       = useRef(null);
+  const hoverTimerRef       = useRef(null);   // intentional-hover delay
+  const isScrollingRef      = useRef(false);  // suppress hover during scroll
+  const scrollEndTimerRef   = useRef(null);   // clears scroll flag after scroll stops
 
   const searchParams = new URLSearchParams(location.search);
   const activeCalc   = searchParams.get('calc');
 
-  /* ── measure navbar height ─────────────────────────────────
-     offsetHeight is transform-independent — stays accurate even
-     while the entrance animation (translateY) is still running.
-     getBoundingClientRect().bottom includes transform offsets
-     and can return a wrong value during page-transition animations.
-  ─────────────────────────────────────────────────────────── */
   const measure = () => {
-    if (navRef.current) {
-      setNavBottom(navRef.current.offsetHeight);
-    }
+    if (navRef.current) setNavBottom(navRef.current.offsetHeight);
   };
 
+  /* ── Open only after 120ms of intentional hover — blocks
+     accidental triggers from scroll-reflow pointer events. ── */
   const openMenu = (menu) => {
+    if (isScrollingRef.current) return;   // ignore during scroll
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-    // Re-measure inside rAF so any pending paint/layout is flushed first
-    requestAnimationFrame(() => {
-      if (navRef.current) setNavBottom(navRef.current.offsetHeight);
-    });
-    setOpenDropdown(menu);
+    if (hoverTimerRef.current)  clearTimeout(hoverTimerRef.current);
+
+    hoverTimerRef.current = setTimeout(() => {
+      if (isScrollingRef.current) return; // double-check after delay
+      requestAnimationFrame(() => {
+        if (navRef.current) setNavBottom(navRef.current.offsetHeight);
+      });
+      setOpenDropdown(menu);
+    }, 120);
   };
 
   const scheduleClose = () => {
-    closeTimerRef.current = setTimeout(() => setOpenDropdown(null), 180);
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current); // cancel pending open
+    closeTimerRef.current = setTimeout(() => setOpenDropdown(null), 220);
   };
 
   const cancelClose = () => {
@@ -142,19 +145,39 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const onScroll = () => { setIsScrolled(window.scrollY > 20); measure(); };
+    const onScroll = () => {
+      // Mark as scrolling — blocks accidental hover opens
+      isScrollingRef.current = true;
+
+      // Close any open dropdown immediately when scroll starts
+      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+      setOpenDropdown(null);
+
+      setIsScrolled(window.scrollY > 20);
+      measure();
+
+      // Lift the scroll-block 250ms after scroll settles
+      if (scrollEndTimerRef.current) clearTimeout(scrollEndTimerRef.current);
+      scrollEndTimerRef.current = setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 250);
+    };
+
     measure();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', measure, { passive: true });
+    window.addEventListener('resize', measure,   { passive: true });
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', measure);
+      clearTimeout(hoverTimerRef.current);
+      clearTimeout(scrollEndTimerRef.current);
     };
   }, []);
 
   useEffect(() => {
     setIsOpen(false);
     setOpenDropdown(null);
+    clearTimeout(hoverTimerRef.current);   // cancel any pending open on navigate
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
