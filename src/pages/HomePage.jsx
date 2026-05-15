@@ -876,39 +876,75 @@ const HomePage = () => {
               </div>
             </motion.div>
 
-            <motion.div {...revealRight(0.1, reduce)} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                { icon: Phone, label: 'Call / WhatsApp', value: SITE.phone, href: `tel:${SITE.phoneTel}` },
-                { icon: Mail, label: 'Email', value: SITE.email, href: `mailto:${SITE.email}` },
-                { icon: FileText, label: 'Explore', value: 'All 70+ Services', href: '/services', internal: true },
-                { icon: MessageCircle, label: 'WhatsApp', value: 'Instant Response', href: SITE.whatsapp, external: true, highlight: true },
-              ].map((card, i) => {
-                const Inner = (
-                  <motion.div
-                    whileHover={reduce ? {} : { scale: 1.04, transition: SPRING_SOFT }}
-                    className={`flex items-center gap-4 rounded-2xl border p-5 transition-all group ${
-                      card.highlight
-                        ? 'border-[var(--color-gold)]/30 bg-[var(--color-gold)]/10 hover:bg-[var(--color-gold)]/20'
-                        : 'border-white/10 bg-white/5 hover:border-[var(--color-gold)]/40 hover:bg-[var(--color-gold)]/5'
-                    }`}
-                  >
-                    <motion.div
-                      whileHover={reduce ? {} : { rotate: 15, scale: 1.1, transition: SPRING }}
-                      className="h-12 w-12 rounded-xl bg-[var(--color-gold)]/10 text-[var(--color-gold)] flex items-center justify-center group-hover:bg-[var(--color-gold)] group-hover:text-black transition-all flex-shrink-0"
-                    >
-                      <card.icon size={20} />
-                    </motion.div>
-                    <div>
-                      <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">{card.label}</div>
-                      <div className="font-bold text-white text-sm mt-0.5 break-all">{card.value}</div>
-                    </div>
-                  </motion.div>
-                );
+            {/* ── Premium brand visual ── */}
+            <motion.div {...revealRight(0.1, reduce)} className="flex items-center justify-center">
+              <div className="relative w-full rounded-2xl overflow-hidden" style={{
+                minHeight: '340px',
+                background: 'linear-gradient(135deg, #0d2035 0%, #0b1c29 55%, #071422 100%)',
+                border: '1px solid rgba(212,175,55,0.18)',
+              }}>
 
-                if (card.internal) return <Link key={card.label} to={card.href}>{Inner}</Link>;
-                if (card.external) return <a key={card.label} href={card.href} target="_blank" rel="noopener noreferrer">{Inner}</a>;
-                return <a key={card.label} href={card.href}>{Inner}</a>;
-              })}
+                {/* Gold radial glow */}
+                <div className="absolute inset-0 pointer-events-none" style={{
+                  background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(212,175,55,0.13) 0%, transparent 70%)',
+                }} />
+
+                {/* Subtle grid */}
+                <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{
+                  backgroundImage: 'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
+                  backgroundSize: '40px 40px',
+                }} />
+
+                {/* Concentric gold rings */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full pointer-events-none" style={{ border: '1px solid rgba(212,175,55,0.07)' }} />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full pointer-events-none" style={{ border: '1px solid rgba(212,175,55,0.1)' }} />
+
+                {/* Brand mark — centrepiece */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <img
+                    src="/images/brand-mark.png"
+                    alt="Tax Zilla"
+                    style={{
+                      height: '110px',
+                      width: 'auto',
+                      filter: 'drop-shadow(0 0 32px rgba(212,175,55,0.45)) drop-shadow(0 0 8px rgba(212,175,55,0.3))',
+                    }}
+                  />
+                </div>
+
+                {/* Top-left badge */}
+                <div className="absolute top-5 left-5">
+                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: 'rgba(212,175,55,0.12)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
+                    FBR Registered
+                  </span>
+                </div>
+
+                {/* Top-right badge */}
+                <div className="absolute top-5 right-5">
+                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style={{ background: 'rgba(212,175,55,0.12)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
+                    SECP Compliant
+                  </span>
+                </div>
+
+                {/* Bottom stats strip */}
+                <div className="absolute bottom-0 left-0 right-0 flex items-center justify-around px-6 py-4" style={{ background: 'rgba(0,0,0,0.35)', borderTop: '1px solid rgba(212,175,55,0.12)' }}>
+                  {[
+                    { value: '997+', label: 'Clients' },
+                    { value: '10+',  label: 'Years' },
+                    { value: '70+',  label: 'Services' },
+                    { value: '3+',   label: 'Countries' },
+                  ].map(({ value, label }, i, arr) => (
+                    <React.Fragment key={label}>
+                      <div className="text-center">
+                        <p className="font-bold leading-none mb-0.5" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', color: '#D4AF37' }}>{value}</p>
+                        <p className="text-[10px] uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.38)' }}>{label}</p>
+                      </div>
+                      {i < arr.length - 1 && <div className="w-px h-6" style={{ background: 'rgba(255,255,255,0.08)' }} />}
+                    </React.Fragment>
+                  ))}
+                </div>
+
+              </div>
             </motion.div>
           </div>
         </div>
