@@ -1,43 +1,56 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { usePageMotion, EASE_OUT, VIEWPORT_REVEAL } from '../lib/motion.js';
 
-const AccordionItem = ({ question, answer, isOpen, onClick }) => (
+const AccordionItem = ({ question, answer, isOpen, onClick, index }) => (
   <motion.div
     initial={false}
-    className={`border rounded-lg mb-4 overflow-hidden transition-all ${
-      isOpen ? 'border-[var(--color-gold)] bg-gray-50' : 'border-gray-200 bg-white'
-    }`}
+    className={`tz-faq-item${isOpen ? ' is-open' : ''}`}
+    style={{ animationDelay: `${index * 0.05}s` }}
   >
     <button
       type="button"
       onClick={onClick}
-      className="flex min-h-[52px] w-full items-start justify-between gap-3 p-4 text-left focus:outline-none sm:items-center"
+      className="flex w-full items-start justify-between gap-4 px-5 py-4 text-left focus:outline-none group"
+      aria-expanded={isOpen}
     >
       <span
-        className={`min-w-0 flex-1 font-semibold text-base leading-snug sm:text-lg ${
-          isOpen ? 'text-[var(--color-dark-blue)]' : 'text-gray-700'
+        className={`flex-1 min-w-0 font-semibold text-sm sm:text-base leading-snug transition-colors duration-200 ${
+          isOpen ? 'text-[var(--color-brand-navy)]' : 'text-[var(--color-text)] group-hover:text-[var(--color-brand-navy)]'
         }`}
       >
         {question}
       </span>
-      {isOpen ? (
-        <ChevronUp className="shrink-0 text-[var(--color-gold)]" size={22} />
-      ) : (
-        <ChevronDown className="shrink-0 text-gray-400" size={22} />
-      )}
+      <span
+        className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${
+          isOpen
+            ? 'bg-[var(--color-gold)] text-black rotate-180'
+            : 'bg-gray-100 text-gray-500 group-hover:bg-[var(--color-gold)]/15 group-hover:text-[var(--color-gold)]'
+        }`}
+      >
+        <ChevronDown size={15} strokeWidth={2.5} />
+      </span>
     </button>
-    <AnimatePresence>
+
+    <AnimatePresence initial={false}>
       {isOpen && (
         <motion.div
+          key="panel"
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+          style={{ overflow: 'hidden' }}
         >
-          <div className="p-4 pt-0 text-gray-600 border-t border-gray-100 mt-2 leading-relaxed">
-            {answer}
+          <div className="px-5 pb-5 pt-0">
+            <div
+              className="h-px w-full mb-4"
+              style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.3), transparent)' }}
+            />
+            <p className="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
+              {answer}
+            </p>
           </div>
         </motion.div>
       )}
@@ -49,9 +62,7 @@ const FAQSection = ({ title = 'FAQs', subtitle, faqs = [] }) => {
   const { reduce } = usePageMotion();
   const [openIndex, setOpenIndex] = useState(0);
 
-  if (!faqs || faqs.length === 0) {
-    return null;
-  }
+  if (!faqs || faqs.length === 0) return null;
 
   return (
     <section className="section-padding bg-white">
@@ -63,16 +74,30 @@ const FAQSection = ({ title = 'FAQs', subtitle, faqs = [] }) => {
           viewport={VIEWPORT_REVEAL}
           transition={{ duration: reduce ? 0.01 : 0.45, ease: EASE_OUT }}
         >
-          <h2 className="text-3xl font-bold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
+          <span className="tz-eyebrow">
+            <span className="inline-block w-4 h-px" style={{ background: 'var(--color-gold)' }} />
+            FAQ
+            <span className="inline-block w-4 h-px" style={{ background: 'var(--color-gold)' }} />
+          </span>
+          <h2
+            className="font-bold mb-2"
+            style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.75rem, 4vw, 2.5rem)' }}
+          >
             {title}
           </h2>
-          {subtitle ? <p className="text-gray-600">{subtitle}</p> : null}
+          <span className="tz-section-rule" />
+          {subtitle && (
+            <p className="text-[var(--color-text-muted)] mt-4 max-w-2xl mx-auto text-sm sm:text-base">
+              {subtitle}
+            </p>
+          )}
         </motion.div>
 
         <div className="max-w-3xl mx-auto">
           {faqs.map((faq, index) => (
             <AccordionItem
               key={faq.q}
+              index={index}
               question={faq.q}
               answer={faq.a}
               isOpen={openIndex === index}

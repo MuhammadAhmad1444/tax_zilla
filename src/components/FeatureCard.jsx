@@ -7,26 +7,34 @@ const FeatureCard = ({ icon: Icon, title, description, delay = 0 }) => {
 
   return (
     <motion.div
-      initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 16, scale: reduce ? 1 : 0.98 }}
+      initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 18, scale: reduce ? 1 : 0.97 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={VIEWPORT_REVEAL}
-      transition={{ duration: reduce ? 0.01 : 0.48, delay: reduce ? 0 : delay, ease: EASE_OUT }}
-      whileHover={reduce ? undefined : { y: -4, transition: { duration: 0.22, ease: EASE_OUT } }}
-      className="card-surface p-5 text-center sm:p-6"
+      transition={{ duration: reduce ? 0.01 : 0.5, delay: reduce ? 0 : delay, ease: EASE_OUT }}
+      whileHover={reduce ? undefined : { y: -5, transition: { duration: 0.24, ease: EASE_OUT } }}
+      className="card-surface group p-6 sm:p-7 flex flex-col items-center text-center"
     >
-      <div className="flex justify-center mb-4">
-        <div className="w-14 h-14 bg-gradient-to-br from-[var(--color-gold)] to-[var(--color-gold-light)] rounded-full flex items-center justify-center">
-          <Icon size={28} className="text-black" />
-        </div>
+      {/* Icon container — premium square-rounded treatment */}
+      <div className="tz-icon-container tz-icon-container-lg mb-5">
+        {Icon && <Icon size={26} style={{ color: 'var(--color-gold-dark)' }} strokeWidth={1.8} />}
       </div>
-      
-      <h4 className="text-xl font-bold mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
+
+      <h4
+        className="text-lg sm:text-xl font-bold mb-2.5 text-[var(--color-text)]"
+        style={{ fontFamily: 'var(--font-heading)', lineHeight: 1.25 }}
+      >
         {title}
       </h4>
-      
-      <p className="text-gray-600 text-sm leading-relaxed">
+
+      <p className="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed">
         {description}
       </p>
+
+      {/* Subtle hover accent line */}
+      <div
+        className="mt-5 h-0.5 w-0 rounded-full transition-all duration-500 ease-out group-hover:w-10"
+        style={{ background: 'linear-gradient(90deg, var(--color-gold-dark), var(--color-gold-light))' }}
+      />
     </motion.div>
   );
 };

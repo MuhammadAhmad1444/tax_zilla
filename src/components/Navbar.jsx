@@ -128,14 +128,18 @@ const Navbar = () => {
   // ── Services Mega Menu — Full-width horizontal layout ──────────────────
   const ServicesMegaMenu = () => (
     <motion.div
-      initial={{ opacity: 0, y: -8 }}
+      initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed left-0 right-0 w-screen bg-white"
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed left-0 right-0 w-screen"
       style={{
         top: '64px',
-        boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+        background: 'rgba(255,255,255,0.97)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        boxShadow: '0 12px 40px rgba(0,0,0,0.14), 0 1px 0 rgba(212,175,55,0.12)',
+        borderBottom: '1px solid rgba(229,231,235,0.8)',
         display: 'block',
         zIndex: 40
       }}
@@ -275,12 +279,14 @@ const Navbar = () => {
   // ── Tax Calculators Mega Menu ───────────────────────────────────────────
   const TaxCalculatorsMegaMenu = () => (
     <div
-      className="fixed left-0 right-0 w-screen bg-white"
+      className="fixed left-0 right-0 w-screen"
       style={{
         top: '64px',
-        border: 'none',
-        borderBottom: '1px solid #e5e7eb',
-        boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+        background: 'rgba(255,255,255,0.97)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        boxShadow: '0 12px 40px rgba(0,0,0,0.14), 0 1px 0 rgba(212,175,55,0.12)',
+        borderBottom: '1px solid rgba(229,231,235,0.8)',
         display: 'block',
         zIndex: 40
       }}
@@ -439,9 +445,7 @@ const Navbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-[env(safe-area-inset-top,0px)] ${
-        isScrolled
-          ? 'bg-[var(--color-brand-navy)] shadow-[0_4px_32px_rgba(0,0,0,0.35)]'
-          : 'bg-black/90 backdrop-blur-md'
+        isScrolled ? 'nav-glass-scrolled' : 'nav-glass-top'
       }`}
     >
       {/* ── Main Nav Row ── */}
@@ -577,61 +581,88 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="xl:hidden bg-brand-solid border-t border-[var(--color-gold)]/20 overflow-hidden absolute left-0 right-0 w-full max-h-[min(85dvh,32rem)] shadow-2xl"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="xl:hidden absolute left-0 right-0 w-full max-h-[min(88dvh,36rem)] shadow-[0_16px_48px_rgba(0,0,0,0.4)] overflow-hidden"
+            style={{
+              background: 'rgba(9, 22, 32, 0.97)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              borderTop: '1px solid rgba(212,175,55,0.18)',
+            }}
           >
-            <div className="container-custom max-h-[inherit] space-y-1 overflow-y-auto overscroll-contain py-3 pb-[max(1rem,env(safe-area-inset-bottom,0px))]">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`block min-h-[48px] rounded-lg px-4 py-3 text-sm font-medium leading-snug transition-all duration-300 sm:text-base ${
-                    isActive(item.path)
-                      ? 'bg-[var(--color-gold)] text-black font-semibold'
-                      : 'text-white hover:bg-[var(--color-gold)]/10 hover:text-[var(--color-gold)]'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+            <div className="container-custom max-h-[inherit] overflow-y-auto overscroll-contain py-4 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]">
 
-              <div className="border-t border-white/10 my-4 pt-4">
-                <p className="text-[10px] font-bold text-[var(--color-gold)] px-4 mb-2 uppercase tracking-widest">
-                  Service Categories
-                </p>
-                {SERVICE_CATEGORIES.map((category) => (
-                  <Link
-                    key={category.slug}
-                    to={`/services/${category.slug}`}
-                    className="block py-2 px-4 text-sm text-gray-300 hover:text-[var(--color-gold)] transition-colors"
+              {/* Main nav items */}
+              <div className="space-y-0.5 mb-4">
+                {navItems.map((item, i) => (
+                  <motion.div
+                    key={item.path}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.035, duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    {category.title}
-                  </Link>
+                    <Link
+                      to={item.path}
+                      className={`flex items-center justify-between min-h-[48px] rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 sm:text-base ${
+                        isActive(item.path)
+                          ? 'bg-[var(--color-gold)] text-black font-semibold shadow-[0_2px_12px_rgba(212,175,55,0.35)]'
+                          : 'text-white/90 hover:bg-white/[0.07] hover:text-[var(--color-gold)]'
+                      }`}
+                    >
+                      {item.name}
+                      {isActive(item.path) && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-black/40" />
+                      )}
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
 
-              <div className="border-t border-white/10 my-4 pt-4">
-                <p className="text-[10px] font-bold text-[var(--color-gold)] px-4 mb-3 uppercase tracking-widest">Contact Us</p>
-                <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-2 py-2 px-4 text-sm text-gray-300 hover:text-[var(--color-gold)] transition-colors">
-                  <Phone size={13} className="text-[var(--color-gold)]" /> {SITE.phone}
+              {/* Service categories */}
+              <div className="border-t border-white/[0.08] pt-4 mb-4">
+                <p className="text-[9px] font-black text-[var(--color-gold)] px-4 mb-2.5 uppercase tracking-[0.2em]">
+                  Service Categories
+                </p>
+                <div className="grid grid-cols-2 gap-1">
+                  {SERVICE_CATEGORIES.map((category) => (
+                    <Link
+                      key={category.slug}
+                      to={`/services/${category.slug}`}
+                      className="block py-2 px-4 text-xs text-white/60 hover:text-[var(--color-gold)] hover:bg-white/[0.05] rounded-lg transition-all duration-150 leading-snug"
+                    >
+                      {category.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* Contact */}
+              <div className="border-t border-white/[0.08] pt-4 mb-4">
+                <p className="text-[9px] font-black text-[var(--color-gold)] px-4 mb-2.5 uppercase tracking-[0.2em]">Contact Us</p>
+                <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-2.5 py-2.5 px-4 text-sm text-white/70 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
+                  <Phone size={13} className="text-[var(--color-gold)] flex-shrink-0" />
+                  <span className="truncate">{SITE.phone}</span>
                 </a>
-                <a href={`mailto:${SITE.email}`} className="flex items-center gap-2 py-2 px-4 text-sm text-gray-300 hover:text-[var(--color-gold)] transition-colors">
-                  <Mail size={13} className="text-[var(--color-gold)]" /> {SITE.email}
+                <a href={`mailto:${SITE.email}`} className="flex items-center gap-2.5 py-2.5 px-4 text-sm text-white/70 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
+                  <Mail size={13} className="text-[var(--color-gold)] flex-shrink-0" />
+                  <span className="truncate">{SITE.email}</span>
                 </a>
-                <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 py-2 px-4 text-sm text-gray-300 hover:text-[var(--color-gold)] transition-colors">
-                  <MessageCircle size={13} className="text-[var(--color-gold)]" /> WhatsApp Now
+                <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 py-2.5 px-4 text-sm text-white/70 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
+                  <MessageCircle size={13} className="text-[var(--color-gold)] flex-shrink-0" />
+                  WhatsApp Now
                 </a>
               </div>
 
-              <div className="border-t border-white/10 my-4 pt-4">
-                <p className="text-[10px] font-bold text-[var(--color-gold)] px-4 mb-2 uppercase tracking-widest">Legal</p>
-                <Link to="/legal/privacy-policy" className="block py-2 px-4 text-sm text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+              {/* Legal */}
+              <div className="border-t border-white/[0.08] pt-4">
+                <p className="text-[9px] font-black text-[var(--color-gold)] px-4 mb-2 uppercase tracking-[0.2em]">Legal</p>
+                <Link to="/legal/privacy-policy" className="block py-2 px-4 text-sm text-white/60 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
                   Privacy Policy
                 </Link>
-                <Link to="/legal/terms-conditions" className="block py-2 px-4 text-sm text-gray-300 hover:text-[var(--color-gold)] transition-colors">
+                <Link to="/legal/terms-conditions" className="block py-2 px-4 text-sm text-white/60 hover:text-[var(--color-gold)] transition-colors rounded-xl hover:bg-white/[0.05]">
                   Terms & Conditions
                 </Link>
               </div>

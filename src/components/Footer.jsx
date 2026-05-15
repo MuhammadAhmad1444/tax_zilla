@@ -48,7 +48,7 @@ const Footer = () => {
               <span className="text-white">Tax </span>
               <span className="text-gradient-gold">Zilla</span>
             </h3>
-            <p className="text-gray-300 mb-6 text-sm leading-relaxed">
+            <p className="text-gray-400 mb-6 text-sm leading-relaxed">
               Tax Zilla Consultancy is your premier partner for tax and legal solutions in Pakistan. We specialize in FBR compliance, SECP registration, and corporate legal advisory.
             </p>
             <SocialMediaLinks variant="footer" iconSize={18} />
@@ -56,14 +56,11 @@ const Footer = () => {
 
           {/* Services */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Core Services</h4>
-            <ul className="space-y-3 text-sm">
+            <h4 className="text-sm font-bold text-[var(--color-gold)] mb-5 uppercase tracking-widest">Core Services</h4>
+            <ul className="space-y-2.5">
               {buildCategoryLinks(primaryServiceSlugs).map((category) => (
                 <li key={category.slug}>
-                  <Link
-                    to={`/services/${category.slug}`}
-                    className="text-gray-300 hover:text-white hover:pl-2 transition-all"
-                  >
+                  <Link to={`/services/${category.slug}`} className="tz-footer-link text-sm">
                     {category.title}
                   </Link>
                 </li>
@@ -73,14 +70,11 @@ const Footer = () => {
 
           {/* International Services */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">International</h4>
-            <ul className="space-y-3 text-sm">
+            <h4 className="text-sm font-bold text-[var(--color-gold)] mb-5 uppercase tracking-widest">International</h4>
+            <ul className="space-y-2.5">
               {buildCategoryLinks(internationalServiceSlugs).map((category) => (
                 <li key={category.slug}>
-                  <Link
-                    to={`/services/${category.slug}`}
-                    className="text-gray-300 hover:text-white hover:pl-2 transition-all"
-                  >
+                  <Link to={`/services/${category.slug}`} className="tz-footer-link text-sm">
                     {category.title}
                   </Link>
                 </li>
@@ -90,27 +84,41 @@ const Footer = () => {
 
           {/* Calculators */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Calculators</h4>
-            <ul className="space-y-3 text-sm">
-              <li><Link to="/pakistan-tax-calculators?calc=salary" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Salary Tax Calculator</Link></li>
-              <li><Link to="/pakistan-tax-calculators?calc=freelancer" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Freelancer Tax Calculator</Link></li>
-              <li><Link to="/pakistan-tax-calculators?calc=business" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Business Tax Calculator</Link></li>
-              <li><Link to="/pakistan-tax-calculators?calc=super-tax" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Super Tax Calculator</Link></li>
-              <li><Link to="/pakistan-tax-calculators?calc=company-income" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Corporate Tax Calculator</Link></li>
-              <li><Link to="/pakistan-tax-calculators?calc=builder" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Builder Tax Calculator</Link></li>
-              <li><Link to="/pakistan-tax-calculators?calc=developer" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Developer Tax Calculator</Link></li>
+            <h4 className="text-sm font-bold text-[var(--color-gold)] mb-5 uppercase tracking-widest">Calculators</h4>
+            <ul className="space-y-2.5">
+              {[
+                { path: 'salary', label: 'Salary Tax Calculator' },
+                { path: 'freelancer', label: 'Freelancer Tax Calculator' },
+                { path: 'business', label: 'Business Tax Calculator' },
+                { path: 'super-tax', label: 'Super Tax Calculator' },
+                { path: 'company-income', label: 'Corporate Tax Calculator' },
+                { path: 'builder', label: 'Builder Tax Calculator' },
+                { path: 'developer', label: 'Developer Tax Calculator' },
+              ].map(({ path, label }) => (
+                <li key={path}>
+                  <Link to={`/pakistan-tax-calculators?calc=${path}`} className="tz-footer-link text-sm">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </motion.div>
 
           {/* Useful Links */}
           <motion.div variants={getStaggerItem(reduce)}>
-            <h4 className="text-lg font-semibold text-[var(--color-gold)] mb-6 font-heading">Useful Links</h4>
-            <ul className="space-y-3 text-sm">
-              <li><Link to="/services" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Services</Link></li>
-              <li><Link to="/about" className="text-gray-300 hover:text-white hover:pl-2 transition-all">About Us</Link></li>
-              <li><Link to="/resources" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Resources</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-white hover:pl-2 transition-all">Contact Us</Link></li>
-              <li><Link to="/faqs" className="text-gray-300 hover:text-white hover:pl-2 transition-all">FAQs</Link></li>
+            <h4 className="text-sm font-bold text-[var(--color-gold)] mb-5 uppercase tracking-widest">Useful Links</h4>
+            <ul className="space-y-2.5">
+              {[
+                { path: '/services', label: 'Services' },
+                { path: '/about', label: 'About Us' },
+                { path: '/resources', label: 'Resources' },
+                { path: '/contact', label: 'Contact Us' },
+                { path: '/faqs', label: 'FAQs' },
+              ].map(({ path, label }) => (
+                <li key={path}>
+                  <Link to={path} className="tz-footer-link text-sm">{label}</Link>
+                </li>
+              ))}
             </ul>
           </motion.div>
 
@@ -178,18 +186,24 @@ const Footer = () => {
           </motion.div>
         </motion.div>
 
-        {/* Inspiration quote strip */}
+        {/* Consultation strip */}
         <motion.div
-          className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-5 text-center"
+          className="mt-10 rounded-2xl overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.03) 100%)',
+            border: '1px solid rgba(212,175,55,0.18)',
+          }}
           initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT_REVEAL}
           transition={{ duration: reduce ? 0.01 : 0.45 }}
         >
-          <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-gold)] mb-2">Free Consultation</div>
-          <p className="text-sm text-gray-400 leading-relaxed max-w-2xl mx-auto">
-            Talk to a specialist today — no commitment required. All services are provided in compliance with Pakistan's Income Tax Ordinance, Sales Tax Act, and Companies Act.
-          </p>
+          <div className="px-6 py-5 text-center">
+            <span className="tz-badge tz-badge-gold mb-3 inline-flex">Free Consultation</span>
+            <p className="text-sm text-gray-400 leading-relaxed max-w-2xl mx-auto">
+              Talk to a specialist today — no commitment required. All services are provided in compliance with Pakistan's Income Tax Ordinance, Sales Tax Act, and Companies Act.
+            </p>
+          </div>
         </motion.div>
       </div>
 

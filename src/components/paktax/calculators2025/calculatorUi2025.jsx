@@ -12,12 +12,49 @@ export const ResetButton = ({ onClick, children = 'Reset' }) => (
   </button>
 );
 
-/* ── Result block (used for individual result cards) */
+/* ── Result block (individual result cards) ─────── */
 export const ResultBlock = ({ title, children }) => (
-  <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm border-l-4 border-l-[var(--color-gold)]">
-    <div className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">{title}</div>
+  <div
+    className="rounded-xl bg-white p-5 overflow-hidden"
+    style={{
+      border: '1px solid #e8eaf2',
+      borderLeft: '3px solid var(--color-gold)',
+      boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+      transition: 'box-shadow 0.2s ease',
+    }}
+    onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.09)'; }}
+    onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.05)'; }}
+  >
+    <div
+      className="text-[10px] font-black uppercase tracking-[0.15em] mb-3 pb-2"
+      style={{
+        color: 'var(--color-gold-dark)',
+        borderBottom: '1px solid rgba(212,175,55,0.15)',
+      }}
+    >
+      {title}
+    </div>
     {children}
   </div>
+);
+
+/* ── Trust badge pill ─────────────────────────────── */
+const TrustBadge = ({ icon: Icon, label, gold = false }) => (
+  <span
+    className="paktax-trust-badge"
+    style={gold ? {
+      background: 'rgba(212,175,55,0.12)',
+      border: '1px solid rgba(212,175,55,0.3)',
+      color: '#8a6d00',
+    } : {
+      background: '#f3f4f6',
+      border: '1px solid #e5e7eb',
+      color: '#4b5563',
+    }}
+  >
+    {Icon && <Icon size={11} style={{ display: 'inline', marginRight: 4 }} />}
+    {label}
+  </span>
 );
 
 /* ── Main calculator shell ───────────────────────── */
@@ -31,27 +68,16 @@ export const TaxCalculatorShell = ({ title, subtitle, onBack, children }) => {
 
           {/* Trust badges row */}
           <div className="flex flex-wrap items-center gap-2 mb-4">
-            <span className="paktax-trust-badge paktax-trust-badge-gold">
-              FY 2025–26
-            </span>
-            <span className="paktax-trust-badge paktax-trust-badge-gray">
-              <ShieldCheck size={11} style={{ display: 'inline', marginRight: 4 }} />
-              FBR Official Rates
-            </span>
-            <span className="paktax-trust-badge paktax-trust-badge-gray">
-              <Zap size={11} style={{ display: 'inline', marginRight: 4 }} />
-              Instant Results
-            </span>
-            <span className="paktax-trust-badge paktax-trust-badge-gray">
-              <Lock size={11} style={{ display: 'inline', marginRight: 4 }} />
-              Free &amp; Private
-            </span>
+            <TrustBadge label="FY 2025–26" gold />
+            <TrustBadge icon={ShieldCheck} label="FBR Official Rates" />
+            <TrustBadge icon={Zap} label="Instant Results" />
+            <TrustBadge icon={Lock} label="Free & Private" />
           </div>
 
           {/* Title + subtitle */}
           <h1 className="paktax-shell-title">{title}</h1>
           {subtitle && (
-            <p className="paktax-shell-subtitle">{subtitle}</p>
+            <p className="paktax-shell-subtitle mt-1.5">{subtitle}</p>
           )}
         </div>
       </div>

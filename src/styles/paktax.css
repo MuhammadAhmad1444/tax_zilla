@@ -11,9 +11,19 @@
 
 /* ── Calculator Shell Header ────────────────────── */
 .paktax-shell-header {
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  border-top: 3px solid var(--color-gold);
+  background: linear-gradient(135deg, #fafbff 0%, #f8f9fc 100%);
+  border-bottom: 1px solid #e8eaf2;
+  position: relative;
+}
+
+.paktax-shell-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold-light), var(--color-gold-dark));
 }
 
 .paktax-shell-title {
@@ -233,13 +243,49 @@
 
 /* ── Empty result placeholder ───────────────────── */
 .paktax-root .border-dashed {
-  background: #fafafa !important;
+  background: linear-gradient(135deg, #fafbff 0%, #f8f9fc 100%) !important;
   border: 2px dashed #d1d5db !important;
-  border-radius: 16px !important;
+  border-radius: 18px !important;
   text-align: center;
-  padding: 2.5rem 1.5rem !important;
+  padding: 3rem 1.5rem !important;
   color: #9ca3af !important;
   font-size: 0.875rem;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.paktax-root .border-dashed:hover {
+  border-color: rgba(212, 175, 55, 0.4) !important;
+  background: linear-gradient(135deg, #fffef7 0%, #fffcf0 100%) !important;
+}
+
+/* ── Loading state card overlay ─────────────────── */
+.paktax-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.paktax-loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid rgba(212, 175, 55, 0.2);
+  border-top-color: var(--color-gold);
+  border-radius: 50%;
+  animation: paktax-spin 0.75s linear infinite;
+}
+
+@keyframes paktax-spin {
+  to { transform: rotate(360deg); }
+}
+
+.paktax-loading-text {
+  font-size: 0.8125rem;
+  color: #6b7280;
+  font-weight: 500;
 }
 
 /* ── Result info cards (white cards below calc) ─── */
@@ -273,35 +319,77 @@
 }
 
 /* ── Table ──────────────────────────────────────── */
+.paktax-table-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  -webkit-overflow-scrolling: touch;
+}
+
 .paktax-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
+  font-family: var(--font-body);
 }
 
-.paktax-table th,
-.paktax-table td {
-  border: 1px solid #e5e7eb;
-  padding: 9px 12px;
+.paktax-table thead {
+  background: linear-gradient(135deg, var(--color-brand-navy) 0%, var(--color-brand-navy-2) 100%);
+}
+
+.paktax-table thead th {
+  border: none;
+  padding: 10px 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.78);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.paktax-table thead th:first-child { padding-left: 18px; }
+.paktax-table thead th:last-child  { padding-right: 18px; }
+
+.paktax-table tbody tr {
+  border-bottom: 1px solid #f0f2f5;
+  transition: background 0.14s ease;
+}
+
+.paktax-table tbody tr:nth-child(even) td {
+  background-color: rgba(212, 175, 55, 0.025);
+}
+
+.paktax-table tbody tr:hover td {
+  background-color: rgba(212, 175, 55, 0.07) !important;
+}
+
+.paktax-table tbody td {
+  border: none;
+  padding: 9px 14px;
+  color: #1f2937;
+  vertical-align: middle;
+}
+
+.paktax-table tbody td:first-child { padding-left: 18px; }
+.paktax-table tbody td:last-child  { padding-right: 18px; }
+.paktax-table tbody tr:last-child td { border-bottom: none; }
+
+.paktax-table .td-accent {
+  font-weight: 700;
+  color: var(--color-gold-dark);
 }
 
 @media (min-width: 640px) {
-  .paktax-table th,
-  .paktax-table td {
-    padding: 11px 14px;
-    font-size: 14px;
+  .paktax-table thead th,
+  .paktax-table tbody td {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    font-size: 13px;
   }
-}
-
-.paktax-table th {
-  background: #f9fafb;
-  font-weight: 700;
-  color: #374151;
-  text-align: left;
-}
-
-.paktax-table tr:hover td {
-  background: rgba(212, 175, 55, 0.04);
+  .paktax-table thead th { font-size: 11px; }
 }
 
 /* ── Buttons ────────────────────────────────────── */

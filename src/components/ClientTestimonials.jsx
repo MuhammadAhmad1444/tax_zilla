@@ -120,11 +120,13 @@ function Counter({ value, suffix, reduce }) {
 function Card({ t }) {
   return (
     <div
-      className="relative flex flex-col h-full rounded-2xl bg-white px-7 py-8 select-none"
+      className="relative flex flex-col h-full rounded-2xl bg-white px-7 py-8 select-none transition-all duration-300"
       style={{
-        boxShadow: '0 6px 36px rgba(0,0,0,0.09)',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.06), 0 6px 24px rgba(0,0,0,0.07)',
         border: '1px solid rgba(0,0,0,0.06)',
       }}
+      onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(212,175,55,0.18)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.25)'; }}
+      onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06), 0 6px 24px rgba(0,0,0,0.07)'; e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)'; }}
     >
       {/* Gold top accent */}
       <div
