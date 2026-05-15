@@ -239,35 +239,22 @@ const Footer = () => {
                 </a>
               </li>
 
-              <li>
-                <a href="mailto:info@taxzilla.com" className="flex items-center gap-3 group">
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(212,175,55,0.1)' }}>
-                    <Mail size={12} style={{ color: GOLD }} />
-                  </div>
-                  <span
-                    className="text-[12px] break-all transition-colors"
-                    style={{ color: 'rgba(255,255,255,0.45)' }}
+              <li className="flex items-start gap-3">
+                <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: 'rgba(212,175,55,0.1)' }}>
+                  <Mail size={12} style={{ color: GOLD }} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <a href="mailto:info@taxzilla.com" className="text-[12px] break-all transition-colors" style={{ color: 'rgba(255,255,255,0.45)' }}
                     onMouseEnter={e => e.currentTarget.style.color = '#fff'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
-                  >
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}>
                     info@taxzilla.com
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="mailto:taxzilla41@gmail.com" className="flex items-center gap-3 group">
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(212,175,55,0.1)' }}>
-                    <Mail size={12} style={{ color: GOLD }} />
-                  </div>
-                  <span
-                    className="text-[12px] break-all transition-colors"
-                    style={{ color: 'rgba(255,255,255,0.45)' }}
+                  </a>
+                  <a href="mailto:taxzilla41@gmail.com" className="text-[12px] break-all transition-colors" style={{ color: 'rgba(255,255,255,0.45)' }}
                     onMouseEnter={e => e.currentTarget.style.color = '#fff'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
-                  >
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}>
                     taxzilla41@gmail.com
-                  </span>
-                </a>
+                  </a>
+                </div>
               </li>
 
               <li className="flex items-start gap-3">
