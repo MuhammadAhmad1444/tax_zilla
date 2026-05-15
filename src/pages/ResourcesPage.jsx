@@ -47,12 +47,16 @@ const TYPE_STYLES = {
 
 const ResourcesPage = () => {
   const [activeTab, setActiveTab] = useState(RESOURCE_CATEGORIES.ALL);
+  const [searchQuery, setSearchQuery] = useState('');
   const { reduce, hero } = usePageMotion();
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const filteredResources = getResourcesByCategory(activeTab);
+  const q = searchQuery.trim().toLowerCase();
+  const filteredResources = getResourcesByCategory(activeTab).filter(r =>
+    !q || r.title?.toLowerCase().includes(q) || r.description?.toLowerCase().includes(q) || r.type?.toLowerCase().includes(q)
+  );
   const categories = getCategories();
 
   const handleSubscribe = (e) => {
@@ -112,7 +116,36 @@ const ResourcesPage = () => {
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.44, ease: EASE_OUT, delay: reduce ? 0 : 0.32 }}
-            className="mt-8 flex flex-wrap justify-center gap-3"
+            className="mt-8 max-w-lg mx-auto"
+          >
+            <div
+              className="flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all"
+              style={{ background:'rgba(11,28,41,0.6)', border:'1px solid rgba(255,255,255,0.15)', backdropFilter:'blur(12px)', WebkitBackdropFilter:'blur(12px)' }}
+            >
+              <Search size={16} style={{ color:'rgba(156,163,175,1)', flexShrink:0 }} />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                placeholder="Search resources — guides, tools, checklists..."
+                className="hero-search-input"
+              />
+              {searchQuery && (
+                <button type="button" onClick={() => setSearchQuery('')} className="text-gray-500 hover:text-white text-xs font-bold flex-shrink-0">✕</button>
+              )}
+            </div>
+            {searchQuery && (
+              <p className="text-center text-xs mt-2" style={{ color:'rgba(255,255,255,0.45)' }}>
+                {filteredResources.length === 0 ? 'No resources found' : `${filteredResources.length} resource${filteredResources.length !== 1 ? 's' : ''} found`}
+              </p>
+            )}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.44, ease: EASE_OUT, delay: reduce ? 0 : 0.44 }}
+            className="mt-4 flex flex-wrap justify-center gap-3"
           >
             <a
               href={`tel:${SITE.phoneTel}`}

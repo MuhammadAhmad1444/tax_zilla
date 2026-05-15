@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, MessageCircle, CheckCircle, AlertCircle, Phone } from 'lucide-react';
+import { ArrowRight, MessageCircle, CheckCircle, AlertCircle, Phone, Search } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import Button from '../components/Button.jsx';
 import { SITE } from '../data/site.js';
@@ -30,8 +30,11 @@ const IndustriesPage = () => {
   const { reduce, hero } = usePageMotion();
   const reduceMotion = useReducedMotion();
   const [activeId, setActiveId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const displayed = activeId ? industries.filter(i => i.id === activeId) : industries;
+  const q = searchQuery.trim().toLowerCase();
+  const displayed = (activeId ? industries.filter(i => i.id === activeId) : industries)
+    .filter(i => !q || i.title?.toLowerCase().includes(q) || i.description?.toLowerCase().includes(q) || i.sector?.toLowerCase().includes(q));
 
   return (
     <>
@@ -76,7 +79,36 @@ const IndustriesPage = () => {
             initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0.01 : 0.44, ease: EASE_OUT, delay: reduce ? 0 : 0.32 }}
-            className="flex flex-wrap justify-center gap-3"
+            className="max-w-lg mx-auto"
+          >
+            <div
+              className="flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all"
+              style={{ background:'rgba(11,28,41,0.6)', border:'1px solid rgba(255,255,255,0.15)', backdropFilter:'blur(12px)', WebkitBackdropFilter:'blur(12px)' }}
+            >
+              <Search size={16} style={{ color:'rgba(156,163,175,1)', flexShrink:0 }} />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                placeholder="Search industries — IT, retail, healthcare..."
+                className="hero-search-input"
+              />
+              {searchQuery && (
+                <button type="button" onClick={() => setSearchQuery('')} className="text-gray-500 hover:text-white text-xs font-bold flex-shrink-0">✕</button>
+              )}
+            </div>
+            {searchQuery && (
+              <p className="text-center text-xs mt-2" style={{ color:'rgba(255,255,255,0.45)' }}>
+                {displayed.length === 0 ? 'No industries found' : `${displayed.length} industr${displayed.length !== 1 ? 'ies' : 'y'} found`}
+              </p>
+            )}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0.01 : 0.44, ease: EASE_OUT, delay: reduce ? 0 : 0.44 }}
+            className="mt-4 flex flex-wrap justify-center gap-3"
           >
             <a href={`tel:${SITE.phoneTel}`}
               className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-xs font-semibold text-white/90 backdrop-blur-sm hover:border-[var(--color-gold)]/50 hover:bg-[var(--color-gold)]/15 transition-all">
