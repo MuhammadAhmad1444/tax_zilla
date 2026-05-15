@@ -128,13 +128,13 @@ const Navbar = () => {
   // ── Services Mega Menu — Full-width horizontal layout ──────────────────
   const ServicesMegaMenu = () => (
     <motion.div
-      initial={{ opacity: 0, y: -10 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+      exit={{ opacity: 0, y: 6 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
       className="fixed left-0 right-0 w-screen"
       style={{
-        top: '64px',
+        top: isScrolled ? '80px' : '88px',
         background: 'rgba(255,255,255,0.97)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
@@ -278,10 +278,14 @@ const Navbar = () => {
 
   // ── Tax Calculators Mega Menu ───────────────────────────────────────────
   const TaxCalculatorsMegaMenu = () => (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 6 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
       className="fixed left-0 right-0 w-screen"
       style={{
-        top: '64px',
+        top: isScrolled ? '80px' : '88px',
         background: 'rgba(255,255,255,0.97)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
@@ -436,7 +440,7 @@ const Navbar = () => {
           <span className="text-[9px] font-medium text-gray-600">Official FBR Rates</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 
   return (
@@ -529,14 +533,7 @@ const Navbar = () => {
 
                       <AnimatePresence>
                         {openDropdown === (isServices ? 'services' : 'tax-calculators') && (
-                          <motion.div
-                            initial={{ opacity: 0, y: -6 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -6 }}
-                            transition={{ duration: 0.15 }}
-                          >
-                            {isServices ? <ServicesMegaMenu /> : <TaxCalculatorsMegaMenu />}
-                          </motion.div>
+                          isServices ? <ServicesMegaMenu key="services" /> : <TaxCalculatorsMegaMenu key="tax" />
                         )}
                       </AnimatePresence>
                     </>
