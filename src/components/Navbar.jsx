@@ -48,9 +48,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [navBottom, setNavBottom] = useState(80);
 
   const location = useLocation();
   const navigate  = useNavigate();
+  const navRef = useRef(null);
   const taxMenuWrapperRef = useRef(null);
   const servicesMenuWrapperRef = useRef(null);
   const closeTimerRef = useRef(null);
@@ -64,6 +66,10 @@ const Navbar = () => {
 
   const openMenu = (menu) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    // Measure nav bottom right before opening so top is always accurate
+    if (navRef.current) {
+      setNavBottom(navRef.current.getBoundingClientRect().bottom);
+    }
     setOpenDropdown(menu);
   };
 
@@ -76,9 +82,22 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const measure = () => {
+      if (navRef.current) {
+        setNavBottom(navRef.current.getBoundingClientRect().bottom);
+      }
+    };
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+      measure();
+    };
+    measure();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', measure, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', measure);
+    };
   }, []);
 
   useEffect(() => {
@@ -128,13 +147,13 @@ const Navbar = () => {
   // ── Services Mega Menu — Full-width horizontal layout ──────────────────
   const ServicesMegaMenu = () => (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 6 }}
-      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      exit={{ opacity: 0, y: -4 }}
+      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
       className="fixed left-0 right-0 w-screen"
       style={{
-        top: isScrolled ? '80px' : '88px',
+        top: `${navBottom}px`,
         background: 'rgba(255,255,255,0.97)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
@@ -279,13 +298,13 @@ const Navbar = () => {
   // ── Tax Calculators Mega Menu ───────────────────────────────────────────
   const TaxCalculatorsMegaMenu = () => (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 6 }}
-      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      exit={{ opacity: 0, y: -4 }}
+      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
       className="fixed left-0 right-0 w-screen"
       style={{
-        top: isScrolled ? '80px' : '88px',
+        top: `${navBottom}px`,
         background: 'rgba(255,255,255,0.97)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
@@ -445,6 +464,7 @@ const Navbar = () => {
 
   return (
     <motion.nav
+      ref={navRef}
       initial={{ y: -72, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
