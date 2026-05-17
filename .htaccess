@@ -4,16 +4,18 @@ DirectoryIndex dist/index.html
 RewriteEngine On
 RewriteBase /
 
-# Already in /dist/ — serve directly
+# Already inside /dist/ — serve directly, no loop
 RewriteCond %{REQUEST_URI} ^/dist/
 RewriteRule ^ - [L]
 
-# Root or index.html → always serve built app
-RewriteRule ^(index\.html)?$ /dist/index.html [L,QSA]
+# Root request → built app
+RewriteRule ^$ /dist/index.html [L,QSA]
 
-# Real asset files inside dist/ → serve them
+# Asset/image files that exist inside dist/ → serve them from dist/
 RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f
 RewriteRule ^(.+)$ /dist/$1 [L,QSA]
 
-# SPA fallback — all React routes → built app
+# All React routes (SPA fallback) → built app
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ /dist/index.html [L,QSA]
