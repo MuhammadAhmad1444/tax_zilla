@@ -649,7 +649,7 @@ const SubservicePage = ({ service }) => {
               <div className="relative rounded-2xl overflow-hidden" style={{ background: 'var(--color-brand-navy)' }}>
                 <div className="absolute inset-0 bg-brand-overlay opacity-60" />
                 <HeroGrid />
-                <div className="relative z-10 p-8 text-center dark-section">
+                <div className="relative z-10 p-8 text-center">
                   <h3 className="text-xl font-bold text-white mb-2" style={{ fontFamily: 'var(--font-heading)' }}>
                     Need a Personalised Checklist?
                   </h3>

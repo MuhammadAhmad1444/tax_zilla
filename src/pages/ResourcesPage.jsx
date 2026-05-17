@@ -351,7 +351,7 @@ const ResourcesPage = () => {
             <div className="absolute inset-0 bg-brand-overlay opacity-60" />
             <HeroGrid />
 
-            <div className="relative z-10 p-8 sm:p-12 dark-section">
+            <div className="relative z-10 p-8 sm:p-12">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 {/* Left */}
                 <div>

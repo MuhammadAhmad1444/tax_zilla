@@ -76,8 +76,8 @@
   position: relative;
 }
 
-/* Gold left accent line — on every dark hero section across all pages */
-.dark-section::after {
+/* Gold left accent line — hero sections only (not inner card divs) */
+section.dark-section::after {
   content: '';
   position: absolute;
   left: 0;
@@ -97,7 +97,7 @@
 }
 
 /* Tax Calculators page already has this line — suppress duplicate */
-.paktax-root .dark-section::after {
+.paktax-root section.dark-section::after {
   display: none;
 }
 
