@@ -337,7 +337,7 @@ const AboutPage = () => {
           </motion.div>
 
           {/* 3-column team grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
 
             {/* ── Card 1: Owner ── */}
             <motion.div {...revealUp(0, reduce)}>
@@ -445,7 +445,7 @@ const AboutPage = () => {
                   style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
                 <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm"
                   style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
-                  Advocate
+                  Managing Partner
                 </div>
                 <div className="relative mb-5 mt-2">
                   <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center font-extrabold text-xl relative"
@@ -459,7 +459,7 @@ const AboutPage = () => {
                   Naveed Ahmad Chaudhary
                 </h3>
                 <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: '#D4AF37' }}>
-                  Advocate
+                  Advocate High Court
                 </p>
                 <div className="w-8 h-px mb-4" style={{ background: 'rgba(212,175,55,0.35)' }} />
                 <div className="flex flex-wrap gap-1.5 justify-center mb-5">
@@ -473,6 +473,49 @@ const AboutPage = () => {
                 <div className="mt-auto w-full pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                   <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.35)' }}>
                     Business & Legal Advisory
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* ── Card 4: Azhar Ali ── */}
+            <motion.div {...revealUp(0.3, reduce)}>
+              <div className="group relative overflow-hidden flex flex-col items-center text-center h-full p-7 sm:p-8"
+                style={{ background: 'rgba(255,255,255,0.035)', border: '1px solid rgba(212,175,55,0.2)', backdropFilter: 'blur(12px)' }}>
+                <div className="absolute top-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 rounded-t"
+                  style={{ background: 'linear-gradient(90deg, #D4AF37, rgba(212,175,55,0.3))' }} />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.07] transition-opacity duration-700"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1436450412740-6b988f486c6b?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm"
+                  style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
+                  General Manager
+                </div>
+                <div className="relative mb-5 mt-2">
+                  <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center font-extrabold text-xl relative"
+                    style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.18) 0%, rgba(212,175,55,0.05) 100%)', border: '2px solid rgba(212,175,55,0.45)', color: '#D4AF37', fontFamily: 'var(--font-heading)' }}>
+                    AA
+                    <div className="absolute inset-[-6px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ border: '1px solid rgba(212,175,55,0.2)' }} />
+                  </div>
+                </div>
+                <h3 className="text-white font-bold text-lg leading-snug mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+                  Azhar Ali
+                </h3>
+                <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: '#D4AF37' }}>
+                  Advocate
+                </p>
+                <div className="w-8 h-px mb-4" style={{ background: 'rgba(212,175,55,0.35)' }} />
+                <div className="flex flex-wrap gap-1.5 justify-center mb-5">
+                  {['LLB'].map(q => (
+                    <span key={q} className="text-[10px] font-semibold px-2.5 py-0.5 rounded-sm"
+                      style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                      {q}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-auto w-full pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                  <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                    Operations & Legal Management
                   </span>
                 </div>
               </div>
