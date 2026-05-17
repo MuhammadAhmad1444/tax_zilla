@@ -350,7 +350,7 @@ const AboutPage = () => {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.07] transition-opacity duration-700"
                   style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
                 {/* Gavel/scales decorative icon top-right */}
-                <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm"
+                <div className="absolute top-3 right-3 text-[8px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-sm whitespace-nowrap"
                   style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
                   Owner
                 </div>
@@ -401,7 +401,7 @@ const AboutPage = () => {
                 <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.5), #D4AF37, rgba(212,175,55,0.5))' }} />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.07] transition-opacity duration-700"
                   style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1605745341112-85968b19335b?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-                <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm"
+                <div className="absolute top-3 right-3 text-[8px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-sm whitespace-nowrap"
                   style={{ background: 'rgba(212,175,55,0.15)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.4)' }}>
                   CEO
                 </div>
@@ -443,7 +443,7 @@ const AboutPage = () => {
                   style={{ background: 'linear-gradient(90deg, #D4AF37, rgba(212,175,55,0.3))' }} />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.07] transition-opacity duration-700"
                   style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-                <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm"
+                <div className="absolute top-3 right-3 text-[8px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-sm whitespace-nowrap"
                   style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
                   Managing Partner
                 </div>
@@ -486,7 +486,7 @@ const AboutPage = () => {
                   style={{ background: 'linear-gradient(90deg, #D4AF37, rgba(212,175,55,0.3))' }} />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.07] transition-opacity duration-700"
                   style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1436450412740-6b988f486c6b?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-                <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm"
+                <div className="absolute top-3 right-3 text-[8px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-sm whitespace-nowrap"
                   style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
                   General Manager
                 </div>
