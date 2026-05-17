@@ -91,7 +91,7 @@ const testimonials = [
 const stats = [
   { value: 997, suffix: '+', label: 'Happy Clients' },
   { value: 98,  suffix: '%', label: 'Retention Rate' },
-  { value: 15,  suffix: '+', label: 'Years Experience' },
+  { value: 10,  suffix: '+', label: 'Years Experience' },
   { value: 24,  suffix: '/7', label: 'Support Available' },
 ];
 

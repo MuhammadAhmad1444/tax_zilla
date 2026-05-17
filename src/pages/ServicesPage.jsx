@@ -111,7 +111,7 @@ const COUNTRY_FILTERS = [
 ];
 
 const TRUST_STATS = [
-  { value: '500+', label: 'Satisfied Clients' },
+  { value: '997+', label: 'Satisfied Clients' },
   { value: '10+', label: 'Years Experience' },
   { value: '70+', label: 'Services Offered' },
   { value: '24/7', label: 'WhatsApp Support' },
@@ -121,7 +121,7 @@ const WHY_US = [
   { icon: ShieldCheck, title: 'Compliance-First', desc: 'Every service aligned with FBR, SECP, ZATCA, and all regulatory bodies.' },
   { icon: Clock, title: 'Fast Turnaround', desc: 'Clear timelines, proactive updates, and on-time delivery — always.' },
   { icon: UserCheck, title: 'Dedicated Expert', desc: 'One consultant owns your case from documents to final confirmation.' },
-  { icon: Award, title: 'Proven Track Record', desc: '500+ satisfied clients across Pakistan, UAE, USA, and Saudi Arabia.' },
+  { icon: Award, title: 'Proven Track Record', desc: '997+ satisfied clients across Pakistan, UAE, USA, and Saudi Arabia.' },
 ];
 
 const HeroGrid = () => (

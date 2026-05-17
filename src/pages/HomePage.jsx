@@ -189,7 +189,7 @@ const WHY_US = [
 ];
 
 const IMPACT_STATS = [
-  { value: 500, suffix: '+', label: 'Satisfied Clients', icon: Users },
+  { value: 997, suffix: '+', label: 'Satisfied Clients', icon: Users },
   { value: 10, suffix: '+', label: 'Years of Experience', icon: Award },
   { value: 70, suffix: '+', label: 'Services Offered', icon: FileText },
   { value: 4, suffix: '', label: 'Countries Served', icon: Globe },
