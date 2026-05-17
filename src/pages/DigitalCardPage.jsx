@@ -18,9 +18,9 @@ const INFO = {
   websiteUrl:'https://thetaxzilla.com',
   whatsapp:  'https://wa.me/923399993308',
   address:   '7A Malik Park, Main Canal Road, Mughalpura, Lahore',
-  facebook:  'https://www.facebook.com/thetaxzilla',
-  instagram: 'https://www.instagram.com/thetaxzilla',
-  linkedin:  'https://www.linkedin.com/company/thetaxzilla',
+  facebook:  'https://www.facebook.com/people/Tax-Zilla/61585729178210/',
+  instagram: 'https://www.instagram.com/tax.zilla?igsh=MWh5djJpcWZrc2liNw==',
+  linkedin:  'https://www.linkedin.com/company/111113328/',
 };
 
 /* ── Download vCard ─────────────────────────────────────── */
