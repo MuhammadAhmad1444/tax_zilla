@@ -274,7 +274,7 @@ const HomePage = () => {
                   transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                 />
                 <div
-                  className="relative overflow-hidden rounded-full px-6 py-3"
+                  className="relative rounded-full px-6 py-3"
                   style={{
                     background: 'linear-gradient(135deg,rgba(6,10,18,0.97) 0%,rgba(12,20,30,0.95) 100%)',
                     border: '1px solid rgba(212,175,55,0.55)',
@@ -282,38 +282,44 @@ const HomePage = () => {
                     backdropFilter: 'blur(20px)',
                   }}
                 >
-                  {/* Shimmer sweep looping */}
-                  <motion.div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-y-0"
-                    style={{ width: '55%', background: 'linear-gradient(90deg,transparent,rgba(212,175,55,0.28),transparent)', left: 0 }}
-                    animate={{ left: ['-55%', '155%'] }}
-                    transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1.6 }}
-                  />
+                  {/* Shimmer sweep — clipped to its own wrapper */}
+                  <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none" aria-hidden="true">
+                    <motion.div
+                      className="absolute inset-y-0"
+                      style={{ width: '55%', background: 'linear-gradient(90deg,transparent,rgba(212,175,55,0.28),transparent)' }}
+                      animate={{ left: ['-55%', '155%'] }}
+                      transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1.6 }}
+                    />
+                  </div>
+
                   <div className="relative z-10 flex items-center gap-3">
+                    {/* Left rule */}
                     <motion.span className="flex-shrink-0 h-px"
                       style={{ background: 'linear-gradient(90deg,transparent,#D4AF37)', width: 28 }}
                       initial={{ scaleX: 0, originX: 0 }}
                       animate={{ scaleX: 1 }}
                       transition={{ duration: 0.6, delay: 0.3, ease: EASE_OUT }}
                     />
+                    {/* Diamond */}
                     <motion.span className="flex-shrink-0" style={{ color: '#D4AF37', fontSize: '8px' }}
                       initial={{ opacity: 0, scale: 0, rotate: -180 }}
                       animate={{ opacity: 1, scale: 1, rotate: 0 }}
                       transition={{ duration: 0.5, delay: 0.55, ease: EASE_OUT }}
                     >&#9670;</motion.span>
+
+                    {/* Words — blur+scale in, NO y-movement (avoids overflow clipping) */}
                     <div className="flex items-center gap-[0.5em]" style={{ fontFamily: 'var(--font-heading)' }}>
                       {['Muzaher','And','Co','Legal','Advisors'].map((word, wi) => (
                         <motion.span key={word} className="flex"
-                          variants={{ hidden:{}, visible:{ transition:{ staggerChildren:0.06, delayChildren: 0.75 + wi * 0.28 } } }}
+                          variants={{ hidden:{}, visible:{ transition:{ staggerChildren:0.07, delayChildren: 0.7 + wi * 0.3 } } }}
                           initial="hidden" animate="visible"
                         >
                           {word.split('').map((ch, ci) => (
                             <motion.span key={ci}
                               variants={{
-                                hidden: { opacity:0, y:22, filter:'blur(10px)' },
-                                visible:{ opacity:1, y:0, filter:'blur(0px)',
-                                  transition:{ duration:0.55, ease:[0.22,1,0.36,1] } },
+                                hidden:   { opacity:0, scale:0.4, filter:'blur(8px)' },
+                                visible:  { opacity:1, scale:1,   filter:'blur(0px)',
+                                  transition:{ duration:0.5, ease:[0.22,1,0.36,1] } },
                               }}
                               className="inline-block font-extrabold uppercase"
                               style={{ fontSize:'14px', letterSpacing:'0.2em', color:'#D4AF37' }}
@@ -322,16 +328,19 @@ const HomePage = () => {
                         </motion.span>
                       ))}
                     </div>
+
+                    {/* Diamond */}
                     <motion.span className="flex-shrink-0" style={{ color:'#D4AF37', fontSize:'8px' }}
                       initial={{ opacity:0, scale:0, rotate:180 }}
                       animate={{ opacity:1, scale:1, rotate:0 }}
-                      transition={{ duration:0.5, delay:2.8, ease:EASE_OUT }}
+                      transition={{ duration:0.5, delay:2.9, ease:EASE_OUT }}
                     >&#9670;</motion.span>
+                    {/* Right rule */}
                     <motion.span className="flex-shrink-0 h-px"
                       style={{ background:'linear-gradient(90deg,#D4AF37,transparent)', width:28 }}
                       initial={{ scaleX:0, originX:1 }}
                       animate={{ scaleX:1 }}
-                      transition={{ duration:0.6, delay:2.9, ease:EASE_OUT }}
+                      transition={{ duration:0.6, delay:3.0, ease:EASE_OUT }}
                     />
                   </div>
                 </div>
