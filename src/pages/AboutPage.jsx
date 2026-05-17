@@ -416,7 +416,7 @@ const AboutPage = () => {
                   Hafiz Muhammad Ahmad Raza
                 </h3>
                 <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: '#D4AF37' }}>
-                  Advocate
+                  Advocate & Consultant
                 </p>
                 <div className="w-8 h-px mb-4" style={{ background: 'rgba(212,175,55,0.35)' }} />
                 <div className="flex flex-wrap gap-1.5 justify-center mb-5">
@@ -445,7 +445,7 @@ const AboutPage = () => {
                   style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
                 <div className="absolute top-3 right-3 text-[8px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-sm whitespace-nowrap"
                   style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
-                  Managing Partner
+                  Managing Director
                 </div>
                 <div className="relative mb-5 mt-2">
                   <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center font-extrabold text-xl relative"
@@ -459,7 +459,7 @@ const AboutPage = () => {
                   Naveed Ahmad Chaudhary
                 </h3>
                 <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: '#D4AF37' }}>
-                  Advocate High Court
+                  Advocate — High Court
                 </p>
                 <div className="w-8 h-px mb-4" style={{ background: 'rgba(212,175,55,0.35)' }} />
                 <div className="flex flex-wrap gap-1.5 justify-center mb-5">
@@ -488,7 +488,7 @@ const AboutPage = () => {
                   style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1436450412740-6b988f486c6b?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
                 <div className="absolute top-3 right-3 text-[8px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-sm whitespace-nowrap"
                   style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
-                  General Manager
+                  Operational Manager
                 </div>
                 <div className="relative mb-5 mt-2">
                   <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center font-extrabold text-xl relative"
@@ -502,17 +502,9 @@ const AboutPage = () => {
                   Azhar Ali
                 </h3>
                 <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: '#D4AF37' }}>
-                  Advocate — High Court
+                  Operational Manager
                 </p>
                 <div className="w-8 h-px mb-4" style={{ background: 'rgba(212,175,55,0.35)' }} />
-                <div className="flex flex-wrap gap-1.5 justify-center mb-5">
-                  {['LLB'].map(q => (
-                    <span key={q} className="text-[10px] font-semibold px-2.5 py-0.5 rounded-sm"
-                      style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                      {q}
-                    </span>
-                  ))}
-                </div>
                 <div className="mt-auto w-full pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                   <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.35)' }}>
                     Operations & Legal Management
