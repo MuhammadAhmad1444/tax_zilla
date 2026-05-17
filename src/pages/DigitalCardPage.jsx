@@ -9,7 +9,7 @@ const ease  = [0.22, 1, 0.36, 1];
 
 const INFO = {
   phone: '+92 339 9993308', phoneTel: '+923399993308',
-  email: 'info@taxzilla.com', email2: 'taxzilla41@gmail.com',
+  email: 'info@thetaxzilla.com', email2: 'taxzilla41@gmail.com',
   website: 'thetaxzilla.com', websiteUrl: 'https://thetaxzilla.com',
   whatsapp: 'https://wa.me/923399993308',
   address: '7A Malik Park, Main Canal Road, Mughalpura, Lahore',
