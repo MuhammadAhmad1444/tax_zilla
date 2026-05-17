@@ -277,18 +277,13 @@ export default function DigitalCardPage() {
 
         {/* ══ FOLLOW US ════════════════════════════════════════ */}
         <GlassCard delay={0.95} className="mb-4">
-          <SHead label="Follow Us" delay={1.0}/>
-          <div className="px-3 pb-4 space-y-2">
-            <div className="flex gap-2">
-              <SChip icon={<IGlobe/>} label="Website"   href={INFO.websiteUrl} color="#60a5fa" delay={1.02}/>
-              <SChip icon={<IFB/>}    label="Facebook"  href={INFO.facebook}   color="#1877F2" delay={1.08}/>
-              <SChip icon={<IIG/>}    label="Instagram" href={INFO.instagram}  color="#E4405F" delay={1.14}/>
-            </div>
-            <div className="flex gap-2">
-              <SChip icon={<ILI/>}    label="LinkedIn"  href={INFO.linkedin}   color="#0A66C2" delay={1.18}/>
-              <SChip icon={<IWA/>}    label="WhatsApp"  href={INFO.whatsapp}   color="#25D366" delay={1.22}/>
-              <div style={{flex:1}}/>
-            </div>
+          <SHead label="Connect With Us" delay={1.0}/>
+          <div className="px-2 pb-3 space-y-0.5">
+            <ActionRow icon={<IGlobe/>} title="Website"   sub="thetaxzilla.com"    href={INFO.websiteUrl} delay={1.02} accent="rgba(96,165,250,0.14)"  iconColor="#60a5fa"/>
+            <ActionRow icon={<IWA/>}    title="WhatsApp"  sub="+92 339 9993308"    href={INFO.whatsapp}   delay={1.07} accent="rgba(37,211,102,0.14)"  iconColor="#25D366"/>
+            <ActionRow icon={<IFB/>}    title="Facebook"  sub="Tax Zilla Official" href={INFO.facebook}   delay={1.12} accent="rgba(24,119,242,0.14)"  iconColor="#1877F2"/>
+            <ActionRow icon={<IIG/>}    title="Instagram" sub="@tax.zilla"         href={INFO.instagram}  delay={1.17} accent="rgba(228,64,95,0.14)"   iconColor="#E4405F"/>
+            <ActionRow icon={<ILI/>}    title="LinkedIn"  sub="Tax Zilla Company"  href={INFO.linkedin}   delay={1.22} accent="rgba(10,102,194,0.14)"  iconColor="#0A66C2"/>
           </div>
         </GlassCard>
 
