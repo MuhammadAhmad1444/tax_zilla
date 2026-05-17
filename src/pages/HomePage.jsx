@@ -258,51 +258,106 @@ const HomePage = () => {
         <div className="relative z-10 container-custom px-4 pt-28 pb-16 sm:pt-32 md:pt-36">
           <div className="max-w-5xl mx-auto text-center">
 
-            {/* ── Muzaher & Co shimmer brand bar ── */}
-            <motion.div
-              initial={reduce ? {} : { opacity: 0, y: -16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE_OUT }}
-              className="flex justify-center mb-5"
-            >
-              <div className="relative inline-flex items-center gap-3 overflow-hidden rounded-full
-                border border-[rgba(212,175,55,0.35)]
-                px-5 py-[7px]"
-                style={{ background: 'rgba(4,8,14,0.88)', backdropFilter: 'blur(16px)' }}
+            {/* ── Muzaher & Co — animated letter reveal ── */}
+            {!reduce && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: EASE_OUT }}
+                className="flex justify-center mb-5"
               >
-                {/* Shimmer sweep — moves left→right on loop */}
-                <motion.div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background: 'linear-gradient(105deg, transparent 30%, rgba(212,175,55,0.22) 50%, transparent 70%)',
-                    backgroundSize: '250% 100%',
-                  }}
-                  animate={reduce ? {} : { backgroundPosition: ['200% center', '-200% center'] }}
-                  transition={{ duration: 2.8, repeat: Infinity, ease: 'linear', repeatDelay: 0.8 }}
-                />
-
-                {/* Left gold rule */}
-                <span className="h-px w-5 flex-shrink-0" style={{ background: 'rgba(212,175,55,0.55)' }} />
-
-                {/* Tiny gold diamond */}
-                <span style={{ color: '#D4AF37', fontSize: '7px', lineHeight: 1, flexShrink: 0 }}>◆</span>
-
-                {/* Brand name */}
-                <span
-                  className="relative z-10 whitespace-nowrap text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.28em]"
-                  style={{ color: '#D4AF37', fontFamily: 'var(--font-heading)', letterSpacing: '0.26em' }}
+                <div
+                  className="relative inline-flex items-center gap-3 overflow-hidden rounded-full px-5 py-[9px]"
+                  style={{ background: 'rgba(4,8,14,0.92)', border: '1px solid rgba(212,175,55,0.38)', backdropFilter: 'blur(20px)' }}
                 >
-                  Muzaher And Co Legal Advisors
-                </span>
+                  {/* Continuous shimmer sweep */}
+                  <motion.div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0"
+                    style={{ background: 'linear-gradient(105deg, transparent 20%, rgba(212,175,55,0.18) 50%, transparent 80%)' }}
+                    animate={{ x: ['-100%', '200%'] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 1.2 }}
+                  />
 
-                {/* Tiny gold diamond */}
-                <span style={{ color: '#D4AF37', fontSize: '7px', lineHeight: 1, flexShrink: 0 }}>◆</span>
+                  {/* Left rule */}
+                  <motion.span
+                    className="h-px flex-shrink-0"
+                    style={{ background: 'rgba(212,175,55,0.6)', width: 20 }}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.4, delay: 0.2, ease: EASE_OUT }}
+                  />
 
-                {/* Right gold rule */}
-                <span className="h-px w-5 flex-shrink-0" style={{ background: 'rgba(212,175,55,0.55)' }} />
+                  {/* Diamond */}
+                  <motion.span
+                    style={{ color: '#D4AF37', fontSize: '7px', lineHeight: 1, flexShrink: 0 }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.35, ease: EASE_OUT }}
+                  >◆</motion.span>
+
+                  {/* Letter-by-letter text */}
+                  <motion.span
+                    className="relative z-10 flex overflow-hidden"
+                    variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.04, delayChildren: 0.45 } } }}
+                    initial="hidden"
+                    animate="visible"
+                    style={{ fontFamily: 'var(--font-heading)' }}
+                  >
+                    {'Muzaher And Co Legal Advisors'.split('').map((char, i) => (
+                      <motion.span
+                        key={i}
+                        variants={{
+                          hidden: { opacity: 0, y: 14, filter: 'blur(6px)' },
+                          visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.38, ease: [0.22, 1, 0.36, 1] } },
+                        }}
+                        className="inline-block font-bold uppercase"
+                        style={{
+                          color: '#D4AF37',
+                          fontSize: char === ' ' ? undefined : '11px',
+                          letterSpacing: '0.24em',
+                          width: char === ' ' ? '0.5em' : undefined,
+                        }}
+                      >
+                        {char === ' ' ? ' ' : char}
+                      </motion.span>
+                    ))}
+                  </motion.span>
+
+                  {/* Diamond */}
+                  <motion.span
+                    style={{ color: '#D4AF37', fontSize: '7px', lineHeight: 1, flexShrink: 0 }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 1.8, ease: EASE_OUT }}
+                  >◆</motion.span>
+
+                  {/* Right rule */}
+                  <motion.span
+                    className="h-px flex-shrink-0"
+                    style={{ background: 'rgba(212,175,55,0.6)', width: 20 }}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.4, delay: 1.85, ease: EASE_OUT }}
+                  />
+                </div>
+              </motion.div>
+            )}
+            {/* Fallback for reduced motion */}
+            {reduce && (
+              <div className="flex justify-center mb-5">
+                <div className="relative inline-flex items-center gap-3 rounded-full px-5 py-[9px]"
+                  style={{ background: 'rgba(4,8,14,0.92)', border: '1px solid rgba(212,175,55,0.38)' }}>
+                  <span className="h-px w-5 flex-shrink-0" style={{ background: 'rgba(212,175,55,0.6)' }} />
+                  <span style={{ color: '#D4AF37', fontSize: '7px' }}>◆</span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.24em]" style={{ color: '#D4AF37', fontFamily: 'var(--font-heading)' }}>
+                    Muzaher And Co Legal Advisors
+                  </span>
+                  <span style={{ color: '#D4AF37', fontSize: '7px' }}>◆</span>
+                  <span className="h-px w-5 flex-shrink-0" style={{ background: 'rgba(212,175,55,0.6)' }} />
+                </div>
               </div>
-            </motion.div>
+            )}
 
             {/* Live activity pill */}
             <motion.div
