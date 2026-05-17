@@ -21,5 +21,6 @@ update_services.cjs
 
 # Misc loose images (Brand Mark source etc.)
 images/
-# Allow public/images (served assets)
+# Allow public/images and dist/images (served assets)
 !public/images/
+!dist/images/
