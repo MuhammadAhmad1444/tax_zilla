@@ -286,9 +286,9 @@ const Navbar = () => {
             <ColHeader label="Legal Services" />
             <div className="space-y-0.5">
               {[
-                { id: 'l1', to: '/services/legal-services',                         label: 'Legal Services' },
-                { id: 'l2', to: '/services/legal-services/criminal-law-services',   label: 'Criminal Law' },
-                { id: 'l3', to: '/services/legal-services/civil-law-services',      label: 'Civil Law' },
+                { id: 'l1', to: '/services/legal-services',        label: 'Legal Services' },
+                { id: 'l2', to: '/services/criminal-law-services',  label: 'Criminal Law' },
+                { id: 'l3', to: '/services/civil-law-services',     label: 'Civil Law' },
               ].map(({ id, to, label }) => (
                 <MenuLink key={id} to={to} onClick={closeMenu}>{label}</MenuLink>
               ))}
