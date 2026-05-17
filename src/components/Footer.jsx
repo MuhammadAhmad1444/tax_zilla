@@ -332,12 +332,12 @@ const Footer = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
             {/* Left: copyright */}
-            <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.28)' }}>
-              © {currentYear} <span style={{ color: 'rgba(212,175,55,0.7)' }}>Tax Zilla Consultancy</span>. All rights reserved.
+            <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.55)' }}>
+              © {currentYear} <span style={{ color: '#ffffff', fontWeight: 600 }}>Tax Zilla</span>. All rights reserved.
             </p>
 
             {/* Center: legal */}
-            <p className="text-[11px] text-center hidden lg:block" style={{ color: 'rgba(255,255,255,0.22)' }}>
+            <p className="text-[11px] text-center hidden lg:block" style={{ color: 'rgba(255,255,255,0.55)' }}>
               Regulated under Pakistan's Income Tax Ordinance, Sales Tax Act 1990 &amp; Companies Act 2017
             </p>
 
@@ -352,9 +352,9 @@ const Footer = () => {
                   key={to}
                   to={to}
                   className="text-[11px] transition-colors duration-200"
-                  style={{ color: 'rgba(255,255,255,0.3)' }}
+                  style={{ color: 'rgba(255,255,255,0.6)' }}
                   onMouseEnter={e => e.currentTarget.style.color = GOLD}
-                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.3)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.6)'}
                 >
                   {label}
                 </Link>
