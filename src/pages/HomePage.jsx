@@ -258,106 +258,85 @@ const HomePage = () => {
         <div className="relative z-10 container-custom px-4 pt-28 pb-16 sm:pt-32 md:pt-36">
           <div className="max-w-5xl mx-auto text-center">
 
-            {/* ── Muzaher & Co — animated letter reveal ── */}
-            {!reduce && (
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: EASE_OUT }}
-                className="flex justify-center mb-5"
-              >
+            {/* ── Muzaher & Co — dramatic letter-by-letter reveal ── */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4 }}
+              className="flex justify-center mb-6"
+            >
+              <div className="relative">
+                {/* Pulse glow behind badge */}
+                <motion.div
+                  className="absolute inset-0 rounded-full pointer-events-none"
+                  style={{ background: 'rgba(212,175,55,0.15)', filter: 'blur(14px)' }}
+                  animate={{ opacity: [0.3, 1, 0.3], scale: [0.94, 1.06, 0.94] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                />
                 <div
-                  className="relative inline-flex items-center gap-3 overflow-hidden rounded-full px-5 py-[9px]"
-                  style={{ background: 'rgba(4,8,14,0.92)', border: '1px solid rgba(212,175,55,0.38)', backdropFilter: 'blur(20px)' }}
+                  className="relative overflow-hidden rounded-full px-6 py-3"
+                  style={{
+                    background: 'linear-gradient(135deg,rgba(6,10,18,0.97) 0%,rgba(12,20,30,0.95) 100%)',
+                    border: '1px solid rgba(212,175,55,0.55)',
+                    boxShadow: '0 0 32px rgba(212,175,55,0.18), inset 0 1px 0 rgba(212,175,55,0.12)',
+                    backdropFilter: 'blur(20px)',
+                  }}
                 >
-                  {/* Continuous shimmer sweep */}
+                  {/* Shimmer sweep looping */}
                   <motion.div
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-0"
-                    style={{ background: 'linear-gradient(105deg, transparent 20%, rgba(212,175,55,0.18) 50%, transparent 80%)' }}
-                    animate={{ x: ['-100%', '200%'] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 1.2 }}
+                    className="pointer-events-none absolute inset-y-0"
+                    style={{ width: '55%', background: 'linear-gradient(90deg,transparent,rgba(212,175,55,0.28),transparent)', left: 0 }}
+                    animate={{ left: ['-55%', '155%'] }}
+                    transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1.6 }}
                   />
-
-                  {/* Left rule */}
-                  <motion.span
-                    className="h-px flex-shrink-0"
-                    style={{ background: 'rgba(212,175,55,0.6)', width: 20 }}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.4, delay: 0.2, ease: EASE_OUT }}
-                  />
-
-                  {/* Diamond */}
-                  <motion.span
-                    style={{ color: '#D4AF37', fontSize: '7px', lineHeight: 1, flexShrink: 0 }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: 0.35, ease: EASE_OUT }}
-                  >◆</motion.span>
-
-                  {/* Letter-by-letter text */}
-                  <motion.span
-                    className="relative z-10 flex overflow-hidden"
-                    variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.04, delayChildren: 0.45 } } }}
-                    initial="hidden"
-                    animate="visible"
-                    style={{ fontFamily: 'var(--font-heading)' }}
-                  >
-                    {'Muzaher And Co Legal Advisors'.split('').map((char, i) => (
-                      <motion.span
-                        key={i}
-                        variants={{
-                          hidden: { opacity: 0, y: 14, filter: 'blur(6px)' },
-                          visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.38, ease: [0.22, 1, 0.36, 1] } },
-                        }}
-                        className="inline-block font-bold uppercase"
-                        style={{
-                          color: '#D4AF37',
-                          fontSize: char === ' ' ? undefined : '11px',
-                          letterSpacing: '0.24em',
-                          width: char === ' ' ? '0.5em' : undefined,
-                        }}
-                      >
-                        {char === ' ' ? ' ' : char}
-                      </motion.span>
-                    ))}
-                  </motion.span>
-
-                  {/* Diamond */}
-                  <motion.span
-                    style={{ color: '#D4AF37', fontSize: '7px', lineHeight: 1, flexShrink: 0 }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: 1.8, ease: EASE_OUT }}
-                  >◆</motion.span>
-
-                  {/* Right rule */}
-                  <motion.span
-                    className="h-px flex-shrink-0"
-                    style={{ background: 'rgba(212,175,55,0.6)', width: 20 }}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.4, delay: 1.85, ease: EASE_OUT }}
-                  />
-                </div>
-              </motion.div>
-            )}
-            {/* Fallback for reduced motion */}
-            {reduce && (
-              <div className="flex justify-center mb-5">
-                <div className="relative inline-flex items-center gap-3 rounded-full px-5 py-[9px]"
-                  style={{ background: 'rgba(4,8,14,0.92)', border: '1px solid rgba(212,175,55,0.38)' }}>
-                  <span className="h-px w-5 flex-shrink-0" style={{ background: 'rgba(212,175,55,0.6)' }} />
-                  <span style={{ color: '#D4AF37', fontSize: '7px' }}>◆</span>
-                  <span className="text-[11px] font-bold uppercase tracking-[0.24em]" style={{ color: '#D4AF37', fontFamily: 'var(--font-heading)' }}>
-                    Muzaher And Co Legal Advisors
-                  </span>
-                  <span style={{ color: '#D4AF37', fontSize: '7px' }}>◆</span>
-                  <span className="h-px w-5 flex-shrink-0" style={{ background: 'rgba(212,175,55,0.6)' }} />
+                  <div className="relative z-10 flex items-center gap-3">
+                    <motion.span className="flex-shrink-0 h-px"
+                      style={{ background: 'linear-gradient(90deg,transparent,#D4AF37)', width: 28 }}
+                      initial={{ scaleX: 0, originX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.6, delay: 0.3, ease: EASE_OUT }}
+                    />
+                    <motion.span className="flex-shrink-0" style={{ color: '#D4AF37', fontSize: '8px' }}
+                      initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.5, delay: 0.55, ease: EASE_OUT }}
+                    >&#9670;</motion.span>
+                    <div className="flex items-center gap-[0.5em]" style={{ fontFamily: 'var(--font-heading)' }}>
+                      {['Muzaher','And','Co','Legal','Advisors'].map((word, wi) => (
+                        <motion.span key={word} className="flex"
+                          variants={{ hidden:{}, visible:{ transition:{ staggerChildren:0.06, delayChildren: 0.75 + wi * 0.28 } } }}
+                          initial="hidden" animate="visible"
+                        >
+                          {word.split('').map((ch, ci) => (
+                            <motion.span key={ci}
+                              variants={{
+                                hidden: { opacity:0, y:22, filter:'blur(10px)' },
+                                visible:{ opacity:1, y:0, filter:'blur(0px)',
+                                  transition:{ duration:0.55, ease:[0.22,1,0.36,1] } },
+                              }}
+                              className="inline-block font-extrabold uppercase"
+                              style={{ fontSize:'14px', letterSpacing:'0.2em', color:'#D4AF37' }}
+                            >{ch}</motion.span>
+                          ))}
+                        </motion.span>
+                      ))}
+                    </div>
+                    <motion.span className="flex-shrink-0" style={{ color:'#D4AF37', fontSize:'8px' }}
+                      initial={{ opacity:0, scale:0, rotate:180 }}
+                      animate={{ opacity:1, scale:1, rotate:0 }}
+                      transition={{ duration:0.5, delay:2.8, ease:EASE_OUT }}
+                    >&#9670;</motion.span>
+                    <motion.span className="flex-shrink-0 h-px"
+                      style={{ background:'linear-gradient(90deg,#D4AF37,transparent)', width:28 }}
+                      initial={{ scaleX:0, originX:1 }}
+                      animate={{ scaleX:1 }}
+                      transition={{ duration:0.6, delay:2.9, ease:EASE_OUT }}
+                    />
+                  </div>
                 </div>
               </div>
-            )}
+            </motion.div>
 
             {/* Live activity pill */}
             <motion.div
