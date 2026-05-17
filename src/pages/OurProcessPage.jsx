@@ -132,7 +132,7 @@ const OurProcessPage = () => {
       {/* ── Stats Bar ───────────────────────────────── */}
       <div className="border-b border-white/10" style={{ background: 'var(--color-brand-navy)' }}>
         <div className="container-custom">
-          <div className="grid grid-cols-4 divide-x divide-white/10">
+          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/10">
             {[
               { v: '6', l: 'Clear Steps' },
               { v: 'Free', l: 'First Consultation' },

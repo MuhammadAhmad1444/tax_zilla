@@ -240,7 +240,7 @@ const ServicesPage = () => {
       {/* ── Trust Stats ───────────────────────────────── */}
       <div style={{ background: 'var(--color-brand-navy)' }} className="border-b border-white/10">
         <div className="container-custom">
-          <div className="grid grid-cols-4 divide-x divide-white/10">
+          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/10">
             {TRUST_STATS.map((stat) => (
               <div key={stat.label} className="py-5 text-center">
                 <div className="text-xl sm:text-2xl font-bold text-[var(--color-gold)]">{stat.value}</div>

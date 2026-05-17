@@ -6,7 +6,8 @@ import {
   Menu, X, ChevronDown, ArrowRight, Phone, Mail, MessageCircle,
   Calculator, Building2, Globe, ShieldCheck, FileText, Briefcase,
   MapPin, Scale, Settings, Wrench, Users, CheckCircle, User, Search,
-  TrendingUp, FileCheck, Landmark, ChevronRight,
+  TrendingUp, FileCheck, Landmark, ChevronRight, House, BookOpen,
+  HelpCircle, LayoutGrid,
 } from 'lucide-react';
 import { SERVICE_CATEGORIES } from '../data/serviceCatalog.js';
 import { SITE } from '../data/site.js';
@@ -94,6 +95,21 @@ const MenuFooter = ({ trustText, badges, viewAllTo, viewAllLabel, onClose }) => 
     </Link>
   </div>
 );
+
+/* ── Mobile nav icon map ────────────────────────────────────── */
+const NAV_ICONS = {
+  '/':                           House,
+  '/about':                      Users,
+  '/why-choose-us':              ShieldCheck,
+  '/our-process':                Settings,
+  '/industries':                 Building2,
+  '/services':                   LayoutGrid,
+  '/pakistan-tax-calculators':   Calculator,
+  '/blog':                       BookOpen,
+  '/resources':                  Globe,
+  '/faqs':                       HelpCircle,
+  '/contact':                    Phone,
+};
 
 /* ══════════════════════════════════════════════════════════════ */
 const Navbar = () => {
@@ -638,87 +654,115 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="xl:hidden absolute left-0 right-0 w-full max-h-[min(88dvh,36rem)] overflow-hidden shadow-2xl"
+            className="xl:hidden absolute left-0 right-0 w-full shadow-2xl"
             style={{
-              background: 'rgba(8, 20, 30, 0.98)',
-              backdropFilter: 'blur(24px)',
-              WebkitBackdropFilter: 'blur(24px)',
-              borderTop: `1px solid rgba(212,175,55,0.2)`,
+              background: 'rgba(6, 14, 22, 0.99)',
+              backdropFilter: 'blur(28px)',
+              WebkitBackdropFilter: 'blur(28px)',
+              borderTop: '2px solid rgba(212,175,55,0.35)',
+              boxShadow: '0 24px 64px rgba(0,0,0,0.75)',
+              maxHeight: 'min(92dvh, 42rem)',
             }}
           >
-            <div className="container-custom max-h-[inherit] overflow-y-auto overscroll-contain py-4 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]">
+            {/* Gold shimmer top accent */}
+            <div className="h-px" style={{ background: 'linear-gradient(90deg,transparent,rgba(212,175,55,0.7) 30%,rgba(212,175,55,0.7) 70%,transparent)' }} />
 
-              {/* Nav items */}
-              <div className="space-y-0.5 mb-4">
-                {navItems.map((item, i) => (
-                  <motion.div
-                    key={item.path}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.03, duration: 0.22, ease: [0.22,1,0.36,1] }}
-                  >
-                    <Link
-                      to={item.path}
-                      className="flex items-center justify-between min-h-[46px] px-4 py-2.5 text-sm font-medium transition-all duration-200"
-                      style={
-                        isActive(item.path)
-                          ? { background: GOLD, color: NAVY, fontWeight: 700 }
-                          : { color: 'rgba(255,255,255,0.75)' }
-                      }
+            <div className="overflow-y-auto overscroll-contain" style={{ maxHeight: 'inherit' }}>
+
+              {/* ── Nav items with icons ── */}
+              <nav className="px-3 pt-4 pb-1">
+                {navItems.map((item, i) => {
+                  const NavIcon = NAV_ICONS[item.path] || ChevronRight;
+                  const active = isActive(item.path);
+                  return (
+                    <motion.div
+                      key={item.path}
+                      initial={{ opacity: 0, x: -14 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.035, duration: 0.22, ease: [0.22,1,0.36,1] }}
                     >
-                      {item.name}
-                    </Link>
-                  </motion.div>
-                ))}
+                      <Link
+                        to={item.path}
+                        className="flex items-center gap-3 px-3 py-2.5 mb-0.5 rounded-lg transition-all duration-200 group"
+                        style={active
+                          ? { background: 'rgba(212,175,55,0.1)', borderLeft: `3px solid ${GOLD}`, paddingLeft: '9px' }
+                          : { borderLeft: '3px solid transparent' }
+                        }
+                      >
+                        {/* Icon box */}
+                        <div
+                          className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-200"
+                          style={active
+                            ? { background: 'rgba(212,175,55,0.18)', color: GOLD }
+                            : { background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }
+                          }
+                        >
+                          <NavIcon size={14} />
+                        </div>
+                        {/* Label */}
+                        <span
+                          className="flex-1 text-sm font-semibold"
+                          style={{ color: active ? GOLD : 'rgba(255,255,255,0.82)' }}
+                        >
+                          {item.name}
+                        </span>
+                        {/* Arrow */}
+                        <ChevronRight
+                          size={13}
+                          style={{ color: active ? GOLD : 'rgba(255,255,255,0.18)', flexShrink: 0 }}
+                        />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </nav>
+
+              {/* ── Free Consultation CTA ── */}
+              <div className="px-4 pt-3 pb-3">
+                <Link
+                  to="/contact"
+                  className="flex items-center justify-center gap-2 w-full py-3 text-sm font-bold tracking-wide transition-opacity hover:opacity-90 rounded-sm"
+                  style={{ background: GOLD, color: NAVY }}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Free Consultation <ArrowRight size={14} />
+                </Link>
               </div>
 
-              {/* Service categories */}
-              <div className="mb-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-[9px] font-bold uppercase tracking-[0.22em] px-4 mb-3" style={{ color: GOLD }}>
-                  Service Categories
-                </p>
-                <div className="grid grid-cols-2 gap-0.5">
-                  {SERVICE_CATEGORIES.map((cat) => (
-                    <Link
-                      key={cat.slug}
-                      to={`/services/${cat.slug}`}
-                      className="block py-2 px-4 text-[11px] leading-snug transition-colors duration-150"
-                      style={{ color: 'rgba(255,255,255,0.5)' }}
-                      onMouseEnter={e => e.currentTarget.style.color = '#fff'}
-                      onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
-                    >
-                      {cat.title}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Contact */}
-              <div className="pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-[9px] font-bold uppercase tracking-[0.22em] px-4 mb-3" style={{ color: GOLD }}>Contact Us</p>
-                <a href={`tel:${SITE.phoneTel}`} className="flex items-center gap-3 py-2.5 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                  <Phone size={13} style={{ color: GOLD, flexShrink: 0 }} />
-                  <span className="truncate">{SITE.phone}</span>
+              {/* ── Contact 3-grid ── */}
+              <div className="px-4 pb-3 grid grid-cols-3 gap-2" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '12px' }}>
+                <a href={`tel:${SITE.phoneTel}`}
+                  className="flex flex-col items-center gap-1.5 py-3 rounded-lg transition-all"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <Phone size={15} style={{ color: GOLD }} />
+                  <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.45)' }}>Call</span>
                 </a>
-                <a href={`mailto:${SITE.email}`} className="flex items-center gap-3 py-2.5 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                  <Mail size={13} style={{ color: GOLD, flexShrink: 0 }} />
-                  <span className="truncate">{SITE.email}</span>
+                <a href={`mailto:${SITE.email}`}
+                  className="flex flex-col items-center gap-1.5 py-3 rounded-lg transition-all"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <Mail size={15} style={{ color: GOLD }} />
+                  <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.45)' }}>Email</span>
                 </a>
-                <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 py-2.5 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                  <MessageCircle size={13} style={{ color: GOLD, flexShrink: 0 }} />
-                  WhatsApp Now
+                <a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer"
+                  className="flex flex-col items-center gap-1.5 py-3 rounded-lg transition-all"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <MessageCircle size={15} style={{ color: GOLD }} />
+                  <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: 'rgba(255,255,255,0.45)' }}>WhatsApp</span>
                 </a>
               </div>
 
-              {/* Legal */}
-              <div className="pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="text-[9px] font-bold uppercase tracking-[0.22em] px-4 mb-2" style={{ color: GOLD }}>Legal</p>
-                <Link to="/legal/privacy-policy"    className="block py-2 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.45)' }}>Privacy Policy</Link>
-                <Link to="/legal/terms-conditions"  className="block py-2 px-4 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.45)' }}>Terms &amp; Conditions</Link>
+              {/* ── Legal + bottom safe area ── */}
+              <div
+                className="px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-3 flex items-center gap-4"
+                style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+              >
+                <Link to="/legal/privacy-policy"   className="text-[10px] transition-colors" style={{ color: 'rgba(255,255,255,0.28)' }} onClick={() => setIsOpen(false)}>Privacy Policy</Link>
+                <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '10px' }}>·</span>
+                <Link to="/legal/terms-conditions" className="text-[10px] transition-colors" style={{ color: 'rgba(255,255,255,0.28)' }} onClick={() => setIsOpen(false)}>Terms &amp; Conditions</Link>
               </div>
 
             </div>

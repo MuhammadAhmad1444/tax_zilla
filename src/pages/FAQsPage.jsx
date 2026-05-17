@@ -311,7 +311,7 @@ const FAQsPage = () => {
       {/* ── Stats Bar ───────────────────────────────── */}
       <div className="border-b border-white/10" style={{ background: 'var(--color-brand-navy)' }}>
         <div className="container-custom">
-          <div className="grid grid-cols-4 divide-x divide-white/10">
+          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/10">
             {STATS.map((stat) => (
               <div key={stat.label} className="py-5 text-center">
                 <div className="text-lg sm:text-2xl font-bold text-[var(--color-gold)]">{stat.value}</div>
