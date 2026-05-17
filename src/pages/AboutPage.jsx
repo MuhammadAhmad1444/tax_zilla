@@ -502,7 +502,7 @@ const AboutPage = () => {
                   Azhar Ali
                 </h3>
                 <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: '#D4AF37' }}>
-                  Advocate
+                  Advocate — High Court
                 </p>
                 <div className="w-8 h-px mb-4" style={{ background: 'rgba(212,175,55,0.35)' }} />
                 <div className="flex flex-wrap gap-1.5 justify-center mb-5">
