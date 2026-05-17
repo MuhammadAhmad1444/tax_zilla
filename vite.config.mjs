@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,7 +14,19 @@ const PREVIEW_PORT = 4173;
 
 export default defineConfig({
   base: '/',
-  plugins: [react()],
+  // Vite skips dotfiles from /public by default.
+  // The copy-htaccess plugin manually copies .htaccess into dist for Apache/Hostinger hosting.
+  plugins: [
+    react(),
+    {
+      name: 'copy-htaccess',
+      closeBundle() {
+        const src  = path.resolve(__dirname, 'public/.htaccess');
+        const dest = path.resolve(__dirname, 'dist/.htaccess');
+        if (fs.existsSync(src)) fs.copyFileSync(src, dest);
+      },
+    },
+  ],
   server: {
     host: 'localhost',
     port: DEV_PORT,

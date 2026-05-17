@@ -100,7 +100,6 @@ const Navbar = () => {
   const [isOpen, setIsOpen]           = useState(false);
   const [isScrolled, setIsScrolled]   = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [navBottom, setNavBottom]     = useState(80);
 
   const location   = useLocation();
   const navigate   = useNavigate();
@@ -111,12 +110,14 @@ const Navbar = () => {
   const hoverTimerRef       = useRef(null);   // intentional-hover delay
   const isScrollingRef      = useRef(false);  // suppress hover during scroll
   const scrollEndTimerRef   = useRef(null);   // clears scroll flag after scroll stops
+  // ↓ Ref (not state) so portal always reads the LATEST value — no stale-closure race
+  const navBottomRef        = useRef(80);
 
   const searchParams = new URLSearchParams(location.search);
   const activeCalc   = searchParams.get('calc');
 
   const measure = () => {
-    if (navRef.current) setNavBottom(navRef.current.offsetHeight);
+    if (navRef.current) navBottomRef.current = navRef.current.offsetHeight;
   };
 
   /* ── Open only after 120ms of intentional hover — blocks
@@ -128,9 +129,9 @@ const Navbar = () => {
 
     hoverTimerRef.current = setTimeout(() => {
       if (isScrollingRef.current) return; // double-check after delay
-      requestAnimationFrame(() => {
-        if (navRef.current) setNavBottom(navRef.current.offsetHeight);
-      });
+      // Measure synchronously — offsetHeight is layout-only, no rAF needed
+      // Using ref ensures the portal reads this value in the SAME render
+      if (navRef.current) navBottomRef.current = navRef.current.offsetHeight;
       setOpenDropdown(menu);
     }, 120);
   };
@@ -229,7 +230,7 @@ const Navbar = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -4 }}
       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-      style={{ position: 'fixed', top: `${navBottom}px`, left: 0, right: 0, width: '100vw', zIndex: 9999, ...MENU_STYLE }}
+      style={{ position: 'fixed', top: `${navBottomRef.current}px`, left: 0, right: 0, width: '100vw', zIndex: 9999, ...MENU_STYLE }}
       role="menu"
       onMouseEnter={cancelClose}
       onMouseLeave={scheduleClose}
@@ -357,7 +358,7 @@ const Navbar = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -4 }}
       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-      style={{ position: 'fixed', top: `${navBottom}px`, left: 0, right: 0, width: '100vw', zIndex: 9999, ...MENU_STYLE }}
+      style={{ position: 'fixed', top: `${navBottomRef.current}px`, left: 0, right: 0, width: '100vw', zIndex: 9999, ...MENU_STYLE }}
       role="menu"
       aria-label="Tax Calculators menu"
       onMouseEnter={cancelClose}

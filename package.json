@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node -e \"const fs=require('fs');fs.existsSync('public/.htaccess')&&fs.copyFileSync('public/.htaccess','dist/.htaccess');console.log('✓ .htaccess copied to dist')\"",
     "preview": "vite preview",
     "lint": "eslint . --quiet",
     "lint:warn": "eslint ."
