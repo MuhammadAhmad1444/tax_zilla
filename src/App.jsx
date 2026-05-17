@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useRoutes } from 'react-router-dom';
+import DigitalCardPage from './pages/DigitalCardPage.jsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Toaster } from './components/ui/toaster.jsx';
 import Navbar from './components/Navbar.jsx';
@@ -133,10 +134,19 @@ function AppShell() {
   );
 }
 
+/* ── Root: /card is standalone (no Navbar/Footer) ───────── */
+function AppRoot() {
+  const location = useLocation();
+  if (location.pathname === '/card') {
+    return <DigitalCardPage />;
+  }
+  return <AppShell />;
+}
+
 export default function App() {
   return (
     <Router>
-      <AppShell />
+      <AppRoot />
     </Router>
   );
 }
