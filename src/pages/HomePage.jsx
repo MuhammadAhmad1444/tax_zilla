@@ -258,11 +258,57 @@ const HomePage = () => {
         <div className="relative z-10 container-custom px-4 pt-28 pb-16 sm:pt-32 md:pt-36">
           <div className="max-w-5xl mx-auto text-center">
 
+            {/* ── Muzaher & Co shimmer brand bar ── */}
+            <motion.div
+              initial={reduce ? {} : { opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: EASE_OUT }}
+              className="flex justify-center mb-5"
+            >
+              <div className="relative inline-flex items-center gap-3 overflow-hidden rounded-full
+                border border-[rgba(212,175,55,0.35)]
+                px-5 py-[7px]"
+                style={{ background: 'rgba(4,8,14,0.88)', backdropFilter: 'blur(16px)' }}
+              >
+                {/* Shimmer sweep — moves left→right on loop */}
+                <motion.div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(105deg, transparent 30%, rgba(212,175,55,0.22) 50%, transparent 70%)',
+                    backgroundSize: '250% 100%',
+                  }}
+                  animate={reduce ? {} : { backgroundPosition: ['200% center', '-200% center'] }}
+                  transition={{ duration: 2.8, repeat: Infinity, ease: 'linear', repeatDelay: 0.8 }}
+                />
+
+                {/* Left gold rule */}
+                <span className="h-px w-5 flex-shrink-0" style={{ background: 'rgba(212,175,55,0.55)' }} />
+
+                {/* Tiny gold diamond */}
+                <span style={{ color: '#D4AF37', fontSize: '7px', lineHeight: 1, flexShrink: 0 }}>◆</span>
+
+                {/* Brand name */}
+                <span
+                  className="relative z-10 whitespace-nowrap text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.28em]"
+                  style={{ color: '#D4AF37', fontFamily: 'var(--font-heading)', letterSpacing: '0.26em' }}
+                >
+                  Muzaher And Co Legal Advisors
+                </span>
+
+                {/* Tiny gold diamond */}
+                <span style={{ color: '#D4AF37', fontSize: '7px', lineHeight: 1, flexShrink: 0 }}>◆</span>
+
+                {/* Right gold rule */}
+                <span className="h-px w-5 flex-shrink-0" style={{ background: 'rgba(212,175,55,0.55)' }} />
+              </div>
+            </motion.div>
+
             {/* Live activity pill */}
             <motion.div
               initial={reduce ? {} : { opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: EASE_OUT }}
+              transition={{ duration: 0.5, ease: EASE_OUT, delay: reduce ? 0 : 0.1 }}
               className="flex justify-center mb-4"
             >
               <LiveActivityPill reduce={reduce} />

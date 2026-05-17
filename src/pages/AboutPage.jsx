@@ -302,6 +302,186 @@ const AboutPage = () => {
         </div>
       </section>
 
+      {/* ── Leadership Team ─────────────────────────── */}
+      <section className="relative overflow-hidden py-20 sm:py-24" style={{ background: 'var(--color-brand-navy)' }}>
+        {/* Gold top accent */}
+        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.6) 30%, rgba(212,175,55,0.9) 50%, rgba(212,175,55,0.6) 70%, transparent)' }} />
+        {/* Subtle courthouse bg */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=1800&q=50)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center top',
+          }}
+        />
+        {/* Gold radial glow top-center */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-20 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at center top, rgba(212,175,55,0.4), transparent 70%)' }} />
+
+        <div className="relative z-10 container-custom">
+
+          {/* Section header */}
+          <motion.div {...revealUp(0, reduce)} className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/8 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.3em] mb-5"
+              style={{ color: 'var(--color-gold)' }}>
+              ✦ Our Leadership
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
+              The Legal Minds Behind{' '}
+              <span style={{ color: 'var(--color-gold)' }}>Tax Zilla</span>
+            </h2>
+            <p className="text-gray-400 max-w-xl mx-auto text-sm leading-relaxed">
+              Seasoned advocates and legal professionals with decades of combined expertise in tax law, corporate law, and High Court practice.
+            </p>
+          </motion.div>
+
+          {/* 3-column team grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7">
+
+            {/* ── Card 1: Owner ── */}
+            <motion.div {...revealUp(0, reduce)}>
+              <div className="group relative overflow-hidden flex flex-col items-center text-center h-full p-7 sm:p-8"
+                style={{ background: 'rgba(255,255,255,0.035)', border: '1px solid rgba(212,175,55,0.2)', backdropFilter: 'blur(12px)' }}>
+                {/* Top gold reveal line */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 rounded-t"
+                  style={{ background: 'linear-gradient(90deg, #D4AF37, rgba(212,175,55,0.3))' }} />
+                {/* Card hover bg image */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.07] transition-opacity duration-700"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                {/* Gavel/scales decorative icon top-right */}
+                <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm"
+                  style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
+                  Owner
+                </div>
+                {/* Monogram avatar */}
+                <div className="relative mb-5 mt-2">
+                  <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center font-extrabold text-xl relative"
+                    style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.18) 0%, rgba(212,175,55,0.05) 100%)', border: '2px solid rgba(212,175,55,0.45)', color: '#D4AF37', fontFamily: 'var(--font-heading)' }}>
+                    CMA
+                    {/* Subtle ring */}
+                    <div className="absolute inset-[-6px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ border: '1px solid rgba(212,175,55,0.2)' }} />
+                  </div>
+                </div>
+                {/* Name */}
+                <h3 className="text-white font-bold text-lg leading-snug mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+                  Chaudhary Muzaher Ali
+                </h3>
+                {/* Title */}
+                <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: '#D4AF37' }}>
+                  Advocate — High Court
+                </p>
+                {/* Divider */}
+                <div className="w-8 h-px mb-4" style={{ background: 'rgba(212,175,55,0.35)' }} />
+                {/* Qualifications */}
+                <div className="flex flex-wrap gap-1.5 justify-center mb-5">
+                  {['BA', 'LLB'].map(q => (
+                    <span key={q} className="text-[10px] font-semibold px-2.5 py-0.5 rounded-sm"
+                      style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                      {q}
+                    </span>
+                  ))}
+                </div>
+                {/* Experience */}
+                <div className="mt-auto w-full pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="w-5 h-px" style={{ background: 'rgba(212,175,55,0.4)' }} />
+                    <span className="text-[11px] font-semibold" style={{ color: 'rgba(212,175,55,0.75)' }}>20 Years of Legal Practice</span>
+                    <span className="w-5 h-px" style={{ background: 'rgba(212,175,55,0.4)' }} />
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* ── Card 2: CEO ── */}
+            <motion.div {...revealUp(0.1, reduce)}>
+              <div className="group relative overflow-hidden flex flex-col items-center text-center h-full p-7 sm:p-8"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(212,175,55,0.35)', backdropFilter: 'blur(12px)' }}>
+                <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.5), #D4AF37, rgba(212,175,55,0.5))' }} />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.07] transition-opacity duration-700"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1605745341112-85968b19335b?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm"
+                  style={{ background: 'rgba(212,175,55,0.15)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.4)' }}>
+                  CEO
+                </div>
+                <div className="relative mb-5 mt-2">
+                  <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center font-extrabold text-xl relative"
+                    style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.22) 0%, rgba(212,175,55,0.07) 100%)', border: '2px solid rgba(212,175,55,0.6)', color: '#D4AF37', fontFamily: 'var(--font-heading)' }}>
+                    HMR
+                    <div className="absolute inset-[-6px] rounded-full border" style={{ borderColor: 'rgba(212,175,55,0.25)' }} />
+                  </div>
+                </div>
+                <h3 className="text-white font-bold text-lg leading-snug mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+                  Hafiz Muhammad Ahmad Raza
+                </h3>
+                <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: '#D4AF37' }}>
+                  Advocate
+                </p>
+                <div className="w-8 h-px mb-4" style={{ background: 'rgba(212,175,55,0.35)' }} />
+                <div className="flex flex-wrap gap-1.5 justify-center mb-5">
+                  {['BA', 'LLB', 'PGDTLP (PU)'].map(q => (
+                    <span key={q} className="text-[10px] font-semibold px-2.5 py-0.5 rounded-sm"
+                      style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                      {q}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-auto w-full pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                  <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                    Tax Law & Corporate Practice
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* ── Card 3: Naveed ── */}
+            <motion.div {...revealUp(0.2, reduce)}>
+              <div className="group relative overflow-hidden flex flex-col items-center text-center h-full p-7 sm:p-8"
+                style={{ background: 'rgba(255,255,255,0.035)', border: '1px solid rgba(212,175,55,0.2)', backdropFilter: 'blur(12px)' }}>
+                <div className="absolute top-0 left-0 right-0 h-[2px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 rounded-t"
+                  style={{ background: 'linear-gradient(90deg, #D4AF37, rgba(212,175,55,0.3))' }} />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.07] transition-opacity duration-700"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&q=50)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                <div className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-sm"
+                  style={{ background: 'rgba(212,175,55,0.1)', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.25)' }}>
+                  Advocate
+                </div>
+                <div className="relative mb-5 mt-2">
+                  <div className="w-[72px] h-[72px] rounded-full flex items-center justify-center font-extrabold text-xl relative"
+                    style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.18) 0%, rgba(212,175,55,0.05) 100%)', border: '2px solid rgba(212,175,55,0.45)', color: '#D4AF37', fontFamily: 'var(--font-heading)' }}>
+                    NAC
+                    <div className="absolute inset-[-6px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ border: '1px solid rgba(212,175,55,0.2)' }} />
+                  </div>
+                </div>
+                <h3 className="text-white font-bold text-lg leading-snug mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+                  Naveed Ahmad Chaudhary
+                </h3>
+                <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: '#D4AF37' }}>
+                  Advocate
+                </p>
+                <div className="w-8 h-px mb-4" style={{ background: 'rgba(212,175,55,0.35)' }} />
+                <div className="flex flex-wrap gap-1.5 justify-center mb-5">
+                  {['MBA', 'LLB'].map(q => (
+                    <span key={q} className="text-[10px] font-semibold px-2.5 py-0.5 rounded-sm"
+                      style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                      {q}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-auto w-full pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                  <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                    Business & Legal Advisory
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── Office / Location ───────────────────────── */}
       <section className="relative overflow-hidden py-16 lg:py-20" style={{ background: 'var(--color-brand-navy)' }}>
         {/* Gold top accent */}
