@@ -143,7 +143,6 @@ const ILI=()=><svg viewBox="0 0 24 24" fill="currentColor" style={{width:20,heig
 /* ═══════════════════════════════════════════════════════════ */
 export default function DigitalCardPage() {
   const [copied, setCopied] = useState(false);
-  const [qrLoaded, setQrLoaded] = useState(false);
 
   useEffect(() => {
     document.title = 'Tax Zilla — Digital Card';
@@ -284,50 +283,6 @@ export default function DigitalCardPage() {
             <ActionRow icon={<IFB/>}    title="Facebook"  sub="Tax Zilla Official" href={INFO.facebook}   delay={1.12} accent="rgba(24,119,242,0.14)"  iconColor="#1877F2"/>
             <ActionRow icon={<IIG/>}    title="Instagram" sub="@tax.zilla"         href={INFO.instagram}  delay={1.17} accent="rgba(228,64,95,0.14)"   iconColor="#E4405F"/>
             <ActionRow icon={<ILI/>}    title="LinkedIn"  sub="Tax Zilla Company"  href={INFO.linkedin}   delay={1.22} accent="rgba(10,102,194,0.14)"  iconColor="#0A66C2"/>
-          </div>
-        </GlassCard>
-
-        {/* ══ QR CODE ══════════════════════════════════════════ */}
-        <GlassCard delay={1.1} highlight className="mb-4">
-          <div className="flex items-center gap-4 px-4 py-4">
-            {/* QR with reveal animation */}
-            <motion.div style={{flexShrink:0}}
-              initial={{opacity:0,scale:0.7,rotate:-8}} animate={{opacity:1,scale:1,rotate:0}}
-              transition={{delay:1.2,duration:0.6,type:'spring',stiffness:200,damping:20}}>
-              <div style={{padding:5,borderRadius:14,background:'#fff',boxShadow:`0 0 0 2px ${GOLD}50,0 8px 24px rgba(0,0,0,0.4)`}}>
-                <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(CARD_URL)}&size=120x120&margin=1`}
-                  alt="QR" width={90} height={90} className="block rounded-lg"
-                  onLoad={()=>setQrLoaded(true)}
-                  style={{opacity:qrLoaded?1:0,transition:'opacity 0.4s'}}/>
-              </div>
-            </motion.div>
-
-            <div className="flex-1 min-w-0">
-              <motion.p initial={{opacity:0,x:10}} animate={{opacity:1,x:0}} transition={{delay:1.25,duration:0.4}}
-                style={{fontSize:9,fontWeight:700,letterSpacing:'0.2em',textTransform:'uppercase',color:GOLD,marginBottom:4}}>
-                ◆ Digital Card
-              </motion.p>
-              <motion.p initial={{opacity:0,x:10}} animate={{opacity:1,x:0}} transition={{delay:1.3,duration:0.4}}
-                style={{fontSize:16,fontWeight:900,color:'#fff',fontFamily:'var(--font-heading)',marginBottom:4,lineHeight:1.2}}>
-                Scan to Open
-              </motion.p>
-              <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1.35,duration:0.4}}
-                style={{fontSize:11,color:'rgba(255,255,255,0.36)',lineHeight:1.5,marginBottom:10}}>
-                Print on your physical visiting card — clients scan &amp; save instantly.
-              </motion.p>
-              <motion.button onClick={copyLink}
-                initial={{opacity:0,scale:0.8}} animate={{opacity:1,scale:1}}
-                transition={{delay:1.4,duration:0.3,type:'spring'}}
-                whileTap={{scale:0.92}}
-                style={{display:'flex',alignItems:'center',gap:6,padding:'6px 12px',borderRadius:8,background:'rgba(212,175,55,0.1)',color:GOLD,border:`1px solid rgba(212,175,55,0.35)`,fontSize:10,fontWeight:700,letterSpacing:'0.12em',textTransform:'uppercase',cursor:'pointer'}}>
-                <AnimatePresence mode="wait">
-                  {copied
-                    ? <motion.span key="c" initial={{opacity:0,y:-6}} animate={{opacity:1,y:0}} exit={{opacity:0,y:6}}>✓ Copied!</motion.span>
-                    : <motion.span key="n" initial={{opacity:0,y:6}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-6}}>Copy Link</motion.span>}
-                </AnimatePresence>
-              </motion.button>
-            </div>
           </div>
         </GlassCard>
 
